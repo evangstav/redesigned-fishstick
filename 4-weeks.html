@@ -914,6 +914,19 @@
                 } else if (item.type === 'mobility' || item.type === 'hiit' || item.type === 'cardio') {
                     content += `<button class="action-button" onclick="logActivityAsCompleted('${item.id}')" ${isLogged ? 'disabled' : ''}>Mark Completed</button>`;
                 }
+
+                // ----- user notes UI -----
+                content += `
+                    <label style="display:block; margin-top:10px;">Notes:</label>
+                    <textarea id="${item.id}_userNotes"
+                              rows="2"
+                              style="width:100%; box-sizing:border-box;"
+                              placeholder="Add notes...">${dailyLog[item.id]?.userNotes || ''}</textarea>
+                    <button class="action-button"
+                            style="margin-top:6px; padding:6px 12px; font-size:0.85em;"
+                            onclick="saveExerciseNotes('${item.id}')">Save Notes</button>
+                `;
+
                 itemDiv.innerHTML = content + completedMark; 
                 displayArea.appendChild(itemDiv);
             });
@@ -1165,6 +1178,19 @@
             displayWorkoutForDay(currentSelectedDayKey); 
             alert(`Activity marked as completed.`);
         }
+
+        // ----------  PER-EXERCISE NOTES ----------
+        function saveExerciseNotes(itemId) {
+            const input = document.getElementById(`${itemId}_userNotes`);
+            if (!input) return;
+
+            // guarantee the node exists in dailyLog
+            if (!dailyLog[itemId]) dailyLog[itemId] = { completed: false };
+
+            dailyLog[itemId].userNotes = input.value.trim();
+            saveData();
+            alert('Notes saved.');
+        }
         
         function renderDailyLog() {
             const container = document.getElementById('dailyWorkoutLogContainer');
@@ -1201,6 +1227,9 @@
                     }
                 } else {
                      logText += "In progress..."; 
+                }
+                if (logItem.userNotes) {
+                    logText += `<br><em>Notes: ${logItem.userNotes}</em>`;
                 }
                 const p = document.createElement('p');
                 p.style.margin = '3px 0';

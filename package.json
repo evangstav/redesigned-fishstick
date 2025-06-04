@@ -1,18 +1,39 @@
 {
-  "name": "fitness-tracker-proxy",
-  "version": "1.0.0",
-  "description": "CORS proxy server for fitness tracking app",
-  "main": "proxy-server.js",
+  "name": "fitness-tracker-app",
+  "version": "2.0.0",
+  "description": "Personalized fitness tracking application with modern tooling",
+  "main": "proxy-server.cjs",
   "scripts": {
-    "start": "node proxy-server.js",
-    "dev": "node proxy-server.js"
+    "dev": "concurrently \"vite\" \"node proxy-server.cjs\"",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "proxy": "node proxy-server.cjs",
+    "type-check": "tsc --noEmit",
+    "test": "vitest",
+    "test:ui": "vitest --ui"
   },
   "dependencies": {
-    "express": "^4.18.2",
     "cors": "^2.8.5",
+    "express": "^4.18.2",
     "node-fetch": "^2.6.12"
   },
-  "keywords": ["cors", "proxy", "anthropic", "api"],
+  "devDependencies": {
+    "@types/node": "^22.15.29",
+    "@vitest/ui": "^1.0.0",
+    "concurrently": "^8.2.0",
+    "jsdom": "^26.1.0",
+    "typescript": "^5.8.3",
+    "vite": "^5.0.0",
+    "vitest": "^1.0.0"
+  },
+  "type": "module",
+  "keywords": [
+    "fitness",
+    "workout-tracking",
+    "strength-training",
+    "analytics",
+    "typescript"
+  ],
   "author": "",
   "license": "ISC"
 }

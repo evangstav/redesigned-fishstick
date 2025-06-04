@@ -482,6 +482,76 @@
                 font-size: 1.8em;
             }
         }
+
+        /* Analytics Styles */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .metric-card {
+            background-color: var(--md-white);
+            border: 1px solid var(--md-grey-300);
+            border-radius: 6px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: var(--md-elevation-1);
+        }
+        
+        .metric-card h4 {
+            margin: 0 0 8px 0;
+            color: var(--md-purple-700);
+            font-size: 0.9em;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+        
+        .metric-value {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: var(--md-grey-900);
+            margin: 5px 0;
+        }
+        
+        .metric-unit {
+            font-size: 0.85em;
+            color: var(--md-grey-700);
+            margin-top: 2px;
+        }
+        
+        .metric-trend {
+            font-size: 0.8em;
+            margin-top: 5px;
+        }
+        
+        .metric-trend.positive {
+            color: var(--md-green-500);
+        }
+        
+        .metric-trend.negative {
+            color: var(--md-red-500);
+        }
+        
+        .metric-trend.neutral {
+            color: var(--md-grey-700);
+        }
+        
+        @media (max-width: 768px) {
+            .metrics-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 10px;
+            }
+            
+            .metric-card {
+                padding: 12px;
+            }
+            
+            .metric-value {
+                font-size: 1.5em;
+            }
+        }
     </style>
 </head>
 <body>
@@ -493,6 +563,7 @@
             <button data-tab="guideTab" onclick="showTab('guideTab')">Guide</button>
             <button data-tab="smartRecommendationsTab" onclick="showTab('smartRecommendationsTab')">Smart Recommendations</button>
             <button data-tab="progressTab" onclick="showTab('progressTab')">Progress</button>
+            <button data-tab="analyticsTab" onclick="showTab('analyticsTab')">Analytics</button>
             <button data-tab="e1rmTab" onclick="showTab('e1rmTab')">Settings &amp; e1RMs</button>
         </nav>
         <div class="content-area">
@@ -634,6 +705,11 @@
                         <textarea id="specificGoals" placeholder="e.g., want to focus on upper body, need a lighter day, want to push hard today..." style="width: 100%; padding: 10px; border: 1px solid var(--md-grey-300); border-radius: 4px; box-sizing: border-box;"></textarea>
                     </div>
                     
+                    <div style="margin-bottom: 15px;">
+                        <label for="equipmentLimitations">Equipment limitations (optional):</label>
+                        <textarea id="equipmentLimitations" placeholder="e.g., no barbell today, only dumbbells, home gym setup, no squat rack..." style="width: 100%; padding: 10px; border: 1px solid var(--md-grey-300); border-radius: 4px; box-sizing: border-box;"></textarea>
+                    </div>
+                    
                     <button class="action-button" onclick="getWorkoutRecommendation()" id="getRecommendationBtn">Get AI Recommendation</button>
                     <button class="action-button" onclick="generateSimpleRecommendation()" style="margin-left: 10px;">Get Quick Recommendation</button>
                 </div>
@@ -678,6 +754,93 @@
                         <button class="action-button" onclick="logBodyweightEntryFromInput()" style="align-self: flex-end; margin-bottom:0; padding: 12px 18px;">Log BW Entry</button>
                     </div>
                     <canvas id="bodyweightChart" style="max-height: 300px;"></canvas>
+                </div>
+            </div>
+
+            <div id="analyticsTab" class="tab-content section">
+                <h2>Analytics &amp; Progress Tracking</h2>
+                
+                <!-- Volume Tracking Section -->
+                <div class="section">
+                    <h3>Volume Tracking</h3>
+                    <div style="margin-bottom: 15px;">
+                        <label for="volumeTimeRange">Time Period:</label>
+                        <select id="volumeTimeRange" onchange="updateVolumeAnalytics()" style="margin-left: 10px; padding: 5px;">
+                            <option value="7">Last 7 days</option>
+                            <option value="14">Last 14 days</option>
+                            <option value="30" selected>Last 30 days</option>
+                            <option value="90">Last 90 days</option>
+                        </select>
+                    </div>
+                    <canvas id="volumeChart" style="max-height: 300px; margin-bottom: 15px;"></canvas>
+                    <div id="volumeMetrics" class="metrics-grid">
+                        <!-- Volume metrics will be populated here -->
+                    </div>
+                </div>
+
+                <!-- Strength Progression Section -->
+                <div class="section">
+                    <h3>Strength Progression</h3>
+                    <div style="margin-bottom: 15px;">
+                        <label for="strengthExercise">Exercise:</label>
+                        <select id="strengthExercise" onchange="updateStrengthChart()" style="margin-left: 10px; padding: 5px;">
+                            <option value="Back-squat">Back Squat</option>
+                            <option value="Bench Press">Bench Press</option>
+                            <option value="Deadlift">Deadlift</option>
+                            <option value="OHP">Overhead Press</option>
+                            <option value="Weighted Pull-up">Weighted Pull-up</option>
+                            <option value="Hip-thrust">Hip Thrust</option>
+                            <option value="RDL">Romanian Deadlift</option>
+                            <option value="Dips">Dips</option>
+                            <option value="Chest-supported Row">Chest-supported Row</option>
+                        </select>
+                        <label for="strengthTimeRange" style="margin-left: 20px;">Time Period:</label>
+                        <select id="strengthTimeRange" onchange="updateStrengthChart()" style="margin-left: 10px; padding: 5px;">
+                            <option value="30">Last 30 days</option>
+                            <option value="60">Last 60 days</option>
+                            <option value="90" selected>Last 90 days</option>
+                            <option value="180">Last 6 months</option>
+                            <option value="365">Last year</option>
+                        </select>
+                    </div>
+                    <canvas id="strengthChart" style="max-height: 300px; margin-bottom: 15px;"></canvas>
+                    <div id="strengthMetrics" class="metrics-grid">
+                        <!-- Strength metrics will be populated here -->
+                    </div>
+                </div>
+
+                <!-- Training Load Section -->
+                <div class="section">
+                    <h3>Training Load &amp; RPE Analysis</h3>
+                    <div style="margin-bottom: 15px;">
+                        <label for="loadTimeRange">Time Period:</label>
+                        <select id="loadTimeRange" onchange="updateTrainingLoadAnalytics()" style="margin-left: 10px; padding: 5px;">
+                            <option value="7">Last 7 days</option>
+                            <option value="14">Last 14 days</option>
+                            <option value="30" selected>Last 30 days</option>
+                        </select>
+                    </div>
+                    <canvas id="trainingLoadChart" style="max-height: 300px; margin-bottom: 15px;"></canvas>
+                    <div id="trainingLoadMetrics" class="metrics-grid">
+                        <!-- Training load metrics will be populated here -->
+                    </div>
+                </div>
+
+                <!-- Performance Metrics Section -->
+                <div class="section">
+                    <h3>Performance Metrics</h3>
+                    <div id="performanceMetrics" class="metrics-grid">
+                        <!-- Performance metrics will be populated here -->
+                    </div>
+                </div>
+
+                <!-- Frequency Tracking Section -->
+                <div class="section">
+                    <h3>Training Frequency</h3>
+                    <canvas id="frequencyChart" style="max-height: 300px; margin-bottom: 15px;"></canvas>
+                    <div id="frequencyMetrics" class="metrics-grid">
+                        <!-- Frequency metrics will be populated here -->
+                    </div>
                 </div>
             </div>
 
@@ -1235,6 +1398,8 @@
             if (tabId === 'progressTab') { // If switching to progress tab, render chart and attendance
                 renderBodyweightChart();
                 updateAttendanceSummary();
+            } else if (tabId === 'analyticsTab') { // If switching to analytics tab, initialize analytics
+                initializeAnalytics();
             }
         }
         
@@ -1740,8 +1905,11 @@
                     const log = JSON.parse(logData);
                     if (Object.keys(log).length > 0) {
                         // Determine which workout type was done
-                        const workoutTypes = Object.values(USER_WORKOUT_PLAN);
                         let workoutType = 'Unknown';
+                        let totalVolume = 0;
+                        let avgRPE = 0;
+                        let rpeCount = 0;
+                        let muscleGroupsWorked = new Set();
                         
                         for (const [type, exercises] of Object.entries(USER_WORKOUT_PLAN)) {
                             const typeExerciseIds = exercises.map(e => e.id);
@@ -1753,17 +1921,187 @@
                             }
                         }
                         
+                        // Calculate training metrics
+                        for (const [exerciseId, exerciseLog] of Object.entries(log)) {
+                            if (exerciseLog.completed && exerciseLog.sets) {
+                                exerciseLog.sets.forEach(set => {
+                                    if (set.weight && set.reps) {
+                                        totalVolume += (set.weight || 0) * (set.reps || 0);
+                                    }
+                                    if (set.rpe && set.rpe > 0) {
+                                        avgRPE += set.rpe;
+                                        rpeCount++;
+                                    }
+                                });
+                                
+                                // Map muscle groups
+                                const exercise = findExerciseInPlan(exerciseId);
+                                if (exercise) {
+                                    const muscleGroups = getMuscleGroupsForExercise(exercise.liftName || exercise.name);
+                                    muscleGroups.forEach(mg => muscleGroupsWorked.add(mg));
+                                }
+                            }
+                        }
+                        
+                        avgRPE = rpeCount > 0 ? avgRPE / rpeCount : 0;
+                        
                         history.push({
                             date: dateStr,
                             workoutType: workoutType,
                             exerciseCount: Object.keys(log).length,
-                            completedCount: Object.values(log).filter(l => l.completed).length
+                            completedCount: Object.values(log).filter(l => l.completed).length,
+                            totalVolume: totalVolume,
+                            avgRPE: avgRPE,
+                            muscleGroupsWorked: Array.from(muscleGroupsWorked),
+                            daysSinceToday: i
                         });
                     }
                 }
             }
             
             return history;
+        }
+        
+        // Helper function to find exercise in workout plan
+        function findExerciseInPlan(exerciseId) {
+            for (const exercises of Object.values(USER_WORKOUT_PLAN)) {
+                const exercise = exercises.find(e => e.id === exerciseId);
+                if (exercise) return exercise;
+            }
+            return null;
+        }
+        
+        // Map exercises to muscle groups
+        function getMuscleGroupsForExercise(exerciseName) {
+            const exerciseLower = exerciseName.toLowerCase();
+            const muscleGroups = [];
+            
+            // Primary muscle group mapping
+            if (exerciseLower.includes('squat') || exerciseLower.includes('lunge')) {
+                muscleGroups.push('quads', 'glutes');
+            } else if (exerciseLower.includes('deadlift') || exerciseLower.includes('rdl')) {
+                muscleGroups.push('hamstrings', 'glutes', 'back');
+            } else if (exerciseLower.includes('bench') || exerciseLower.includes('press') && !exerciseLower.includes('leg')) {
+                muscleGroups.push('chest', 'shoulders', 'triceps');
+            } else if (exerciseLower.includes('row') || exerciseLower.includes('pull')) {
+                muscleGroups.push('back', 'biceps');
+            } else if (exerciseLower.includes('curl')) {
+                muscleGroups.push('biceps');
+            } else if (exerciseLower.includes('extension') || exerciseLower.includes('pushdown')) {
+                muscleGroups.push('triceps');
+            } else if (exerciseLower.includes('shoulder') || exerciseLower.includes('lateral') || exerciseLower.includes('overhead')) {
+                muscleGroups.push('shoulders');
+            } else if (exerciseLower.includes('calf')) {
+                muscleGroups.push('calves');
+            } else {
+                muscleGroups.push('mixed'); // For complex movements
+            }
+            
+            return muscleGroups;
+        }
+        
+        // Analyze training patterns for periodization
+        function analyzeTrainingPatterns(history) {
+            const muscleGroupFreq = {};
+            const weeklyVolume = {};
+            const rpeProgression = [];
+            
+            // Last 7 days analysis
+            const lastWeek = history.filter(h => h.daysSinceToday <= 7);
+            const weeklyWorkouts = lastWeek.length;
+            const avgWeeklyRPE = lastWeek.reduce((sum, h) => sum + h.avgRPE, 0) / Math.max(lastWeek.length, 1);
+            
+            // Muscle group frequency analysis
+            history.forEach(workout => {
+                workout.muscleGroupsWorked.forEach(mg => {
+                    muscleGroupFreq[mg] = (muscleGroupFreq[mg] || 0) + 1;
+                });
+            });
+            
+            // Volume trends
+            const volumeTrend = history.slice(0, 7).reduce((sum, h) => sum + h.totalVolume, 0);
+            
+            // RPE progression (fatigue accumulation)
+            for (let i = 0; i < Math.min(7, history.length); i++) {
+                rpeProgression.push(history[i].avgRPE);
+            }
+            
+            return {
+                muscleGroupFreq,
+                weeklyWorkouts,
+                avgWeeklyRPE,
+                volumeTrend,
+                rpeProgression,
+                needsDeload: detectDeloadNeed(rpeProgression, avgWeeklyRPE, weeklyWorkouts)
+            };
+        }
+        
+        // Deload detection algorithm
+        function detectDeloadNeed(rpeProgression, avgRPE, weeklyWorkouts) {
+            // Deload indicators:
+            // 1. Consistently high RPE (>8.5) for multiple sessions
+            // 2. RPE increasing trend over time
+            // 3. High frequency with high intensity
+            
+            const highRPESessions = rpeProgression.filter(rpe => rpe > 8.5).length;
+            const rpeIncreasing = rpeProgression.length > 2 && 
+                                  rpeProgression[0] > rpeProgression[rpeProgression.length - 1];
+            
+            return {
+                needed: (highRPESessions >= 3) || (avgRPE > 8.5 && weeklyWorkouts > 4) || rpeIncreasing,
+                reason: highRPESessions >= 3 ? 'Consistently high RPE indicating fatigue accumulation' :
+                       (avgRPE > 8.5 && weeklyWorkouts > 4) ? 'High frequency with high intensity' :
+                       rpeIncreasing ? 'RPE trending upward indicating fatigue' : 'None'
+            };
+        }
+        
+        // Auto-progression analysis
+        function analyzeProgression(exerciseId, history) {
+            const exerciseLogs = [];
+            
+            // Collect recent performance data for specific exercise
+            history.forEach(workout => {
+                const date = workout.date;
+                const logData = localStorage.getItem(`personalizedPlanDailyLog_${APP_VERSION_KEY}_${date}`);
+                if (logData) {
+                    const log = JSON.parse(logData);
+                    if (log[exerciseId] && log[exerciseId].sets) {
+                        log[exerciseId].sets.forEach(set => {
+                            if (set.weight && set.reps && set.rpe) {
+                                exerciseLogs.push({
+                                    date: date,
+                                    weight: set.weight,
+                                    reps: set.reps,
+                                    rpe: set.rpe,
+                                    e1rm: set.weight * (1 + (set.reps / 30)) // Epley formula
+                                });
+                            }
+                        });
+                    }
+                }
+            });
+            
+            if (exerciseLogs.length < 2) return null;
+            
+            // Sort by date (most recent first)
+            exerciseLogs.sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            const recent = exerciseLogs.slice(0, 3); // Last 3 performances
+            const avgRPE = recent.reduce((sum, log) => sum + log.rpe, 0) / recent.length;
+            
+            // Progression recommendation based on RPE patterns
+            if (avgRPE < 7) {
+                return { type: 'increase', amount: 2.5, reason: 'Low RPE indicates room for progression' };
+            } else if (avgRPE > 9) {
+                return { type: 'decrease', amount: 2.5, reason: 'High RPE suggests need to reduce load' };
+            } else if (avgRPE >= 7 && avgRPE <= 8) {
+                const isConsistent = recent.every(log => Math.abs(log.rpe - avgRPE) < 1);
+                if (isConsistent) {
+                    return { type: 'increase', amount: 1.25, reason: 'Consistent performance allows small progression' };
+                }
+            }
+            
+            return { type: 'maintain', amount: 0, reason: 'Continue with current load' };
         }
 
         // Test API key validity using a CORS proxy
@@ -1827,20 +2165,35 @@
                 const timeAvailable = document.getElementById('timeAvailable').value;
                 const specificGoals = document.getElementById('specificGoals').value;
 
-                // Get workout history
+                // Get workout history and analyze patterns
                 const workoutHistory = getRecentWorkoutHistory();
+                const trainingAnalysis = analyzeTrainingPatterns(workoutHistory);
+                
+                // Check for equipment limitations
+                const equipmentLimitations = document.getElementById('equipmentLimitations')?.value || '';
+                
+                // Generate auto-progression suggestions for key exercises
+                const progressionSuggestions = {};
+                const keyExercises = ['squat', 'bench', 'deadlift', 'ohp'];
+                keyExercises.forEach(exerciseId => {
+                    const progression = analyzeProgression(exerciseId, workoutHistory);
+                    if (progression) {
+                        progressionSuggestions[exerciseId] = progression;
+                    }
+                });
 
-                // Prepare context for Claude
-                const prompt = `You are an evidence-based fitness AI following research-backed training principles. Based on the information below, recommend ONE specific workout from the available options and suggest any modifications.
+                // Prepare enhanced context for Claude
+                const prompt = `You are an evidence-based fitness AI following research-backed training principles from Rhonda Patrick's "How to Train" guide. Based on the comprehensive analysis below, recommend ONE specific workout and provide detailed modifications.
 
 TRAINING PRINCIPLES TO FOLLOW:
-- Consistency beats perfection
-- Progressive overload: gradually increase load/volume
-- Strength training: ≥85% 1RM, 1-5 reps, 2-5min rest, stop 3-4 reps shy of failure
-- Hypertrophy: 60-80% 1RM, 6-12 reps, 1-2min rest, can train closer to failure on isolation
-- Frequency: 2-3x per muscle group per week for optimal gains
-- Recovery: adequate rest between sessions, prioritize sleep
-- 80/20 rule for cardio: 80% low/moderate intensity, 20% high intensity
+- Consistency beats perfection, adherence is key
+- Progressive overload: gradually increase load/volume (2.5-5kg increments)
+- Strength protocol: ≥85% 1RM, 1-5 reps, 2-5min rest, RPE 6-8 (3-4 reps shy of failure)
+- Hypertrophy protocol: 60-80% 1RM, 6-12 reps, 1-2min rest, can train to RPE 8-9 on isolation
+- Frequency: 2-3x per muscle group per week for optimal gains (≥10 sets/muscle/week)
+- Recovery: Quality sleep, nutrition, deloading when needed
+- Periodization: Vary intensity and volume systematically
+- 80/20 cardio rule: 80% Zone 2 (60-70% HRmax), 20% HIIT (80-95% HRmax)
 
 AVAILABLE WORKOUT TYPES:
 ${Object.keys(USER_WORKOUT_PLAN).map(type => `- ${type}: ${USER_WORKOUT_PLAN[type].map(ex => ex.liftName || ex.name).join(', ')}`).join('\n')}
@@ -1851,22 +2204,43 @@ USER'S CURRENT STATE:
 - Muscle soreness/fatigue: ${musclesSore || 'None mentioned'}
 - Time available: ${timeAvailable} minutes
 - Specific goals: ${specificGoals || 'None mentioned'}
+- Equipment limitations: ${equipmentLimitations || 'None mentioned'}
 - Current bodyweight: ${userBodyweight}kg
 - Current e1RMs: ${Object.entries(exercisesE1RM).map(([lift, e1rm]) => `${lift}: ${e1rm.toFixed(1)}kg`).join(', ')}
 
-RECENT WORKOUT HISTORY (last 14 days):
+TRAINING ANALYSIS (last 14 days):
+- Weekly workout frequency: ${trainingAnalysis.weeklyWorkouts}
+- Average weekly RPE: ${trainingAnalysis.avgWeeklyRPE.toFixed(1)}
+- Weekly volume: ${trainingAnalysis.volumeTrend.toFixed(0)}kg
+- Muscle group frequencies: ${Object.entries(trainingAnalysis.muscleGroupFreq).map(([mg, freq]) => `${mg}: ${freq}x`).join(', ')}
+- Deload needed: ${trainingAnalysis.needsDeload.needed ? 'YES - ' + trainingAnalysis.needsDeload.reason : 'No'}
+
+AUTO-PROGRESSION ANALYSIS:
+${Object.entries(progressionSuggestions).map(([ex, prog]) => `${ex}: ${prog.type} ${prog.amount}kg - ${prog.reason}`).join('\n') || 'No progression data available'}
+
+RECENT WORKOUT HISTORY:
 ${workoutHistory.length > 0 ? 
-    workoutHistory.map(h => `${h.date}: ${h.workoutType} (${h.completedCount}/${h.exerciseCount} exercises completed)`).join('\n') : 
+    workoutHistory.map(h => `${h.date}: ${h.workoutType} (${h.completedCount}/${h.exerciseCount} completed, Volume: ${h.totalVolume.toFixed(0)}kg, RPE: ${h.avgRPE.toFixed(1)})`).join('\n') : 
     'No recent workouts logged'}
 
-Consider muscle group frequency, recovery needs, training intensity distribution, and progressive overload when making your recommendation.
+CONSIDER:
+1. Muscle group frequency targets (2-3x per week)
+2. Recovery needs and fatigue accumulation
+3. Progressive overload patterns
+4. Equipment limitations and exercise substitutions
+5. Periodization (strength vs hypertrophy phases)
+6. Training load management
+
+If deload is needed, recommend deload protocol: 40-60% normal volume, 70-80% intensity.
+For equipment limitations, suggest exercise substitutions from available options.
 
 Please respond in this exact format:
-RECOMMENDATION: [Workout Type]
-REASONING: [Brief explanation based on training principles and user state]
-MODIFICATIONS: [Specific changes to sets, reps, intensity, or RPE based on evidence-based guidelines]
+RECOMMENDATION: [Workout Type or DELOAD WEEK]
+REASONING: [Detailed explanation based on training analysis and scientific principles]
+MODIFICATIONS: [Specific changes to sets, reps, intensity, RPE, and any exercise substitutions]
+PROGRESSION: [Weight adjustments based on auto-progression analysis]
 
-Keep your response concise and practical.`;
+Keep response evidence-based and practical.`;
 
                 // Use local proxy server to avoid browser CORS restrictions
                 const proxyUrl = 'http://localhost:3001/api/anthropic';
@@ -1909,23 +2283,35 @@ Keep your response concise and practical.`;
                 const recommendationLine = lines.find(l => l.startsWith('RECOMMENDATION:'));
                 const reasoningLine = lines.find(l => l.startsWith('REASONING:'));
                 const modificationsLine = lines.find(l => l.startsWith('MODIFICATIONS:'));
+                const progressionLine = lines.find(l => l.startsWith('PROGRESSION:'));
 
                 const workoutType = recommendationLine ? recommendationLine.replace('RECOMMENDATION:', '').trim() : 'Squat Day';
                 const reasoning = reasoningLine ? reasoningLine.replace('REASONING:', '').trim() : 'AI recommendation based on your current state.';
                 const modifications = modificationsLine ? modificationsLine.replace('MODIFICATIONS:', '').trim() : 'Follow the standard workout plan.';
+                const progression = progressionLine ? progressionLine.replace('PROGRESSION:', '').trim() : 'No specific progression adjustments needed.';
 
                 currentRecommendation = {
                     workoutType: workoutType,
                     reasoning: reasoning,
-                    modifications: modifications
+                    modifications: modifications,
+                    progression: progression
                 };
+
+                // Check if this is a deload recommendation
+                const isDeload = workoutType.toUpperCase().includes('DELOAD');
+                const headerColor = isDeload ? 'var(--md-red-700)' : 'var(--md-purple-700)';
+                const bgColor = isDeload ? '#ffebee' : 'var(--md-purple-100)';
 
                 // Display recommendation
                 document.getElementById('recommendationContent').innerHTML = `
-                    <div style="background-color: var(--md-purple-100); padding: 15px; border-radius: 6px; margin-bottom: 15px;">
-                        <h4 style="margin-top: 0; color: var(--md-purple-700);">Recommended Workout: ${workoutType}</h4>
-                        <p><strong>Why this workout:</strong> ${reasoning}</p>
-                        <p><strong>Suggested modifications:</strong> ${modifications}</p>
+                    <div style="background-color: ${bgColor}; padding: 15px; border-radius: 6px; margin-bottom: 15px; border-left: 4px solid ${headerColor};">
+                        <h4 style="margin-top: 0; color: ${headerColor};">
+                            ${isDeload ? '🔄 Deload Recommendation' : '💪 Recommended Workout'}: ${workoutType}
+                        </h4>
+                        <p><strong>📊 Analysis & Reasoning:</strong> ${reasoning}</p>
+                        <p><strong>⚙️ Workout Modifications:</strong> ${modifications}</p>
+                        <p><strong>📈 Progression Adjustments:</strong> ${progression}</p>
+                        <p style="font-size: 0.85em; color: var(--md-grey-700); margin-bottom: 0;"><em>🤖 Generated by Claude AI with evidence-based training principles</em></p>
                     </div>
                 `;
 
@@ -1976,104 +2362,215 @@ Keep your response concise and practical.`;
             }
         }
 
-        // Simple built-in recommendation system (fallback when Claude API fails)
+        // Enhanced built-in recommendation system (fallback when Claude API fails)
         function generateSimpleRecommendation() {
             const energyLevel = parseInt(document.getElementById('energyLevel').value);
             const stressLevel = parseInt(document.getElementById('stressLevel').value);
             const musclesSore = document.getElementById('musclesSore').value.toLowerCase();
             const timeAvailable = parseInt(document.getElementById('timeAvailable').value);
+            const equipmentLimitations = document.getElementById('equipmentLimitations')?.value?.toLowerCase() || '';
             
-            // Get recent workout history
+            // Get recent workout history and analyze patterns
             const workoutHistory = getRecentWorkoutHistory();
+            const trainingAnalysis = analyzeTrainingPatterns(workoutHistory);
             const recentWorkouts = workoutHistory.slice(0, 3).map(h => h.workoutType);
+            
+            // Check for deload need first
+            if (trainingAnalysis.needsDeload.needed) {
+                currentRecommendation = {
+                    workoutType: 'DELOAD WEEK',
+                    reasoning: `Deload recommended: ${trainingAnalysis.needsDeload.reason}. Research shows deload weeks (40-60% normal volume, 70-80% intensity) enhance long-term progress.`,
+                    modifications: 'Reduce volume by 40-60%. Use 70-80% of normal weights. Focus on movement quality and recovery. Consider extra mobility work.',
+                    progression: 'Return to full intensity next week with potential to exceed previous performance.'
+                };
+                
+                document.getElementById('recommendationContent').innerHTML = `
+                    <div style="background-color: #ffebee; padding: 15px; border-radius: 6px; margin-bottom: 15px; border-left: 4px solid var(--md-red-700);">
+                        <h4 style="margin-top: 0; color: var(--md-red-700);">
+                            🔄 Deload Recommendation: ${currentRecommendation.workoutType}
+                        </h4>
+                        <p><strong>📊 Analysis & Reasoning:</strong> ${currentRecommendation.reasoning}</p>
+                        <p><strong>⚙️ Workout Modifications:</strong> ${currentRecommendation.modifications}</p>
+                        <p><strong>📈 Progression Adjustments:</strong> ${currentRecommendation.progression}</p>
+                        <p style="font-size: 0.85em; color: var(--md-grey-700); margin-bottom: 0;"><em>Generated by built-in recommendation system</em></p>
+                    </div>
+                `;
+                
+                document.getElementById('recommendationResult').style.display = 'block';
+                return;
+            }
             
             let workoutType;
             let reasoning;
             let modifications = '';
+            let progression = 'No specific progression adjustments needed.';
             
-            // Simple logic-based recommendations
+            // Equipment limitations check
+            const hasEquipmentLimitations = equipmentLimitations.length > 0;
+            
+            // Enhanced logic-based recommendations with muscle group frequency consideration
             if (energyLevel <= 4 || stressLevel >= 8) {
                 if (timeAvailable < 45) {
                     workoutType = 'Mobility Day';
-                    reasoning = 'Low energy/high stress suggests recovery focus. Light mobility work will help.';
+                    reasoning = 'Low energy/high stress suggests recovery focus. Research shows light movement aids recovery without adding training stress.';
                 } else {
                     workoutType = 'Cardio Day';
-                    reasoning = 'Low energy/high stress. Zone 2 cardio is great for stress relief without overtaxing.';
+                    reasoning = 'Low energy/high stress. Zone 2 cardio (60-70% HRmax) is excellent for stress relief and recovery without overtaxing the system.';
                 }
             } else if (musclesSore.includes('leg') || musclesSore.includes('squat')) {
                 if (!recentWorkouts.includes('Pull Day')) {
                     workoutType = 'Pull Day';
-                    reasoning = 'Legs are sore, so focusing on upper body pulling movements.';
+                    reasoning = 'Legs are sore, so focusing on upper body pulling movements. Pull work is often undertrained relative to push movements.';
                 } else {
                     workoutType = 'Bench Day';
-                    reasoning = 'Legs are sore, and you haven\'t done bench recently.';
+                    reasoning = 'Legs are sore, and you haven\'t done bench recently. Upper body push focus allows leg recovery.';
                 }
             } else if (musclesSore.includes('upper') || musclesSore.includes('shoulder') || musclesSore.includes('chest')) {
                 workoutType = 'Squat Day';
-                reasoning = 'Upper body is sore, so focusing on lower body strength.';
+                reasoning = 'Upper body is sore, so focusing on lower body strength. Squats are a foundational movement for strength development.';
             } else if (timeAvailable < 45) {
-                // Quick workout options
+                // Quick workout options - prioritize frequency over volume
                 if (!recentWorkouts.includes('Pull Day')) {
                     workoutType = 'Pull Day';
-                    reasoning = 'Limited time, and pull work is efficient and needed.';
+                    reasoning = 'Limited time, and pull work is efficient and often needed. Focus on compound movements for time efficiency.';
                 } else {
                     workoutType = 'Mobility Day';
-                    reasoning = 'Limited time suggests a quick mobility session.';
+                    reasoning = 'Limited time suggests a quick mobility session. Maintaining range of motion is crucial for long-term training success.';
                 }
             } else {
-                // Normal energy, look at what hasn't been done recently
+                // Normal energy - consider muscle group frequency (aim for 2-3x per week)
+                const muscleGroupNeeds = trainingAnalysis.muscleGroupFreq;
                 const workoutOptions = ['Squat Day', 'Bench Day', 'Deadlift Day', 'Pull Day'];
-                const undoneworkouts = workoutOptions.filter(w => !recentWorkouts.includes(w));
                 
-                if (undoneworkouts.length > 0) {
-                    workoutType = undoneworkouts[0];
-                    reasoning = `Good energy levels and you haven't done ${workoutType} recently.`;
+                // Prioritize workouts that train undertrained muscle groups
+                let selectedWorkout = null;
+                if ((muscleGroupNeeds['quads'] || 0) < 2 && !recentWorkouts.includes('Squat Day')) {
+                    selectedWorkout = 'Squat Day';
+                } else if ((muscleGroupNeeds['back'] || 0) < 2 && !recentWorkouts.includes('Pull Day')) {
+                    selectedWorkout = 'Pull Day';
+                } else if ((muscleGroupNeeds['chest'] || 0) < 2 && !recentWorkouts.includes('Bench Day')) {
+                    selectedWorkout = 'Bench Day';
+                } else if ((muscleGroupNeeds['hamstrings'] || 0) < 2 && !recentWorkouts.includes('Deadlift Day')) {
+                    selectedWorkout = 'Deadlift Day';
+                }
+                
+                if (selectedWorkout) {
+                    workoutType = selectedWorkout;
+                    reasoning = `Good energy levels. ${workoutType} targets muscle groups that need more frequency based on your recent training.`;
                 } else {
-                    workoutType = 'Squat Day';
-                    reasoning = 'Good energy levels. Squat day is always a solid choice for lower body strength.';
+                    const undoneworkouts = workoutOptions.filter(w => !recentWorkouts.includes(w));
+                    if (undoneworkouts.length > 0) {
+                        workoutType = undoneworkouts[0];
+                        reasoning = `Good energy levels and you haven't done ${workoutType} recently. Variety in training stimuli promotes adaptation.`;
+                    } else {
+                        workoutType = 'Squat Day';
+                        reasoning = 'Good energy levels. Squat day is always a solid choice - lower body strength is fundamental to overall performance.';
+                    }
                 }
             }
             
-            // Evidence-based modifications 
+            // Evidence-based modifications following research principles
             if (energyLevel <= 6) {
-                modifications = 'Reduce intensity to 70-80% 1RM. Stay 4-5 reps from failure on strength moves (RPE 6-7). Prioritize form and recovery.';
+                modifications = 'Reduce intensity to 70-80% 1RM. Stay 4-5 reps from failure on strength moves (RPE 6-7). Prioritize movement quality and neural recovery.';
             } else if (energyLevel >= 8 && stressLevel <= 4) {
-                modifications = 'Good energy! Work at 85-90% 1RM for strength moves. Can train closer to failure (RPE 8-9) on isolation exercises.';
+                modifications = 'High energy state! Work at 85-90% 1RM for strength moves (RPE 8). Can train closer to failure (RPE 8-9) on isolation exercises only.';
             } else {
-                modifications = 'Work at planned intensities. Stay 3-4 reps from failure on compound movements.';
+                modifications = 'Work at planned intensities. Stay 3-4 reps from failure on compound movements per research guidelines.';
             }
             
+            // Time-based modifications
             if (timeAvailable < 60) {
-                modifications += ' Use 1-2min rest periods. Focus on main compound movements only. Consider supersets for accessories.';
+                modifications += ' Use 1-2min rest for accessories, 2-3min for compounds. Focus on main lifts only. Consider antagonist supersets.';
             } else if (timeAvailable >= 90) {
-                modifications += ' Take full 2-5min rest between strength sets. Add extra warm-up and cool-down time.';
+                modifications += ' Take full 2-5min rest between strength sets. Add comprehensive warm-up, cool-down, and mobility work.';
             }
             
-            // Frequency considerations
+            // Equipment substitutions
+            if (hasEquipmentLimitations) {
+                modifications += ` EQUIPMENT SUBSTITUTIONS: ${getEquipmentSubstitutions(workoutType, equipmentLimitations)}`;
+            }
+            
+            // Recovery considerations
             const daysSinceLastWorkout = workoutHistory.length > 0 ? 
                 (new Date() - new Date(workoutHistory[0].date)) / (1000 * 60 * 60 * 24) : 7;
             
             if (daysSinceLastWorkout > 3) {
-                modifications += ' Start conservatively after rest period - reduce loads by 10%.';
+                modifications += ' Start conservatively after rest period - reduce loads by 10-15% for first session back.';
+            }
+            
+            // Auto-progression suggestions
+            const keyExercises = ['squat', 'bench', 'deadlift', 'ohp'];
+            const progressionSuggestions = [];
+            keyExercises.forEach(exerciseId => {
+                const progressionAnalysis = analyzeProgression(exerciseId, workoutHistory);
+                if (progressionAnalysis && progressionAnalysis.type !== 'maintain') {
+                    progressionSuggestions.push(`${exerciseId}: ${progressionAnalysis.type} ${progressionAnalysis.amount}kg (${progressionAnalysis.reason})`);
+                }
+            });
+            
+            if (progressionSuggestions.length > 0) {
+                progression = progressionSuggestions.join('; ');
+            }
+            
+            // Weekly volume considerations
+            if (trainingAnalysis.weeklyWorkouts < 3) {
+                modifications += ' Consider adding more sessions this week to meet 3x/week minimum for optimal strength gains.';
+            } else if (trainingAnalysis.weeklyWorkouts > 5) {
+                modifications += ' High weekly frequency - ensure adequate recovery between sessions.';
             }
             
             currentRecommendation = {
                 workoutType: workoutType,
                 reasoning: reasoning,
-                modifications: modifications
+                modifications: modifications,
+                progression: progression
             };
             
             // Display recommendation
             document.getElementById('recommendationContent').innerHTML = `
-                <div style="background-color: var(--md-purple-100); padding: 15px; border-radius: 6px; margin-bottom: 15px;">
-                    <h4 style="margin-top: 0; color: var(--md-purple-700);">Recommended Workout: ${workoutType}</h4>
-                    <p><strong>Why this workout:</strong> ${reasoning}</p>
-                    <p><strong>Suggested modifications:</strong> ${modifications}</p>
-                    <p style="font-size: 0.85em; color: var(--md-grey-700);"><em>Generated by built-in recommendation system</em></p>
+                <div style="background-color: var(--md-purple-100); padding: 15px; border-radius: 6px; margin-bottom: 15px; border-left: 4px solid var(--md-purple-700);">
+                    <h4 style="margin-top: 0; color: var(--md-purple-700);">
+                        💪 Enhanced Recommendation: ${workoutType}
+                    </h4>
+                    <p><strong>📊 Analysis & Reasoning:</strong> ${reasoning}</p>
+                    <p><strong>⚙️ Workout Modifications:</strong> ${modifications}</p>
+                    <p><strong>📈 Progression Adjustments:</strong> ${progression}</p>
+                    <p style="font-size: 0.85em; color: var(--md-grey-700); margin-bottom: 0;"><em>🧠 Generated by enhanced built-in recommendation system</em></p>
                 </div>
             `;
             
             document.getElementById('recommendationResult').style.display = 'block';
+        }
+        
+        // Equipment substitution suggestions
+        function getEquipmentSubstitutions(workoutType, limitations) {
+            const substitutions = [];
+            
+            if (limitations.includes('no barbell') || limitations.includes('no bar')) {
+                if (workoutType.includes('Squat')) {
+                    substitutions.push('Replace barbell squats with goblet squats or dumbbell squats');
+                }
+                if (workoutType.includes('Bench')) {
+                    substitutions.push('Replace barbell bench with dumbbell bench press or push-ups');
+                }
+                if (workoutType.includes('Deadlift')) {
+                    substitutions.push('Replace barbell deadlifts with dumbbell deadlifts or single-leg RDLs');
+                }
+            }
+            
+            if (limitations.includes('no squat rack') || limitations.includes('no rack')) {
+                substitutions.push('Use front-loaded variations, goblet squats, or split squats');
+            }
+            
+            if (limitations.includes('dumbbells only') || limitations.includes('home gym')) {
+                substitutions.push('Focus on dumbbell variations, single-limb work, and bodyweight movements');
+            }
+            
+            if (limitations.includes('no weights') || limitations.includes('bodyweight')) {
+                substitutions.push('Use bodyweight progressions: push-up variations, single-leg squats, pike push-ups');
+            }
+            
+            return substitutions.length > 0 ? substitutions.join('; ') : 'No substitutions needed';
         }
 
         // Data Export/Import Functions
@@ -2380,6 +2877,1357 @@ Keep your response concise and practical.`;
         window.addEventListener('unhandledrejection', function(event) {
             showError('Promise rejection', event.reason?.message || event.reason);
         });
+
+        // ===== ANALYTICS FUNCTIONS =====
+        
+        // Global analytics variables
+        let volumeChartInstance = null;
+        let strengthChartInstance = null;
+        let trainingLoadChartInstance = null;
+        let frequencyChartInstance = null;
+
+        // Exercise to muscle group mapping
+        const EXERCISE_MUSCLE_GROUPS = {
+            'Back-squat': ['Legs', 'Glutes'],
+            'Bench Press': ['Chest', 'Shoulders', 'Triceps'],
+            'Deadlift': ['Back', 'Legs', 'Glutes'],
+            'OHP': ['Shoulders', 'Triceps'],
+            'Weighted Pull-up': ['Back', 'Biceps'],
+            'Hip-thrust': ['Glutes', 'Hamstrings'],
+            'RDL': ['Hamstrings', 'Glutes', 'Back'],
+            'Dips': ['Chest', 'Triceps', 'Shoulders'],
+            'Chest-supported Row': ['Back', 'Biceps'],
+            'Squat': ['Legs', 'Glutes'],
+            'Row': ['Back', 'Biceps'],
+            'Pull-up': ['Back', 'Biceps'],
+            'Push-up': ['Chest', 'Shoulders', 'Triceps']
+        };
+
+        // Get daily logs for analytics
+        function getAnalyticsData(daysBack = 30) {
+            const data = [];
+            const today = new Date();
+            
+            for (let i = 0; i < daysBack; i++) {
+                const date = new Date(today);
+                date.setDate(date.getDate() - i);
+                const dateKey = date.toISOString().split('T')[0];
+                
+                const dailyLogKey = `personalizedPlanDailyLog_${APP_VERSION_KEY}_${dateKey}`;
+                const storedLog = localStorage.getItem(dailyLogKey);
+                
+                if (storedLog) {
+                    try {
+                        const logData = JSON.parse(storedLog);
+                        data.push({
+                            date: dateKey,
+                            dateObj: new Date(date),
+                            log: logData
+                        });
+                    } catch (error) {
+                        console.warn('Failed to parse log for date:', dateKey);
+                    }
+                }
+            }
+            
+            return data.reverse(); // Return in chronological order
+        }
+
+        // Calculate volume per muscle group
+        function calculateVolumeData(daysBack = 30) {
+            const analyticsData = getAnalyticsData(daysBack);
+            const muscleGroupVolumes = {};
+            const dailyVolumes = [];
+            
+            analyticsData.forEach(dayData => {
+                const dayVolumes = {};
+                
+                Object.keys(dayData.log).forEach(exerciseId => {
+                    const exerciseLog = dayData.log[exerciseId];
+                    
+                    // Find exercise definition
+                    let exerciseName = null;
+                    Object.values(USER_WORKOUT_PLAN).forEach(workoutPlan => {
+                        workoutPlan.forEach(exercise => {
+                            if (exercise.id === exerciseId) {
+                                exerciseName = exercise.liftName || exercise.name;
+                            }
+                        });
+                    });
+                    
+                    if (!exerciseName || !exerciseLog.completed) return;
+                    
+                    // Calculate volume for this exercise
+                    let exerciseVolume = 0;
+                    
+                    if (exerciseLog.actualWeight && exerciseLog.actualReps) {
+                        // Single set exercise
+                        exerciseVolume = exerciseLog.actualWeight * exerciseLog.actualReps;
+                    } else {
+                        // Multi-set exercise
+                        for (let i = 1; i <= 6; i++) {
+                            const setKey = `set${i}`;
+                            if (exerciseLog[setKey] && exerciseLog[setKey].completed) {
+                                const setData = exerciseLog[setKey];
+                                if (setData.actualWeight && setData.actualReps) {
+                                    exerciseVolume += setData.actualWeight * setData.actualReps;
+                                }
+                            }
+                        }
+                    }
+                    
+                    // Distribute volume to muscle groups
+                    const muscleGroups = EXERCISE_MUSCLE_GROUPS[exerciseName] || [exerciseName];
+                    const volumePerGroup = exerciseVolume / muscleGroups.length;
+                    
+                    muscleGroups.forEach(muscleGroup => {
+                        if (!muscleGroupVolumes[muscleGroup]) {
+                            muscleGroupVolumes[muscleGroup] = 0;
+                        }
+                        muscleGroupVolumes[muscleGroup] += volumePerGroup;
+                        
+                        if (!dayVolumes[muscleGroup]) {
+                            dayVolumes[muscleGroup] = 0;
+                        }
+                        dayVolumes[muscleGroup] += volumePerGroup;
+                    });
+                });
+                
+                dailyVolumes.push({
+                    date: dayData.date,
+                    volumes: dayVolumes
+                });
+            });
+            
+            return { muscleGroupVolumes, dailyVolumes };
+        }
+
+        // Update volume analytics
+        function updateVolumeAnalytics() {
+            const daysBack = parseInt(document.getElementById('volumeTimeRange').value);
+            const { muscleGroupVolumes, dailyVolumes } = calculateVolumeData(daysBack);
+            
+            // Update chart
+            updateVolumeChart(dailyVolumes);
+            
+            // Update metrics
+            updateVolumeMetrics(muscleGroupVolumes, daysBack);
+        }
+
+        // Update volume chart
+        function updateVolumeChart(dailyVolumes) {
+            const ctx = document.getElementById('volumeChart').getContext('2d');
+            
+            if (volumeChartInstance) {
+                volumeChartInstance.destroy();
+            }
+            
+            // Get all muscle groups
+            const allMuscleGroups = new Set();
+            dailyVolumes.forEach(day => {
+                Object.keys(day.volumes).forEach(group => allMuscleGroups.add(group));
+            });
+            
+            const muscleGroupsArray = Array.from(allMuscleGroups).sort();
+            const colors = [
+                '#673AB7', '#4CAF50', '#f44336', '#FF9800', '#2196F3', 
+                '#9C27B0', '#795548', '#607D8B', '#E91E63', '#009688'
+            ];
+            
+            const datasets = muscleGroupsArray.map((group, index) => ({
+                label: group,
+                data: dailyVolumes.map(day => day.volumes[group] || 0),
+                borderColor: colors[index % colors.length],
+                backgroundColor: colors[index % colors.length] + '20',
+                fill: false,
+                tension: 0.1
+            }));
+            
+            volumeChartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: dailyVolumes.map(day => new Date(day.date).toLocaleDateString()),
+                    datasets: datasets
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Volume (kg × reps)'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Date'
+                            }
+                        }
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Training Volume by Muscle Group'
+                        },
+                        legend: {
+                            display: true,
+                            position: 'top'
+                        }
+                    }
+                }
+            });
+        }
+
+        // Update volume metrics
+        function updateVolumeMetrics(muscleGroupVolumes, daysBack) {
+            const container = document.getElementById('volumeMetrics');
+            container.innerHTML = '';
+            
+            const sortedGroups = Object.entries(muscleGroupVolumes)
+                .sort(([,a], [,b]) => b - a)
+                .slice(0, 6); // Top 6 muscle groups
+            
+            sortedGroups.forEach(([group, volume]) => {
+                const card = document.createElement('div');
+                card.className = 'metric-card';
+                
+                const averageDaily = volume / daysBack;
+                
+                card.innerHTML = `
+                    <h4>${group}</h4>
+                    <div class="metric-value">${Math.round(volume).toLocaleString()}</div>
+                    <div class="metric-unit">kg × reps total</div>
+                    <div class="metric-unit">${Math.round(averageDaily)} avg/day</div>
+                `;
+                
+                container.appendChild(card);
+            });
+        }
+
+        // Initialize analytics when tab is shown
+        function initializeAnalytics() {
+            updateVolumeAnalytics();
+            updateStrengthChart();
+            updateTrainingLoadAnalytics();
+            updateFrequencyAnalytics();
+            updatePerformanceMetrics();
+        }
+
+        // Strength progression chart implementation
+        function updateStrengthChart() {
+            const exerciseName = document.getElementById('strengthExercise').value;
+            const daysBack = parseInt(document.getElementById('strengthTimeRange').value);
+            
+            const strengthData = getStrengthProgressionData(exerciseName, daysBack);
+            updateStrengthChartDisplay(strengthData, exerciseName);
+            updateStrengthMetrics(strengthData, exerciseName);
+        }
+
+        // Get strength progression data for a specific exercise
+        function getStrengthProgressionData(exerciseName, daysBack) {
+            const analyticsData = getAnalyticsData(daysBack);
+            const progressionData = [];
+            
+            analyticsData.forEach(dayData => {
+                // Look for exercises in the log that match our target
+                Object.keys(dayData.log).forEach(exerciseId => {
+                    const exerciseLog = dayData.log[exerciseId];
+                    
+                    // Find exercise definition to get the lift name
+                    let foundExerciseName = null;
+                    Object.values(USER_WORKOUT_PLAN).forEach(workoutPlan => {
+                        workoutPlan.forEach(exercise => {
+                            if (exercise.id === exerciseId) {
+                                foundExerciseName = exercise.liftName || exercise.name;
+                            }
+                        });
+                    });
+                    
+                    // Check if this matches our target exercise and has e1RM data
+                    if (foundExerciseName === exerciseName && exerciseLog.completed) {
+                        let maxE1RM = 0;
+                        let bestSet = null;
+                        
+                        // Check main single set
+                        if (exerciseLog.e1RMCalcFromSet) {
+                            maxE1RM = Math.max(maxE1RM, exerciseLog.e1RMCalcFromSet);
+                            if (exerciseLog.e1RMCalcFromSet === maxE1RM) {
+                                bestSet = {
+                                    weight: exerciseLog.actualWeight,
+                                    reps: exerciseLog.actualReps,
+                                    rpe: exerciseLog.actualRPE
+                                };
+                            }
+                        }
+                        
+                        // Check multi-sets for e1RM calculations
+                        for (let i = 1; i <= 6; i++) {
+                            const setKey = `set${i}`;
+                            const setData = exerciseLog[setKey];
+                            if (setData && setData.completed && setData.actualWeight && setData.actualReps) {
+                                // Calculate e1RM for this set
+                                const effectiveReps = getEffectiveReps(setData.actualReps, setData.actualRPE || 8);
+                                const setE1RM = calculateEpleyE1RM(setData.actualWeight, effectiveReps);
+                                
+                                if (setE1RM > maxE1RM) {
+                                    maxE1RM = setE1RM;
+                                    bestSet = {
+                                        weight: setData.actualWeight,
+                                        reps: setData.actualReps,
+                                        rpe: setData.actualRPE || 8
+                                    };
+                                }
+                            }
+                        }
+                        
+                        // Use final e1RM if available, otherwise use calculated max
+                        const finalE1RM = exerciseLog.groupE1RMAfterSet || maxE1RM;
+                        
+                        if (finalE1RM > 0) {
+                            progressionData.push({
+                                date: dayData.date,
+                                dateObj: dayData.dateObj,
+                                e1RM: finalE1RM,
+                                bestSet: bestSet,
+                                startingE1RM: exerciseLog.e1RMAtSetStart || 0
+                            });
+                        }
+                    }
+                });
+            });
+            
+            // Sort by date and remove duplicates (keep highest e1RM per day)
+            const dailyMaxE1RM = {};
+            progressionData.forEach(entry => {
+                if (!dailyMaxE1RM[entry.date] || entry.e1RM > dailyMaxE1RM[entry.date].e1RM) {
+                    dailyMaxE1RM[entry.date] = entry;
+                }
+            });
+            
+            return Object.values(dailyMaxE1RM).sort((a, b) => a.dateObj - b.dateObj);
+        }
+
+        // Update the strength chart display
+        function updateStrengthChartDisplay(strengthData, exerciseName) {
+            const ctx = document.getElementById('strengthChart').getContext('2d');
+            
+            if (strengthChartInstance) {
+                strengthChartInstance.destroy();
+            }
+            
+            if (strengthData.length === 0) {
+                // Show "no data" message
+                ctx.fillStyle = '#666';
+                ctx.font = '16px Roboto';
+                ctx.textAlign = 'center';
+                ctx.fillText('No data available for this exercise and time period', ctx.canvas.width / 2, ctx.canvas.height / 2);
+                return;
+            }
+            
+            strengthChartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: strengthData.map(entry => new Date(entry.date).toLocaleDateString()),
+                    datasets: [{
+                        label: 'e1RM (kg)',
+                        data: strengthData.map(entry => entry.e1RM),
+                        borderColor: '#673AB7',
+                        backgroundColor: '#673AB720',
+                        fill: false,
+                        tension: 0.1,
+                        pointBackgroundColor: '#673AB7',
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 2,
+                        pointRadius: 5
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            title: {
+                                display: true,
+                                text: 'e1RM (kg)'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Date'
+                            }
+                        }
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: `${exerciseName} Strength Progression`
+                        },
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                afterLabel: function(context) {
+                                    const dataPoint = strengthData[context.dataIndex];
+                                    if (dataPoint.bestSet) {
+                                        return `Best set: ${dataPoint.bestSet.weight}kg × ${dataPoint.bestSet.reps} @ RPE ${dataPoint.bestSet.rpe}`;
+                                    }
+                                    return '';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Update strength metrics
+        function updateStrengthMetrics(strengthData, exerciseName) {
+            const container = document.getElementById('strengthMetrics');
+            container.innerHTML = '';
+            
+            if (strengthData.length === 0) {
+                container.innerHTML = '<div class="metric-card"><h4>No Data</h4><div class="metric-value">-</div><div class="metric-unit">No training data found</div></div>';
+                return;
+            }
+            
+            const latestE1RM = strengthData[strengthData.length - 1].e1RM;
+            const firstE1RM = strengthData[0].e1RM;
+            const improvement = latestE1RM - firstE1RM;
+            const improvementPercent = ((improvement / firstE1RM) * 100);
+            
+            // Current e1RM
+            const currentCard = document.createElement('div');
+            currentCard.className = 'metric-card';
+            currentCard.innerHTML = `
+                <h4>Current e1RM</h4>
+                <div class="metric-value">${Math.round(latestE1RM)}</div>
+                <div class="metric-unit">kg</div>
+            `;
+            container.appendChild(currentCard);
+            
+            // Total improvement
+            const improvementCard = document.createElement('div');
+            improvementCard.className = 'metric-card';
+            const trendClass = improvement > 0 ? 'positive' : improvement < 0 ? 'negative' : 'neutral';
+            improvementCard.innerHTML = `
+                <h4>Total Gain</h4>
+                <div class="metric-value">${improvement > 0 ? '+' : ''}${Math.round(improvement)}</div>
+                <div class="metric-unit">kg</div>
+                <div class="metric-trend ${trendClass}">${improvementPercent > 0 ? '+' : ''}${improvementPercent.toFixed(1)}%</div>
+            `;
+            container.appendChild(improvementCard);
+            
+            // Training sessions
+            const sessionsCard = document.createElement('div');
+            sessionsCard.className = 'metric-card';
+            sessionsCard.innerHTML = `
+                <h4>Sessions</h4>
+                <div class="metric-value">${strengthData.length}</div>
+                <div class="metric-unit">logged</div>
+            `;
+            container.appendChild(sessionsCard);
+            
+            // Best single session gain
+            let maxDayGain = 0;
+            for (let i = 1; i < strengthData.length; i++) {
+                const dayGain = strengthData[i].e1RM - strengthData[i-1].e1RM;
+                maxDayGain = Math.max(maxDayGain, dayGain);
+            }
+            
+            const bestSessionCard = document.createElement('div');
+            bestSessionCard.className = 'metric-card';
+            bestSessionCard.innerHTML = `
+                <h4>Best Session</h4>
+                <div class="metric-value">+${Math.round(maxDayGain)}</div>
+                <div class="metric-unit">kg gain</div>
+            `;
+            container.appendChild(bestSessionCard);
+        }
+
+        // Training load analytics implementation
+        function updateTrainingLoadAnalytics() {
+            const daysBack = parseInt(document.getElementById('loadTimeRange').value);
+            const trainingLoadData = calculateTrainingLoadData(daysBack);
+            
+            updateTrainingLoadChart(trainingLoadData);
+            updateTrainingLoadMetrics(trainingLoadData, daysBack);
+        }
+
+        // Calculate training load data (RPE-based stress)
+        function calculateTrainingLoadData(daysBack) {
+            const analyticsData = getAnalyticsData(daysBack);
+            const dailyLoads = [];
+            let totalLoad = 0;
+            let totalSets = 0;
+            const rpeDistribution = { 6: 0, 7: 0, 8: 0, 9: 0, 10: 0 };
+            
+            analyticsData.forEach(dayData => {
+                let dayLoad = 0;
+                let daySets = 0;
+                
+                Object.keys(dayData.log).forEach(exerciseId => {
+                    const exerciseLog = dayData.log[exerciseId];
+                    
+                    if (!exerciseLog.completed) return;
+                    
+                    // Calculate load for single set exercises
+                    if (exerciseLog.actualWeight && exerciseLog.actualReps && exerciseLog.actualRPE) {
+                        const setVolume = exerciseLog.actualWeight * exerciseLog.actualReps;
+                        const setLoad = setVolume * exerciseLog.actualRPE;
+                        dayLoad += setLoad;
+                        daySets += 1;
+                        
+                        // Track RPE distribution
+                        const rpeKey = Math.floor(exerciseLog.actualRPE);
+                        if (rpeDistribution.hasOwnProperty(rpeKey)) {
+                            rpeDistribution[rpeKey] += 1;
+                        }
+                    }
+                    
+                    // Calculate load for multi-set exercises
+                    for (let i = 1; i <= 6; i++) {
+                        const setKey = `set${i}`;
+                        const setData = exerciseLog[setKey];
+                        if (setData && setData.completed && setData.actualWeight && setData.actualReps) {
+                            const setVolume = setData.actualWeight * setData.actualReps;
+                            const rpe = setData.actualRPE || 8; // Default RPE if not logged
+                            const setLoad = setVolume * rpe;
+                            dayLoad += setLoad;
+                            daySets += 1;
+                            
+                            // Track RPE distribution
+                            const rpeKey = Math.floor(rpe);
+                            if (rpeDistribution.hasOwnProperty(rpeKey)) {
+                                rpeDistribution[rpeKey] += 1;
+                            }
+                        }
+                    }
+                });
+                
+                dailyLoads.push({
+                    date: dayData.date,
+                    dateObj: dayData.dateObj,
+                    load: dayLoad,
+                    sets: daySets
+                });
+                
+                totalLoad += dayLoad;
+                totalSets += daySets;
+            });
+            
+            return {
+                dailyLoads,
+                totalLoad,
+                totalSets,
+                averageLoad: totalLoad / Math.max(daysBack, 1),
+                averageDailyLoad: totalLoad / Math.max(dailyLoads.filter(d => d.load > 0).length, 1),
+                rpeDistribution
+            };
+        }
+
+        // Update training load chart
+        function updateTrainingLoadChart(trainingLoadData) {
+            const ctx = document.getElementById('trainingLoadChart').getContext('2d');
+            
+            if (trainingLoadChartInstance) {
+                trainingLoadChartInstance.destroy();
+            }
+            
+            const dailyLoads = trainingLoadData.dailyLoads;
+            
+            if (dailyLoads.length === 0) {
+                ctx.fillStyle = '#666';
+                ctx.font = '16px Roboto';
+                ctx.textAlign = 'center';
+                ctx.fillText('No training load data available', ctx.canvas.width / 2, ctx.canvas.height / 2);
+                return;
+            }
+            
+            // Calculate 7-day rolling average
+            const rollingAverage = [];
+            for (let i = 0; i < dailyLoads.length; i++) {
+                const start = Math.max(0, i - 6);
+                const window = dailyLoads.slice(start, i + 1);
+                const avgLoad = window.reduce((sum, day) => sum + day.load, 0) / window.length;
+                rollingAverage.push(avgLoad);
+            }
+            
+            trainingLoadChartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: dailyLoads.map(day => new Date(day.date).toLocaleDateString()),
+                    datasets: [{
+                        label: 'Daily Training Load',
+                        data: dailyLoads.map(day => day.load),
+                        backgroundColor: dailyLoads.map(day => {
+                            // Color coding based on load intensity
+                            if (day.load === 0) return '#e0e0e0';
+                            if (day.load < 5000) return '#4CAF50';
+                            if (day.load < 10000) return '#FF9800';
+                            return '#f44336';
+                        }),
+                        borderWidth: 1
+                    }, {
+                        label: '7-Day Rolling Average',
+                        data: rollingAverage,
+                        type: 'line',
+                        borderColor: '#673AB7',
+                        backgroundColor: 'transparent',
+                        fill: false,
+                        tension: 0.1,
+                        pointRadius: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Training Load (Volume × RPE)'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Date'
+                            }
+                        }
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Training Load & Stress Monitoring'
+                        },
+                        legend: {
+                            display: true,
+                            position: 'top'
+                        },
+                        tooltip: {
+                            callbacks: {
+                                afterLabel: function(context) {
+                                    if (context.dataset.label === 'Daily Training Load') {
+                                        const dayData = dailyLoads[context.dataIndex];
+                                        return `Sets: ${dayData.sets}`;
+                                    }
+                                    return '';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Update training load metrics
+        function updateTrainingLoadMetrics(trainingLoadData, daysBack) {
+            const container = document.getElementById('trainingLoadMetrics');
+            container.innerHTML = '';
+            
+            const { totalLoad, totalSets, averageLoad, averageDailyLoad, rpeDistribution, dailyLoads } = trainingLoadData;
+            
+            // Average daily load
+            const avgLoadCard = document.createElement('div');
+            avgLoadCard.className = 'metric-card';
+            avgLoadCard.innerHTML = `
+                <h4>Avg Daily Load</h4>
+                <div class="metric-value">${Math.round(averageDailyLoad).toLocaleString()}</div>
+                <div class="metric-unit">load units</div>
+            `;
+            container.appendChild(avgLoadCard);
+            
+            // Total training load
+            const totalLoadCard = document.createElement('div');
+            totalLoadCard.className = 'metric-card';
+            totalLoadCard.innerHTML = `
+                <h4>Total Load</h4>
+                <div class="metric-value">${Math.round(totalLoad).toLocaleString()}</div>
+                <div class="metric-unit">${daysBack} days</div>
+            `;
+            container.appendChild(totalLoadCard);
+            
+            // Total sets
+            const setsCard = document.createElement('div');
+            setsCard.className = 'metric-card';
+            setsCard.innerHTML = `
+                <h4>Total Sets</h4>
+                <div class="metric-value">${totalSets}</div>
+                <div class="metric-unit">completed</div>
+            `;
+            container.appendChild(setsCard);
+            
+            // Average RPE
+            const totalRPESets = Object.values(rpeDistribution).reduce((sum, count) => sum + count, 0);
+            const weightedRPE = Object.entries(rpeDistribution).reduce((sum, [rpe, count]) => {
+                return sum + (parseInt(rpe) * count);
+            }, 0);
+            const averageRPE = totalRPESets > 0 ? weightedRPE / totalRPESets : 0;
+            
+            const avgRPECard = document.createElement('div');
+            avgRPECard.className = 'metric-card';
+            avgRPECard.innerHTML = `
+                <h4>Avg RPE</h4>
+                <div class="metric-value">${averageRPE.toFixed(1)}</div>
+                <div class="metric-unit">intensity</div>
+            `;
+            container.appendChild(avgRPECard);
+            
+            // Training frequency
+            const activeDays = dailyLoads.filter(day => day.load > 0).length;
+            const frequency = (activeDays / daysBack * 7).toFixed(1); // Days per week
+            
+            const frequencyCard = document.createElement('div');
+            frequencyCard.className = 'metric-card';
+            frequencyCard.innerHTML = `
+                <h4>Frequency</h4>
+                <div class="metric-value">${frequency}</div>
+                <div class="metric-unit">days/week</div>
+            `;
+            container.appendChild(frequencyCard);
+            
+            // Load trend (last 7 days vs previous 7 days for longer periods)
+            if (daysBack >= 14) {
+                const recentLoads = dailyLoads.slice(-7);
+                const previousLoads = dailyLoads.slice(-14, -7);
+                
+                const recentAvg = recentLoads.reduce((sum, day) => sum + day.load, 0) / 7;
+                const previousAvg = previousLoads.reduce((sum, day) => sum + day.load, 0) / 7;
+                const trendChange = recentAvg - previousAvg;
+                const trendPercent = previousAvg > 0 ? (trendChange / previousAvg) * 100 : 0;
+                
+                const trendCard = document.createElement('div');
+                trendCard.className = 'metric-card';
+                const trendClass = trendChange > 0 ? 'positive' : trendChange < 0 ? 'negative' : 'neutral';
+                trendCard.innerHTML = `
+                    <h4>Load Trend</h4>
+                    <div class="metric-value">${trendChange > 0 ? '+' : ''}${Math.round(trendChange)}</div>
+                    <div class="metric-unit">vs prev week</div>
+                    <div class="metric-trend ${trendClass}">${trendPercent > 0 ? '+' : ''}${trendPercent.toFixed(1)}%</div>
+                `;
+                container.appendChild(trendCard);
+            }
+        }
+
+        // Frequency tracking implementation
+        function updateFrequencyAnalytics() {
+            const frequencyData = calculateFrequencyData(30); // Last 30 days for frequency analysis
+            
+            updateFrequencyChart(frequencyData);
+            updateFrequencyMetrics(frequencyData);
+        }
+
+        // Calculate training frequency data per muscle group
+        function calculateFrequencyData(daysBack) {
+            const analyticsData = getAnalyticsData(daysBack);
+            const muscleGroupFrequency = {};
+            const weeklyFrequency = {}; // Track frequency per week
+            
+            // Initialize muscle groups
+            Object.values(EXERCISE_MUSCLE_GROUPS).forEach(groups => {
+                groups.forEach(group => {
+                    if (!muscleGroupFrequency[group]) {
+                        muscleGroupFrequency[group] = { totalDays: 0, weeks: {} };
+                    }
+                });
+            });
+            
+            analyticsData.forEach(dayData => {
+                const weekKey = getWeekKey(dayData.dateObj);
+                const dayMuscleGroups = new Set();
+                
+                Object.keys(dayData.log).forEach(exerciseId => {
+                    const exerciseLog = dayData.log[exerciseId];
+                    
+                    if (!exerciseLog.completed) return;
+                    
+                    // Find exercise definition
+                    let exerciseName = null;
+                    Object.values(USER_WORKOUT_PLAN).forEach(workoutPlan => {
+                        workoutPlan.forEach(exercise => {
+                            if (exercise.id === exerciseId) {
+                                exerciseName = exercise.liftName || exercise.name;
+                            }
+                        });
+                    });
+                    
+                    if (!exerciseName) return;
+                    
+                    // Get muscle groups for this exercise
+                    const muscleGroups = EXERCISE_MUSCLE_GROUPS[exerciseName] || [exerciseName];
+                    
+                    // Track which muscle groups were trained this day
+                    muscleGroups.forEach(group => {
+                        dayMuscleGroups.add(group);
+                    });
+                });
+                
+                // Increment frequency counters for muscle groups trained this day
+                dayMuscleGroups.forEach(group => {
+                    if (muscleGroupFrequency[group]) {
+                        muscleGroupFrequency[group].totalDays++;
+                        
+                        if (!muscleGroupFrequency[group].weeks[weekKey]) {
+                            muscleGroupFrequency[group].weeks[weekKey] = 0;
+                        }
+                        muscleGroupFrequency[group].weeks[weekKey]++;
+                    }
+                });
+            });
+            
+            // Calculate average frequency per week for each muscle group
+            const numberOfWeeks = Math.max(1, Math.ceil(daysBack / 7));
+            const muscleGroupStats = {};
+            
+            Object.entries(muscleGroupFrequency).forEach(([group, data]) => {
+                const avgPerWeek = data.totalDays / numberOfWeeks;
+                const weeklyData = Object.values(data.weeks);
+                const maxPerWeek = weeklyData.length > 0 ? Math.max(...weeklyData) : 0;
+                
+                muscleGroupStats[group] = {
+                    totalDays: data.totalDays,
+                    avgPerWeek: avgPerWeek,
+                    maxPerWeek: maxPerWeek,
+                    weeksActive: weeklyData.length
+                };
+            });
+            
+            return {
+                muscleGroupStats,
+                numberOfWeeks,
+                daysBack
+            };
+        }
+
+        // Helper function to get week key (YYYY-WW format)
+        function getWeekKey(date) {
+            const year = date.getFullYear();
+            const startOfYear = new Date(year, 0, 1);
+            const dayOfYear = Math.floor((date - startOfYear) / (24 * 60 * 60 * 1000)) + 1;
+            const weekNumber = Math.ceil(dayOfYear / 7);
+            return `${year}-${weekNumber.toString().padStart(2, '0')}`;
+        }
+
+        // Update frequency chart
+        function updateFrequencyChart(frequencyData) {
+            const ctx = document.getElementById('frequencyChart').getContext('2d');
+            
+            if (frequencyChartInstance) {
+                frequencyChartInstance.destroy();
+            }
+            
+            const { muscleGroupStats } = frequencyData;
+            const muscleGroups = Object.keys(muscleGroupStats)
+                .filter(group => muscleGroupStats[group].totalDays > 0)
+                .sort((a, b) => muscleGroupStats[b].avgPerWeek - muscleGroupStats[a].avgPerWeek);
+            
+            if (muscleGroups.length === 0) {
+                ctx.fillStyle = '#666';
+                ctx.font = '16px Roboto';
+                ctx.textAlign = 'center';
+                ctx.fillText('No training frequency data available', ctx.canvas.width / 2, ctx.canvas.height / 2);
+                return;
+            }
+            
+            const frequencies = muscleGroups.map(group => muscleGroupStats[group].avgPerWeek);
+            const maxFrequencies = muscleGroups.map(group => muscleGroupStats[group].maxPerWeek);
+            
+            frequencyChartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: muscleGroups,
+                    datasets: [{
+                        label: 'Average Frequency (days/week)',
+                        data: frequencies,
+                        backgroundColor: frequencies.map(freq => {
+                            // Color coding based on frequency
+                            if (freq >= 3) return '#4CAF50'; // Optimal (3+ times per week)
+                            if (freq >= 2) return '#FF9800'; // Good (2+ times per week)
+                            if (freq >= 1) return '#f44336'; // Suboptimal (1+ times per week)
+                            return '#e0e0e0'; // Very low
+                        }),
+                        borderWidth: 1
+                    }, {
+                        label: 'Peak Frequency (max days/week)',
+                        data: maxFrequencies,
+                        backgroundColor: 'rgba(103, 58, 183, 0.3)',
+                        borderColor: '#673AB7',
+                        borderWidth: 2,
+                        type: 'line',
+                        fill: false,
+                        tension: 0.1,
+                        pointRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 7,
+                            title: {
+                                display: true,
+                                text: 'Days per Week'
+                            },
+                            ticks: {
+                                stepSize: 1
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Muscle Groups'
+                            }
+                        }
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Training Frequency by Muscle Group'
+                        },
+                        legend: {
+                            display: true,
+                            position: 'top'
+                        },
+                        tooltip: {
+                            callbacks: {
+                                afterLabel: function(context) {
+                                    const group = context.label;
+                                    const stats = muscleGroupStats[group];
+                                    if (context.dataset.label.includes('Average')) {
+                                        return `Total sessions: ${stats.totalDays}`;
+                                    }
+                                    return '';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Update frequency metrics
+        function updateFrequencyMetrics(frequencyData) {
+            const container = document.getElementById('frequencyMetrics');
+            container.innerHTML = '';
+            
+            const { muscleGroupStats, numberOfWeeks } = frequencyData;
+            
+            // Overall training frequency
+            const totalSessions = Object.values(muscleGroupStats).reduce((sum, stats) => sum + stats.totalDays, 0);
+            const avgSessionsPerWeek = totalSessions / numberOfWeeks;
+            
+            const overallCard = document.createElement('div');
+            overallCard.className = 'metric-card';
+            overallCard.innerHTML = `
+                <h4>Weekly Sessions</h4>
+                <div class="metric-value">${avgSessionsPerWeek.toFixed(1)}</div>
+                <div class="metric-unit">avg per week</div>
+            `;
+            container.appendChild(overallCard);
+            
+            // Most trained muscle group
+            const mostTrainedGroup = Object.entries(muscleGroupStats)
+                .filter(([group, stats]) => stats.totalDays > 0)
+                .sort(([,a], [,b]) => b.avgPerWeek - a.avgPerWeek)[0];
+            
+            if (mostTrainedGroup) {
+                const [group, stats] = mostTrainedGroup;
+                const card = document.createElement('div');
+                card.className = 'metric-card';
+                card.innerHTML = `
+                    <h4>Most Trained</h4>
+                    <div class="metric-value">${group}</div>
+                    <div class="metric-unit">${stats.avgPerWeek.toFixed(1)}x/week</div>
+                `;
+                container.appendChild(card);
+            }
+            
+            // Least trained muscle group (that has been trained)
+            const leastTrainedGroup = Object.entries(muscleGroupStats)
+                .filter(([group, stats]) => stats.totalDays > 0)
+                .sort(([,a], [,b]) => a.avgPerWeek - b.avgPerWeek)[0];
+            
+            if (leastTrainedGroup) {
+                const [group, stats] = leastTrainedGroup;
+                const card = document.createElement('div');
+                card.className = 'metric-card';
+                card.innerHTML = `
+                    <h4>Least Trained</h4>
+                    <div class="metric-value">${group}</div>
+                    <div class="metric-unit">${stats.avgPerWeek.toFixed(1)}x/week</div>
+                `;
+                container.appendChild(card);
+            }
+            
+            // Optimal frequency count (muscle groups trained 2+ times per week)
+            const optimalGroups = Object.values(muscleGroupStats).filter(stats => stats.avgPerWeek >= 2).length;
+            const totalActiveGroups = Object.values(muscleGroupStats).filter(stats => stats.totalDays > 0).length;
+            
+            const optimalCard = document.createElement('div');
+            optimalCard.className = 'metric-card';
+            const optimalPercent = totalActiveGroups > 0 ? (optimalGroups / totalActiveGroups * 100) : 0;
+            optimalCard.innerHTML = `
+                <h4>Optimal Frequency</h4>
+                <div class="metric-value">${optimalGroups}/${totalActiveGroups}</div>
+                <div class="metric-unit">groups 2+x/week</div>
+                <div class="metric-trend ${optimalPercent >= 70 ? 'positive' : optimalPercent >= 50 ? 'neutral' : 'negative'}">${optimalPercent.toFixed(0)}%</div>
+            `;
+            container.appendChild(optimalCard);
+            
+            // Balance score (how evenly distributed is the training)
+            const frequencies = Object.values(muscleGroupStats)
+                .filter(stats => stats.totalDays > 0)
+                .map(stats => stats.avgPerWeek);
+            
+            if (frequencies.length > 0) {
+                const mean = frequencies.reduce((sum, freq) => sum + freq, 0) / frequencies.length;
+                const variance = frequencies.reduce((sum, freq) => sum + Math.pow(freq - mean, 2), 0) / frequencies.length;
+                const stdDev = Math.sqrt(variance);
+                const balanceScore = Math.max(0, 100 - (stdDev / mean * 100));
+                
+                const balanceCard = document.createElement('div');
+                balanceCard.className = 'metric-card';
+                balanceCard.innerHTML = `
+                    <h4>Balance Score</h4>
+                    <div class="metric-value">${balanceScore.toFixed(0)}</div>
+                    <div class="metric-unit">% balanced</div>
+                    <div class="metric-trend ${balanceScore >= 80 ? 'positive' : balanceScore >= 60 ? 'neutral' : 'negative'}">
+                        ${balanceScore >= 80 ? 'Excellent' : balanceScore >= 60 ? 'Good' : 'Needs work'}
+                    </div>
+                `;
+                container.appendChild(balanceCard);
+            }
+        }
+
+        // Performance metrics dashboard implementation
+        function updatePerformanceMetrics() {
+            const performanceData = calculatePerformanceMetrics(30); // Last 30 days
+            displayPerformanceMetrics(performanceData);
+        }
+
+        // Calculate comprehensive performance metrics
+        function calculatePerformanceMetrics(daysBack) {
+            const analyticsData = getAnalyticsData(daysBack);
+            let totalSets = 0;
+            let totalReps = 0;
+            let totalVolume = 0;
+            let totalTrainingDays = 0;
+            let rpeSum = 0;
+            let rpeCount = 0;
+            const dailyPerformance = [];
+            const exerciseProgress = {};
+            
+            // Process each day's data
+            analyticsData.forEach(dayData => {
+                let dayVolume = 0;
+                let daySets = 0;
+                let dayReps = 0;
+                let dayRPE = 0;
+                let dayRPECount = 0;
+                let hasTraining = false;
+                
+                Object.keys(dayData.log).forEach(exerciseId => {
+                    const exerciseLog = dayData.log[exerciseId];
+                    
+                    if (!exerciseLog.completed) return;
+                    hasTraining = true;
+                    
+                    // Get exercise name
+                    let exerciseName = null;
+                    Object.values(USER_WORKOUT_PLAN).forEach(workoutPlan => {
+                        workoutPlan.forEach(exercise => {
+                            if (exercise.id === exerciseId) {
+                                exerciseName = exercise.liftName || exercise.name;
+                            }
+                        });
+                    });
+                    
+                    if (!exerciseName) return;
+                    
+                    // Initialize exercise tracking
+                    if (!exerciseProgress[exerciseName]) {
+                        exerciseProgress[exerciseName] = {
+                            sessions: 0,
+                            totalVolume: 0,
+                            maxWeight: 0,
+                            avgRPE: 0,
+                            rpeSum: 0,
+                            rpeCount: 0
+                        };
+                    }
+                    
+                    exerciseProgress[exerciseName].sessions++;
+                    
+                    // Process single set exercises
+                    if (exerciseLog.actualWeight && exerciseLog.actualReps) {
+                        const setVolume = exerciseLog.actualWeight * exerciseLog.actualReps;
+                        dayVolume += setVolume;
+                        daySets++;
+                        dayReps += exerciseLog.actualReps;
+                        
+                        exerciseProgress[exerciseName].totalVolume += setVolume;
+                        exerciseProgress[exerciseName].maxWeight = Math.max(
+                            exerciseProgress[exerciseName].maxWeight, 
+                            exerciseLog.actualWeight
+                        );
+                        
+                        if (exerciseLog.actualRPE) {
+                            dayRPE += exerciseLog.actualRPE;
+                            dayRPECount++;
+                            rpeSum += exerciseLog.actualRPE;
+                            rpeCount++;
+                            
+                            exerciseProgress[exerciseName].rpeSum += exerciseLog.actualRPE;
+                            exerciseProgress[exerciseName].rpeCount++;
+                        }
+                    }
+                    
+                    // Process multi-set exercises
+                    for (let i = 1; i <= 6; i++) {
+                        const setKey = `set${i}`;
+                        const setData = exerciseLog[setKey];
+                        if (setData && setData.completed && setData.actualWeight && setData.actualReps) {
+                            const setVolume = setData.actualWeight * setData.actualReps;
+                            dayVolume += setVolume;
+                            daySets++;
+                            dayReps += setData.actualReps;
+                            
+                            exerciseProgress[exerciseName].totalVolume += setVolume;
+                            exerciseProgress[exerciseName].maxWeight = Math.max(
+                                exerciseProgress[exerciseName].maxWeight, 
+                                setData.actualWeight
+                            );
+                            
+                            const rpe = setData.actualRPE || 8;
+                            dayRPE += rpe;
+                            dayRPECount++;
+                            rpeSum += rpe;
+                            rpeCount++;
+                            
+                            exerciseProgress[exerciseName].rpeSum += rpe;
+                            exerciseProgress[exerciseName].rpeCount++;
+                        }
+                    }
+                });
+                
+                if (hasTraining) {
+                    totalTrainingDays++;
+                    totalVolume += dayVolume;
+                    totalSets += daySets;
+                    totalReps += dayReps;
+                    
+                    dailyPerformance.push({
+                        date: dayData.date,
+                        volume: dayVolume,
+                        sets: daySets,
+                        reps: dayReps,
+                        avgRPE: dayRPECount > 0 ? dayRPE / dayRPECount : 0
+                    });
+                }
+            });
+            
+            // Calculate averages and trends
+            const avgRPE = rpeCount > 0 ? rpeSum / rpeCount : 0;
+            const avgVolumePerDay = totalTrainingDays > 0 ? totalVolume / totalTrainingDays : 0;
+            const avgSetsPerDay = totalTrainingDays > 0 ? totalSets / totalTrainingDays : 0;
+            const avgRepsPerSet = totalSets > 0 ? totalReps / totalSets : 0;
+            const consistency = (totalTrainingDays / daysBack) * 100;
+            
+            // Calculate volume trend (comparing first half vs second half)
+            const halfPoint = Math.floor(dailyPerformance.length / 2);
+            const firstHalf = dailyPerformance.slice(0, halfPoint);
+            const secondHalf = dailyPerformance.slice(halfPoint);
+            
+            const firstHalfAvgVolume = firstHalf.length > 0 ? 
+                firstHalf.reduce((sum, day) => sum + day.volume, 0) / firstHalf.length : 0;
+            const secondHalfAvgVolume = secondHalf.length > 0 ? 
+                secondHalf.reduce((sum, day) => sum + day.volume, 0) / secondHalf.length : 0;
+            
+            const volumeTrend = firstHalfAvgVolume > 0 ? 
+                ((secondHalfAvgVolume - firstHalfAvgVolume) / firstHalfAvgVolume) * 100 : 0;
+            
+            // Process exercise progress data
+            Object.keys(exerciseProgress).forEach(exerciseName => {
+                const progress = exerciseProgress[exerciseName];
+                progress.avgRPE = progress.rpeCount > 0 ? progress.rpeSum / progress.rpeCount : 0;
+                progress.avgVolumePerSession = progress.sessions > 0 ? progress.totalVolume / progress.sessions : 0;
+            });
+            
+            return {
+                totalVolume,
+                totalSets,
+                totalReps,
+                totalTrainingDays,
+                avgRPE,
+                avgVolumePerDay,
+                avgSetsPerDay,
+                avgRepsPerSet,
+                consistency,
+                volumeTrend,
+                dailyPerformance,
+                exerciseProgress,
+                daysBack
+            };
+        }
+
+        // Display performance metrics
+        function displayPerformanceMetrics(performanceData) {
+            const container = document.getElementById('performanceMetrics');
+            container.innerHTML = '';
+            
+            const {
+                totalVolume, totalSets, totalReps, totalTrainingDays, avgRPE,
+                avgVolumePerDay, avgSetsPerDay, avgRepsPerSet, consistency,
+                volumeTrend, exerciseProgress, daysBack
+            } = performanceData;
+            
+            // Training Consistency
+            const consistencyCard = document.createElement('div');
+            consistencyCard.className = 'metric-card';
+            const consistencyClass = consistency >= 70 ? 'positive' : consistency >= 50 ? 'neutral' : 'negative';
+            consistencyCard.innerHTML = `
+                <h4>Consistency</h4>
+                <div class="metric-value">${consistency.toFixed(0)}</div>
+                <div class="metric-unit">% of days</div>
+                <div class="metric-trend ${consistencyClass}">${totalTrainingDays}/${daysBack} days</div>
+            `;
+            container.appendChild(consistencyCard);
+            
+            // Average RPE
+            const rpeCard = document.createElement('div');
+            rpeCard.className = 'metric-card';
+            const rpeClass = avgRPE >= 8.5 ? 'negative' : avgRPE >= 7.5 ? 'positive' : 'neutral';
+            rpeCard.innerHTML = `
+                <h4>Avg Intensity</h4>
+                <div class="metric-value">${avgRPE.toFixed(1)}</div>
+                <div class="metric-unit">RPE</div>
+                <div class="metric-trend ${rpeClass}">
+                    ${avgRPE >= 8.5 ? 'Very High' : avgRPE >= 7.5 ? 'Optimal' : avgRPE >= 6.5 ? 'Moderate' : 'Low'}
+                </div>
+            `;
+            container.appendChild(rpeCard);
+            
+            // Volume Trend
+            const volumeTrendCard = document.createElement('div');
+            volumeTrendCard.className = 'metric-card';
+            const trendClass = volumeTrend > 5 ? 'positive' : volumeTrend < -5 ? 'negative' : 'neutral';
+            volumeTrendCard.innerHTML = `
+                <h4>Volume Trend</h4>
+                <div class="metric-value">${volumeTrend > 0 ? '+' : ''}${volumeTrend.toFixed(1)}</div>
+                <div class="metric-unit">% change</div>
+                <div class="metric-trend ${trendClass}">
+                    ${volumeTrend > 5 ? 'Increasing' : volumeTrend < -5 ? 'Decreasing' : 'Stable'}
+                </div>
+            `;
+            container.appendChild(volumeTrendCard);
+            
+            // Average Daily Volume
+            const avgVolumeCard = document.createElement('div');
+            avgVolumeCard.className = 'metric-card';
+            avgVolumeCard.innerHTML = `
+                <h4>Daily Volume</h4>
+                <div class="metric-value">${Math.round(avgVolumePerDay).toLocaleString()}</div>
+                <div class="metric-unit">kg × reps</div>
+            `;
+            container.appendChild(avgVolumeCard);
+            
+            // Average Sets per Day
+            const avgSetsCard = document.createElement('div');
+            avgSetsCard.className = 'metric-card';
+            avgSetsCard.innerHTML = `
+                <h4>Daily Sets</h4>
+                <div class="metric-value">${Math.round(avgSetsPerDay)}</div>
+                <div class="metric-unit">sets/day</div>
+            `;
+            container.appendChild(avgSetsCard);
+            
+            // Average Reps per Set
+            const avgRepsCard = document.createElement('div');
+            avgRepsCard.className = 'metric-card';
+            const repsClass = avgRepsPerSet >= 8 ? 'neutral' : avgRepsPerSet >= 5 ? 'positive' : 'negative';
+            avgRepsCard.innerHTML = `
+                <h4>Reps/Set</h4>
+                <div class="metric-value">${avgRepsPerSet.toFixed(1)}</div>
+                <div class="metric-unit">avg reps</div>
+                <div class="metric-trend ${repsClass}">
+                    ${avgRepsPerSet >= 8 ? 'Hypertrophy' : avgRepsPerSet >= 5 ? 'Strength' : 'Power/Max'}
+                </div>
+            `;
+            container.appendChild(avgRepsCard);
+            
+            // Most Improved Exercise
+            const exercisesByVolume = Object.entries(exerciseProgress)
+                .filter(([name, data]) => data.sessions >= 2)
+                .sort(([,a], [,b]) => b.totalVolume - a.totalVolume);
+            
+            if (exercisesByVolume.length > 0) {
+                const [topExercise, topData] = exercisesByVolume[0];
+                const topExerciseCard = document.createElement('div');
+                topExerciseCard.className = 'metric-card';
+                topExerciseCard.innerHTML = `
+                    <h4>Top Exercise</h4>
+                    <div class="metric-value" style="font-size: 1.2em;">${topExercise}</div>
+                    <div class="metric-unit">${Math.round(topData.totalVolume).toLocaleString()} volume</div>
+                    <div class="metric-trend neutral">${topData.sessions} sessions</div>
+                `;
+                container.appendChild(topExerciseCard);
+            }
+            
+            // Training Quality Score (composite metric)
+            const qualityScore = calculateTrainingQuality(performanceData);
+            const qualityCard = document.createElement('div');
+            qualityCard.className = 'metric-card';
+            const qualityClass = qualityScore >= 80 ? 'positive' : qualityScore >= 60 ? 'neutral' : 'negative';
+            qualityCard.innerHTML = `
+                <h4>Quality Score</h4>
+                <div class="metric-value">${qualityScore}</div>
+                <div class="metric-unit">out of 100</div>
+                <div class="metric-trend ${qualityClass}">
+                    ${qualityScore >= 80 ? 'Excellent' : qualityScore >= 60 ? 'Good' : 'Needs Work'}
+                </div>
+            `;
+            container.appendChild(qualityCard);
+        }
+
+        // Calculate training quality score (composite metric)
+        function calculateTrainingQuality(performanceData) {
+            const { consistency, avgRPE, volumeTrend, avgSetsPerDay, totalTrainingDays } = performanceData;
+            
+            // Score components (0-100 each)
+            let consistencyScore = Math.min(100, consistency * 1.4); // Boost consistency importance
+            let intensityScore = avgRPE >= 7 && avgRPE <= 8.5 ? 100 : avgRPE > 8.5 ? 70 : 50; // Optimal RPE range
+            let volumeScore = volumeTrend >= -10 && volumeTrend <= 20 ? 100 : 70; // Stable to moderate growth
+            let frequencyScore = Math.min(100, (avgSetsPerDay / 12) * 100); // Up to 12 sets per day is optimal
+            let durationScore = totalTrainingDays >= 15 ? 100 : (totalTrainingDays / 15) * 100; // At least 15 days for good score
+            
+            // Weighted average
+            const weights = {
+                consistency: 0.3,
+                intensity: 0.2,
+                volume: 0.2,
+                frequency: 0.15,
+                duration: 0.15
+            };
+            
+            const weightedScore = (
+                consistencyScore * weights.consistency +
+                intensityScore * weights.intensity +
+                volumeScore * weights.volume +
+                frequencyScore * weights.frequency +
+                durationScore * weights.duration
+            );
+            
+            return Math.round(weightedScore);
+        }
 
         // Initialize app
         try {

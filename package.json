@@ -1,0 +1,18 @@
+{
+  "name": "fitness-tracker-proxy",
+  "version": "1.0.0",
+  "description": "CORS proxy server for fitness tracking app",
+  "main": "proxy-server.js",
+  "scripts": {
+    "start": "node proxy-server.js",
+    "dev": "node proxy-server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "node-fetch": "^2.6.12"
+  },
+  "keywords": ["cors", "proxy", "anthropic", "api"],
+  "author": "",
+  "license": "ISC"
+}

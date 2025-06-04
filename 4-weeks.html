@@ -267,6 +267,221 @@
         .bodyweight-input-container input { max-width: 120px; display: inline-block; margin-right: 10px;}
         .metrics-input-group { display: flex; gap: 10px; align-items: flex-end; margin-bottom: 15px;}
         .metrics-input-group div { flex-grow: 1;}
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .app-container { 
+                margin: 10px; 
+                border-radius: 0;
+                box-shadow: none;
+            }
+            header { padding: 16px; }
+            header h1 { font-size: 1.5em; }
+            nav { 
+                flex-wrap: wrap; 
+                padding: 4px 0;
+            }
+            nav button { 
+                padding: 10px 12px; 
+                font-size: 0.85em;
+                min-width: 100px;
+            }
+            .content-area { padding: 16px; }
+            .section { 
+                padding: 16px; 
+                margin-bottom: 16px;
+            }
+            .section h2 { font-size: 1.4em; }
+            .section h3 { font-size: 1.2em; }
+            
+            /* Improve form inputs on mobile */
+            input[type="text"], input[type="number"], input[type="date"], select { 
+                padding: 14px; 
+                font-size: 16px; /* Prevents zoom on iOS */
+                border-radius: 6px;
+            }
+            textarea {
+                padding: 14px;
+                font-size: 16px;
+                border: 1px solid var(--md-grey-300);
+                border-radius: 6px;
+            }
+            
+            /* Better button sizing for touch */
+            button.action-button, button.log-set-button, button.danger-button {
+                padding: 12px 20px;
+                font-size: 1em;
+                min-height: 44px; /* iOS recommended touch target */
+                margin-top: 8px;
+            }
+            
+            /* Improve inline inputs layout */
+            .inline-inputs {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                margin-bottom: 12px;
+            }
+            .inline-inputs label {
+                display: block;
+                margin-bottom: 4px;
+                font-weight: 500;
+            }
+            .inline-inputs input[type="number"], .inline-inputs input[type="text"] {
+                width: 100%;
+                margin-right: 0;
+                padding: 12px;
+            }
+            
+            /* Modal improvements */
+            .modal-content {
+                margin: 5% auto;
+                width: 95%;
+                padding: 20px;
+            }
+            
+            /* Table responsiveness */
+            .e1rm-manage-section table {
+                font-size: 0.9em;
+            }
+            .e1rm-manage-section th, .e1rm-manage-section td {
+                padding: 8px;
+            }
+            
+            /* Exercise item improvements */
+            .exercise-item {
+                padding-bottom: 20px;
+                margin-bottom: 20px;
+            }
+            
+            /* Metrics input group for mobile */
+            .metrics-input-group {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            /* Chart container */
+            #bodyweightChart {
+                max-height: 250px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 { font-size: 1.3em; }
+            nav button { 
+                padding: 8px 10px;
+                font-size: 0.8em;
+                min-width: 80px;
+            }
+            .content-area { padding: 12px; }
+            .section { padding: 12px; }
+            
+            /* Stack form elements vertically on very small screens */
+            .bodyweight-input-container input {
+                max-width: 100%;
+                margin-bottom: 10px;
+            }
+            
+            /* Smaller modal on tiny screens */
+            .modal-content {
+                margin: 2% auto;
+                width: 98%;
+                padding: 16px;
+            }
+        }
+
+        /* Landscape tablet */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .app-container {
+                margin: 15px auto;
+                max-width: 95%;
+            }
+            .content-area { padding: 20px; }
+        }
+
+        /* Touch-friendly improvements for all mobile devices */
+        @media (hover: none) {
+            button:hover {
+                background-color: inherit; /* Remove hover effects on touch devices */
+            }
+            nav button:hover {
+                background-color: rgba(255,255,255,0.1);
+            }
+            button.action-button:hover { background-color: var(--md-purple-500); }
+            button.log-set-button:hover { background-color: var(--md-green-500); }
+            button.danger-button:hover { background-color: var(--md-red-500); }
+        }
+
+        /* Rest Timer Styles */
+        .rest-timer-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: var(--md-white);
+            border: 2px solid var(--md-purple-500);
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: var(--md-elevation-4);
+            z-index: 999;
+            min-width: 200px;
+            text-align: center;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+        .rest-timer-container.active {
+            transform: translateX(0);
+        }
+        .rest-timer-display {
+            font-size: 2em;
+            font-weight: bold;
+            color: var(--md-purple-700);
+            margin: 10px 0;
+            font-family: 'Roboto Mono', monospace;
+        }
+        .rest-timer-controls {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .rest-timer-controls button {
+            padding: 6px 12px;
+            font-size: 0.85em;
+            min-height: auto;
+        }
+        .timer-preset-buttons {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .timer-preset-buttons button {
+            padding: 4px 8px;
+            font-size: 0.75em;
+            background-color: var(--md-grey-300);
+            color: var(--md-grey-900);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .timer-preset-buttons button:hover {
+            background-color: var(--md-grey-700);
+            color: var(--md-white);
+        }
+
+        @media (max-width: 768px) {
+            .rest-timer-container {
+                top: 10px;
+                right: 10px;
+                left: 10px;
+                min-width: auto;
+                padding: 12px;
+            }
+            .rest-timer-display {
+                font-size: 1.8em;
+            }
+        }
     </style>
 </head>
 <body>
@@ -276,6 +491,7 @@
         </header>
         <nav id="mainNav">
             <button data-tab="guideTab" onclick="showTab('guideTab')">Guide</button>
+            <button data-tab="smartRecommendationsTab" onclick="showTab('smartRecommendationsTab')">Smart Recommendations</button>
             <button data-tab="progressTab" onclick="showTab('progressTab')">Progress</button>
             <button data-tab="e1rmTab" onclick="showTab('e1rmTab')">Settings &amp; e1RMs</button>
         </nav>
@@ -349,7 +565,7 @@
                 <h4>How to Use This App:</h4>
                 <ol>
                     <li><strong>Set Initial e1RMs &amp; Bodyweight:</strong> Go to the "Settings &amp; e1RMs" tab. Input your current bodyweight and estimated 1 Rep Max for all listed exercises. Click "Save All Settings &amp; e1RMs". This is crucial for the app to calculate your target weights and track bodyweight exercises accurately.</li>
-                    <li><strong>Select Workout Day:</strong> Click the appropriate day in the top navigation (e.g., "Monday").</li>
+                    <li><strong>Choose Your Workout:</strong> Click any workout type in the top navigation (e.g., "Squat Day", "Bench Day", "Deadlift Day"). You can do these workouts on any day of the week that works for your schedule. <em>NEW: Use the "Smart Recommendations" tab to get AI-powered workout suggestions based on how you're feeling and your recent training history!</em></li>
                     <li><strong>Perform &amp; Log:</strong>
                         <ul>
                             <li>For each exercise, the app will show target weights (if applicable).</li>
@@ -360,10 +576,73 @@
                             <li>For mobility/cardio, click "Mark Completed".</li>
                         </ul>
                     </li>
-                    <li><strong>Track Progress:</strong> Visit the "Progress" tab to see your bodyweight graph and weekly attendance.</li>
+                    <li><strong>Track Progress:</strong> Visit the "Progress" tab to see your bodyweight graph and weekly workout days logged.</li>
                     <li><strong>Review:</strong> Check "Today's Log" to see your completed activities and any e1RM updates. Your e1RMs in the "Settings &amp; e1RMs" tab will also reflect changes.</li>
                 </ol>
+                
+                <h4>Workout Types:</h4>
+                <ul>
+                    <li><strong>Squat Day:</strong> Focus on back squats with hip thrust accessory work</li>
+                    <li><strong>Bench Day:</strong> Bench press with overhead press and dips</li>
+                    <li><strong>Deadlift Day:</strong> Deadlifts with Romanian deadlift accessory work</li>
+                    <li><strong>Pull Day:</strong> Weighted pull-ups, rows, and HIIT cardio</li>
+                    <li><strong>Cardio Day:</strong> Zone 2 cardiovascular training</li>
+                    <li><strong>Mobility Day:</strong> Dynamic movement and flexibility work</li>
+                    <li><strong>Rest Day:</strong> Light mobility and recovery</li>
+                </ul>
                 <p><em>This app uses your browser's local storage to save data. It will persist as long as you use the same browser and don't clear its site data.</em></p>
+            </div>
+
+            <div id="smartRecommendationsTab" class="tab-content section">
+                <h2>Smart Workout Recommendations</h2>
+                <p>Get AI-powered workout recommendations based on your training history, current fitness level, and how you're feeling today.</p>
+                
+                <div class="section">
+                    <h3>How are you feeling today?</h3>
+                    <div style="margin-bottom: 15px;">
+                        <label for="energyLevel">Energy Level (1-10):</label>
+                        <input type="range" id="energyLevel" min="1" max="10" value="7" style="width: 100%; margin: 10px 0;">
+                        <div style="display: flex; justify-content: space-between; font-size: 0.8em; color: var(--md-grey-700);">
+                            <span>Very Low</span>
+                            <span id="energyLevelValue">7</span>
+                            <span>Very High</span>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 15px;">
+                        <label for="stressLevel">Stress Level (1-10):</label>
+                        <input type="range" id="stressLevel" min="1" max="10" value="5" style="width: 100%; margin: 10px 0;">
+                        <div style="display: flex; justify-content: space-between; font-size: 0.8em; color: var(--md-grey-700);">
+                            <span>Very Low</span>
+                            <span id="stressLevelValue">5</span>
+                            <span>Very High</span>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 15px;">
+                        <label for="musclesSore">Any muscle soreness or fatigue?</label>
+                        <textarea id="musclesSore" placeholder="e.g., legs still sore from yesterday's squat session, feeling fresh overall, shoulders tight..." style="width: 100%; padding: 10px; border: 1px solid var(--md-grey-300); border-radius: 4px; box-sizing: border-box;"></textarea>
+                    </div>
+                    
+                    <div style="margin-bottom: 15px;">
+                        <label for="timeAvailable">Time available (minutes):</label>
+                        <input type="number" id="timeAvailable" value="60" min="15" max="180" style="width: 100px;">
+                    </div>
+                    
+                    <div style="margin-bottom: 15px;">
+                        <label for="specificGoals">Specific goals for today (optional):</label>
+                        <textarea id="specificGoals" placeholder="e.g., want to focus on upper body, need a lighter day, want to push hard today..." style="width: 100%; padding: 10px; border: 1px solid var(--md-grey-300); border-radius: 4px; box-sizing: border-box;"></textarea>
+                    </div>
+                    
+                    <button class="action-button" onclick="getWorkoutRecommendation()" id="getRecommendationBtn">Get AI Recommendation</button>
+                    <button class="action-button" onclick="generateSimpleRecommendation()" style="margin-left: 10px;">Get Quick Recommendation</button>
+                </div>
+                
+                <div id="recommendationResult" class="section" style="display: none;">
+                    <h3>Your Recommended Workout</h3>
+                    <div id="recommendationContent"></div>
+                    <button class="action-button" onclick="acceptRecommendation()" id="acceptRecommendationBtn" style="margin-top: 15px;">Start This Workout</button>
+                </div>
             </div>
 
             <div id="workoutDayTab" class="tab-content">
@@ -383,7 +662,7 @@
                 <h2>Progress &amp; Metrics</h2>
                 <div class="section">
                     <h3>Attendance</h3>
-                    <p id="attendanceSummary">Workouts logged this week: 0 / 0</p>
+                    <p id="attendanceSummary">Workout days this week: 0</p>
                 </div>
                 <div class="section">
                     <h3>Bodyweight Tracking</h3>
@@ -409,6 +688,26 @@
                     <input type="number" id="currentBodyweight" placeholder="e.g., 70">
                     <span style="font-size:0.85em; color: var(--md-grey-700); display:block; margin-top:4px;">This is used for e1RM calculations on bodyweight exercises. Log historical bodyweight in the 'Progress' tab.</span>
                 </div>
+                <div class="bodyweight-input-container">
+                    <label for="claudeApiKey">Claude API Key (Optional - for workout recommendations):</label>
+                    <input type="password" id="claudeApiKey" placeholder="sk-ant-...">
+                    <div style="margin-top: 8px;">
+                        <button class="action-button" onclick="saveClaudeApiKey()" style="padding: 8px 12px; font-size: 0.9em; margin-right: 8px;">Save API Key</button>
+                        <button class="action-button" onclick="testClaudeApiKey()" style="padding: 8px 12px; font-size: 0.9em;">Test API Key</button>
+                    </div>
+                    <span style="font-size:0.85em; color: var(--md-grey-700); display:block; margin-top:4px;">Enter your Claude API key to enable AI-powered workout recommendations based on your history and how you're feeling.</span>
+                    <div id="apiKeyStatus" style="font-size: 0.85em; margin-top: 4px;"></div>
+                </div>
+                <div class="bodyweight-input-container">
+                    <h3>Data Management</h3>
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 15px;">
+                        <button class="action-button" onclick="exportData()">Export All Data</button>
+                        <button class="action-button" onclick="document.getElementById('importFile').click()">Import Data</button>
+                        <input type="file" id="importFile" accept=".json" style="display: none;" onchange="importData(event)">
+                    </div>
+                    <div id="dataManagementStatus" style="font-size: 0.9em; color: var(--md-grey-700); margin-bottom: 10px;"></div>
+                </div>
+                
                 <h3>Manage e1RMs (kg/lbs)</h3>
                 <table>
                     <thead><tr><th>Exercise</th><th>Current e1RM <span style="font-size:0.8em; font-weight:normal;">(Change)</span></th><th>New e1RM (Editable)</th></tr></thead>
@@ -435,6 +734,29 @@
         </div>
     </div>
 
+    <!-- Rest Timer -->
+    <div id="restTimer" class="rest-timer-container">
+        <div style="font-size: 0.9em; font-weight: 500; margin-bottom: 8px;">Rest Timer</div>
+        <div class="timer-preset-buttons">
+            <button onclick="startRestTimer(60)">1m</button>
+            <button onclick="startRestTimer(90)">1.5m</button>
+            <button onclick="startRestTimer(120)">2m</button>
+            <button onclick="startRestTimer(180)">3m</button>
+            <button onclick="startRestTimer(300)">5m</button>
+        </div>
+        <div class="rest-timer-display" id="timerDisplay">0:00</div>
+        <div class="rest-timer-controls">
+            <button class="action-button" onclick="startRestTimer()" id="startTimerBtn">Start</button>
+            <button class="action-button" onclick="pauseRestTimer()" id="pauseTimerBtn">Pause</button>
+            <button class="action-button" onclick="stopRestTimer()" id="stopTimerBtn">Stop</button>
+            <button class="action-button" onclick="toggleRestTimer()" id="toggleTimerBtn">Hide</button>
+        </div>
+        <div style="margin-top: 8px;">
+            <input type="number" id="customTimerMinutes" placeholder="Minutes" style="width: 60px; padding: 4px; font-size: 0.8em;" min="0" max="60">
+            <button class="action-button" onclick="startCustomTimer()" style="padding: 4px 8px; font-size: 0.8em;">Set</button>
+        </div>
+    </div>
+
     <script>
         // RPE to Reps In Reserve mapping
         const RPE_TO_RIR = { 10: 0, 9.5: 0.5, 9: 1, 8.5: 1.5, 8: 2, 7.5: 2.5, 7: 3, 6.5: 3.5, 6: 4 };
@@ -442,35 +764,41 @@
         const CORE_LIFTS_IN_PLAN = ["Back-squat", "Bench Press", "Deadlift", "OHP", "Weighted Pull-up", "Hip-thrust", "RDL", "Dips", "Chest-supported Row"];
         const BODYWEIGHT_ASSISTED_EXERCISES = ["Weighted Pull-up", "Dips"]; 
 
-        // The user's workout plan structure
+        // The user's workout plan structure - reorganized by workout type
         const USER_WORKOUT_PLAN = {
-            "Monday": [
-                { id:"mon_bs_activation", type: "strength_single_heavy", liftName: "Back-squat", sets: 1, repsTarget: 3, percentage: 0.92, group:"Back-squat", setLabel: "Activation Set (>90% 1RM)", notes: "Warm-up: Mini-band glute activation. Aim for 3-5 reps. RPE ~8.5-9.5. This set contributes to e1RM." },
-                { id:"mon_bs_top", type: "strength_single_heavy", liftName: "Back-squat", sets: 1, repsTarget: 4, percentage: 0.88, group:"Back-squat", setLabel: "Main Top Set", notes: "Rest 2-5 min after this set. Aim for RPE ~8-9. This set contributes to e1RM." },
-                { id:"mon_bs_vol", type: "strength_volume", liftName: "Back-squat", sets: 3, reps: 6, percentage: 0.78, group:"Back-squat", notes: "Rest 2-3 min between sets." },
-                { id:"mon_ht", type: "accessory", liftName: "Hip-thrust", sets: 4, reps: 8, notes: "Aim for RPE 7-9." }
+            "Squat Day": [
+                { id:"squat_activation", type: "strength_single_heavy", liftName: "Back-squat", sets: 1, repsTarget: 3, percentage: 0.92, group:"Back-squat", setLabel: "Activation Set (>90% 1RM)", notes: "Warm-up: Mini-band glute activation. Aim for 3-5 reps. RPE ~8.5-9.5. This set contributes to e1RM." },
+                { id:"squat_top", type: "strength_single_heavy", liftName: "Back-squat", sets: 1, repsTarget: 4, percentage: 0.88, group:"Back-squat", setLabel: "Main Top Set", notes: "Rest 2-5 min after this set. Aim for RPE ~8-9. This set contributes to e1RM." },
+                { id:"squat_vol", type: "strength_volume", liftName: "Back-squat", sets: 3, reps: 6, percentage: 0.78, group:"Back-squat", notes: "Rest 2-3 min between sets." },
+                { id:"squat_ht", type: "accessory", liftName: "Hip-thrust", sets: 4, reps: 8, notes: "Aim for RPE 7-9." }
             ],
-            "Tuesday": [
-                { id:"tue_bp_activation", type: "strength_single_heavy", liftName: "Bench Press", sets: 1, repsTarget: 3, percentage: 0.92, group:"Bench Press", setLabel: "Activation Set (>90% 1RM)", notes: "Warm-up: Shoulder ER. Aim for 3-5 reps. RPE ~8.5-9.5. This set contributes to e1RM." },
-                { id:"tue_bp_top", type: "strength_single_heavy", liftName: "Bench Press", sets: 1, repsTarget: 4, percentage: 0.88, group:"Bench Press", setLabel: "Main Top Set", notes: "Rest 2-5 min after this set. Aim for RPE ~8-9. This set contributes to e1RM." },
-                { id:"tue_bp_vol", type: "strength_volume", liftName: "Bench Press", sets: 3, reps: 6, percentage: 0.78, group:"Bench Press", notes: "Rest 2-3 min between sets." },
-                { id:"tue_ohp", type: "accessory", liftName: "OHP", sets: 3, reps: 6, notes: "Aim for RPE 7-9. This lift also uses e1RM." },
-                { id:"tue_dips", type: "accessory", liftName: "Dips", sets: 3, reps: 10, notes: "Aim for RPE 7-9, or near failure if appropriate. Log ADDED weight." }
+            "Bench Day": [
+                { id:"bench_activation", type: "strength_single_heavy", liftName: "Bench Press", sets: 1, repsTarget: 3, percentage: 0.92, group:"Bench Press", setLabel: "Activation Set (>90% 1RM)", notes: "Warm-up: Shoulder ER. Aim for 3-5 reps. RPE ~8.5-9.5. This set contributes to e1RM." },
+                { id:"bench_top", type: "strength_single_heavy", liftName: "Bench Press", sets: 1, repsTarget: 4, percentage: 0.88, group:"Bench Press", setLabel: "Main Top Set", notes: "Rest 2-5 min after this set. Aim for RPE ~8-9. This set contributes to e1RM." },
+                { id:"bench_vol", type: "strength_volume", liftName: "Bench Press", sets: 3, reps: 6, percentage: 0.78, group:"Bench Press", notes: "Rest 2-3 min between sets." },
+                { id:"bench_ohp", type: "accessory", liftName: "OHP", sets: 3, reps: 6, notes: "Aim for RPE 7-9. This lift also uses e1RM." },
+                { id:"bench_dips", type: "accessory", liftName: "Dips", sets: 3, reps: 10, notes: "Aim for RPE 7-9, or near failure if appropriate. Log ADDED weight." }
             ],
-            "Wednesday": [ { id:"wed_mob", type: "mobility", name: "Mobility Flow", notes: "Dynamic movements. Static stretching generally not needed if resistance training covers range of motion. Refer to §5 of your plan." } ],
-            "Thursday AM": [
-                { id:"thu_dl_activation", type: "strength_single_heavy", liftName: "Deadlift", sets: 1, repsTarget: 3, percentage: 0.92, group:"Deadlift", setLabel: "Activation Set (>90% 1RM)", notes: "Aim for 3-5 reps. RPE ~8.5-9.5. This set contributes to e1RM." },
-                { id:"thu_dl_top", type: "strength_single_heavy", liftName: "Deadlift", sets: 1, repsTarget: 3, percentage: 0.90, group:"Deadlift", setLabel: "Main Top Set", notes: "Rest 2-5 min after this set. Aim for RPE ~8-9. This set contributes to e1RM." },
-                { id:"thu_dl_vol", type: "strength_volume", liftName: "Deadlift", sets: 3, reps: 6, percentage: 0.80, group:"Deadlift", notes: "Rest 2-3 min between sets." },
-                { id:"thu_rdl", type: "accessory", liftName: "RDL", sets: 3, reps: 8, notes: "Aim for RPE 7-9." }
+            "Deadlift Day": [
+                { id:"deadlift_activation", type: "strength_single_heavy", liftName: "Deadlift", sets: 1, repsTarget: 3, percentage: 0.92, group:"Deadlift", setLabel: "Activation Set (>90% 1RM)", notes: "Aim for 3-5 reps. RPE ~8.5-9.5. This set contributes to e1RM." },
+                { id:"deadlift_top", type: "strength_single_heavy", liftName: "Deadlift", sets: 1, repsTarget: 3, percentage: 0.90, group:"Deadlift", setLabel: "Main Top Set", notes: "Rest 2-5 min after this set. Aim for RPE ~8-9. This set contributes to e1RM." },
+                { id:"deadlift_vol", type: "strength_volume", liftName: "Deadlift", sets: 3, reps: 6, percentage: 0.80, group:"Deadlift", notes: "Rest 2-3 min between sets." },
+                { id:"deadlift_rdl", type: "accessory", liftName: "RDL", sets: 3, reps: 8, notes: "Aim for RPE 7-9." }
             ],
-            "Thursday PM": [
-                { id:"thu_hiit", type: "hiit", name: "Norwegian 4x4", details: "4 min @ 85-95% HRmax / 3 min active recovery @ ~70% HRmax, x4 repeats. Total duration approx 38-40min incl warm-up/cool-down.", notes: "Optional: 10-min HIIT (10x60s @ 90% HRmax / 60s easy) every 2-3 weeks for variety. Largest VO2-max gains." },
-                { id:"thu_pullup", type: "accessory", liftName: "Weighted Pull-up", sets: 3, repsRange: "6-8", notes: "Aim for RPE 8-9. This lift uses e1RM. Log ADDED weight." },
-                { id:"thu_row", type: "accessory", liftName: "Chest-supported Row", sets: 3, reps: 10, notes: "Aim for RPE 7-9." }
+            "Pull Day": [
+                { id:"pull_hiit", type: "hiit", name: "Norwegian 4x4", details: "4 min @ 85-95% HRmax / 3 min active recovery @ ~70% HRmax, x4 repeats. Total duration approx 38-40min incl warm-up/cool-down.", notes: "Optional: 10-min HIIT (10x60s @ 90% HRmax / 60s easy) every 2-3 weeks for variety. Largest VO2-max gains." },
+                { id:"pull_pullup", type: "accessory", liftName: "Weighted Pull-up", sets: 3, repsRange: "6-8", notes: "Aim for RPE 8-9. This lift uses e1RM. Log ADDED weight." },
+                { id:"pull_row", type: "accessory", liftName: "Chest-supported Row", sets: 3, reps: 10, notes: "Aim for RPE 7-9." }
             ],
-            "Saturday": [ { id:"sat_z2", type: "cardio", name: "Zone 2 Run", duration: "40-45 min", intensity: "~70% HRmax or RPE 9-12 (able to speak in sentences).", notes: "Consider extending to 60+ min for enhanced heart health benefits. Dynamic mobility is enough; resistance training itself maintains flexibility." } ],
-            "Sunday": [ { id:"sun_mob", type: "mobility", name: "Rest + Short Mobility", notes: "Focus on recovery. Gentle movements." } ]
+            "Cardio Day": [ 
+                { id:"cardio_z2", type: "cardio", name: "Zone 2 Run", duration: "40-45 min", intensity: "~70% HRmax or RPE 9-12 (able to speak in sentences).", notes: "Consider extending to 60+ min for enhanced heart health benefits. Dynamic mobility is enough; resistance training itself maintains flexibility." } 
+            ],
+            "Mobility Day": [ 
+                { id:"mobility_flow", type: "mobility", name: "Mobility Flow", notes: "Dynamic movements. Static stretching generally not needed if resistance training covers range of motion. Refer to §5 of your plan." } 
+            ],
+            "Rest Day": [ 
+                { id:"rest_mobility", type: "mobility", name: "Rest + Short Mobility", notes: "Focus on recovery. Gentle movements." } 
+            ]
         };
 
         // Global state variables
@@ -484,6 +812,14 @@
         const APP_VERSION_KEY = 'v4_material_bw_graph'; // Updated version key
         const todayKey = new Date().toISOString().split('T')[0]; 
         let bodyweightChartInstance = null;
+        let claudeApiKey = '';
+        let currentRecommendation = null;
+        
+        // Rest Timer Variables
+        let restTimerInterval = null;
+        let restTimerSeconds = 0;
+        let restTimerTotalSeconds = 0;
+        let restTimerPaused = false;
 
 
         // Epley formula for e1RM calculation
@@ -504,51 +840,116 @@
             return effectiveReps;
         }
         
-        // Load data from localStorage
+        // Enhanced error handling with user feedback
+        function showError(message, details = '') {
+            console.error('App Error:', message, details);
+            const alertMessage = `Error: ${message}${details ? '\n\nDetails: ' + details : ''}`;
+            alert(alertMessage);
+        }
+
+        function showSuccess(message) {
+            console.log('Success:', message);
+            // Could be enhanced with a toast notification system
+        }
+
+        // Load data from localStorage with error handling
         function loadData() {
-            const storedE1RMs = localStorage.getItem(`personalizedPlanE1RMs_${APP_VERSION_KEY}`); 
-            if (storedE1RMs) {
-                exercisesE1RM = JSON.parse(storedE1RMs);
-            } else { 
-                CORE_LIFTS_IN_PLAN.forEach(lift => exercisesE1RM[lift] = 0); 
+            try {
+                const storedE1RMs = localStorage.getItem(`personalizedPlanE1RMs_${APP_VERSION_KEY}`); 
+                if (storedE1RMs) {
+                    exercisesE1RM = JSON.parse(storedE1RMs);
+                    // Validate loaded data
+                    if (typeof exercisesE1RM !== 'object' || exercisesE1RM === null) {
+                        throw new Error('Invalid e1RM data format');
+                    }
+                } else { 
+                    CORE_LIFTS_IN_PLAN.forEach(lift => exercisesE1RM[lift] = 0); 
+                }
+            } catch (error) {
+                showError('Failed to load e1RM data', error.message);
+                CORE_LIFTS_IN_PLAN.forEach(lift => exercisesE1RM[lift] = 0);
             }
             
-            const storedChangeStatus = localStorage.getItem(`personalizedPlanE1RMChangeStatus_${APP_VERSION_KEY}`);
-            if (storedChangeStatus) {
-                e1RMChangeStatus = JSON.parse(storedChangeStatus);
-            } else {
+            try {
+                const storedChangeStatus = localStorage.getItem(`personalizedPlanE1RMChangeStatus_${APP_VERSION_KEY}`);
+                if (storedChangeStatus) {
+                    e1RMChangeStatus = JSON.parse(storedChangeStatus);
+                } else {
+                    e1RMChangeStatus = {};
+                }
+            } catch (error) {
+                showError('Failed to load e1RM change status', error.message);
                 e1RMChangeStatus = {};
             }
 
-            const storedBodyweight = localStorage.getItem(`personalizedPlanBodyweight_${APP_VERSION_KEY}`);
-            if (storedBodyweight) {
-                userBodyweight = parseFloat(storedBodyweight);
-                document.getElementById('currentBodyweight').value = userBodyweight;
+            try {
+                const storedBodyweight = localStorage.getItem(`personalizedPlanBodyweight_${APP_VERSION_KEY}`);
+                if (storedBodyweight) {
+                    userBodyweight = parseFloat(storedBodyweight);
+                    if (isNaN(userBodyweight) || userBodyweight <= 0) {
+                        throw new Error('Invalid bodyweight value');
+                    }
+                    document.getElementById('currentBodyweight').value = userBodyweight;
+                }
+            } catch (error) {
+                showError('Failed to load bodyweight', error.message);
+                userBodyweight = 0;
             }
 
-            const storedBwHistory = localStorage.getItem(`personalizedPlanBwHistory_${APP_VERSION_KEY}`);
-            if (storedBwHistory) {
-                bodyweightHistory = JSON.parse(storedBwHistory);
-            } else {
+            try {
+                const storedBwHistory = localStorage.getItem(`personalizedPlanBwHistory_${APP_VERSION_KEY}`);
+                if (storedBwHistory) {
+                    bodyweightHistory = JSON.parse(storedBwHistory);
+                    if (!Array.isArray(bodyweightHistory)) {
+                        throw new Error('Invalid bodyweight history format');
+                    }
+                } else {
+                    bodyweightHistory = [];
+                }
+            } catch (error) {
+                showError('Failed to load bodyweight history', error.message);
                 bodyweightHistory = [];
             }
 
+            try {
+                const storedApiKey = localStorage.getItem(`personalizedPlanClaudeApiKey_${APP_VERSION_KEY}`);
+                if (storedApiKey) {
+                    claudeApiKey = storedApiKey;
+                    document.getElementById('claudeApiKey').value = claudeApiKey;
+                }
+            } catch (error) {
+                showError('Failed to load API key', error.message);
+                claudeApiKey = '';
+            }
 
-            const storedDailyLog = localStorage.getItem(`personalizedPlanDailyLog_${APP_VERSION_KEY}_${todayKey}`); 
-            if (storedDailyLog) {
-                dailyLog = JSON.parse(storedDailyLog);
-            } else {
-                dailyLog = {}; 
+            try {
+                const storedDailyLog = localStorage.getItem(`personalizedPlanDailyLog_${APP_VERSION_KEY}_${todayKey}`); 
+                if (storedDailyLog) {
+                    dailyLog = JSON.parse(storedDailyLog);
+                    if (typeof dailyLog !== 'object' || dailyLog === null) {
+                        throw new Error('Invalid daily log format');
+                    }
+                } else {
+                    dailyLog = {}; 
+                }
+            } catch (error) {
+                showError('Failed to load daily log', error.message);
+                dailyLog = {};
             }
         }
 
-        // Save data to localStorage
+        // Save data to localStorage with error handling
         function saveData() {
-            localStorage.setItem(`personalizedPlanE1RMs_${APP_VERSION_KEY}`, JSON.stringify(exercisesE1RM));
-            localStorage.setItem(`personalizedPlanE1RMChangeStatus_${APP_VERSION_KEY}`, JSON.stringify(e1RMChangeStatus));
-            localStorage.setItem(`personalizedPlanBodyweight_${APP_VERSION_KEY}`, userBodyweight.toString());
-            localStorage.setItem(`personalizedPlanBwHistory_${APP_VERSION_KEY}`, JSON.stringify(bodyweightHistory));
-            localStorage.setItem(`personalizedPlanDailyLog_${APP_VERSION_KEY}_${todayKey}`, JSON.stringify(dailyLog));
+            try {
+                localStorage.setItem(`personalizedPlanE1RMs_${APP_VERSION_KEY}`, JSON.stringify(exercisesE1RM));
+                localStorage.setItem(`personalizedPlanE1RMChangeStatus_${APP_VERSION_KEY}`, JSON.stringify(e1RMChangeStatus));
+                localStorage.setItem(`personalizedPlanBodyweight_${APP_VERSION_KEY}`, userBodyweight.toString());
+                localStorage.setItem(`personalizedPlanBwHistory_${APP_VERSION_KEY}`, JSON.stringify(bodyweightHistory));
+                localStorage.setItem(`personalizedPlanClaudeApiKey_${APP_VERSION_KEY}`, claudeApiKey);
+                localStorage.setItem(`personalizedPlanDailyLog_${APP_VERSION_KEY}_${todayKey}`, JSON.stringify(dailyLog));
+            } catch (error) {
+                showError('Failed to save data', error.message + '. Your data may not be preserved.');
+            }
         }
         
         // Saves the current bodyweight from the settings tab and logs it.
@@ -660,15 +1061,6 @@
             const endOfWeek = new Date(startOfWeek);
             endOfWeek.setDate(startOfWeek.getDate() + 6); // Sunday
             endOfWeek.setHours(23, 59, 59, 999);
-            
-            let plannedThisWeek = 0;
-            Object.keys(USER_WORKOUT_PLAN).forEach(dayName => {
-                 // A simple way to count planned workout days. Could be more sophisticated.
-                 if(USER_WORKOUT_PLAN[dayName].length > 0 && USER_WORKOUT_PLAN[dayName].some(item => item.type !== 'mobility' || item.name === "Mobility Flow")) { // Count days with actual workouts
-                    plannedThisWeek++;
-                 }
-            });
-
 
             for (let i = 0; i < localStorage.length; i++) {
                 const key = localStorage.key(i);
@@ -684,7 +1076,7 @@
                     }
                 }
             }
-            summaryElement.textContent = `Workouts logged this week: ${loggedThisWeek} / ${plannedThisWeek}`;
+            summaryElement.textContent = `Workout days this week: ${loggedThisWeek}`;
         }
 
 
@@ -722,6 +1114,60 @@
             });
         }
         
+        // Saves just the Claude API key
+        function saveClaudeApiKey() {
+            const apiKeyInput = document.getElementById('claudeApiKey');
+            claudeApiKey = apiKeyInput.value.trim();
+            localStorage.setItem(`personalizedPlanClaudeApiKey_${APP_VERSION_KEY}`, claudeApiKey);
+            
+            const statusDiv = document.getElementById('apiKeyStatus');
+            statusDiv.textContent = 'API key saved!';
+            statusDiv.style.color = 'var(--md-green-500)';
+        }
+
+        // Test the Claude API key
+        async function testClaudeApiKey() {
+            const apiKeyInput = document.getElementById('claudeApiKey');
+            const statusDiv = document.getElementById('apiKeyStatus');
+            
+            const tempKey = apiKeyInput.value.trim();
+            if (!tempKey) {
+                statusDiv.textContent = 'Please enter an API key first';
+                statusDiv.style.color = 'var(--md-red-500)';
+                return;
+            }
+
+            if (!tempKey.startsWith('sk-ant-')) {
+                statusDiv.textContent = 'Invalid API key format. Should start with "sk-ant-"';
+                statusDiv.style.color = 'var(--md-red-500)';
+                return;
+            }
+
+            statusDiv.textContent = 'Testing API key...';
+            statusDiv.style.color = 'var(--md-grey-700)';
+
+            // Temporarily set the key for testing
+            const originalKey = claudeApiKey;
+            claudeApiKey = tempKey;
+
+            try {
+                const result = await testApiKey();
+                if (result.valid) {
+                    statusDiv.textContent = '✓ API key is valid and working!';
+                    statusDiv.style.color = 'var(--md-green-500)';
+                } else {
+                    statusDiv.textContent = `✗ ${result.message}`;
+                    statusDiv.style.color = 'var(--md-red-500)';
+                }
+            } catch (error) {
+                statusDiv.textContent = `✗ Test failed: ${error.message}`;
+                statusDiv.style.color = 'var(--md-red-500)';
+            }
+
+            // Restore original key
+            claudeApiKey = originalKey;
+        }
+
         // Saves all e1RMs and current bodyweight from the editable fields in the table
         function saveAllSettingsAndE1RMs() {
             // Save e1RMs
@@ -754,6 +1200,9 @@
                 alert("Invalid bodyweight entered. Bodyweight not saved.");
             }
 
+            // Save Claude API key
+            const apiKeyInput = document.getElementById('claudeApiKey');
+            claudeApiKey = apiKeyInput.value.trim();
 
             saveData(); 
             renderE1RMTable(); 
@@ -789,22 +1238,22 @@
             }
         }
         
-        // Displays the workout for the selected day
-        function displayWorkoutForDay(dayKey) {
-            currentSelectedDayKey = dayKey; 
+        // Displays the workout for the selected workout type
+        function displayWorkoutForDay(workoutKey) {
+            currentSelectedDayKey = workoutKey; 
             showTab('workoutDayTab'); 
 
             const displayArea = document.getElementById('workoutDisplayArea');
             const dayTitleElement = document.getElementById('workoutDayTitle');
             
             if (dayTitleElement) { 
-                dayTitleElement.textContent = `${dayKey}'s Workout`;
+                dayTitleElement.textContent = `${workoutKey}`;
             }
-            displayArea.innerHTML = `<h2 id="workoutDayTitle">${dayKey}'s Workout</h2>`; 
+            displayArea.innerHTML = `<h2 id="workoutDayTitle">${workoutKey}</h2>`; 
             
-            const workoutItems = USER_WORKOUT_PLAN[dayKey];
+            const workoutItems = USER_WORKOUT_PLAN[workoutKey];
             if (!workoutItems) {
-                displayArea.innerHTML += "<p>No workout scheduled for this day.</p>";
+                displayArea.innerHTML += "<p>No workout found for this type.</p>";
                 renderDailyLog(); 
                 return;
             }
@@ -934,18 +1383,28 @@
         }
 
         function logHeavyStrengthSet(itemId, groupName) {
-            const addedWeightInput = parseFloat(document.getElementById(`${itemId}_weight`).value); // This is either total weight or added weight
-            const reps = parseInt(document.getElementById(`${itemId}_reps`).value);
-            const rpe = parseFloat(document.getElementById(`${itemId}_rpe`).value);
+            try {
+                const addedWeightInput = parseFloat(document.getElementById(`${itemId}_weight`).value); // This is either total weight or added weight
+                const reps = parseInt(document.getElementById(`${itemId}_reps`).value);
+                const rpe = parseFloat(document.getElementById(`${itemId}_rpe`).value);
 
-            if (isNaN(addedWeightInput) || isNaN(reps) || isNaN(rpe) || reps <=0 ) {
-                alert('Please enter valid (added) weight, positive reps, and RPE for the set.');
-                return;
-            }
-             if (BODYWEIGHT_ASSISTED_EXERCISES.includes(groupName) && addedWeightInput < 0) {
-                alert('Added weight for bodyweight exercises cannot be negative. Use 0 for bodyweight only.');
-                return;
-            }
+                // Enhanced input validation
+                if (isNaN(addedWeightInput) || addedWeightInput < 0) {
+                    showError('Please enter a valid weight (0 or positive number)');
+                    return;
+                }
+                if (isNaN(reps) || reps <= 0 || reps > 50) {
+                    showError('Please enter valid reps (1-50)');
+                    return;
+                }
+                if (isNaN(rpe) || rpe < 6 || rpe > 10) {
+                    showError('Please enter valid RPE (6-10)');
+                    return;
+                }
+                if (BODYWEIGHT_ASSISTED_EXERCISES.includes(groupName) && addedWeightInput < 0) {
+                    showError('Added weight for bodyweight exercises cannot be negative. Use 0 for bodyweight only.');
+                    return;
+                }
             
             let totalWeightLifted = addedWeightInput;
             let actualLoggedWeight = addedWeightInput; // What gets stored as "actualWeight" in log
@@ -995,6 +1454,13 @@
             renderE1RMTable(); 
             displayWorkoutForDay(currentSelectedDayKey); 
             alert(`${groupName} set logged. Group e1RM (total load) is now ${finalGroupE1RM.toFixed(1)}.`);
+            
+            // Auto-start rest timer for main/activation sets
+            startRestTimer(180); // 3 minutes for heavy sets
+            
+            } catch (error) {
+                showError('Failed to log set', error.message);
+            }
         }
 
         function logGenericSet(itemId, groupName, setIndex) {
@@ -1064,6 +1530,9 @@
             renderE1RMTable();
             displayWorkoutForDay(currentSelectedDayKey);
             alert(`${groupName} Set ${setIndex} logged.`);
+            
+            // Auto-start rest timer for volume sets (shorter rest)
+            startRestTimer(120); // 2 minutes for volume sets
         }
         
         function openAccessoryLogModal(itemId, liftName, setIndex) {
@@ -1170,6 +1639,9 @@
             displayWorkoutForDay(currentSelectedDayKey);
             closeModal();
             alert(`${liftName} Set ${setIndex} logged.`);
+            
+            // Auto-start rest timer for accessory sets
+            startRestTimer(90); // 1.5 minutes for accessory sets
         }
 
         function logActivityAsCompleted(itemId) {
@@ -1247,19 +1719,634 @@
             }
         }
 
+        // Smart Recommendations Functions
+        function updateSliderValues() {
+            document.getElementById('energyLevelValue').textContent = document.getElementById('energyLevel').value;
+            document.getElementById('stressLevelValue').textContent = document.getElementById('stressLevel').value;
+        }
+
+        function getRecentWorkoutHistory() {
+            const history = [];
+            const now = new Date();
+            
+            // Look back 14 days for workout history
+            for (let i = 0; i < 14; i++) {
+                const date = new Date(now);
+                date.setDate(date.getDate() - i);
+                const dateStr = date.toISOString().split('T')[0];
+                
+                const logData = localStorage.getItem(`personalizedPlanDailyLog_${APP_VERSION_KEY}_${dateStr}`);
+                if (logData) {
+                    const log = JSON.parse(logData);
+                    if (Object.keys(log).length > 0) {
+                        // Determine which workout type was done
+                        const workoutTypes = Object.values(USER_WORKOUT_PLAN);
+                        let workoutType = 'Unknown';
+                        
+                        for (const [type, exercises] of Object.entries(USER_WORKOUT_PLAN)) {
+                            const typeExerciseIds = exercises.map(e => e.id);
+                            const logExerciseIds = Object.keys(log);
+                            
+                            if (typeExerciseIds.some(id => logExerciseIds.includes(id))) {
+                                workoutType = type;
+                                break;
+                            }
+                        }
+                        
+                        history.push({
+                            date: dateStr,
+                            workoutType: workoutType,
+                            exerciseCount: Object.keys(log).length,
+                            completedCount: Object.values(log).filter(l => l.completed).length
+                        });
+                    }
+                }
+            }
+            
+            return history;
+        }
+
+        // Test API key validity using a CORS proxy
+        async function testApiKey() {
+            try {
+                // Use local proxy server to avoid CORS issues
+                const proxyUrl = 'http://localhost:3001/api/anthropic';
+                
+                const response = await fetch(proxyUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-api-key': claudeApiKey,
+                        'anthropic-version': '2023-06-01'
+                    },
+                    body: JSON.stringify({
+                        model: 'claude-3-haiku-20240307',
+                        max_tokens: 10,
+                        messages: [{
+                            role: 'user',
+                            content: 'Test'
+                        }]
+                    })
+                });
+                
+                if (response.ok) {
+                    return { valid: true, message: 'API key is valid' };
+                } else {
+                    const errorData = await response.text();
+                    return { valid: false, message: `API key test failed: ${response.status} - ${errorData}` };
+                }
+            } catch (error) {
+                return { 
+                    valid: false, 
+                    message: `Connection failed: ${error.message}\n\nMake sure the proxy server is running:\n1. Open terminal in this folder\n2. Run: npm install\n3. Run: npm start\n4. Try the API test again` 
+                };
+            }
+        }
+
+        async function getWorkoutRecommendation() {
+            if (!claudeApiKey || claudeApiKey.trim() === '') {
+                alert('Please set your Claude API key in the Settings & e1RMs tab to use smart recommendations.');
+                return;
+            }
+
+            // Validate API key format
+            if (!claudeApiKey.startsWith('sk-ant-')) {
+                alert('Invalid API key format. Claude API keys should start with "sk-ant-"');
+                return;
+            }
+
+            const btn = document.getElementById('getRecommendationBtn');
+            btn.disabled = true;
+            btn.textContent = 'Getting recommendation...';
+
+            try {
+                // Gather user input
+                const energyLevel = document.getElementById('energyLevel').value;
+                const stressLevel = document.getElementById('stressLevel').value;
+                const musclesSore = document.getElementById('musclesSore').value;
+                const timeAvailable = document.getElementById('timeAvailable').value;
+                const specificGoals = document.getElementById('specificGoals').value;
+
+                // Get workout history
+                const workoutHistory = getRecentWorkoutHistory();
+
+                // Prepare context for Claude
+                const prompt = `You are an evidence-based fitness AI following research-backed training principles. Based on the information below, recommend ONE specific workout from the available options and suggest any modifications.
+
+TRAINING PRINCIPLES TO FOLLOW:
+- Consistency beats perfection
+- Progressive overload: gradually increase load/volume
+- Strength training: ≥85% 1RM, 1-5 reps, 2-5min rest, stop 3-4 reps shy of failure
+- Hypertrophy: 60-80% 1RM, 6-12 reps, 1-2min rest, can train closer to failure on isolation
+- Frequency: 2-3x per muscle group per week for optimal gains
+- Recovery: adequate rest between sessions, prioritize sleep
+- 80/20 rule for cardio: 80% low/moderate intensity, 20% high intensity
+
+AVAILABLE WORKOUT TYPES:
+${Object.keys(USER_WORKOUT_PLAN).map(type => `- ${type}: ${USER_WORKOUT_PLAN[type].map(ex => ex.liftName || ex.name).join(', ')}`).join('\n')}
+
+USER'S CURRENT STATE:
+- Energy Level: ${energyLevel}/10
+- Stress Level: ${stressLevel}/10
+- Muscle soreness/fatigue: ${musclesSore || 'None mentioned'}
+- Time available: ${timeAvailable} minutes
+- Specific goals: ${specificGoals || 'None mentioned'}
+- Current bodyweight: ${userBodyweight}kg
+- Current e1RMs: ${Object.entries(exercisesE1RM).map(([lift, e1rm]) => `${lift}: ${e1rm.toFixed(1)}kg`).join(', ')}
+
+RECENT WORKOUT HISTORY (last 14 days):
+${workoutHistory.length > 0 ? 
+    workoutHistory.map(h => `${h.date}: ${h.workoutType} (${h.completedCount}/${h.exerciseCount} exercises completed)`).join('\n') : 
+    'No recent workouts logged'}
+
+Consider muscle group frequency, recovery needs, training intensity distribution, and progressive overload when making your recommendation.
+
+Please respond in this exact format:
+RECOMMENDATION: [Workout Type]
+REASONING: [Brief explanation based on training principles and user state]
+MODIFICATIONS: [Specific changes to sets, reps, intensity, or RPE based on evidence-based guidelines]
+
+Keep your response concise and practical.`;
+
+                // Use local proxy server to avoid browser CORS restrictions
+                const proxyUrl = 'http://localhost:3001/api/anthropic';
+                
+                const response = await fetch(proxyUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-api-key': claudeApiKey,
+                        'anthropic-version': '2023-06-01'
+                    },
+                    body: JSON.stringify({
+                        model: 'claude-3-haiku-20240307',
+                        max_tokens: 1000,
+                        messages: [{
+                            role: 'user',
+                            content: prompt
+                        }]
+                    })
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.text();
+                    console.error('API Error Response:', errorData);
+                    throw new Error(`API request failed: ${response.status} - ${errorData}`);
+                }
+
+                const data = await response.json();
+                
+                // Validate response structure
+                if (!data.content || !data.content[0] || !data.content[0].text) {
+                    console.error('Invalid API response structure:', data);
+                    throw new Error('Invalid response structure from API');
+                }
+                
+                const recommendation = data.content[0].text;
+
+                // Parse recommendation
+                const lines = recommendation.split('\n');
+                const recommendationLine = lines.find(l => l.startsWith('RECOMMENDATION:'));
+                const reasoningLine = lines.find(l => l.startsWith('REASONING:'));
+                const modificationsLine = lines.find(l => l.startsWith('MODIFICATIONS:'));
+
+                const workoutType = recommendationLine ? recommendationLine.replace('RECOMMENDATION:', '').trim() : 'Squat Day';
+                const reasoning = reasoningLine ? reasoningLine.replace('REASONING:', '').trim() : 'AI recommendation based on your current state.';
+                const modifications = modificationsLine ? modificationsLine.replace('MODIFICATIONS:', '').trim() : 'Follow the standard workout plan.';
+
+                currentRecommendation = {
+                    workoutType: workoutType,
+                    reasoning: reasoning,
+                    modifications: modifications
+                };
+
+                // Display recommendation
+                document.getElementById('recommendationContent').innerHTML = `
+                    <div style="background-color: var(--md-purple-100); padding: 15px; border-radius: 6px; margin-bottom: 15px;">
+                        <h4 style="margin-top: 0; color: var(--md-purple-700);">Recommended Workout: ${workoutType}</h4>
+                        <p><strong>Why this workout:</strong> ${reasoning}</p>
+                        <p><strong>Suggested modifications:</strong> ${modifications}</p>
+                    </div>
+                `;
+
+                document.getElementById('recommendationResult').style.display = 'block';
+
+            } catch (error) {
+                console.error('Error getting recommendation:', error);
+                
+                // More detailed error message
+                let errorMessage = 'Failed to get workout recommendation.\n\n';
+                
+                if (error.message.includes('401')) {
+                    errorMessage += 'Authentication failed - please check your API key.';
+                } else if (error.message.includes('429')) {
+                    errorMessage += 'Rate limit exceeded - please try again later.';
+                } else if (error.message.includes('400')) {
+                    errorMessage += 'Bad request - there may be an issue with the request format.';
+                } else if (error.message.includes('network') || error.message.includes('fetch') || error.message.includes('CORS') || error.message.includes('Failed to fetch')) {
+                    errorMessage += 'Connection to proxy server failed.\n\n';
+                    errorMessage += 'Setup steps:\n';
+                    errorMessage += '1. Open terminal in this folder\n';
+                    errorMessage += '2. Run: npm install\n';
+                    errorMessage += '3. Run: npm start\n';
+                    errorMessage += '4. Refresh this page and try again\n\n';
+                    errorMessage += 'Or use the simple built-in recommendation system instead?';
+                    
+                    if (confirm(errorMessage)) {
+                        generateSimpleRecommendation();
+                        return;
+                    }
+                } else {
+                    errorMessage += `Error details: ${error.message}`;
+                }
+                
+                errorMessage += '\n\nPlease check the browser console for more details.';
+                
+                alert(errorMessage);
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Get Smart Recommendation';
+            }
+        }
+
+        function acceptRecommendation() {
+            if (currentRecommendation && currentRecommendation.workoutType) {
+                displayWorkoutForDay(currentRecommendation.workoutType);
+                alert(`Starting ${currentRecommendation.workoutType}! Remember: ${currentRecommendation.modifications}`);
+            }
+        }
+
+        // Simple built-in recommendation system (fallback when Claude API fails)
+        function generateSimpleRecommendation() {
+            const energyLevel = parseInt(document.getElementById('energyLevel').value);
+            const stressLevel = parseInt(document.getElementById('stressLevel').value);
+            const musclesSore = document.getElementById('musclesSore').value.toLowerCase();
+            const timeAvailable = parseInt(document.getElementById('timeAvailable').value);
+            
+            // Get recent workout history
+            const workoutHistory = getRecentWorkoutHistory();
+            const recentWorkouts = workoutHistory.slice(0, 3).map(h => h.workoutType);
+            
+            let workoutType;
+            let reasoning;
+            let modifications = '';
+            
+            // Simple logic-based recommendations
+            if (energyLevel <= 4 || stressLevel >= 8) {
+                if (timeAvailable < 45) {
+                    workoutType = 'Mobility Day';
+                    reasoning = 'Low energy/high stress suggests recovery focus. Light mobility work will help.';
+                } else {
+                    workoutType = 'Cardio Day';
+                    reasoning = 'Low energy/high stress. Zone 2 cardio is great for stress relief without overtaxing.';
+                }
+            } else if (musclesSore.includes('leg') || musclesSore.includes('squat')) {
+                if (!recentWorkouts.includes('Pull Day')) {
+                    workoutType = 'Pull Day';
+                    reasoning = 'Legs are sore, so focusing on upper body pulling movements.';
+                } else {
+                    workoutType = 'Bench Day';
+                    reasoning = 'Legs are sore, and you haven\'t done bench recently.';
+                }
+            } else if (musclesSore.includes('upper') || musclesSore.includes('shoulder') || musclesSore.includes('chest')) {
+                workoutType = 'Squat Day';
+                reasoning = 'Upper body is sore, so focusing on lower body strength.';
+            } else if (timeAvailable < 45) {
+                // Quick workout options
+                if (!recentWorkouts.includes('Pull Day')) {
+                    workoutType = 'Pull Day';
+                    reasoning = 'Limited time, and pull work is efficient and needed.';
+                } else {
+                    workoutType = 'Mobility Day';
+                    reasoning = 'Limited time suggests a quick mobility session.';
+                }
+            } else {
+                // Normal energy, look at what hasn't been done recently
+                const workoutOptions = ['Squat Day', 'Bench Day', 'Deadlift Day', 'Pull Day'];
+                const undoneworkouts = workoutOptions.filter(w => !recentWorkouts.includes(w));
+                
+                if (undoneworkouts.length > 0) {
+                    workoutType = undoneworkouts[0];
+                    reasoning = `Good energy levels and you haven't done ${workoutType} recently.`;
+                } else {
+                    workoutType = 'Squat Day';
+                    reasoning = 'Good energy levels. Squat day is always a solid choice for lower body strength.';
+                }
+            }
+            
+            // Evidence-based modifications 
+            if (energyLevel <= 6) {
+                modifications = 'Reduce intensity to 70-80% 1RM. Stay 4-5 reps from failure on strength moves (RPE 6-7). Prioritize form and recovery.';
+            } else if (energyLevel >= 8 && stressLevel <= 4) {
+                modifications = 'Good energy! Work at 85-90% 1RM for strength moves. Can train closer to failure (RPE 8-9) on isolation exercises.';
+            } else {
+                modifications = 'Work at planned intensities. Stay 3-4 reps from failure on compound movements.';
+            }
+            
+            if (timeAvailable < 60) {
+                modifications += ' Use 1-2min rest periods. Focus on main compound movements only. Consider supersets for accessories.';
+            } else if (timeAvailable >= 90) {
+                modifications += ' Take full 2-5min rest between strength sets. Add extra warm-up and cool-down time.';
+            }
+            
+            // Frequency considerations
+            const daysSinceLastWorkout = workoutHistory.length > 0 ? 
+                (new Date() - new Date(workoutHistory[0].date)) / (1000 * 60 * 60 * 24) : 7;
+            
+            if (daysSinceLastWorkout > 3) {
+                modifications += ' Start conservatively after rest period - reduce loads by 10%.';
+            }
+            
+            currentRecommendation = {
+                workoutType: workoutType,
+                reasoning: reasoning,
+                modifications: modifications
+            };
+            
+            // Display recommendation
+            document.getElementById('recommendationContent').innerHTML = `
+                <div style="background-color: var(--md-purple-100); padding: 15px; border-radius: 6px; margin-bottom: 15px;">
+                    <h4 style="margin-top: 0; color: var(--md-purple-700);">Recommended Workout: ${workoutType}</h4>
+                    <p><strong>Why this workout:</strong> ${reasoning}</p>
+                    <p><strong>Suggested modifications:</strong> ${modifications}</p>
+                    <p style="font-size: 0.85em; color: var(--md-grey-700);"><em>Generated by built-in recommendation system</em></p>
+                </div>
+            `;
+            
+            document.getElementById('recommendationResult').style.display = 'block';
+        }
+
+        // Data Export/Import Functions
+        function exportData() {
+            try {
+                const exportData = {
+                    version: APP_VERSION_KEY,
+                    exportDate: new Date().toISOString(),
+                    exercisesE1RM: exercisesE1RM,
+                    e1RMChangeStatus: e1RMChangeStatus,
+                    userBodyweight: userBodyweight,
+                    bodyweightHistory: bodyweightHistory,
+                    claudeApiKey: claudeApiKey,
+                    dailyLogs: {}
+                };
+
+                // Export all daily logs
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    if (key && key.startsWith(`personalizedPlanDailyLog_${APP_VERSION_KEY}_`)) {
+                        const date = key.substring(`personalizedPlanDailyLog_${APP_VERSION_KEY}_`.length);
+                        exportData.dailyLogs[date] = JSON.parse(localStorage.getItem(key));
+                    }
+                }
+
+                const dataStr = JSON.stringify(exportData, null, 2);
+                const dataBlob = new Blob([dataStr], {type: 'application/json'});
+                
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(dataBlob);
+                link.download = `fitness-tracker-backup-${new Date().toISOString().split('T')[0]}.json`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                const statusDiv = document.getElementById('dataManagementStatus');
+                statusDiv.textContent = `Data exported successfully at ${new Date().toLocaleTimeString()}`;
+                statusDiv.style.color = 'var(--md-green-500)';
+                
+            } catch (error) {
+                console.error('Export error:', error);
+                const statusDiv = document.getElementById('dataManagementStatus');
+                statusDiv.textContent = 'Export failed. Check console for details.';
+                statusDiv.style.color = 'var(--md-red-500)';
+            }
+        }
+
+        function importData(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const importedData = JSON.parse(e.target.result);
+                    
+                    // Validate import data structure
+                    if (!importedData.version || !importedData.exportDate) {
+                        throw new Error('Invalid backup file format');
+                    }
+
+                    const confirmMessage = `Import data from ${new Date(importedData.exportDate).toLocaleDateString()}?\n\nThis will overwrite your current data. Make sure you've exported your current data first!`;
+                    
+                    if (confirm(confirmMessage)) {
+                        // Import core data
+                        if (importedData.exercisesE1RM) {
+                            exercisesE1RM = importedData.exercisesE1RM;
+                        }
+                        if (importedData.e1RMChangeStatus) {
+                            e1RMChangeStatus = importedData.e1RMChangeStatus;
+                        }
+                        if (importedData.userBodyweight) {
+                            userBodyweight = importedData.userBodyweight;
+                            document.getElementById('currentBodyweight').value = userBodyweight;
+                        }
+                        if (importedData.bodyweightHistory) {
+                            bodyweightHistory = importedData.bodyweightHistory;
+                        }
+                        if (importedData.claudeApiKey) {
+                            claudeApiKey = importedData.claudeApiKey;
+                            document.getElementById('claudeApiKey').value = claudeApiKey;
+                        }
+
+                        // Import daily logs
+                        if (importedData.dailyLogs) {
+                            // Clear existing daily logs first
+                            const keysToRemove = [];
+                            for (let i = 0; i < localStorage.length; i++) {
+                                const key = localStorage.key(i);
+                                if (key && key.startsWith(`personalizedPlanDailyLog_${APP_VERSION_KEY}_`)) {
+                                    keysToRemove.push(key);
+                                }
+                            }
+                            keysToRemove.forEach(key => localStorage.removeItem(key));
+
+                            // Import new daily logs
+                            Object.entries(importedData.dailyLogs).forEach(([date, logData]) => {
+                                localStorage.setItem(`personalizedPlanDailyLog_${APP_VERSION_KEY}_${date}`, JSON.stringify(logData));
+                            });
+                        }
+
+                        // Update today's daily log if it exists in import
+                        if (importedData.dailyLogs && importedData.dailyLogs[todayKey]) {
+                            dailyLog = importedData.dailyLogs[todayKey];
+                        }
+
+                        // Save all data and refresh UI
+                        saveData();
+                        renderE1RMTable();
+                        renderBodyweightChart();
+                        updateAttendanceSummary();
+                        if (currentActiveTab === 'workoutDayTab' && currentSelectedDayKey) {
+                            displayWorkoutForDay(currentSelectedDayKey);
+                        } else {
+                            renderDailyLog();
+                        }
+
+                        const statusDiv = document.getElementById('dataManagementStatus');
+                        statusDiv.textContent = `Data imported successfully from ${new Date(importedData.exportDate).toLocaleDateString()}`;
+                        statusDiv.style.color = 'var(--md-green-500)';
+                    }
+                    
+                } catch (error) {
+                    console.error('Import error:', error);
+                    const statusDiv = document.getElementById('dataManagementStatus');
+                    statusDiv.textContent = 'Import failed. Please check the file format.';
+                    statusDiv.style.color = 'var(--md-red-500)';
+                    alert('Import failed. Please make sure you selected a valid backup file.');
+                }
+                
+                // Reset file input
+                event.target.value = '';
+            };
+            
+            reader.readAsText(file);
+        }
+
+        // Rest Timer Functions
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        function updateTimerDisplay() {
+            const display = document.getElementById('timerDisplay');
+            if (restTimerSeconds <= 0) {
+                display.textContent = '0:00';
+                display.style.color = 'var(--md-red-500)';
+                if (restTimerInterval) {
+                    clearInterval(restTimerInterval);
+                    restTimerInterval = null;
+                    
+                    // Timer finished - play notification and show alert
+                    if ('Notification' in window && Notification.permission === 'granted') {
+                        new Notification('Rest Timer Complete!', {
+                            body: 'Time to start your next set',
+                            icon: '/favicon.ico'
+                        });
+                    }
+                    
+                    // Visual/audio notification
+                    alert('Rest time complete! Ready for your next set?');
+                    
+                    // Reset timer state
+                    restTimerSeconds = 0;
+                    restTimerPaused = false;
+                    document.getElementById('startTimerBtn').textContent = 'Start';
+                }
+            } else {
+                display.textContent = formatTime(restTimerSeconds);
+                // Color coding: green > 60s, yellow 30-60s, red < 30s
+                if (restTimerSeconds > 60) {
+                    display.style.color = 'var(--md-green-500)';
+                } else if (restTimerSeconds > 30) {
+                    display.style.color = 'orange';
+                } else {
+                    display.style.color = 'var(--md-red-500)';
+                }
+            }
+        }
+
+        function startRestTimer(seconds = null) {
+            // Request notification permission on first use
+            if ('Notification' in window && Notification.permission === 'default') {
+                Notification.requestPermission();
+            }
+
+            if (seconds !== null) {
+                // Starting with preset time
+                restTimerSeconds = seconds;
+                restTimerTotalSeconds = seconds;
+            } else if (restTimerSeconds <= 0) {
+                // Starting fresh with default time
+                restTimerSeconds = 120; // Default 2 minutes
+                restTimerTotalSeconds = 120;
+            }
+            // If seconds is null and restTimerSeconds > 0, we're resuming
+
+            if (restTimerInterval) {
+                clearInterval(restTimerInterval);
+            }
+
+            restTimerInterval = setInterval(() => {
+                if (!restTimerPaused) {
+                    restTimerSeconds--;
+                    updateTimerDisplay();
+                }
+            }, 1000);
+
+            restTimerPaused = false;
+            document.getElementById('startTimerBtn').textContent = 'Resume';
+            showRestTimer();
+            updateTimerDisplay();
+        }
+
+        function pauseRestTimer() {
+            restTimerPaused = !restTimerPaused;
+            document.getElementById('pauseTimerBtn').textContent = restTimerPaused ? 'Resume' : 'Pause';
+        }
+
+        function stopRestTimer() {
+            if (restTimerInterval) {
+                clearInterval(restTimerInterval);
+                restTimerInterval = null;
+            }
+            restTimerSeconds = 0;
+            restTimerPaused = false;
+            document.getElementById('startTimerBtn').textContent = 'Start';
+            document.getElementById('pauseTimerBtn').textContent = 'Pause';
+            updateTimerDisplay();
+        }
+
+        function startCustomTimer() {
+            const minutes = parseInt(document.getElementById('customTimerMinutes').value);
+            if (minutes && minutes > 0) {
+                startRestTimer(minutes * 60);
+                document.getElementById('customTimerMinutes').value = '';
+            }
+        }
+
+        function showRestTimer() {
+            document.getElementById('restTimer').classList.add('active');
+            document.getElementById('toggleTimerBtn').textContent = 'Hide';
+        }
+
+        function hideRestTimer() {
+            document.getElementById('restTimer').classList.remove('active');
+            document.getElementById('toggleTimerBtn').textContent = 'Show';
+        }
+
+        function toggleRestTimer() {
+            const timer = document.getElementById('restTimer');
+            if (timer.classList.contains('active')) {
+                hideRestTimer();
+            } else {
+                showRestTimer();
+            }
+        }
+
         function init() {
             loadData(); 
             const nav = document.getElementById('mainNav');
             const progressButton = nav.querySelector('button[data-tab="progressTab"]'); // Create progress button first
             const e1rmButton = nav.querySelector('button[data-tab="e1rmTab"]'); 
 
-            Object.keys(USER_WORKOUT_PLAN).forEach(dayKey => {
+            Object.keys(USER_WORKOUT_PLAN).forEach(workoutKey => {
                 const button = document.createElement('button');
-                button.textContent = dayKey; 
-                button.setAttribute('data-day-key', dayKey); 
+                button.textContent = workoutKey; 
+                button.setAttribute('data-day-key', workoutKey); 
                 button.setAttribute('data-tab', 'workoutDayTab'); 
-                button.onclick = () => displayWorkoutForDay(dayKey);
-                nav.insertBefore(button, progressButton); // Insert day buttons before progress button
+                button.onclick = () => displayWorkoutForDay(workoutKey);
+                nav.insertBefore(button, progressButton); // Insert workout buttons before progress button
             });
             
             document.getElementById('logBodyweightDate').value = todayKey; // Set default date for BW log
@@ -1269,22 +2356,13 @@
             renderBodyweightChart();
             updateAttendanceSummary();
 
+            // Add event listeners for sliders
+            document.getElementById('energyLevel').addEventListener('input', updateSliderValues);
+            document.getElementById('stressLevel').addEventListener('input', updateSliderValues);
+            updateSliderValues(); // Initial update
 
-            const dayMap = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday AM", "Friday", "Saturday"];
-            const currentDayIndex = new Date().getDay();
-            let autoSelectDayKey = dayMap[currentDayIndex];
-            
-            if (currentDayIndex === 4 ) { 
-                 const currentHour = new Date().getHours();
-                 if (currentHour >=12 && USER_WORKOUT_PLAN["Thursday PM"]) autoSelectDayKey = "Thursday PM";
-                 else if (USER_WORKOUT_PLAN["Thursday AM"]) autoSelectDayKey = "Thursday AM";
-            }
-
-            if (USER_WORKOUT_PLAN[autoSelectDayKey]) {
-                 setTimeout(()=>displayWorkoutForDay(autoSelectDayKey),0); 
-            } else {
-                showTab('guideTab'); 
-            }
+            // Start with the guide tab instead of auto-selecting a workout
+            showTab('guideTab'); 
         }
 
         window.onclick = function(event) { 
@@ -1294,7 +2372,21 @@
             }
         }
 
-        init();
+        // Global error handler
+        window.addEventListener('error', function(event) {
+            showError('Unexpected error occurred', event.error?.message || event.message);
+        });
+
+        window.addEventListener('unhandledrejection', function(event) {
+            showError('Promise rejection', event.reason?.message || event.reason);
+        });
+
+        // Initialize app
+        try {
+            init();
+        } catch (error) {
+            showError('Failed to initialize app', error.message);
+        }
     </script>
 </body>
 </html>

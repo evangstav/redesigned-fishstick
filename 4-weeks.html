@@ -2129,7 +2129,7 @@
                                     avgRPE: avgRPE.toFixed(1),
                                     totalVolume: totalVolume,
                                     highestWeight: highestWeight,
-                                    setDetails: completedSets.map(set => `${set.weight}kg x ${set.reps} @ RPE ${set.rpe}`).join(', ')
+                                    setDetails: completedSets.map(set => `${set.weight}kg x ${set.reps} @ RPE ${set.reps}`).join(', ')
                                 });
                             }
                         }
@@ -2146,6 +2146,92 @@
             });
             
             return detailedHistory;
+        }
+
+        // Determine recommended next workout based on program structure
+        function getRecommendedNextWorkout(workoutHistory) {
+            if (workoutHistory.length === 0) {
+                return {
+                    recommended: "Squat Day",
+                    reasoning: "Starting the program - begin with squat day as the foundation movement"
+                };
+            }
+
+            const lastWorkout = workoutHistory[0].workoutType;
+            const last2Workouts = workoutHistory.slice(0, 2).map(w => w.workoutType);
+            const last3Workouts = workoutHistory.slice(0, 3).map(w => w.workoutType);
+            
+            // Program structure: Squat -> Bench -> Deadlift -> Pull -> (Cardio/Mobility/Rest as needed)
+            const mainLifts = ["Squat Day", "Bench Day", "Deadlift Day", "Pull Day"];
+            
+            // Check for proper rotation
+            if (lastWorkout === "Squat Day") {
+                return {
+                    recommended: "Bench Day",
+                    reasoning: "Following program sequence: Squat -> Bench -> Deadlift -> Pull"
+                };
+            }
+            
+            if (lastWorkout === "Bench Day") {
+                return {
+                    recommended: "Deadlift Day", 
+                    reasoning: "Following program sequence: Squat -> Bench -> Deadlift -> Pull"
+                };
+            }
+            
+            if (lastWorkout === "Deadlift Day") {
+                return {
+                    recommended: "Pull Day",
+                    reasoning: "Following program sequence: Squat -> Bench -> Deadlift -> Pull"
+                };
+            }
+            
+            if (lastWorkout === "Pull Day") {
+                // Check if user has done all main lifts recently
+                const recentMainLifts = last3Workouts.filter(w => mainLifts.includes(w));
+                if (recentMainLifts.length >= 3) {
+                    return {
+                        recommended: "Cardio Day or Rest Day",
+                        reasoning: "Completed full cycle of main lifts - time for recovery/cardio"
+                    };
+                } else {
+                    return {
+                        recommended: "Squat Day",
+                        reasoning: "Starting new cycle after Pull Day"
+                    };
+                }
+            }
+            
+            // If last workout was Cardio/Mobility/Rest, continue with main lifts
+            if (["Cardio Day", "Mobility Day", "Rest Day"].includes(lastWorkout)) {
+                // Find which main lift to do next based on what's been done recently
+                const recentMainLifts = last3Workouts.filter(w => mainLifts.includes(w));
+                
+                if (!recentMainLifts.includes("Squat Day")) {
+                    return { recommended: "Squat Day", reasoning: "Haven't done squats recently" };
+                }
+                if (!recentMainLifts.includes("Bench Day")) {
+                    return { recommended: "Bench Day", reasoning: "Haven't done bench recently" };
+                }
+                if (!recentMainLifts.includes("Deadlift Day")) {
+                    return { recommended: "Deadlift Day", reasoning: "Haven't done deadlifts recently" };
+                }
+                if (!recentMainLifts.includes("Pull Day")) {
+                    return { recommended: "Pull Day", reasoning: "Haven't done pull work recently" };
+                }
+                
+                // If all main lifts done recently, start new cycle
+                return {
+                    recommended: "Squat Day",
+                    reasoning: "Starting new training cycle"
+                };
+            }
+            
+            // Default fallback
+            return {
+                recommended: "Squat Day",
+                reasoning: "Default recommendation to maintain program structure"
+            };
         }
 
         // Test API key validity using a CORS proxy
@@ -2202,17 +2288,27 @@
             btn.textContent = 'Getting recommendation...';
 
             try {
-                // Gather user input
+                // Gather user input - check if user has actually interacted with the form
                 const energyLevel = document.getElementById('energyLevel').value;
                 const stressLevel = document.getElementById('stressLevel').value;
                 const musclesSore = document.getElementById('musclesSore').value;
                 const timeAvailable = document.getElementById('timeAvailable').value;
                 const specificGoals = document.getElementById('specificGoals').value;
+                
+                // Check if user has provided minimal input (not just defaults)
+                const hasUserInput = musclesSore.trim() || timeAvailable.trim() || specificGoals.trim() ||
+                                   energyLevel !== '7' || stressLevel !== '5';
+                
+                if (!hasUserInput) {
+                    alert('Please provide your current state (energy, stress, soreness, time available) to get personalized recommendations.');
+                    return;
+                }
 
                 // Get workout history and analyze patterns
                 const workoutHistory = getRecentWorkoutHistory();
                 const trainingAnalysis = analyzeTrainingPatterns(workoutHistory);
                 const detailedRecentPerformance = getDetailedRecentPerformance(workoutHistory, 3);
+                const nextWorkoutRecommendation = getRecommendedNextWorkout(workoutHistory);
                 
                 // Check for equipment limitations
                 const equipmentLimitations = document.getElementById('equipmentLimitations')?.value || '';
@@ -2242,6 +2338,12 @@ TRAINING PRINCIPLES TO FOLLOW:
 
 AVAILABLE WORKOUT TYPES:
 ${Object.keys(USER_WORKOUT_PLAN).map(type => `- ${type}: ${USER_WORKOUT_PLAN[type].map(ex => ex.liftName || ex.name).join(', ')}`).join('\n')}
+
+PROGRAM STRUCTURE GUIDANCE:
+Recommended next workout: ${nextWorkoutRecommendation.recommended}
+Reasoning: ${nextWorkoutRecommendation.reasoning}
+
+IMPORTANT: Follow the program sequence (Squat -> Bench -> Deadlift -> Pull) for optimal muscle group recovery and progression. Only deviate if user has specific limitations or fatigue concerns.
 
 USER'S CURRENT STATE:
 - Energy Level: ${energyLevel}/10
@@ -2428,6 +2530,7 @@ Keep response evidence-based and practical.`;
             // Get recent workout history and analyze patterns
             const workoutHistory = getRecentWorkoutHistory();
             const trainingAnalysis = analyzeTrainingPatterns(workoutHistory);
+            const nextWorkoutRecommendation = getRecommendedNextWorkout(workoutHistory);
             const recentWorkouts = workoutHistory.slice(0, 3).map(h => h.workoutType);
             
             // Check for deload need first

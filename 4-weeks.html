@@ -2104,6 +2104,50 @@
             return { type: 'maintain', amount: 0, reason: 'Continue with current load' };
         }
 
+        // Get detailed recent exercise performance for AI context
+        function getDetailedRecentPerformance(workoutHistory, maxWorkouts = 3) {
+            const detailedHistory = [];
+            
+            workoutHistory.slice(0, maxWorkouts).forEach(workout => {
+                const date = workout.date;
+                const logData = localStorage.getItem(`personalizedPlanDailyLog_${APP_VERSION_KEY}_${date}`);
+                if (logData) {
+                    const log = JSON.parse(logData);
+                    const exerciseDetails = [];
+                    
+                    Object.entries(log).forEach(([exerciseId, exerciseData]) => {
+                        if (exerciseData.sets && exerciseData.sets.length > 0) {
+                            const completedSets = exerciseData.sets.filter(set => set.weight && set.reps && set.rpe);
+                            if (completedSets.length > 0) {
+                                const avgRPE = completedSets.reduce((sum, set) => sum + set.rpe, 0) / completedSets.length;
+                                const totalVolume = completedSets.reduce((sum, set) => sum + (set.weight * set.reps), 0);
+                                const highestWeight = Math.max(...completedSets.map(set => set.weight));
+                                
+                                exerciseDetails.push({
+                                    exercise: exerciseId,
+                                    sets: completedSets.length,
+                                    avgRPE: avgRPE.toFixed(1),
+                                    totalVolume: totalVolume,
+                                    highestWeight: highestWeight,
+                                    setDetails: completedSets.map(set => `${set.weight}kg x ${set.reps} @ RPE ${set.rpe}`).join(', ')
+                                });
+                            }
+                        }
+                    });
+                    
+                    if (exerciseDetails.length > 0) {
+                        detailedHistory.push({
+                            date: date,
+                            workoutType: workout.workoutType,
+                            exercises: exerciseDetails
+                        });
+                    }
+                }
+            });
+            
+            return detailedHistory;
+        }
+
         // Test API key validity using a CORS proxy
         async function testApiKey() {
             try {
@@ -2168,6 +2212,7 @@
                 // Get workout history and analyze patterns
                 const workoutHistory = getRecentWorkoutHistory();
                 const trainingAnalysis = analyzeTrainingPatterns(workoutHistory);
+                const detailedRecentPerformance = getDetailedRecentPerformance(workoutHistory, 3);
                 
                 // Check for equipment limitations
                 const equipmentLimitations = document.getElementById('equipmentLimitations')?.value || '';
@@ -2222,6 +2267,16 @@ RECENT WORKOUT HISTORY:
 ${workoutHistory.length > 0 ? 
     workoutHistory.map(h => `${h.date}: ${h.workoutType} (${h.completedCount}/${h.exerciseCount} completed, Volume: ${h.totalVolume.toFixed(0)}kg, RPE: ${h.avgRPE.toFixed(1)})`).join('\n') : 
     'No recent workouts logged'}
+
+DETAILED RECENT PERFORMANCE (Last 3 Workouts):
+${detailedRecentPerformance.length > 0 ? 
+    detailedRecentPerformance.map(workout => 
+        `${workout.date} - ${workout.workoutType}:\n` + 
+        workout.exercises.map(ex => 
+            `  • ${ex.exercise}: ${ex.sets} sets, Top weight: ${ex.highestWeight}kg, Avg RPE: ${ex.avgRPE}, Volume: ${ex.totalVolume}kg\n    Sets: ${ex.setDetails}`
+        ).join('\n')
+    ).join('\n\n') : 
+    'No detailed performance data available'}
 
 CONSIDER:
 1. Muscle group frequency targets (2-3x per week)

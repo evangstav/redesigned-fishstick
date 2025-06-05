@@ -2108,7 +2108,7 @@
         async function testApiKey() {
             try {
                 // Use local proxy server to avoid CORS issues
-                const proxyUrl = 'http://localhost:3001/api/anthropic';
+                const proxyUrl = 'https://redesigned-fishstick-production.up.railway.app/api/anthropic';
                 
                 const response = await fetch(proxyUrl, {
                     method: 'POST',

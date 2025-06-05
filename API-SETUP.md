@@ -1,6 +1,13 @@
 # API Setup Guide
 
-This guide explains how to resolve the browser security limitation (CORS) error when using the Anthropic Claude API.
+This guide explains how to set up the Anthropic Claude API for smart workout recommendations.
+
+## Current Production Setup
+
+**The app is already deployed and ready to use:**
+- **Live App**: https://evangstav.github.io/redesigned-fishstick/4-weeks.html
+- **API Proxy**: https://redesigned-fishstick-production.up.railway.app
+- **Status**: Fully functional - just add your Claude API key in the app settings
 
 ## Solution 1: Local Proxy Server (Recommended for Development)
 
@@ -74,6 +81,31 @@ This guide explains how to resolve the browser security limitation (CORS) error 
    const proxyUrl = 'https://your-site.netlify.app/.netlify/functions/anthropic-proxy';
    ```
 
+## Solution 3: Railway Deployment (Current Production Setup)
+
+### Railway Setup Steps
+
+1. **Connect GitHub Repository:**
+   - Go to [Railway.app](https://railway.app)
+   - Create new project from GitHub repo
+   - Railway auto-detects `proxy-server.js` and `package.json`
+
+2. **Environment Variables:**
+   - No environment variables needed (API key provided by client)
+   - Railway automatically assigns a public domain
+
+3. **Deployment:**
+   - Pushes to main branch auto-deploy
+   - Railway URL: `https://[project-name]-production.up.railway.app`
+   - Update this URL in `4-weeks.html`
+
+### Current Configuration
+
+The app is currently configured to use:
+```javascript
+const proxyUrl = 'https://redesigned-fishstick-production.up.railway.app/api/anthropic';
+```
+
 ### Vercel Functions
 
 1. **Create `api/anthropic-proxy.js`:**
@@ -129,10 +161,38 @@ This guide explains how to resolve the browser security limitation (CORS) error 
 - Wait a few minutes and try again
 - Consider upgrading your API plan for higher limits
 
+## Getting Your Claude API Key
+
+1. **Sign up for Anthropic Claude API:**
+   - Go to [Anthropic Console](https://console.anthropic.com/)
+   - Create an account and verify your identity
+   - Add payment method (API usage is pay-per-use)
+
+2. **Generate API Key:**
+   - Navigate to API Keys section
+   - Create new key (starts with `sk-ant-`)
+   - Copy the key immediately (it won't be shown again)
+
+3. **Add to App:**
+   - Open the live app or your local version
+   - Go to "Settings & e1RMs" tab
+   - Paste your API key in the Claude API Key field
+   - Test the connection using the "Test API Key" button
+
+## Smart Recommendations Features
+
+With the API key configured, you'll have access to:
+- **Program Structure Following**: AI follows proper workout sequence
+- **Detailed Performance Analysis**: Considers your recent workout performance
+- **Personalized Recommendations**: Based on energy, stress, soreness, and time available
+- **Auto-Progression Suggestions**: Weight adjustments based on RPE patterns
+- **Equipment Adaptations**: Exercise substitutions for available equipment
+
 ## Security Notes
 
 - **Never commit your API key** to version control
-- The local proxy keeps your API key secure on your machine
-- For production, consider environment variables for API keys
-- The app stores your API key in browser localStorage (local only)
+- The proxy server doesn't store or log API keys
+- The app stores your API key in browser localStorage (local device only)
+- API requests are made server-to-server (proxy to Anthropic)
+- Your workout data never leaves your browser
 

@@ -16,21 +16,30 @@ This is a fitness tracking application with analytics features. The application 
 
 ## Technical Architecture
 
-### **Current State: Simple HTML Application**
+### **Current State: Deployed Web Application**
 
 - **Single HTML File**: All functionality contained in `4-weeks.html`
-- **Proxy Server**: `proxy-server.js` handles Claude API requests
+- **Cloud Deployment**: 
+  - **Frontend**: GitHub Pages hosting the HTML app
+  - **Backend**: Railway hosting the Claude API proxy server
 - **Client-Side JavaScript**: All logic implemented in vanilla JavaScript
 - **Chart.js Integration**: Advanced analytics with interactive charts
 - **localStorage Persistence**: All data stored locally in the browser
 
+### **Live Application**
+
+- **Production URL**: https://evangstav.github.io/redesigned-fishstick/4-weeks.html
+- **Proxy Server**: https://redesigned-fishstick-production.up.railway.app
+
 ### **Key Files & Structure**
 
 ```
-├── 4-weeks.html                  # Main application file
-├── proxy-server.js               # Claude API proxy server
+├── 4-weeks.html                  # Main application file (deployed to GitHub Pages)
+├── proxy-server.js               # Claude API proxy server (deployed to Railway)
 ├── package.json                  # Dependencies for proxy server
-└── CLAUDE.md                     # This documentation file
+├── CLAUDE.md                     # This documentation file
+├── API-SETUP.md                  # API configuration and deployment guide
+└── improvement-plan.md           # Feature roadmap and completed improvements
 ```
 
 ## Key Components
@@ -82,8 +91,9 @@ npm run proxy
 
 - **HTML/CSS/JavaScript**: Edit `4-weeks.html` directly
 - **Proxy Server**: Modify `proxy-server.js` for API integration changes
-- **Live Development**: Open `4-weeks.html` in browser, refresh to see changes
+- **Local Development**: Open `4-weeks.html` in browser, refresh to see changes
 - **API Testing**: Use browser developer tools to monitor network requests
+- **Deployment**: Changes auto-deploy via GitHub Pages when pushed to main branch
 
 ### **Code Style & Patterns**
 
@@ -95,16 +105,30 @@ npm run proxy
 
 ## Smart Recommendations System
 
-### **Features**
+### **Enhanced AI Features (Latest Updates)**
 
+- **Program Structure Following**: AI follows proper workout sequence (Squat → Bench → Deadlift → Pull)
+- **Detailed Performance Analysis**: Set-by-set RPE, weight, and volume tracking
+- **User Input Validation**: Requires actual user state instead of using defaults
 - **Context-aware recommendations**: Considers muscle group frequency, recovery needs
 - **Auto-progression suggestions**: Weight increases based on RPE patterns
 - **Equipment limitations**: Smart exercise substitutions
-- **Enhanced prompting**: Detailed context sent to Claude API
+- **Enhanced prompting**: Comprehensive workout history and performance data sent to Claude API
+
+### **Program Structure Logic**
+
+The AI now intelligently follows the 4-week program structure:
+1. **Squat Day** → **Bench Day** → **Deadlift Day** → **Pull Day** → (Cardio/Recovery as needed)
+2. **Recent Workout Analysis**: Considers last 3 workouts to determine proper sequence
+3. **Override Conditions**: Can deviate for recovery, equipment limitations, or fatigue
+4. **Fallback Intelligence**: Built-in logic mirrors AI recommendations when API unavailable
 
 ### **API Integration**
 
-- **Claude API**: Uses Claude 3 Haiku model via local proxy server
+- **Claude API**: Uses Claude 3 Haiku model via deployed Railway proxy server
+- **Enhanced Context**: Sends detailed recent workout performance, not just summaries
+- **Set-by-Set Analysis**: Individual set performance (weight × reps @ RPE) for last 3 workouts
+- **Program Guidance**: AI receives recommended next workout with reasoning
 - **Fallback system**: Built-in recommendation logic when API unavailable
 - **Error handling**: Graceful degradation with informative error messages
 - **Response parsing**: Extracts workout type, reasoning, modifications, and progression
@@ -143,9 +167,18 @@ npm run proxy
 
 ### **Deployment**
 
+**Current Production Setup:**
+- **Frontend**: GitHub Pages automatically deploys `4-weeks.html` from main branch
+- **Backend**: Railway hosts `proxy-server.js` with auto-deploy from GitHub
+- **URLs**: 
+  - App: https://evangstav.github.io/redesigned-fishstick/4-weeks.html
+  - API: https://redesigned-fishstick-production.up.railway.app
+
+**For New Deployments:**
 - **Static hosting**: Serve `4-weeks.html` from any web server
-- **Proxy server**: Deploy `proxy-server.js` on Node.js hosting
+- **Proxy server**: Deploy `proxy-server.js` on Node.js hosting (Railway, Render, Heroku)
 - **CORS setup**: Ensure proxy server allows requests from your domain
+- **API endpoint**: Update API URL in `4-weeks.html` to point to your deployed proxy
 
 ## Code Quality
 
@@ -161,3 +194,4 @@ npm run proxy
 - **Function comments**: Key functions documented with comments
 - **Code organization**: Related functions grouped together
 - **Architecture decisions**: Documented in this file
+

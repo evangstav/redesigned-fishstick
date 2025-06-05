@@ -54,24 +54,19 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
             background-color: var(--md-purple-700); 
             color: var(--md-white); 
             padding: 16px 20px; 
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: relative;
-            /* Mobile-first: flexbox layout for hamburger */
+            text-align: center;
+            /* Mobile-first: centered header */
         }
         header h1 { 
             margin: 0; 
             font-size: 1.4em; 
             font-weight: 500;
-            flex-grow: 1;
-            text-align: center;
-            /* Mobile-first: smaller size, centered */
+            /* Mobile-first: smaller size */
         }
         
-        /* Hamburger Menu Styles */
+        /* Hamburger Menu Styles - Hidden for now */
         .hamburger-menu {
-            display: flex;
+            display: none;
             flex-direction: column;
             justify-content: space-around;
             width: 28px;
@@ -101,40 +96,30 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
         nav { 
             background-color: var(--md-purple-500); 
             box-shadow: var(--md-elevation-1);
-            transition: all 0.3s ease;
-            /* Mobile-first: collapsible navigation */
-        }
-        
-        /* Mobile Navigation States */
-        nav.nav-collapsed {
-            display: none;
-        }
-        nav.nav-expanded {
             display: flex;
-            flex-direction: column;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            padding: 0;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 4px 0;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            /* Mobile-first: horizontal scrollable tabs */
         }
         nav button { 
             background-color: transparent; 
             color: var(--md-purple-100); 
             border: none; 
-            padding: 16px 20px; 
+            padding: 12px 16px; 
             margin: 0; 
             border-radius: 0; 
             cursor: pointer; 
-            font-size: 0.9em; 
+            font-size: 0.85em; 
             font-weight: 500;
             text-transform: uppercase;
             transition: background-color 0.2s, color 0.2s; 
             border-bottom: 3px solid transparent;
             white-space: nowrap;
             flex-shrink: 0;
-            min-height: 48px; /* Touch target compliance */
+            min-height: 44px; /* Touch target compliance */
         }
         nav button:hover { 
             background-color: rgba(255,255,255,0.1);
@@ -380,11 +365,9 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
             /* Desktop header - restore traditional layout */
             header {
                 padding: 24px;
-                justify-content: center;
             }
             header h1 {
                 font-size: 1.9em;
-                text-align: center;
             }
             
             /* Hide hamburger menu on larger screens */
@@ -394,17 +377,8 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
             
             /* Desktop navigation - horizontal layout */
             nav {
-                display: flex !important;
-                flex-direction: row !important;
-                justify-content: center;
-                position: static !important;
-                padding: 8px 0 !important;
+                padding: 8px 0;
                 overflow-x: visible;
-            }
-            nav.nav-collapsed, nav.nav-expanded {
-                display: flex !important;
-                flex-direction: row !important;
-                position: static !important;
             }
             nav button {
                 padding: 12px 18px;
@@ -641,18 +615,13 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
     <div class="app-container">
         <header>
             <h1>My Training Plan</h1>
-            <button class="hamburger-menu" onclick="toggleMobileNav()" aria-label="Toggle navigation">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
         </header>
-        <nav id="mainNav" class="nav-collapsed">
-            <button data-tab="guideTab" onclick="showTab('guideTab'); closeMobileNav()">Guide</button>
-            <button data-tab="smartRecommendationsTab" onclick="showTab('smartRecommendationsTab'); closeMobileNav()">Smart Recommendations</button>
-            <button data-tab="progressTab" onclick="showTab('progressTab'); closeMobileNav()">Progress</button>
-            <button data-tab="analyticsTab" onclick="showTab('analyticsTab'); closeMobileNav()">Analytics</button>
-            <button data-tab="e1rmTab" onclick="showTab('e1rmTab'); closeMobileNav()">Settings &amp; e1RMs</button>
+        <nav id="mainNav">
+            <button data-tab="guideTab" onclick="showTab('guideTab')">Guide</button>
+            <button data-tab="smartRecommendationsTab" onclick="showTab('smartRecommendationsTab')">Smart Recommendations</button>
+            <button data-tab="progressTab" onclick="showTab('progressTab')">Progress</button>
+            <button data-tab="analyticsTab" onclick="showTab('analyticsTab')">Analytics</button>
+            <button data-tab="e1rmTab" onclick="showTab('e1rmTab')">Settings &amp; e1RMs</button>
         </nav>
         <div class="content-area">
             <div id="guideTab" class="tab-content section">
@@ -1058,63 +1027,14 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
         let userBodyweight = 0; 
         let bodyweightHistory = []; // Array of {date: "YYYY-MM-DD", weight: number}
         
-        // Mobile Navigation Functions
+        // Simplified Mobile Navigation (for future enhancement)
         function toggleMobileNav() {
-            const nav = document.getElementById('mainNav');
-            const hamburger = document.querySelector('.hamburger-menu');
-            
-            if (nav.classList.contains('nav-collapsed')) {
-                nav.classList.remove('nav-collapsed');
-                nav.classList.add('nav-expanded');
-                hamburger.classList.add('active');
-            } else {
-                nav.classList.remove('nav-expanded');
-                nav.classList.add('nav-collapsed');
-                hamburger.classList.remove('active');
-            }
+            // Placeholder for future hamburger implementation
         }
         
         function closeMobileNav() {
-            const nav = document.getElementById('mainNav');
-            const hamburger = document.querySelector('.hamburger-menu');
-            
-            // Only close if we're in mobile view (window width check)
-            if (window.innerWidth < 768) {
-                nav.classList.remove('nav-expanded');
-                nav.classList.add('nav-collapsed');
-                hamburger.classList.remove('active');
-            }
+            // Placeholder for future hamburger implementation
         }
-        
-        // Close mobile nav when clicking outside
-        document.addEventListener('click', function(event) {
-            const nav = document.getElementById('mainNav');
-            const hamburger = document.querySelector('.hamburger-menu');
-            
-            if (window.innerWidth < 768 && 
-                nav.classList.contains('nav-expanded') && 
-                !nav.contains(event.target) && 
-                !hamburger.contains(event.target)) {
-                closeMobileNav();
-            }
-        });
-        
-        // Handle window resize to ensure proper nav state
-        window.addEventListener('resize', function() {
-            const nav = document.getElementById('mainNav');
-            const hamburger = document.querySelector('.hamburger-menu');
-            
-            if (window.innerWidth >= 768) {
-                // Desktop: ensure nav is visible and hamburger is inactive
-                nav.classList.remove('nav-collapsed', 'nav-expanded');
-                hamburger.classList.remove('active');
-            } else {
-                // Mobile: ensure nav starts collapsed if no class is set
-                if (!nav.classList.contains('nav-expanded')) {
-                    nav.classList.add('nav-collapsed');
-                }
-            }
-        });
         
         // Service Worker Registration for PWA
         if ('serviceWorker' in navigator) {

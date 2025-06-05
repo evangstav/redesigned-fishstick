@@ -2,8 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Strength Tracker">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#673AB7">
     <title>Personalized Strength Plan Tracker</title>
+    <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiUGVyc29uYWxpemVkIFN0cmVuZ3RoIFRyYWNrZXIiLCJzaG9ydF9uYW1lIjoiU3RyZW5ndGggVHJhY2tlciIsInN0YXJ0X3VybCI6Ii4vIiwiZGlzcGxheSI6InN0YW5kYWxvbmUiLCJiYWNrZ3JvdW5kX2NvbG9yIjoiI2Y1ZjVmNSIsInRoZW1lX2NvbG9yIjoiIzY3M0FCNyIsImljb25zIjpbeyJzcmMiOiJkYXRhOmltYWdlL3N2Zyt4bWw7YmFzZTY0LFBITjJaeUI0Yld4dWN6MGlhSFIwY0RvdkwzZDNkeTUzTXk1dmNtY3ZNakF3TUM5emRtY2lJSGRwWkhSb1BTSnhOalFpSUdobGFXZG9kRDBpTmpZMElqNDhjbVZqZENCM2FXUjBhRDBpTmpZMElpQm9aV2xuYUhROUlqWTJOQ0lpSUdacGJHdzlJaU0yTnpOQlFqY2lMejQ4ZEdWNGRDQjRQU0l6TWpJaUlIazlJak0wTWlJZ1ptbHNiRDBpSTJabVptWm1aaUlnWm05dWRDMW1ZVzFwYkhrOUlrRnlhV0ZzSWlCbWIyNTBMWE5wZW1VOUlqWXdJaUJtYjI1MExYZGxhV2RvZEQwaVltOXNaQ0lpZEhWNGRDMWhibU5vYjNJOUltMXBaR1JzWlNJK1UwUThMM1JsZUhRK1BDOW5Qand2YzNabkdBPT0iLCJzaXplcyI6IjY0eDY0IiwidHlwZSI6ImltYWdlL3N2Zyt4bWwifSx7InNyYyI6ImRhdGE6aW1hZ2Uvc3ZnK3htbDtiYXNlNjQsUEhOMlp5QjRiV3h1Y3owb
+WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb2REMGlORFU0SWo0OGNtVmpkQ0IzYVdSMGFEMGlORFU0SWlCb1pXbG5hSFE5SWpRMU9DSWdabWxzYkQwaUl6WTNNMEZDTnlJdlBqeDBaWGgwSUhnOUlqRXlPQ0lnZVQwaWJUSTBOU0krU1VRa0wwVjNQekFZV2FuQmhjM2RZMXZabGI1SkhPQTVtU0ZOajZvSUl3cFdHSHN2Ly9NSGVjaUJJYkNhMkgzb3ZqNWVMaDFBZ3lndCIsInNpemVzIjoiMTI4eDEyOCIsInR5cGUiOiJpbWFnZS9zdmcreG1sIn0seyJzcmMiOiJkYXRhOmltYWdlL3N2Zyt4bWw7YmFzZTY0LFBITjJaeUI0Yld4dWN6MGlhSFIwY0RvdkwzZDNkeTUzTXk1dmNtY3ZNakF3TUM5emRtY2lJSGRwWkhSb1BTSnFOVEVpSUdobGFXZG9kRDBpTlRFeUlqNDhjbVZqZENCM2FXUjBhRDBpTlRFeUlpQm9aV2xuYUhROUlqVXhNaUlnWm1sc2JEMGlJeUEyTnpNVaUJjNVlUVlpUzVjdkwzUmxlSFErUEhSbGVIUWdlRDBpTWpVMklpQjVQU0l6TmpZaUlHWnBiR3c5SWlObVptWm1abVlpSUdadmJuUXRabUZ0YVd4NVBTSkJjbWxoYkNJZ1ptOXVkQzF6YVhwbFBTSXpNaUlnWm05dWRDMTNaV2xuYUhROUltSnZiR1FpSUhSMWVIUXRZVzVqYUc5eVBTSnRhV1JrYkdVaTVV", "sizes": "256x256", "type": "image/svg+xml"}]}
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
@@ -31,48 +38,103 @@
             padding: 0; 
             background-color: var(--md-grey-100); 
             color: var(--md-grey-900); 
-            line-height: 1.6; 
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            /* Mobile-first: no margin on small screens */
         }
         .app-container { 
-            max-width: 900px; 
-            margin: 20px auto; 
+            width: 100%;
+            min-height: 100vh;
             background-color: var(--md-white); 
-            border-radius: 8px; 
-            box-shadow: var(--md-elevation-2);
-            overflow: hidden; /* To contain border-radius of children */
+            overflow: hidden;
+            /* Mobile-first: full width, add margins only on larger screens */
         }
         header { 
             background-color: var(--md-purple-700); 
             color: var(--md-white); 
-            padding: 24px; 
-            text-align: center; 
+            padding: 16px 20px; 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            /* Mobile-first: flexbox layout for hamburger */
         }
         header h1 { 
             margin: 0; 
-            font-size: 1.9em; 
+            font-size: 1.4em; 
             font-weight: 500;
+            flex-grow: 1;
+            text-align: center;
+            /* Mobile-first: smaller size, centered */
+        }
+        
+        /* Hamburger Menu Styles */
+        .hamburger-menu {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 28px;
+            height: 28px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            z-index: 1001;
+        }
+        .hamburger-menu span {
+            width: 100%;
+            height: 3px;
+            background-color: var(--md-white);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+        .hamburger-menu.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+        .hamburger-menu.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger-menu.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
         }
         nav { 
-            display: flex; 
-            justify-content: center; 
             background-color: var(--md-purple-500); 
-            padding: 8px 0; 
             box-shadow: var(--md-elevation-1);
-            flex-wrap: wrap;
+            transition: all 0.3s ease;
+            /* Mobile-first: collapsible navigation */
+        }
+        
+        /* Mobile Navigation States */
+        nav.nav-collapsed {
+            display: none;
+        }
+        nav.nav-expanded {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 0;
         }
         nav button { 
             background-color: transparent; 
             color: var(--md-purple-100); 
             border: none; 
-            padding: 12px 18px; 
+            padding: 16px 20px; 
             margin: 0; 
-            border-radius: 0px; /* Flat style for tabs */
+            border-radius: 0; 
             cursor: pointer; 
-            font-size: 0.98em; 
+            font-size: 0.9em; 
             font-weight: 500;
             text-transform: uppercase;
             transition: background-color 0.2s, color 0.2s; 
             border-bottom: 3px solid transparent;
+            white-space: nowrap;
+            flex-shrink: 0;
+            min-height: 48px; /* Touch target compliance */
         }
         nav button:hover { 
             background-color: rgba(255,255,255,0.1);
@@ -82,7 +144,10 @@
             color: var(--md-white);
             border-bottom: 3px solid var(--md-white); /* Active tab indicator */
         }
-        .content-area { padding: 24px; }
+        .content-area { 
+            padding: 16px; 
+            /* Mobile-first: smaller padding */
+        }
         .tab-content { display: none; } 
         .tab-content.active { display: block; } 
         .section { 
@@ -129,15 +194,16 @@
         }
         input[type="text"], input[type="number"], input[type="date"], select { 
             width: 100%; 
-            padding: 12px; 
+            padding: 14px; 
             margin-top: 4px; 
             border: 1px solid var(--md-grey-300); 
-            border-radius: 4px; 
+            border-radius: 6px; 
             box-sizing: border-box; 
-            font-size: 1em;
+            font-size: 16px; /* Prevents zoom on iOS */
             background-color: var(--md-white);
             color: var(--md-grey-900);
             transition: border-color 0.2s;
+            /* Mobile-first: larger touch targets */
         }
         input[type="text"]:focus, input[type="number"]:focus, input[type="date"]:focus, select:focus {
             border-color: var(--md-purple-500);
@@ -145,27 +211,42 @@
             box-shadow: 0 0 0 2px var(--md-purple-100);
         }
 
-        .inline-inputs { margin-bottom: 10px; }
-        .inline-inputs label { display: inline-block; margin-right: 5px; font-weight: normal; font-size: 0.95em;}
+        .inline-inputs { 
+            margin-bottom: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            /* Mobile-first: stack vertically */
+        }
+        .inline-inputs label { 
+            display: block; 
+            margin-bottom: 4px; 
+            font-weight: 500; 
+            font-size: 0.9em;
+        }
         .inline-inputs input[type="number"], .inline-inputs input[type="text"] { 
-            width: 75px; 
-            display: inline-block; 
-            margin-right: 12px; 
-            padding: 8px;
+            width: 100%; 
+            margin-right: 0; 
+            padding: 14px;
+            font-size: 16px; /* Prevents zoom on iOS */
+            /* Mobile-first: full width inputs */
         }
         
         button.action-button, button.log-set-button, button.danger-button {
             color: var(--md-white); 
-            padding: 10px 18px; 
+            padding: 14px 20px; 
             border: none; 
-            border-radius: 4px; 
+            border-radius: 6px; 
             cursor: pointer; 
             margin-top: 12px; 
-            font-size: 0.95em;
+            font-size: 1em;
             font-weight: 500;
             text-transform: uppercase;
             box-shadow: var(--md-elevation-1);
             transition: background-color 0.2s, box-shadow 0.2s;
+            min-height: 48px; /* Touch target compliance */
+            min-width: 48px;
+            /* Mobile-first: larger touch targets */
         }
         button.action-button { background-color: var(--md-purple-500); }
         button.action-button:hover { background-color: var(--md-purple-700); box-shadow: var(--md-elevation-2); }
@@ -239,16 +320,30 @@
         }
         .completed-marker { color: var(--md-green-500); font-weight: bold; margin-left: 10px; }
         
-        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.6); backdrop-filter: blur(4px); }
+        .modal { 
+            display: none; 
+            position: fixed; 
+            z-index: 1000; 
+            left: 0; 
+            top: 0; 
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgba(0,0,0,0.6); 
+            backdrop-filter: blur(4px);
+            /* Mobile-first: full screen modal */
+        }
         .modal-content { 
             background-color: var(--md-white); 
-            margin: 10% auto; 
-            padding: 24px; 
-            border-radius: 8px; 
-            width: 90%; 
-            max-width: 500px; 
-            box-shadow: var(--md-elevation-4);
+            margin: 0;
+            padding: 20px; 
+            border-radius: 0;
+            width: 100%; 
+            height: 100%;
+            box-shadow: none;
             position: relative;
+            overflow-y: auto;
+            /* Mobile-first: full screen modal */
         }
         .close-button { 
             color: var(--md-grey-700); 
@@ -268,101 +363,89 @@
         .metrics-input-group { display: flex; gap: 10px; align-items: flex-end; margin-bottom: 15px;}
         .metrics-input-group div { flex-grow: 1;}
 
-        /* Mobile Responsiveness */
-        @media (max-width: 768px) {
+        /* Tablet and larger screens - improve from mobile-first base */
+        @media (min-width: 768px) {
             .app-container { 
-                margin: 10px; 
-                border-radius: 0;
-                box-shadow: none;
+                max-width: 900px;
+                margin: 20px auto; 
+                border-radius: 8px;
+                box-shadow: var(--md-elevation-2);
             }
-            header { padding: 16px; }
-            header h1 { font-size: 1.5em; }
-            nav { 
-                flex-wrap: wrap; 
-                padding: 4px 0;
-            }
-            nav button { 
-                padding: 10px 12px; 
-                font-size: 0.85em;
-                min-width: 100px;
-            }
-            .content-area { padding: 16px; }
+            .content-area { padding: 24px; }
             .section { 
-                padding: 16px; 
-                margin-bottom: 16px;
-            }
-            .section h2 { font-size: 1.4em; }
-            .section h3 { font-size: 1.2em; }
-            
-            /* Improve form inputs on mobile */
-            input[type="text"], input[type="number"], input[type="date"], select { 
-                padding: 14px; 
-                font-size: 16px; /* Prevents zoom on iOS */
-                border-radius: 6px;
-            }
-            textarea {
-                padding: 14px;
-                font-size: 16px;
-                border: 1px solid var(--md-grey-300);
-                border-radius: 6px;
+                padding: 20px; 
+                margin-bottom: 24px;
             }
             
-            /* Better button sizing for touch */
-            button.action-button, button.log-set-button, button.danger-button {
-                padding: 12px 20px;
-                font-size: 1em;
-                min-height: 44px; /* iOS recommended touch target */
-                margin-top: 8px;
+            /* Desktop header - restore traditional layout */
+            header {
+                padding: 24px;
+                justify-content: center;
+            }
+            header h1 {
+                font-size: 1.9em;
+                text-align: center;
             }
             
-            /* Improve inline inputs layout */
+            /* Hide hamburger menu on larger screens */
+            .hamburger-menu {
+                display: none !important;
+            }
+            
+            /* Desktop navigation - horizontal layout */
+            nav {
+                display: flex !important;
+                flex-direction: row !important;
+                justify-content: center;
+                position: static !important;
+                padding: 8px 0 !important;
+                overflow-x: visible;
+            }
+            nav.nav-collapsed, nav.nav-expanded {
+                display: flex !important;
+                flex-direction: row !important;
+                position: static !important;
+            }
+            nav button {
+                padding: 12px 18px;
+                font-size: 0.98em;
+            }
+            
+            /* Desktop modal - windowed instead of full screen */
+            .modal-content { 
+                margin: 10% auto;
+                padding: 24px; 
+                border-radius: 8px;
+                width: 90%; 
+                max-width: 500px; 
+                height: auto;
+                box-shadow: var(--md-elevation-4);
+            }
+            
+            /* Inline inputs can be horizontal on larger screens */
             .inline-inputs {
-                display: flex;
-                flex-direction: column;
-                gap: 8px;
-                margin-bottom: 12px;
-            }
-            .inline-inputs label {
                 display: block;
-                margin-bottom: 4px;
-                font-weight: 500;
+                margin-bottom: 10px;
             }
-            .inline-inputs input[type="number"], .inline-inputs input[type="text"] {
-                width: 100%;
-                margin-right: 0;
-                padding: 12px;
+            .inline-inputs label { 
+                display: inline-block; 
+                margin-right: 5px; 
+                font-weight: normal; 
+                font-size: 0.95em;
+                margin-bottom: 0;
             }
-            
-            /* Modal improvements */
-            .modal-content {
-                margin: 5% auto;
-                width: 95%;
-                padding: 20px;
-            }
-            
-            /* Table responsiveness */
-            .e1rm-manage-section table {
-                font-size: 0.9em;
-            }
-            .e1rm-manage-section th, .e1rm-manage-section td {
+            .inline-inputs input[type="number"], .inline-inputs input[type="text"] { 
+                width: 75px; 
+                display: inline-block; 
+                margin-right: 12px; 
                 padding: 8px;
+                font-size: 1em;
             }
             
-            /* Exercise item improvements */
-            .exercise-item {
-                padding-bottom: 20px;
-                margin-bottom: 20px;
-            }
-            
-            /* Metrics input group for mobile */
+            /* Horizontal metrics input group on larger screens */
             .metrics-input-group {
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            /* Chart container */
-            #bodyweightChart {
-                max-height: 250px;
+                flex-direction: row;
+                gap: 10px;
             }
         }
 
@@ -558,13 +641,18 @@
     <div class="app-container">
         <header>
             <h1>My Training Plan</h1>
+            <button class="hamburger-menu" onclick="toggleMobileNav()" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </header>
-        <nav id="mainNav">
-            <button data-tab="guideTab" onclick="showTab('guideTab')">Guide</button>
-            <button data-tab="smartRecommendationsTab" onclick="showTab('smartRecommendationsTab')">Smart Recommendations</button>
-            <button data-tab="progressTab" onclick="showTab('progressTab')">Progress</button>
-            <button data-tab="analyticsTab" onclick="showTab('analyticsTab')">Analytics</button>
-            <button data-tab="e1rmTab" onclick="showTab('e1rmTab')">Settings &amp; e1RMs</button>
+        <nav id="mainNav" class="nav-collapsed">
+            <button data-tab="guideTab" onclick="showTab('guideTab'); closeMobileNav()">Guide</button>
+            <button data-tab="smartRecommendationsTab" onclick="showTab('smartRecommendationsTab'); closeMobileNav()">Smart Recommendations</button>
+            <button data-tab="progressTab" onclick="showTab('progressTab'); closeMobileNav()">Progress</button>
+            <button data-tab="analyticsTab" onclick="showTab('analyticsTab'); closeMobileNav()">Analytics</button>
+            <button data-tab="e1rmTab" onclick="showTab('e1rmTab'); closeMobileNav()">Settings &amp; e1RMs</button>
         </nav>
         <div class="content-area">
             <div id="guideTab" class="tab-content section">
@@ -969,6 +1057,107 @@
         let e1RMChangeStatus = {}; 
         let userBodyweight = 0; 
         let bodyweightHistory = []; // Array of {date: "YYYY-MM-DD", weight: number}
+        
+        // Mobile Navigation Functions
+        function toggleMobileNav() {
+            const nav = document.getElementById('mainNav');
+            const hamburger = document.querySelector('.hamburger-menu');
+            
+            if (nav.classList.contains('nav-collapsed')) {
+                nav.classList.remove('nav-collapsed');
+                nav.classList.add('nav-expanded');
+                hamburger.classList.add('active');
+            } else {
+                nav.classList.remove('nav-expanded');
+                nav.classList.add('nav-collapsed');
+                hamburger.classList.remove('active');
+            }
+        }
+        
+        function closeMobileNav() {
+            const nav = document.getElementById('mainNav');
+            const hamburger = document.querySelector('.hamburger-menu');
+            
+            // Only close if we're in mobile view (window width check)
+            if (window.innerWidth < 768) {
+                nav.classList.remove('nav-expanded');
+                nav.classList.add('nav-collapsed');
+                hamburger.classList.remove('active');
+            }
+        }
+        
+        // Close mobile nav when clicking outside
+        document.addEventListener('click', function(event) {
+            const nav = document.getElementById('mainNav');
+            const hamburger = document.querySelector('.hamburger-menu');
+            
+            if (window.innerWidth < 768 && 
+                nav.classList.contains('nav-expanded') && 
+                !nav.contains(event.target) && 
+                !hamburger.contains(event.target)) {
+                closeMobileNav();
+            }
+        });
+        
+        // Handle window resize to ensure proper nav state
+        window.addEventListener('resize', function() {
+            const nav = document.getElementById('mainNav');
+            const hamburger = document.querySelector('.hamburger-menu');
+            
+            if (window.innerWidth >= 768) {
+                // Desktop: ensure nav is visible and hamburger is inactive
+                nav.classList.remove('nav-collapsed', 'nav-expanded');
+                hamburger.classList.remove('active');
+            } else {
+                // Mobile: ensure nav starts collapsed if no class is set
+                if (!nav.classList.contains('nav-expanded')) {
+                    nav.classList.add('nav-collapsed');
+                }
+            }
+        });
+        
+        // Service Worker Registration for PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                const swCode = `
+                    const CACHE_NAME = 'strength-tracker-v1';
+                    const urlsToCache = ['/'];
+                    
+                    self.addEventListener('install', function(event) {
+                        event.waitUntil(
+                            caches.open(CACHE_NAME)
+                                .then(function(cache) {
+                                    return cache.addAll(urlsToCache);
+                                })
+                        );
+                    });
+                    
+                    self.addEventListener('fetch', function(event) {
+                        event.respondWith(
+                            caches.match(event.request)
+                                .then(function(response) {
+                                    if (response) {
+                                        return response;
+                                    }
+                                    return fetch(event.request);
+                                })
+                        );
+                    });
+                `;
+                
+                const blob = new Blob([swCode], { type: 'application/javascript' });
+                const swUrl = URL.createObjectURL(blob);
+                
+                navigator.serviceWorker.register(swUrl)
+                    .then(function(registration) {
+                        console.log('ServiceWorker registration successful');
+                    })
+                    .catch(function(err) {
+                        console.log('ServiceWorker registration failed: ', err);
+                    });
+            });
+        }
+        
         let dailyLog = {};      
         let currentSelectedDayKey = null; 
         let currentActiveTab = 'guideTab'; 

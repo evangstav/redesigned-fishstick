@@ -27,6 +27,7 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
             --md-green-700: #388E3C;
             --md-red-500: #f44336;    /* Red for decreases/danger */
             --md-red-700: #D32F2F;
+            --md-orange-500: #FF9800;  /* Orange for warnings */
             --md-grey-100: #f5f5f5;   /* Light grey for page background */
             --md-grey-300: #e0e0e0;   /* Borders */
             --md-grey-600: #757575;   /* Medium grey for descriptions */
@@ -3601,6 +3602,31 @@ Keep response evidence-based and practical.`;
             };
             
             reader.readAsText(file);
+        }
+
+        // Utility function for updating Data Management status messages
+        function updateDataManagementStatus(message, type = 'info') {
+            const statusDiv = document.getElementById('dataManagementStatus');
+            if (statusDiv) {
+                statusDiv.textContent = message;
+                
+                // Set color based on message type
+                switch (type) {
+                    case 'success':
+                        statusDiv.style.color = 'var(--md-green-500)';
+                        break;
+                    case 'error':
+                        statusDiv.style.color = 'var(--md-red-500)';
+                        break;
+                    case 'warning':
+                        statusDiv.style.color = 'var(--md-orange-500)';
+                        break;
+                    case 'info':
+                    default:
+                        statusDiv.style.color = 'var(--md-grey-700)';
+                        break;
+                }
+            }
         }
 
         // QR Code Sync Functions

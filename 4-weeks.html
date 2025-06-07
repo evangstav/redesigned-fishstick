@@ -2576,8 +2576,8 @@ PROGRESSION: [Weight adjustments based on auto-progression analysis]
 
 Keep response evidence-based and practical.`;
 
-                // Use local proxy server to avoid browser CORS restrictions
-                const proxyUrl = 'http://localhost:3001/api/anthropic';
+                // Use production proxy server to avoid browser CORS restrictions
+                const proxyUrl = 'https://redesigned-fishstick-production.up.railway.app/api/anthropic';
                 
                 const response = await fetch(proxyUrl, {
                     method: 'POST',

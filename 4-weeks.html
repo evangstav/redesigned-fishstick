@@ -14,7 +14,7 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- QR Code and Compression Libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/lib/browser.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lz-string@1.4.4/libs/lz-string.min.js"></script>
     <style>
         :root {
@@ -3633,7 +3633,7 @@ Keep response evidence-based and practical.`;
         function generateRecentWorkoutQR(daysBack = 1) {
             try {
                 // Check if QR library is available
-                if (typeof QRCode === 'undefined') {
+                if (typeof QRious === 'undefined') {
                     updateDataManagementStatus('QR Code library not loaded. Try refreshing the page.', 'error');
                     generateShareURL(daysBack); // Fallback to URL sharing
                     return;
@@ -3676,35 +3676,32 @@ Keep response evidence-based and practical.`;
                 // Store the share URL for fallback
                 window.currentShareURL = `${window.location.origin}${window.location.pathname}#import=${compressed}`;
                 
-                QRCode.toCanvas(document.createElement('canvas'), compressed, {
-                    width: 256,
-                    margin: 2,
-                    color: {
-                        dark: '#212121',
-                        light: '#FFFFFF'
-                    }
-                }, function (error, canvas) {
+                try {
+                    const qr = new QRious({
+                        value: compressed,
+                        size: 256,
+                        foreground: '#212121',
+                        background: '#FFFFFF'
+                    });
+                    
                     const container = document.getElementById('qrCodeContainer');
-                    
-                    if (error) {
-                        console.error('QR Generation Error:', error);
-                        if (container) {
-                            container.innerHTML = `
-                                <div style="padding: 20px; color: var(--md-red-500);">
-                                    <p>QR generation failed</p>
-                                    <button onclick="copyShareURL()" class="action-button" style="margin-top: 10px;">Copy Share URL Instead</button>
-                                </div>
-                            `;
-                        }
-                        return;
-                    }
-                    
                     if (container) {
                         container.innerHTML = '';
-                        container.appendChild(canvas);
-                        window.currentQRCanvas = canvas;
+                        container.appendChild(qr.canvas);
+                        window.currentQRCanvas = qr.canvas;
                     }
-                });
+                } catch (error) {
+                    console.error('QR Generation Error:', error);
+                    const container = document.getElementById('qrCodeContainer');
+                    if (container) {
+                        container.innerHTML = `
+                            <div style="padding: 20px; color: var(--md-red-500);">
+                                <p>QR generation failed</p>
+                                <button onclick="copyShareURL()" class="action-button" style="margin-top: 10px;">Copy Share URL Instead</button>
+                            </div>
+                        `;
+                    }
+                }
                 
             } catch (error) {
                 console.error('Error generating QR code:', error);
@@ -3822,23 +3819,24 @@ Keep response evidence-based and practical.`;
                 
                 document.body.insertAdjacentHTML('beforeend', modalHtml);
                 
-                QRCode.toCanvas(document.createElement('canvas'), compressed, {
-                    width: 256,
-                    margin: 2
-                }, function (error, canvas) {
-                    if (error) {
-                        console.error('QR Generation Error:', error);
-                        updateDataManagementStatus('Failed to generate QR code', 'error');
-                        closeQRModal();
-                        return;
-                    }
+                try {
+                    const qr = new QRious({
+                        value: compressed,
+                        size: 256,
+                        foreground: '#212121',
+                        background: '#FFFFFF'
+                    });
                     
                     const container = document.getElementById('qrCodeContainer');
                     if (container) {
-                        container.appendChild(canvas);
-                        window.currentQRCanvas = canvas;
+                        container.appendChild(qr.canvas);
+                        window.currentQRCanvas = qr.canvas;
                     }
-                });
+                } catch (error) {
+                    console.error('QR Generation Error:', error);
+                    updateDataManagementStatus('Failed to generate QR code', 'error');
+                    closeQRModal();
+                }
                 
             } catch (error) {
                 console.error('Error generating full data QR code:', error);
@@ -3911,21 +3909,22 @@ Keep response evidence-based and practical.`;
             
             const qrString = JSON.stringify(qrData);
             
-            QRCode.toCanvas(document.createElement('canvas'), qrString, {
-                width: 256,
-                margin: 2
-            }, function (error, canvas) {
-                if (error) {
-                    console.error('QR Generation Error:', error);
-                    return;
-                }
+            try {
+                const qr = new QRious({
+                    value: qrString,
+                    size: 256,
+                    foreground: '#212121',
+                    background: '#FFFFFF'
+                });
                 
                 const container = document.getElementById('qrCodeContainer');
                 if (container) {
                     container.innerHTML = '';
-                    container.appendChild(canvas);
+                    container.appendChild(qr.canvas);
                 }
-            });
+            } catch (error) {
+                console.error('QR Generation Error:', error);
+            }
             
             document.getElementById('qrProgress').textContent = `QR ${currentIndex + 1} of ${totalChunks}`;
             document.getElementById('qrProgressBar').style.width = `${((currentIndex + 1) / totalChunks) * 100}%`;

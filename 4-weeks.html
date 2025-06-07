@@ -920,11 +920,36 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
                 </div>
                 <div class="bodyweight-input-container">
                     <h3>Data Management</h3>
-                    <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 15px;">
-                        <button class="action-button" onclick="exportData()">Export All Data</button>
-                        <button class="action-button" onclick="document.getElementById('importFile').click()">Import Data</button>
-                        <input type="file" id="importFile" accept=".json" style="display: none;" onchange="importData(event)">
+                    
+                    <!-- Advanced Export Section -->
+                    <div style="margin-bottom: 20px;">
+                        <h4 style="margin-bottom: 10px; color: var(--md-blue-600);">Export Options</h4>
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 10px;">
+                            <button class="action-button" onclick="exportData()">Export All Data (JSON)</button>
+                            <button class="action-button" onclick="exportDataCSV()">Export All Data (CSV)</button>
+                            <button class="action-button" onclick="showSelectiveExportModal()">Selective Export</button>
+                        </div>
                     </div>
+
+                    <!-- Import Section -->
+                    <div style="margin-bottom: 20px;">
+                        <h4 style="margin-bottom: 10px; color: var(--md-green-600);">Import Options</h4>
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 10px;">
+                            <button class="action-button" onclick="document.getElementById('importFile').click()">Import Data</button>
+                            <button class="action-button" onclick="validateDataIntegrity()">Validate Data</button>
+                            <input type="file" id="importFile" accept=".json" style="display: none;" onchange="importData(event)">
+                        </div>
+                    </div>
+
+                    <!-- Backup Management -->
+                    <div style="margin-bottom: 20px;">
+                        <h4 style="margin-bottom: 10px; color: var(--md-orange-600);">Backup Management</h4>
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 10px;">
+                            <button class="action-button" onclick="createAutoBackup()">Create Auto Backup</button>
+                            <button class="action-button" onclick="showBackupHistory()">Backup History</button>
+                        </div>
+                    </div>
+
                     <div id="dataManagementStatus" style="font-size: 0.9em; color: var(--md-grey-700); margin-bottom: 10px;"></div>
                 </div>
                 
@@ -951,6 +976,47 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
             <label for="modalRPE">RPE (6-10):</label>
             <input type="number" id="modalRPE" step="0.5" min="6" max="10" placeholder="RPE">
             <button class="action-button" onclick="submitAccessorySetLog()">Log Set</button>
+        </div>
+    </div>
+
+    <!-- Selective Export Modal -->
+    <div id="selectiveExportModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeSelectiveExportModal()">&times;</span>
+            <h3>Selective Data Export</h3>
+            
+            <div style="margin-bottom: 20px;">
+                <h4>Export Format</h4>
+                <label><input type="radio" name="exportFormat" value="json" checked> JSON</label>
+                <label style="margin-left: 15px;"><input type="radio" name="exportFormat" value="csv"> CSV</label>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <h4>Data Categories</h4>
+                <label><input type="checkbox" id="exportE1RMs" checked> Exercise 1RMs</label><br>
+                <label><input type="checkbox" id="exportBodyweight" checked> Bodyweight History</label><br>
+                <label><input type="checkbox" id="exportWorkouts" checked> Workout Logs</label><br>
+                <label><input type="checkbox" id="exportSettings" checked> Settings & API Key</label>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <h4>Date Range (for Workout Logs)</h4>
+                <label for="exportStartDate">Start Date:</label>
+                <input type="date" id="exportStartDate"><br>
+                <label for="exportEndDate">End Date:</label>
+                <input type="date" id="exportEndDate">
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <h4>Specific Exercises (for e1RMs)</h4>
+                <div id="exerciseCheckboxes" style="max-height: 150px; overflow-y: auto; border: 1px solid var(--md-grey-300); padding: 10px; border-radius: 4px;">
+                    <!-- Will be populated dynamically -->
+                </div>
+                <button type="button" onclick="selectAllExercises()" style="margin-top: 5px; font-size: 0.8em;">Select All</button>
+                <button type="button" onclick="deselectAllExercises()" style="margin-left: 10px; font-size: 0.8em;">Deselect All</button>
+            </div>
+
+            <button class="action-button" onclick="executeSelectiveExport()">Export Selected Data</button>
         </div>
     </div>
 
@@ -2969,6 +3035,511 @@ Keep response evidence-based and practical.`;
                 }
                 
                 // Reset file input
+                event.target.value = '';
+            };
+            
+            reader.readAsText(file);
+        }
+
+        // Enhanced Data Management Functions
+
+        // CSV Export Function
+        function exportDataCSV() {
+            try {
+                let csvContent = "";
+                
+                // Export e1RM data
+                csvContent += "Exercise 1RM Data\n";
+                csvContent += "Exercise,Current e1RM (kg),Date Updated\n";
+                Object.entries(exercisesE1RM).forEach(([exercise, value]) => {
+                    csvContent += `"${exercise}","${value}","${new Date().toISOString().split('T')[0]}"\n`;
+                });
+                
+                csvContent += "\nBodyweight History\n";
+                csvContent += "Date,Weight (kg)\n";
+                bodyweightHistory.forEach(entry => {
+                    csvContent += `"${entry.date}","${entry.weight}"\n`;
+                });
+                
+                // Export daily logs
+                csvContent += "\nWorkout Logs\n";
+                csvContent += "Date,Exercise,Set,Weight,Reps,RPE,e1RM\n";
+                
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    if (key && key.startsWith(`personalizedPlanDailyLog_${APP_VERSION_KEY}_`)) {
+                        const date = key.substring(`personalizedPlanDailyLog_${APP_VERSION_KEY}_`.length);
+                        const logData = JSON.parse(localStorage.getItem(key));
+                        
+                        Object.entries(logData).forEach(([exerciseName, sets]) => {
+                            if (Array.isArray(sets)) {
+                                sets.forEach((set, index) => {
+                                    if (set.weight && set.reps) {
+                                        const e1rm = set.weight * (1 + (set.reps / 30));
+                                        csvContent += `"${date}","${exerciseName}","${index + 1}","${set.weight}","${set.reps}","${set.rpe || ''}","${e1rm.toFixed(1)}"\n`;
+                                    }
+                                });
+                            }
+                        });
+                    }
+                }
+                
+                const blob = new Blob([csvContent], { type: 'text/csv' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = `fitness-tracker-export-${new Date().toISOString().split('T')[0]}.csv`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                const statusDiv = document.getElementById('dataManagementStatus');
+                statusDiv.textContent = `CSV data exported successfully at ${new Date().toLocaleTimeString()}`;
+                statusDiv.style.color = 'var(--md-green-500)';
+                
+            } catch (error) {
+                console.error('CSV Export error:', error);
+                const statusDiv = document.getElementById('dataManagementStatus');
+                statusDiv.textContent = 'CSV export failed. Check console for details.';
+                statusDiv.style.color = 'var(--md-red-500)';
+            }
+        }
+
+        // Selective Export Modal Functions
+        function showSelectiveExportModal() {
+            const modal = document.getElementById('selectiveExportModal');
+            modal.style.display = 'block';
+            
+            // Set default date range (last 30 days)
+            const today = new Date();
+            const thirtyDaysAgo = new Date(today.getTime() - (30 * 24 * 60 * 60 * 1000));
+            document.getElementById('exportStartDate').value = thirtyDaysAgo.toISOString().split('T')[0];
+            document.getElementById('exportEndDate').value = today.toISOString().split('T')[0];
+            
+            // Populate exercise checkboxes
+            populateExerciseCheckboxes();
+        }
+
+        function closeSelectiveExportModal() {
+            document.getElementById('selectiveExportModal').style.display = 'none';
+        }
+
+        function populateExerciseCheckboxes() {
+            const container = document.getElementById('exerciseCheckboxes');
+            container.innerHTML = '';
+            
+            Object.keys(exercisesE1RM).forEach(exercise => {
+                const label = document.createElement('label');
+                label.style.display = 'block';
+                label.style.marginBottom = '5px';
+                label.innerHTML = `<input type="checkbox" value="${exercise}" checked> ${exercise}`;
+                container.appendChild(label);
+            });
+        }
+
+        function selectAllExercises() {
+            const checkboxes = document.querySelectorAll('#exerciseCheckboxes input[type="checkbox"]');
+            checkboxes.forEach(cb => cb.checked = true);
+        }
+
+        function deselectAllExercises() {
+            const checkboxes = document.querySelectorAll('#exerciseCheckboxes input[type="checkbox"]');
+            checkboxes.forEach(cb => cb.checked = false);
+        }
+
+        function executeSelectiveExport() {
+            try {
+                const format = document.querySelector('input[name="exportFormat"]:checked').value;
+                const includeE1RMs = document.getElementById('exportE1RMs').checked;
+                const includeBodyweight = document.getElementById('exportBodyweight').checked;
+                const includeWorkouts = document.getElementById('exportWorkouts').checked;
+                const includeSettings = document.getElementById('exportSettings').checked;
+                const startDate = document.getElementById('exportStartDate').value;
+                const endDate = document.getElementById('exportEndDate').value;
+                
+                // Get selected exercises
+                const selectedExercises = Array.from(document.querySelectorAll('#exerciseCheckboxes input[type="checkbox"]:checked'))
+                    .map(cb => cb.value);
+
+                if (format === 'json') {
+                    exportSelectiveJSON(includeE1RMs, includeBodyweight, includeWorkouts, includeSettings, startDate, endDate, selectedExercises);
+                } else {
+                    exportSelectiveCSV(includeE1RMs, includeBodyweight, includeWorkouts, includeSettings, startDate, endDate, selectedExercises);
+                }
+                
+                closeSelectiveExportModal();
+                
+            } catch (error) {
+                console.error('Selective export error:', error);
+                const statusDiv = document.getElementById('dataManagementStatus');
+                statusDiv.textContent = 'Selective export failed. Check console for details.';
+                statusDiv.style.color = 'var(--md-red-500)';
+            }
+        }
+
+        function exportSelectiveJSON(includeE1RMs, includeBodyweight, includeWorkouts, includeSettings, startDate, endDate, selectedExercises) {
+            const exportData = {
+                version: APP_VERSION_KEY,
+                exportDate: new Date().toISOString(),
+                exportType: 'selective',
+                dateRange: { start: startDate, end: endDate }
+            };
+
+            if (includeE1RMs) {
+                exportData.exercisesE1RM = {};
+                selectedExercises.forEach(exercise => {
+                    if (exercisesE1RM[exercise] !== undefined) {
+                        exportData.exercisesE1RM[exercise] = exercisesE1RM[exercise];
+                    }
+                });
+                exportData.e1RMChangeStatus = {};
+                selectedExercises.forEach(exercise => {
+                    if (e1RMChangeStatus[exercise] !== undefined) {
+                        exportData.e1RMChangeStatus[exercise] = e1RMChangeStatus[exercise];
+                    }
+                });
+            }
+
+            if (includeBodyweight) {
+                exportData.userBodyweight = userBodyweight;
+                exportData.bodyweightHistory = bodyweightHistory.filter(entry => {
+                    return (!startDate || entry.date >= startDate) && (!endDate || entry.date <= endDate);
+                });
+            }
+
+            if (includeSettings) {
+                exportData.claudeApiKey = claudeApiKey;
+            }
+
+            if (includeWorkouts) {
+                exportData.dailyLogs = {};
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    if (key && key.startsWith(`personalizedPlanDailyLog_${APP_VERSION_KEY}_`)) {
+                        const date = key.substring(`personalizedPlanDailyLog_${APP_VERSION_KEY}_`.length);
+                        if ((!startDate || date >= startDate) && (!endDate || date <= endDate)) {
+                            const logData = JSON.parse(localStorage.getItem(key));
+                            // Filter by selected exercises
+                            const filteredLogData = {};
+                            selectedExercises.forEach(exercise => {
+                                if (logData[exercise]) {
+                                    filteredLogData[exercise] = logData[exercise];
+                                }
+                            });
+                            if (Object.keys(filteredLogData).length > 0) {
+                                exportData.dailyLogs[date] = filteredLogData;
+                            }
+                        }
+                    }
+                }
+            }
+
+            const dataStr = JSON.stringify(exportData, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(dataBlob);
+            link.download = `fitness-tracker-selective-${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            const statusDiv = document.getElementById('dataManagementStatus');
+            statusDiv.textContent = `Selective JSON export completed at ${new Date().toLocaleTimeString()}`;
+            statusDiv.style.color = 'var(--md-green-500)';
+        }
+
+        function exportSelectiveCSV(includeE1RMs, includeBodyweight, includeWorkouts, includeSettings, startDate, endDate, selectedExercises) {
+            let csvContent = `Selective Export - ${new Date().toISOString()}\n`;
+            csvContent += `Date Range: ${startDate || 'All'} to ${endDate || 'All'}\n`;
+            csvContent += `Selected Exercises: ${selectedExercises.join(', ')}\n\n`;
+            
+            if (includeE1RMs) {
+                csvContent += "Exercise 1RM Data\n";
+                csvContent += "Exercise,Current e1RM (kg),Change Status\n";
+                selectedExercises.forEach(exercise => {
+                    if (exercisesE1RM[exercise] !== undefined) {
+                        csvContent += `"${exercise}","${exercisesE1RM[exercise]}","${e1RMChangeStatus[exercise] || 'No change'}"\n`;
+                    }
+                });
+                csvContent += "\n";
+            }
+            
+            if (includeBodyweight) {
+                csvContent += "Bodyweight History\n";
+                csvContent += "Date,Weight (kg)\n";
+                bodyweightHistory.filter(entry => {
+                    return (!startDate || entry.date >= startDate) && (!endDate || entry.date <= endDate);
+                }).forEach(entry => {
+                    csvContent += `"${entry.date}","${entry.weight}"\n`;
+                });
+                csvContent += "\n";
+            }
+            
+            if (includeWorkouts) {
+                csvContent += "Workout Logs\n";
+                csvContent += "Date,Exercise,Set,Weight,Reps,RPE,e1RM\n";
+                
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    if (key && key.startsWith(`personalizedPlanDailyLog_${APP_VERSION_KEY}_`)) {
+                        const date = key.substring(`personalizedPlanDailyLog_${APP_VERSION_KEY}_`.length);
+                        if ((!startDate || date >= startDate) && (!endDate || date <= endDate)) {
+                            const logData = JSON.parse(localStorage.getItem(key));
+                            
+                            selectedExercises.forEach(exerciseName => {
+                                if (logData[exerciseName] && Array.isArray(logData[exerciseName])) {
+                                    logData[exerciseName].forEach((set, index) => {
+                                        if (set.weight && set.reps) {
+                                            const e1rm = set.weight * (1 + (set.reps / 30));
+                                            csvContent += `"${date}","${exerciseName}","${index + 1}","${set.weight}","${set.reps}","${set.rpe || ''}","${e1rm.toFixed(1)}"\n`;
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    }
+                }
+            }
+            
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `fitness-tracker-selective-${new Date().toISOString().split('T')[0]}.csv`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            const statusDiv = document.getElementById('dataManagementStatus');
+            statusDiv.textContent = `Selective CSV export completed at ${new Date().toLocaleTimeString()}`;
+            statusDiv.style.color = 'var(--md-green-500)';
+        }
+
+        // Data Integrity and Validation Functions
+        function validateDataIntegrity() {
+            try {
+                const issues = [];
+                
+                // Check e1RM data integrity
+                Object.entries(exercisesE1RM).forEach(([exercise, value]) => {
+                    if (typeof value !== 'number' || value <= 0 || value > 1000) {
+                        issues.push(`Invalid e1RM value for ${exercise}: ${value}`);
+                    }
+                });
+                
+                // Check bodyweight data
+                if (typeof userBodyweight !== 'number' || userBodyweight <= 0 || userBodyweight > 1000) {
+                    issues.push(`Invalid current bodyweight: ${userBodyweight}`);
+                }
+                
+                bodyweightHistory.forEach((entry, index) => {
+                    if (!entry.date || !entry.weight || typeof entry.weight !== 'number') {
+                        issues.push(`Invalid bodyweight history entry at index ${index}`);
+                    }
+                });
+                
+                // Check daily logs structure
+                let logCount = 0;
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    if (key && key.startsWith(`personalizedPlanDailyLog_${APP_VERSION_KEY}_`)) {
+                        logCount++;
+                        try {
+                            const logData = JSON.parse(localStorage.getItem(key));
+                            if (typeof logData !== 'object') {
+                                issues.push(`Invalid log data structure for ${key}`);
+                            }
+                        } catch (e) {
+                            issues.push(`Corrupted log data for ${key}`);
+                        }
+                    }
+                }
+                
+                const statusDiv = document.getElementById('dataManagementStatus');
+                if (issues.length === 0) {
+                    statusDiv.textContent = `Data validation passed! Found ${logCount} workout logs, ${Object.keys(exercisesE1RM).length} exercises, ${bodyweightHistory.length} bodyweight entries.`;
+                    statusDiv.style.color = 'var(--md-green-500)';
+                } else {
+                    statusDiv.textContent = `Data validation found ${issues.length} issues. Check console for details.`;
+                    statusDiv.style.color = 'var(--md-orange-500)';
+                    console.warn('Data integrity issues:', issues);
+                }
+                
+            } catch (error) {
+                console.error('Data validation error:', error);
+                const statusDiv = document.getElementById('dataManagementStatus');
+                statusDiv.textContent = 'Data validation failed. Check console for details.';
+                statusDiv.style.color = 'var(--md-red-500)';
+            }
+        }
+
+        // Auto Backup Functions
+        function createAutoBackup() {
+            try {
+                const backupKey = `personalizedPlanAutoBackup_${APP_VERSION_KEY}_${new Date().toISOString().split('T')[0]}`;
+                const backupData = {
+                    version: APP_VERSION_KEY,
+                    backupDate: new Date().toISOString(),
+                    backupType: 'automatic',
+                    exercisesE1RM: exercisesE1RM,
+                    e1RMChangeStatus: e1RMChangeStatus,
+                    userBodyweight: userBodyweight,
+                    bodyweightHistory: bodyweightHistory,
+                    claudeApiKey: claudeApiKey,
+                    dailyLogs: {}
+                };
+
+                // Include all daily logs
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    if (key && key.startsWith(`personalizedPlanDailyLog_${APP_VERSION_KEY}_`)) {
+                        const date = key.substring(`personalizedPlanDailyLog_${APP_VERSION_KEY}_`.length);
+                        backupData.dailyLogs[date] = JSON.parse(localStorage.getItem(key));
+                    }
+                }
+
+                localStorage.setItem(backupKey, JSON.stringify(backupData));
+                
+                // Clean old auto backups (keep only 5 most recent)
+                cleanOldAutoBackups();
+                
+                const statusDiv = document.getElementById('dataManagementStatus');
+                statusDiv.textContent = `Auto backup created successfully at ${new Date().toLocaleTimeString()}`;
+                statusDiv.style.color = 'var(--md-green-500)';
+                
+            } catch (error) {
+                console.error('Auto backup error:', error);
+                const statusDiv = document.getElementById('dataManagementStatus');
+                statusDiv.textContent = 'Auto backup failed. Storage might be full.';
+                statusDiv.style.color = 'var(--md-red-500)';
+            }
+        }
+
+        function cleanOldAutoBackups() {
+            const backups = [];
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key && key.startsWith(`personalizedPlanAutoBackup_${APP_VERSION_KEY}_`)) {
+                    backups.push(key);
+                }
+            }
+            
+            // Sort by date (newest first) and remove old ones
+            backups.sort().reverse();
+            if (backups.length > 5) {
+                for (let i = 5; i < backups.length; i++) {
+                    localStorage.removeItem(backups[i]);
+                }
+            }
+        }
+
+        function showBackupHistory() {
+            try {
+                const backups = [];
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    if (key && key.startsWith(`personalizedPlanAutoBackup_${APP_VERSION_KEY}_`)) {
+                        const date = key.substring(`personalizedPlanAutoBackup_${APP_VERSION_KEY}_`.length);
+                        backups.push(date);
+                    }
+                }
+                
+                const statusDiv = document.getElementById('dataManagementStatus');
+                if (backups.length === 0) {
+                    statusDiv.textContent = 'No auto backups found. Create one using the "Create Auto Backup" button.';
+                    statusDiv.style.color = 'var(--md-orange-500)';
+                } else {
+                    backups.sort();
+                    statusDiv.textContent = `Found ${backups.length} auto backups: ${backups.join(', ')}`;
+                    statusDiv.style.color = 'var(--md-blue-500)';
+                }
+                
+            } catch (error) {
+                console.error('Backup history error:', error);
+                const statusDiv = document.getElementById('dataManagementStatus');
+                statusDiv.textContent = 'Failed to load backup history.';
+                statusDiv.style.color = 'var(--md-red-500)';
+            }
+        }
+
+        // Cloud Sync Integration (Basic Implementation)
+        function initializeCloudSync() {
+            // Placeholder for Google Drive API integration
+            // This would require OAuth2 setup and Google Drive API key
+            const statusDiv = document.getElementById('dataManagementStatus');
+            statusDiv.textContent = 'Cloud sync feature coming soon! Use manual export/import for now.';
+            statusDiv.style.color = 'var(--md-blue-500)';
+        }
+
+        function syncToCloud() {
+            // Placeholder for cloud sync functionality
+            const statusDiv = document.getElementById('dataManagementStatus');
+            statusDiv.textContent = 'Cloud sync not yet configured. Please use manual export for backup.';
+            statusDiv.style.color = 'var(--md-orange-500)';
+        }
+
+        // Enhanced Import with validation for selective exports
+        function importSelectiveData(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const importedData = JSON.parse(e.target.result);
+                    
+                    // Check if this is a selective export
+                    if (importedData.exportType === 'selective') {
+                        const confirmMessage = `Import selective data from ${new Date(importedData.exportDate).toLocaleDateString()}?\n\nThis is a selective export that will merge with your existing data.`;
+                        
+                        if (confirm(confirmMessage)) {
+                            // Merge selective data instead of overwriting
+                            if (importedData.exercisesE1RM) {
+                                Object.assign(exercisesE1RM, importedData.exercisesE1RM);
+                            }
+                            if (importedData.e1RMChangeStatus) {
+                                Object.assign(e1RMChangeStatus, importedData.e1RMChangeStatus);
+                            }
+                            if (importedData.bodyweightHistory) {
+                                // Merge bodyweight history without duplicates
+                                importedData.bodyweightHistory.forEach(entry => {
+                                    const existingIndex = bodyweightHistory.findIndex(bw => bw.date === entry.date);
+                                    if (existingIndex >= 0) {
+                                        bodyweightHistory[existingIndex] = entry;
+                                    } else {
+                                        bodyweightHistory.push(entry);
+                                    }
+                                });
+                                bodyweightHistory.sort((a, b) => new Date(a.date) - new Date(b.date));
+                            }
+                            if (importedData.dailyLogs) {
+                                // Merge daily logs
+                                Object.entries(importedData.dailyLogs).forEach(([date, logData]) => {
+                                    localStorage.setItem(`personalizedPlanDailyLog_${APP_VERSION_KEY}_${date}`, JSON.stringify(logData));
+                                });
+                            }
+
+                            saveData();
+                            renderE1RMTable();
+                            renderBodyweightChart();
+                            updateAttendanceSummary();
+                            renderDailyLog();
+
+                            const statusDiv = document.getElementById('dataManagementStatus');
+                            statusDiv.textContent = `Selective data merged successfully from ${new Date(importedData.exportDate).toLocaleDateString()}`;
+                            statusDiv.style.color = 'var(--md-green-500)';
+                        }
+                    } else {
+                        // Use regular import for full exports
+                        importData(event);
+                    }
+                    
+                } catch (error) {
+                    console.error('Selective import error:', error);
+                    const statusDiv = document.getElementById('dataManagementStatus');
+                    statusDiv.textContent = 'Import failed. Please check the file format.';
+                    statusDiv.style.color = 'var(--md-red-500)';
+                }
+                
                 event.target.value = '';
             };
             

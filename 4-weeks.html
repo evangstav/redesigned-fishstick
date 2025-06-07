@@ -14,7 +14,7 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- QR Code and Compression Libraries -->
-    <script src="https://unpkg.com/qrcode@1.5.3/build/qrcode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/lib/browser.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lz-string@1.4.4/libs/lz-string.min.js"></script>
     <style>
         :root {
@@ -5832,9 +5832,46 @@ Keep response evidence-based and practical.`;
             return Math.round(weightedScore);
         }
 
+        // Check for URL-based import on page load
+        function checkForURLImport() {
+            if (window.location.hash.startsWith('#import=')) {
+                try {
+                    const importDataString = window.location.hash.substring(8); // Remove '#import='
+                    const decompressed = LZString.decompressFromEncodedURIComponent(importDataString);
+                    
+                    if (decompressed) {
+                        const importData = JSON.parse(decompressed);
+                        
+                        // Show import confirmation dialog
+                        const confirmMessage = `Import ${importData.type === 'recent_workout_sync' ? 'recent workout' : 'full'} data from ${new Date(importData.timestamp).toLocaleString()}?`;
+                        
+                        if (confirm(confirmMessage)) {
+                            if (importData.type === 'recent_workout_sync') {
+                                importRecentWorkoutData(importData);
+                            } else if (importData.type === 'full_data_sync') {
+                                importFullQRData(importData);
+                            }
+                            
+                            // Clear the hash from URL after import
+                            window.location.hash = '';
+                        }
+                    } else {
+                        updateDataManagementStatus('Invalid import URL format', 'error');
+                    }
+                } catch (error) {
+                    console.error('URL import error:', error);
+                    updateDataManagementStatus('Failed to import data from URL: ' + error.message, 'error');
+                }
+            }
+        }
+
         // Initialize app
         try {
             init();
+            
+            // Check for URL-based import after initialization
+            setTimeout(checkForURLImport, 500);
+            
         } catch (error) {
             showError('Failed to initialize app', error.message);
         }

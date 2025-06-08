@@ -622,8 +622,7 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
         <nav id="mainNav">
             <button data-tab="guideTab" onclick="showTab('guideTab')">Guide</button>
             <button data-tab="smartRecommendationsTab" onclick="showTab('smartRecommendationsTab')">Smart Recommendations</button>
-            <button data-tab="progressTab" onclick="showTab('progressTab')">Progress</button>
-            <button data-tab="analyticsTab" onclick="showTab('analyticsTab')">Analytics</button>
+                    <button data-tab="analyticsTab" onclick="showTab('analyticsTab')">Analytics</button>
             <button data-tab="e1rmTab" onclick="showTab('e1rmTab')">Settings &amp; e1RMs</button>
         </nav>
         <div class="content-area">
@@ -794,12 +793,17 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
                 </div>
             </div>
             
-            <div id="progressTab" class="tab-content section">
-                <h2>Progress &amp; Metrics</h2>
+
+            <div id="analyticsTab" class="tab-content section">
+                <h2>Analytics &amp; Progress Tracking</h2>
+                
+                <!-- Attendance Section -->
                 <div class="section">
                     <h3>Attendance</h3>
                     <p id="attendanceSummary">Workout days this week: 0</p>
                 </div>
+
+                <!-- Bodyweight Tracking Section -->
                 <div class="section">
                     <h3>Bodyweight Tracking</h3>
                     <div class="metrics-input-group">
@@ -815,10 +819,6 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
                     </div>
                     <canvas id="bodyweightChart" style="max-height: 300px;"></canvas>
                 </div>
-            </div>
-
-            <div id="analyticsTab" class="tab-content section">
-                <h2>Analytics &amp; Progress Tracking</h2>
                 
                 <!-- Volume Tracking Section -->
                 <div class="section">
@@ -1572,11 +1572,10 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
                 if (activeDayButton) activeDayButton.classList.add('active');
             }
 
-            if (tabId === 'progressTab') { // If switching to progress tab, render chart and attendance
+            if (tabId === 'analyticsTab') { // If switching to analytics tab, initialize analytics and bodyweight tracking
+                initializeAnalytics();
                 renderBodyweightChart();
                 updateAttendanceSummary();
-            } else if (tabId === 'analyticsTab') { // If switching to analytics tab, initialize analytics
-                initializeAnalytics();
             }
         }
         
@@ -3703,7 +3702,7 @@ Keep response evidence-based and practical.`;
         function init() {
             loadData(); 
             const nav = document.getElementById('mainNav');
-            const progressButton = nav.querySelector('button[data-tab="progressTab"]'); // Create progress button first
+            const analyticsButton = nav.querySelector('button[data-tab="analyticsTab"]'); // Find analytics button
             const e1rmButton = nav.querySelector('button[data-tab="e1rmTab"]'); 
 
             Object.keys(USER_WORKOUT_PLAN).forEach(workoutKey => {
@@ -3712,7 +3711,7 @@ Keep response evidence-based and practical.`;
                 button.setAttribute('data-day-key', workoutKey); 
                 button.setAttribute('data-tab', 'workoutDayTab'); 
                 button.onclick = () => displayWorkoutForDay(workoutKey);
-                nav.insertBefore(button, progressButton); // Insert workout buttons before progress button
+                nav.insertBefore(button, analyticsButton); // Insert workout buttons before analytics button
             });
             
             document.getElementById('logBodyweightDate').value = todayKey; // Set default date for BW log

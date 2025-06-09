@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-06-09T12:06:57.348Z",
+  "timestamp": "2025-06-09T18:34:39.481Z",
   "summary": {
     "total": 39,
     "passed": 38,
@@ -79,7 +79,7 @@
       "category": "adaptive_ai_module",
       "test": "Deload Detection - High RPE",
       "passed": true,
-      "timestamp": "2025-06-09T12:06:56.248Z",
+      "timestamp": "2025-06-09T18:34:37.386Z",
       "details": {
         "predicted": "deload",
         "expected": "deload",
@@ -91,7 +91,7 @@
       "category": "adaptive_ai_module",
       "test": "Intensification Opportunity - Low RPE",
       "passed": true,
-      "timestamp": "2025-06-09T12:06:56.249Z",
+      "timestamp": "2025-06-09T18:34:37.387Z",
       "details": {
         "predicted": "intensification",
         "expected": "intensification",
@@ -103,7 +103,7 @@
       "category": "adaptive_ai_module",
       "test": "Volume Progression - Stable Performance",
       "passed": true,
-      "timestamp": "2025-06-09T12:06:56.250Z",
+      "timestamp": "2025-06-09T18:34:37.387Z",
       "details": {
         "predicted": "modification",
         "expected": "modification",
@@ -115,7 +115,7 @@
       "category": "performance_tracking",
       "test": "RPE trend calculation",
       "passed": true,
-      "timestamp": "2025-06-09T12:06:56.250Z",
+      "timestamp": "2025-06-09T18:34:37.388Z",
       "details": {},
       "duration": 0
     },
@@ -123,7 +123,7 @@
       "category": "performance_tracking",
       "test": "Volume progression analysis",
       "passed": true,
-      "timestamp": "2025-06-09T12:06:56.250Z",
+      "timestamp": "2025-06-09T18:34:37.388Z",
       "details": {},
       "duration": 0
     },
@@ -131,7 +131,7 @@
       "category": "performance_tracking",
       "test": "Strength estimation accuracy",
       "passed": true,
-      "timestamp": "2025-06-09T12:06:56.250Z",
+      "timestamp": "2025-06-09T18:34:37.388Z",
       "details": {},
       "duration": 0
     },
@@ -139,7 +139,7 @@
       "category": "performance_tracking",
       "test": "Recovery score computation",
       "passed": true,
-      "timestamp": "2025-06-09T12:06:56.250Z",
+      "timestamp": "2025-06-09T18:34:37.388Z",
       "details": {},
       "duration": 0
     },
@@ -147,7 +147,7 @@
       "category": "performance_tracking",
       "test": "Adherence tracking",
       "passed": true,
-      "timestamp": "2025-06-09T12:06:56.250Z",
+      "timestamp": "2025-06-09T18:34:37.388Z",
       "details": {},
       "duration": 0
     },
@@ -155,7 +155,7 @@
       "category": "fatigue_detection",
       "test": "Acute Fatigue - Single Session",
       "passed": true,
-      "timestamp": "2025-06-09T12:06:56.251Z",
+      "timestamp": "2025-06-09T18:34:37.389Z",
       "details": {},
       "duration": 0
     },
@@ -163,7 +163,7 @@
       "category": "fatigue_detection",
       "test": "Chronic Fatigue - Multiple Sessions",
       "passed": true,
-      "timestamp": "2025-06-09T12:06:56.251Z",
+      "timestamp": "2025-06-09T18:34:37.390Z",
       "details": {},
       "duration": 0
     },
@@ -171,7 +171,7 @@
       "category": "fatigue_detection",
       "test": "Normal Recovery - No Fatigue",
       "passed": true,
-      "timestamp": "2025-06-09T12:06:56.251Z",
+      "timestamp": "2025-06-09T18:34:37.390Z",
       "details": {},
       "duration": 0
     },
@@ -179,7 +179,7 @@
       "category": "deload_triggers",
       "test": "Consecutive high RPE sessions",
       "passed": true,
-      "timestamp": "2025-06-09T12:06:56.252Z",
+      "timestamp": "2025-06-09T18:34:37.391Z",
       "details": {},
       "duration": 0
     },
@@ -187,7 +187,7 @@
       "category": "deload_triggers",
       "test": "Volume drop with performance decline",
       "passed": true,
-      "timestamp": "2025-06-09T12:06:56.252Z",
+      "timestamp": "2025-06-09T18:34:37.391Z",
       "details": {},
       "duration": 0
     },
@@ -195,7 +195,7 @@
       "category": "deload_triggers",
       "test": "Poor recovery markers",
       "passed": true,
-      "timestamp": "2025-06-09T12:06:56.252Z",
+      "timestamp": "2025-06-09T18:34:37.391Z",
       "details": {},
       "duration": 0
     },
@@ -203,7 +203,7 @@
       "category": "deload_triggers",
       "test": "Combination of fatigue indicators",
       "passed": true,
-      "timestamp": "2025-06-09T12:06:56.252Z",
+      "timestamp": "2025-06-09T18:34:37.391Z",
       "details": {},
       "duration": 0
     },
@@ -211,7 +211,7 @@
       "category": "intensification_logic",
       "test": "Low RPE with strength gains",
       "passed": true,
-      "timestamp": "2025-06-09T12:06:56.252Z",
+      "timestamp": "2025-06-09T18:34:37.391Z",
       "details": {},
       "duration": 0
     },
@@ -219,7 +219,7 @@
       "category": "intensification_logic",
       "test": "Good recovery with volume tolerance",
       "passed": true,
-      "timestamp": "2025-06-09T12:06:56.252Z",
+      "timestamp": "2025-06-09T18:34:37.391Z",
       "details": {},
       "duration": 0
     },
@@ -227,7 +227,7 @@
       "category": "intensification_logic",
       "test": "Stable performance indicators",
       "passed": true,
-      "timestamp": "2025-06-09T12:06:56.252Z",
+      "timestamp": "2025-06-09T18:34:37.391Z",
       "details": {},
       "duration": 0
     },
@@ -235,7 +235,7 @@
       "category": "intensification_logic",
       "test": "Readiness for progression",
       "passed": true,
-      "timestamp": "2025-06-09T12:06:56.252Z",
+      "timestamp": "2025-06-09T18:34:37.391Z",
       "details": {},
       "duration": 0
     },
@@ -243,7 +243,7 @@
       "category": "app_integration",
       "test": "PowerLifter Pro Integration",
       "passed": false,
-      "timestamp": "2025-06-09T12:06:57.242Z",
+      "timestamp": "2025-06-09T18:34:39.374Z",
       "details": {
         "basic": {
           "passed": false,
@@ -268,7 +268,7 @@
       "category": "data_persistence",
       "test": "Performance data storage",
       "passed": true,
-      "timestamp": "2025-06-09T12:06:57.242Z",
+      "timestamp": "2025-06-09T18:34:39.374Z",
       "details": {},
       "duration": 0
     },
@@ -276,7 +276,7 @@
       "category": "data_persistence",
       "test": "Adaptation history tracking",
       "passed": true,
-      "timestamp": "2025-06-09T12:06:57.242Z",
+      "timestamp": "2025-06-09T18:34:39.374Z",
       "details": {},
       "duration": 0
     },
@@ -284,7 +284,7 @@
       "category": "data_persistence",
       "test": "Settings persistence",
       "passed": true,
-      "timestamp": "2025-06-09T12:06:57.242Z",
+      "timestamp": "2025-06-09T18:34:39.374Z",
       "details": {},
       "duration": 0
     },
@@ -292,7 +292,7 @@
       "category": "data_persistence",
       "test": "Export/Import functionality",
       "passed": true,
-      "timestamp": "2025-06-09T12:06:57.242Z",
+      "timestamp": "2025-06-09T18:34:39.374Z",
       "details": {},
       "duration": 0
     },
@@ -300,7 +300,7 @@
       "category": "user_interface",
       "test": "Adaptive recommendations display",
       "passed": true,
-      "timestamp": "2025-06-09T12:06:57.242Z",
+      "timestamp": "2025-06-09T18:34:39.374Z",
       "details": {},
       "duration": 0
     },
@@ -308,7 +308,7 @@
       "category": "user_interface",
       "test": "Performance visualization",
       "passed": true,
-      "timestamp": "2025-06-09T12:06:57.242Z",
+      "timestamp": "2025-06-09T18:34:39.374Z",
       "details": {},
       "duration": 0
     },
@@ -316,7 +316,7 @@
       "category": "user_interface",
       "test": "Trend indicators",
       "passed": true,
-      "timestamp": "2025-06-09T12:06:57.242Z",
+      "timestamp": "2025-06-09T18:34:39.374Z",
       "details": {},
       "duration": 0
     },
@@ -324,7 +324,7 @@
       "category": "user_interface",
       "test": "Alert notifications",
       "passed": true,
-      "timestamp": "2025-06-09T12:06:57.242Z",
+      "timestamp": "2025-06-09T18:34:39.374Z",
       "details": {},
       "duration": 0
     },
@@ -332,7 +332,7 @@
       "category": "performance",
       "test": "Response Times",
       "passed": true,
-      "timestamp": "2025-06-09T12:06:57.346Z",
+      "timestamp": "2025-06-09T18:34:39.479Z",
       "details": {},
       "duration": 0
     },
@@ -340,7 +340,7 @@
       "category": "performance",
       "test": "Large Dataset Handling",
       "passed": true,
-      "timestamp": "2025-06-09T12:06:57.347Z",
+      "timestamp": "2025-06-09T18:34:39.480Z",
       "details": {},
       "duration": 0
     },
@@ -348,7 +348,7 @@
       "category": "edge_cases",
       "test": "Empty performance data",
       "passed": true,
-      "timestamp": "2025-06-09T12:06:57.348Z",
+      "timestamp": "2025-06-09T18:34:39.481Z",
       "details": {},
       "duration": 0
     },
@@ -356,7 +356,7 @@
       "category": "edge_cases",
       "test": "Invalid RPE values",
       "passed": true,
-      "timestamp": "2025-06-09T12:06:57.348Z",
+      "timestamp": "2025-06-09T18:34:39.481Z",
       "details": {},
       "duration": 0
     },
@@ -364,7 +364,7 @@
       "category": "edge_cases",
       "test": "Extreme workout volumes",
       "passed": true,
-      "timestamp": "2025-06-09T12:06:57.348Z",
+      "timestamp": "2025-06-09T18:34:39.481Z",
       "details": {},
       "duration": 0
     },
@@ -372,7 +372,7 @@
       "category": "edge_cases",
       "test": "Missing required fields",
       "passed": true,
-      "timestamp": "2025-06-09T12:06:57.348Z",
+      "timestamp": "2025-06-09T18:34:39.481Z",
       "details": {},
       "duration": 0
     },
@@ -380,7 +380,7 @@
       "category": "edge_cases",
       "test": "Corrupted data structures",
       "passed": true,
-      "timestamp": "2025-06-09T12:06:57.348Z",
+      "timestamp": "2025-06-09T18:34:39.481Z",
       "details": {},
       "duration": 0
     },
@@ -388,7 +388,7 @@
       "category": "error_handling",
       "test": "API failure graceful degradation",
       "passed": true,
-      "timestamp": "2025-06-09T12:06:57.348Z",
+      "timestamp": "2025-06-09T18:34:39.481Z",
       "details": {},
       "duration": 0
     },
@@ -396,7 +396,7 @@
       "category": "error_handling",
       "test": "Invalid configuration handling",
       "passed": true,
-      "timestamp": "2025-06-09T12:06:57.348Z",
+      "timestamp": "2025-06-09T18:34:39.481Z",
       "details": {},
       "duration": 0
     },
@@ -404,7 +404,7 @@
       "category": "error_handling",
       "test": "Memory constraint management",
       "passed": true,
-      "timestamp": "2025-06-09T12:06:57.348Z",
+      "timestamp": "2025-06-09T18:34:39.481Z",
       "details": {},
       "duration": 0
     },
@@ -412,7 +412,7 @@
       "category": "error_handling",
       "test": "Network timeout recovery",
       "passed": true,
-      "timestamp": "2025-06-09T12:06:57.348Z",
+      "timestamp": "2025-06-09T18:34:39.481Z",
       "details": {},
       "duration": 0
     }

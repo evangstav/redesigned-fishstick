@@ -1,0 +1,363 @@
+{
+  "timestamp": "2025-06-09T18:34:32.848Z",
+  "summary": {
+    "total": 19,
+    "passed": 19,
+    "failed": 0,
+    "passRate": 100,
+    "byCategory": {
+      "periodization_models": {
+        "total": 5,
+        "passed": 5,
+        "failed": 0,
+        "passRate": 100
+      },
+      "athlete_profile_optimization": {
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "passRate": 100
+      },
+      "macrocycle_generation": {
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "passRate": 100
+      },
+      "mesocycle_adaptation": {
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "passRate": 100
+      },
+      "microcycle_optimization": {
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "passRate": 100
+      },
+      "competition_timing": {
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "passRate": 100
+      },
+      "tapering_protocols": {
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "passRate": 100
+      },
+      "workout_adaptation": {
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "passRate": 100
+      },
+      "volume_intensity_progression": {
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "passRate": 100
+      },
+      "performance_monitoring": {
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "passRate": 100
+      },
+      "adaptive_integration": {
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "passRate": 100
+      },
+      "data_persistence": {
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "passRate": 100
+      },
+      "error_handling": {
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "passRate": 100
+      },
+      "performance_metrics": {
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "passRate": 100
+      },
+      "large_dataset_handling": {
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "passRate": 100
+      }
+    }
+  },
+  "results": [
+    {
+      "category": "periodization_models",
+      "test": "Linear Periodization for Beginner",
+      "passed": true,
+      "timestamp": "2025-06-09T18:34:32.842Z",
+      "details": {
+        "modelSelected": "linear",
+        "score": 1,
+        "hasProgressiveIntensity": true
+      },
+      "duration": 0
+    },
+    {
+      "category": "periodization_models",
+      "test": "Block Periodization for Advanced",
+      "passed": true,
+      "timestamp": "2025-06-09T18:34:32.842Z",
+      "details": {
+        "modelSelected": "block",
+        "score": 1,
+        "hasAccumulationPhase": true,
+        "hasIntensificationPhase": true
+      },
+      "duration": 0
+    },
+    {
+      "category": "periodization_models",
+      "test": "Conjugate Method for Powerlifting",
+      "passed": true,
+      "timestamp": "2025-06-09T18:34:32.842Z",
+      "details": {
+        "modelSelected": "block",
+        "score": 1,
+        "hasStrengthFocus": true,
+        "hasValidPhases": true,
+        "note": "Block periodization also valid for advanced powerlifting"
+      },
+      "duration": 0
+    },
+    {
+      "category": "periodization_models",
+      "test": "Undulating Periodization for Hypertrophy",
+      "passed": true,
+      "timestamp": "2025-06-09T18:34:32.843Z",
+      "details": {
+        "modelSelected": "undulating",
+        "score": 1,
+        "hasVariedPhases": true
+      },
+      "duration": 0
+    },
+    {
+      "category": "periodization_models",
+      "test": "Polarized Training for Endurance",
+      "passed": true,
+      "timestamp": "2025-06-09T18:34:32.843Z",
+      "details": {
+        "modelSelected": "polarized",
+        "score": 0.8,
+        "hasBaseBuilding": true,
+        "hasPeakPhase": true
+      },
+      "duration": 0
+    },
+    {
+      "category": "athlete_profile_optimization",
+      "test": "Model Selection Accuracy",
+      "passed": true,
+      "timestamp": "2025-06-09T18:34:32.843Z",
+      "details": {
+        "correctSelections": 4,
+        "totalProfiles": 4,
+        "accuracy": 100
+      },
+      "duration": 0
+    },
+    {
+      "category": "macrocycle_generation",
+      "test": "Macrocycle Structure Validation",
+      "passed": true,
+      "timestamp": "2025-06-09T18:34:32.843Z",
+      "details": {
+        "totalWeeks": 16,
+        "phaseCount": 3,
+        "deloadWeeks": 4,
+        "testingWeeks": 3
+      },
+      "duration": 0
+    },
+    {
+      "category": "mesocycle_adaptation",
+      "test": "Mesocycle Structure and Progression",
+      "passed": true,
+      "timestamp": "2025-06-09T18:34:32.843Z",
+      "details": {
+        "mesocycleCount": 5,
+        "hasVolumeProgression": true,
+        "hasIntensityProgression": true,
+        "hasFocusAreas": true
+      },
+      "duration": 0
+    },
+    {
+      "category": "microcycle_optimization",
+      "test": "Microcycle Structure and Multipliers",
+      "passed": true,
+      "timestamp": "2025-06-09T18:34:32.843Z",
+      "details": {
+        "microcycleCount": 9,
+        "hasDeloadWeeks": true,
+        "hasVolumeMultipliers": true,
+        "hasIntensityMultipliers": true
+      },
+      "duration": 0
+    },
+    {
+      "category": "competition_timing",
+      "test": "Competition Integration and Tapering",
+      "passed": true,
+      "timestamp": "2025-06-09T18:34:32.843Z",
+      "details": {
+        "hasTaperWeeks": true,
+        "hasCompetitionPrep": true,
+        "competitionCount": 1
+      },
+      "duration": 0
+    },
+    {
+      "category": "tapering_protocols",
+      "test": "Tapering Implementation",
+      "passed": true,
+      "timestamp": "2025-06-09T18:34:32.844Z",
+      "details": {
+        "taperWeeks": 3,
+        "hasVolumeReduction": true,
+        "hasIntensityMaintenance": true
+      },
+      "duration": 0
+    },
+    {
+      "category": "workout_adaptation",
+      "test": "Periodization Workout Adaptation",
+      "passed": true,
+      "timestamp": "2025-06-09T18:34:32.844Z",
+      "details": {
+        "hasVolumeModification": true,
+        "hasIntensityModification": true,
+        "hasPeriodizationContext": true,
+        "isDeloadAdapted": true
+      },
+      "duration": 0
+    },
+    {
+      "category": "volume_intensity_progression",
+      "test": "Progression Algorithm Validation",
+      "passed": true,
+      "timestamp": "2025-06-09T18:34:32.844Z",
+      "details": {
+        "hasVolumeProgression": true,
+        "hasCorrectIntensity": true,
+        "hasWeeklyProgression": true,
+        "hasDeloadReduction": true,
+        "volumeProgression": [
+          1.1199999999999999,
+          1.28,
+          1.4400000000000002
+        ],
+        "weeklyMultipliers": [
+          1.1,
+          1.1550000000000002,
+          0.6
+        ]
+      },
+      "duration": 0
+    },
+    {
+      "category": "performance_monitoring",
+      "test": "Performance Monitoring and Adaptation",
+      "passed": true,
+      "timestamp": "2025-06-09T18:34:32.845Z",
+      "details": {
+        "hasAnalysis": true,
+        "hasRecommendations": true,
+        "hasCurrentPhase": true,
+        "hasWeekTracking": true,
+        "adaptationNeeded": true
+      },
+      "duration": 0
+    },
+    {
+      "category": "adaptive_integration",
+      "test": "Export/Import Integration",
+      "passed": true,
+      "timestamp": "2025-06-09T18:34:32.845Z",
+      "details": {
+        "hasExportData": "1.0",
+        "hasImportSuccess": true,
+        "isRestored": true,
+        "exportVersion": "1.0"
+      },
+      "duration": 0
+    },
+    {
+      "category": "data_persistence",
+      "test": "Plan Creation and Persistence",
+      "passed": true,
+      "timestamp": "2025-06-09T18:34:32.845Z",
+      "details": {
+        "hasInitialPlan": true,
+        "isPersisted": true,
+        "hasSecondPlan": true
+      },
+      "duration": 0
+    },
+    {
+      "category": "error_handling",
+      "test": "Error Handling and Validation",
+      "passed": true,
+      "timestamp": "2025-06-09T18:34:32.845Z",
+      "details": {
+        "errorsCaught": 3,
+        "totalTests": 4,
+        "handlingRate": 75
+      },
+      "duration": 0
+    },
+    {
+      "category": "performance_metrics",
+      "test": "Performance Benchmarks",
+      "passed": true,
+      "timestamp": "2025-06-09T18:34:32.846Z",
+      "details": {
+        "planCreationTime": 0,
+        "adaptationTime": 0,
+        "monitoringTime": 0,
+        "targets": {
+          "planCreationTarget": 2000,
+          "adaptationTarget": 500,
+          "monitoringTarget": 1000
+        }
+      },
+      "duration": 0
+    },
+    {
+      "category": "large_dataset_handling",
+      "test": "Large Dataset Processing",
+      "passed": true,
+      "timestamp": "2025-06-09T18:34:32.848Z",
+      "details": {
+        "datasetSize": 1000,
+        "processingTime": 1,
+        "processingTarget": 5000,
+        "hasResult": true
+      },
+      "duration": 0
+    }
+  ],
+  "environment": {
+    "nodeVersion": "v24.1.0",
+    "puppeteerVersion": "24.10.0"
+  }
+}

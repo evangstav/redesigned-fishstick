@@ -78,9 +78,9 @@ class TemplateGenerator {
 	async loadConfigs() {
 		const configDir = path.join(this.basePath, "configs");
 
-		// Load exercise database
+		// Load exercise database (v2)
 		const exerciseData = await fs.readFile(
-			path.join(configDir, "exercise-database.json"),
+			path.join(configDir, "exercise-database-v2.json"),
 			"utf8",
 		);
 		this.exerciseDatabase = JSON.parse(exerciseData);

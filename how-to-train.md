@@ -13,6 +13,7 @@ Why Train?
 Resistance Training
 
 Core Principles
+
  1. Consistency – adherence beats perfection.
  2. Progressive overload – gradually raise load/volume.
  3. Recovery – quality sleep, nutrition, de-loading.
@@ -124,6 +125,7 @@ Omega-3 (EPA/DHA)
 ⸻
 
 Action Plan Checklist
+
  1. Resistance: ≥ 10 sets/muscle/week across 2–3 sessions.
  2. Aerobic: 150 min moderate + 1 HIIT session weekly.
  3. Incidental: Add daily stair sprints or brisk hill walks.

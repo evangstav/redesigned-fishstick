@@ -1,0 +1,345 @@
+{
+  "version": "1.0",
+  "lastUpdated": "2024-01-01",
+  "description": "Performance tracking and analysis configuration for adaptive training systems",
+  "metrics": {
+    "primary": {
+      "rpe": {
+        "name": "Rate of Perceived Exertion",
+        "description": "Subjective intensity rating (1-10 scale)",
+        "scale": [1, 10],
+        "precision": 0.5,
+        "trackingFrequency": "per_set",
+        "analysisWindows": [7, 14, 28],
+        "benchmarks": {
+          "optimal_range": [7.0, 8.5],
+          "warning_threshold": 9.0,
+          "critical_threshold": 9.5,
+          "recovery_target": 7.0
+        },
+        "weightings": {
+          "main_lifts": 1.5,
+          "accessories": 1.0,
+          "cardio": 1.2
+        }
+      },
+      "volume": {
+        "name": "Training Volume",
+        "description": "Total work performed (weight × reps × sets)",
+        "unit": "kg",
+        "trackingFrequency": "per_session",
+        "analysisWindows": [7, 14, 28],
+        "calculations": {
+          "session_volume": "sum(weight × reps × sets)",
+          "weekly_volume": "sum(session_volumes)",
+          "relative_volume": "volume / bodyweight"
+        },
+        "progressionTargets": {
+          "beginner": {"weekly": 0.05, "monthly": 0.15},
+          "intermediate": {"weekly": 0.025, "monthly": 0.08},
+          "advanced": {"weekly": 0.01, "monthly": 0.04}
+        }
+      },
+      "strength": {
+        "name": "Strength Indicators",
+        "description": "Various strength measurement approaches",
+        "trackingFrequency": "per_exercise",
+        "calculations": {
+          "estimated_1rm": "weight × (1 + reps/30) × rpe_adjustment",
+          "relative_strength": "1rm / bodyweight",
+          "strength_endurance": "reps_at_percentage"
+        },
+        "benchmarks": {
+          "strength_standards": {
+            "squat": {"beginner": 1.25, "intermediate": 1.75, "advanced": 2.25},
+            "bench": {"beginner": 1.0, "intermediate": 1.5, "advanced": 2.0},
+            "deadlift": {"beginner": 1.5, "intermediate": 2.0, "advanced": 2.75}
+          }
+        },
+        "rpe_adjustments": {
+          "6.0": 1.20, "6.5": 1.175, "7.0": 1.15, "7.5": 1.125,
+          "8.0": 1.10, "8.5": 1.075, "9.0": 1.05, "9.5": 1.025, "10.0": 1.00
+        }
+      },
+      "recovery": {
+        "name": "Recovery Indicators",
+        "description": "Subjective and objective recovery markers",
+        "trackingFrequency": "daily",
+        "components": {
+          "sleep_quality": {"scale": [1, 10], "weight": 0.30},
+          "energy_level": {"scale": [1, 10], "weight": 0.25},
+          "motivation": {"scale": [1, 10], "weight": 0.15},
+          "muscle_soreness": {"scale": [1, 10], "weight": 0.15, "inverse": true},
+          "stress_level": {"scale": [1, 10], "weight": 0.15, "inverse": true}
+        },
+        "calculation": "weighted_average_with_inversions",
+        "benchmarks": {
+          "excellent": [8.5, 10],
+          "good": [7.0, 8.5],
+          "fair": [5.5, 7.0],
+          "poor": [4.0, 5.5],
+          "critical": [1.0, 4.0]
+        }
+      }
+    },
+    "secondary": {
+      "adherence": {
+        "name": "Program Adherence",
+        "description": "Completion rate of planned training",
+        "trackingFrequency": "per_session",
+        "calculations": {
+          "session_adherence": "completed_sets / planned_sets",
+          "weekly_adherence": "completed_sessions / planned_sessions",
+          "exercise_adherence": "completed_exercises / planned_exercises"
+        },
+        "benchmarks": {
+          "excellent": 0.95,
+          "good": 0.85,
+          "acceptable": 0.75,
+          "concerning": 0.60
+        }
+      },
+      "intensity_distribution": {
+        "name": "Training Intensity Distribution",
+        "description": "Distribution of training across intensity zones",
+        "trackingFrequency": "weekly",
+        "zones": {
+          "zone1": {"range": [0.50, 0.70], "target": 0.60},
+          "zone2": {"range": [0.70, 0.85], "target": 0.30},
+          "zone3": {"range": [0.85, 1.00], "target": 0.10}
+        },
+        "training_type_targets": {
+          "strength": {"zone1": 0.20, "zone2": 0.30, "zone3": 0.50},
+          "hypertrophy": {"zone1": 0.30, "zone2": 0.60, "zone3": 0.10},
+          "endurance": {"zone1": 0.80, "zone2": 0.15, "zone3": 0.05},
+          "general": {"zone1": 0.50, "zone2": 0.40, "zone3": 0.10}
+        }
+      },
+      "movement_quality": {
+        "name": "Movement Quality Indicators",
+        "description": "Subjective assessment of exercise execution",
+        "trackingFrequency": "per_exercise",
+        "components": {
+          "technique_rating": {"scale": [1, 10], "weight": 0.40},
+          "range_of_motion": {"scale": [1, 10], "weight": 0.30},
+          "control": {"scale": [1, 10], "weight": 0.30}
+        },
+        "benchmarks": {
+          "excellent": [9, 10],
+          "good": [7, 9],
+          "acceptable": [5, 7],
+          "needs_work": [1, 5]
+        }
+      },
+      "progression_rate": {
+        "name": "Progression Rate Analysis",
+        "description": "Rate of improvement across different metrics",
+        "trackingFrequency": "weekly",
+        "calculations": {
+          "strength_progression": "delta_1rm / weeks",
+          "volume_progression": "delta_volume / weeks",
+          "endurance_progression": "delta_performance / weeks"
+        },
+        "experience_targets": {
+          "beginner": {"strength": 0.025, "volume": 0.10, "endurance": 0.05},
+          "intermediate": {"strength": 0.01, "volume": 0.05, "endurance": 0.03},
+          "advanced": {"strength": 0.005, "volume": 0.025, "endurance": 0.015}
+        }
+      }
+    },
+    "derived": {
+      "fatigue_index": {
+        "name": "Comprehensive Fatigue Index",
+        "description": "Multi-factorial fatigue assessment",
+        "components": {
+          "rpe_trend": {"weight": 0.30, "window": 7},
+          "volume_decline": {"weight": 0.25, "window": 14},
+          "recovery_score": {"weight": 0.25, "window": 7},
+          "adherence_drop": {"weight": 0.20, "window": 7}
+        },
+        "calculation": "weighted_z_scores",
+        "thresholds": {
+          "low": [-2, -0.5],
+          "moderate": [-0.5, 0.5],
+          "high": [0.5, 1.5],
+          "critical": [1.5, 3]
+        }
+      },
+      "adaptation_readiness": {
+        "name": "Readiness for Training Adaptation",
+        "description": "Composite score indicating readiness for program changes",
+        "components": {
+          "performance_trend": {"weight": 0.35},
+          "recovery_stability": {"weight": 0.25},
+          "adherence_consistency": {"weight": 0.20},
+          "motivation_level": {"weight": 0.20}
+        },
+        "thresholds": {
+          "ready_for_intensification": 0.75,
+          "maintain_current": 0.50,
+          "consider_deload": 0.25,
+          "immediate_deload": 0.10
+        }
+      },
+      "training_efficiency": {
+        "name": "Training Efficiency Score",
+        "description": "Ratio of training outcomes to training input",
+        "calculations": {
+          "strength_efficiency": "strength_gain / volume_invested",
+          "time_efficiency": "improvement / training_minutes",
+          "adherence_efficiency": "outcomes / planned_sessions"
+        },
+        "benchmarks": {
+          "excellent": [0.85, 1.0],
+          "good": [0.70, 0.85],
+          "acceptable": [0.55, 0.70],
+          "inefficient": [0.0, 0.55]
+        }
+      }
+    }
+  },
+  "analysis_windows": {
+    "acute": {
+      "duration": 7,
+      "purpose": "immediate_feedback",
+      "metrics": ["rpe", "recovery", "adherence"]
+    },
+    "short_term": {
+      "duration": 14,
+      "purpose": "micro_adaptations",
+      "metrics": ["volume", "strength", "fatigue_index"]
+    },
+    "medium_term": {
+      "duration": 28,
+      "purpose": "meso_cycle_analysis",
+      "metrics": ["progression_rate", "adaptation_readiness"]
+    },
+    "long_term": {
+      "duration": 84,
+      "purpose": "macro_cycle_evaluation",
+      "metrics": ["training_efficiency", "overall_development"]
+    }
+  },
+  "statistical_methods": {
+    "trend_analysis": {
+      "method": "linear_regression",
+      "confidence_interval": 0.95,
+      "minimum_data_points": 5,
+      "outlier_detection": "modified_z_score",
+      "outlier_threshold": 3.5
+    },
+    "change_detection": {
+      "method": "cumulative_sum",
+      "sensitivity": 0.05,
+      "false_positive_rate": 0.01,
+      "minimum_magnitude": 0.10
+    },
+    "prediction": {
+      "method": "exponential_smoothing",
+      "alpha": 0.3,
+      "beta": 0.1,
+      "gamma": 0.1,
+      "forecast_horizon": 14
+    }
+  },
+  "data_quality": {
+    "completeness_thresholds": {
+      "excellent": 0.95,
+      "good": 0.85,
+      "acceptable": 0.75,
+      "poor": 0.60
+    },
+    "validation_rules": {
+      "rpe_range": [1, 10],
+      "weight_range": [0, 500],
+      "reps_range": [0, 100],
+      "sets_range": [0, 20],
+      "duration_range": [0, 300]
+    },
+    "imputation_methods": {
+      "rpe": "forward_fill_with_decay",
+      "weight": "linear_interpolation",
+      "reps": "mode_substitution",
+      "recovery": "moving_average"
+    }
+  },
+  "export_formats": {
+    "summary_report": {
+      "frequency": "weekly",
+      "sections": ["overview", "trends", "recommendations"],
+      "format": "json"
+    },
+    "detailed_analysis": {
+      "frequency": "monthly",
+      "sections": ["raw_data", "statistics", "visualizations"],
+      "format": "csv"
+    },
+    "progress_tracking": {
+      "frequency": "daily",
+      "sections": ["key_metrics", "alerts"],
+      "format": "json"
+    }
+  },
+  "visualization_config": {
+    "charts": {
+      "rpe_trend": {
+        "type": "line",
+        "smoothing": true,
+        "confidence_bands": true,
+        "threshold_lines": [7.0, 8.5, 9.0]
+      },
+      "volume_progression": {
+        "type": "bar",
+        "moving_average": 7,
+        "target_line": true,
+        "percentage_change": true
+      },
+      "strength_development": {
+        "type": "line",
+        "multiple_exercises": true,
+        "relative_strength": true,
+        "milestone_markers": true
+      },
+      "recovery_heatmap": {
+        "type": "heatmap",
+        "dimensions": ["date", "metric"],
+        "color_scale": "red_yellow_green",
+        "annotation": "score"
+      }
+    },
+    "dashboards": {
+      "daily": ["rpe_trend", "recovery_score", "session_volume"],
+      "weekly": ["volume_progression", "strength_development", "adherence"],
+      "monthly": ["efficiency_metrics", "adaptation_readiness", "long_term_trends"]
+    }
+  },
+  "alert_system": {
+    "triggers": {
+      "high_fatigue": {
+        "condition": "fatigue_index > 1.5",
+        "severity": "high",
+        "action": "suggest_deload"
+      },
+      "poor_recovery": {
+        "condition": "recovery_score < 4.0 for 3 days",
+        "severity": "medium",
+        "action": "review_recovery_practices"
+      },
+      "low_adherence": {
+        "condition": "weekly_adherence < 0.75",
+        "severity": "medium",
+        "action": "reassess_program_difficulty"
+      },
+      "plateau_detected": {
+        "condition": "no_improvement for 4 weeks",
+        "severity": "low",
+        "action": "consider_program_variation"
+      }
+    },
+    "notification_preferences": {
+      "immediate": ["high_fatigue", "injury_risk"],
+      "daily": ["poor_recovery", "low_adherence"],
+      "weekly": ["plateau_detected", "adaptation_opportunity"]
+    }
+  }
+}

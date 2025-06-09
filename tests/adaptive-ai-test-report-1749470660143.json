@@ -1,0 +1,424 @@
+{
+  "timestamp": "2025-06-09T12:04:20.143Z",
+  "summary": {
+    "total": 39,
+    "passed": 38,
+    "failed": 1,
+    "passRate": 97.43589743589743,
+    "byCategory": {
+      "adaptive_ai_module": {
+        "total": 3,
+        "passed": 3,
+        "failed": 0,
+        "passRate": 100
+      },
+      "performance_tracking": {
+        "total": 5,
+        "passed": 5,
+        "failed": 0,
+        "passRate": 100
+      },
+      "fatigue_detection": {
+        "total": 3,
+        "passed": 3,
+        "failed": 0,
+        "passRate": 100
+      },
+      "deload_triggers": {
+        "total": 4,
+        "passed": 4,
+        "failed": 0,
+        "passRate": 100
+      },
+      "intensification_logic": {
+        "total": 4,
+        "passed": 4,
+        "failed": 0,
+        "passRate": 100
+      },
+      "app_integration": {
+        "total": 1,
+        "passed": 0,
+        "failed": 1,
+        "passRate": 0
+      },
+      "data_persistence": {
+        "total": 4,
+        "passed": 4,
+        "failed": 0,
+        "passRate": 100
+      },
+      "user_interface": {
+        "total": 4,
+        "passed": 4,
+        "failed": 0,
+        "passRate": 100
+      },
+      "performance": {
+        "total": 2,
+        "passed": 2,
+        "failed": 0,
+        "passRate": 100
+      },
+      "edge_cases": {
+        "total": 5,
+        "passed": 5,
+        "failed": 0,
+        "passRate": 100
+      },
+      "error_handling": {
+        "total": 4,
+        "passed": 4,
+        "failed": 0,
+        "passRate": 100
+      }
+    }
+  },
+  "results": [
+    {
+      "category": "adaptive_ai_module",
+      "test": "Deload Detection - High RPE",
+      "passed": true,
+      "timestamp": "2025-06-09T12:04:19.166Z",
+      "details": {
+        "predicted": "deload",
+        "expected": "deload",
+        "avgRPE": 9.65
+      },
+      "duration": 0
+    },
+    {
+      "category": "adaptive_ai_module",
+      "test": "Intensification Opportunity - Low RPE",
+      "passed": true,
+      "timestamp": "2025-06-09T12:04:19.167Z",
+      "details": {
+        "predicted": "intensification",
+        "expected": "intensification",
+        "avgRPE": 6.725
+      },
+      "duration": 0
+    },
+    {
+      "category": "adaptive_ai_module",
+      "test": "Volume Progression - Stable Performance",
+      "passed": true,
+      "timestamp": "2025-06-09T12:04:19.168Z",
+      "details": {
+        "predicted": "modification",
+        "expected": "modification",
+        "avgRPE": 8
+      },
+      "duration": 0
+    },
+    {
+      "category": "performance_tracking",
+      "test": "RPE trend calculation",
+      "passed": true,
+      "timestamp": "2025-06-09T12:04:19.168Z",
+      "details": {},
+      "duration": 0
+    },
+    {
+      "category": "performance_tracking",
+      "test": "Volume progression analysis",
+      "passed": true,
+      "timestamp": "2025-06-09T12:04:19.168Z",
+      "details": {},
+      "duration": 0
+    },
+    {
+      "category": "performance_tracking",
+      "test": "Strength estimation accuracy",
+      "passed": true,
+      "timestamp": "2025-06-09T12:04:19.168Z",
+      "details": {},
+      "duration": 0
+    },
+    {
+      "category": "performance_tracking",
+      "test": "Recovery score computation",
+      "passed": true,
+      "timestamp": "2025-06-09T12:04:19.168Z",
+      "details": {},
+      "duration": 0
+    },
+    {
+      "category": "performance_tracking",
+      "test": "Adherence tracking",
+      "passed": true,
+      "timestamp": "2025-06-09T12:04:19.168Z",
+      "details": {},
+      "duration": 0
+    },
+    {
+      "category": "fatigue_detection",
+      "test": "Acute Fatigue - Single Session",
+      "passed": true,
+      "timestamp": "2025-06-09T12:04:19.168Z",
+      "details": {},
+      "duration": 0
+    },
+    {
+      "category": "fatigue_detection",
+      "test": "Chronic Fatigue - Multiple Sessions",
+      "passed": true,
+      "timestamp": "2025-06-09T12:04:19.169Z",
+      "details": {},
+      "duration": 0
+    },
+    {
+      "category": "fatigue_detection",
+      "test": "Normal Recovery - No Fatigue",
+      "passed": true,
+      "timestamp": "2025-06-09T12:04:19.170Z",
+      "details": {},
+      "duration": 0
+    },
+    {
+      "category": "deload_triggers",
+      "test": "Consecutive high RPE sessions",
+      "passed": true,
+      "timestamp": "2025-06-09T12:04:19.170Z",
+      "details": {},
+      "duration": 0
+    },
+    {
+      "category": "deload_triggers",
+      "test": "Volume drop with performance decline",
+      "passed": true,
+      "timestamp": "2025-06-09T12:04:19.170Z",
+      "details": {},
+      "duration": 0
+    },
+    {
+      "category": "deload_triggers",
+      "test": "Poor recovery markers",
+      "passed": true,
+      "timestamp": "2025-06-09T12:04:19.170Z",
+      "details": {},
+      "duration": 0
+    },
+    {
+      "category": "deload_triggers",
+      "test": "Combination of fatigue indicators",
+      "passed": true,
+      "timestamp": "2025-06-09T12:04:19.170Z",
+      "details": {},
+      "duration": 0
+    },
+    {
+      "category": "intensification_logic",
+      "test": "Low RPE with strength gains",
+      "passed": true,
+      "timestamp": "2025-06-09T12:04:19.170Z",
+      "details": {},
+      "duration": 0
+    },
+    {
+      "category": "intensification_logic",
+      "test": "Good recovery with volume tolerance",
+      "passed": true,
+      "timestamp": "2025-06-09T12:04:19.170Z",
+      "details": {},
+      "duration": 0
+    },
+    {
+      "category": "intensification_logic",
+      "test": "Stable performance indicators",
+      "passed": true,
+      "timestamp": "2025-06-09T12:04:19.170Z",
+      "details": {},
+      "duration": 0
+    },
+    {
+      "category": "intensification_logic",
+      "test": "Readiness for progression",
+      "passed": true,
+      "timestamp": "2025-06-09T12:04:19.170Z",
+      "details": {},
+      "duration": 0
+    },
+    {
+      "category": "app_integration",
+      "test": "PowerLifter Pro Integration",
+      "passed": false,
+      "timestamp": "2025-06-09T12:04:20.038Z",
+      "details": {
+        "basic": {
+          "passed": false,
+          "details": {
+            "title": "PowerLifter Pro",
+            "hasWorkoutSection": false,
+            "hasAnalytics": false
+          }
+        },
+        "adaptive": {
+          "passed": false,
+          "details": {
+            "hasAdaptationPanel": false,
+            "hasPerformanceTracker": false,
+            "hasAdaptiveAI": false
+          }
+        }
+      },
+      "duration": 0
+    },
+    {
+      "category": "data_persistence",
+      "test": "Performance data storage",
+      "passed": true,
+      "timestamp": "2025-06-09T12:04:20.039Z",
+      "details": {},
+      "duration": 0
+    },
+    {
+      "category": "data_persistence",
+      "test": "Adaptation history tracking",
+      "passed": true,
+      "timestamp": "2025-06-09T12:04:20.039Z",
+      "details": {},
+      "duration": 0
+    },
+    {
+      "category": "data_persistence",
+      "test": "Settings persistence",
+      "passed": true,
+      "timestamp": "2025-06-09T12:04:20.039Z",
+      "details": {},
+      "duration": 0
+    },
+    {
+      "category": "data_persistence",
+      "test": "Export/Import functionality",
+      "passed": true,
+      "timestamp": "2025-06-09T12:04:20.039Z",
+      "details": {},
+      "duration": 0
+    },
+    {
+      "category": "user_interface",
+      "test": "Adaptive recommendations display",
+      "passed": true,
+      "timestamp": "2025-06-09T12:04:20.039Z",
+      "details": {},
+      "duration": 0
+    },
+    {
+      "category": "user_interface",
+      "test": "Performance visualization",
+      "passed": true,
+      "timestamp": "2025-06-09T12:04:20.039Z",
+      "details": {},
+      "duration": 0
+    },
+    {
+      "category": "user_interface",
+      "test": "Trend indicators",
+      "passed": true,
+      "timestamp": "2025-06-09T12:04:20.039Z",
+      "details": {},
+      "duration": 0
+    },
+    {
+      "category": "user_interface",
+      "test": "Alert notifications",
+      "passed": true,
+      "timestamp": "2025-06-09T12:04:20.039Z",
+      "details": {},
+      "duration": 0
+    },
+    {
+      "category": "performance",
+      "test": "Response Times",
+      "passed": true,
+      "timestamp": "2025-06-09T12:04:20.142Z",
+      "details": {},
+      "duration": 0
+    },
+    {
+      "category": "performance",
+      "test": "Large Dataset Handling",
+      "passed": true,
+      "timestamp": "2025-06-09T12:04:20.142Z",
+      "details": {},
+      "duration": 0
+    },
+    {
+      "category": "edge_cases",
+      "test": "Empty performance data",
+      "passed": true,
+      "timestamp": "2025-06-09T12:04:20.142Z",
+      "details": {},
+      "duration": 0
+    },
+    {
+      "category": "edge_cases",
+      "test": "Invalid RPE values",
+      "passed": true,
+      "timestamp": "2025-06-09T12:04:20.142Z",
+      "details": {},
+      "duration": 0
+    },
+    {
+      "category": "edge_cases",
+      "test": "Extreme workout volumes",
+      "passed": true,
+      "timestamp": "2025-06-09T12:04:20.142Z",
+      "details": {},
+      "duration": 0
+    },
+    {
+      "category": "edge_cases",
+      "test": "Missing required fields",
+      "passed": true,
+      "timestamp": "2025-06-09T12:04:20.142Z",
+      "details": {},
+      "duration": 0
+    },
+    {
+      "category": "edge_cases",
+      "test": "Corrupted data structures",
+      "passed": true,
+      "timestamp": "2025-06-09T12:04:20.142Z",
+      "details": {},
+      "duration": 0
+    },
+    {
+      "category": "error_handling",
+      "test": "API failure graceful degradation",
+      "passed": true,
+      "timestamp": "2025-06-09T12:04:20.142Z",
+      "details": {},
+      "duration": 0
+    },
+    {
+      "category": "error_handling",
+      "test": "Invalid configuration handling",
+      "passed": true,
+      "timestamp": "2025-06-09T12:04:20.142Z",
+      "details": {},
+      "duration": 0
+    },
+    {
+      "category": "error_handling",
+      "test": "Memory constraint management",
+      "passed": true,
+      "timestamp": "2025-06-09T12:04:20.142Z",
+      "details": {},
+      "duration": 0
+    },
+    {
+      "category": "error_handling",
+      "test": "Network timeout recovery",
+      "passed": true,
+      "timestamp": "2025-06-09T12:04:20.142Z",
+      "details": {},
+      "duration": 0
+    }
+  ],
+  "environment": {
+    "nodeVersion": "v24.1.0",
+    "puppeteerVersion": "24.10.0"
+  }
+}

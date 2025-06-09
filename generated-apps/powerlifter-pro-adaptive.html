@@ -1,0 +1,1359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="PowerLifter Pro Adaptive">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#673AB7">
+<title>PowerLifter Pro Adaptive - AI-Powered Training</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+:root {
+--md-purple-500: #673AB7; 
+--md-purple-700: #512DA8; 
+--md-purple-100: #D1C4E9; 
+--md-green-500: #4CAF50; 
+--md-green-700: #388E3C;
+--md-red-500: #f44336; 
+--md-red-700: #D32F2F;
+--md-orange-500: #FF9800;
+--md-blue-500: #2196F3;
+--md-grey-100: #f5f5f5; 
+--md-grey-300: #e0e0e0; 
+--md-grey-600: #757575; 
+--md-grey-700: #616161; 
+--md-grey-900: #212121; 
+--md-white: #FFFFFF;
+--md-elevation-1: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+--md-elevation-2: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+--md-elevation-4: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+body { 
+font-family: 'Roboto', sans-serif; 
+margin: 0; 
+padding: 0; 
+background-color: var(--md-grey-100); 
+color: var(--md-grey-900); 
+line-height: 1.6;
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+}
+
+.app-container { 
+width: 100%;
+min-height: 100vh;
+background-color: var(--md-white); 
+overflow: hidden;
+}
+
+header { 
+background: linear-gradient(135deg, var(--md-purple-700), var(--md-purple-500));
+color: var(--md-white); 
+padding: 16px 20px; 
+text-align: center;
+box-shadow: var(--md-elevation-2);
+}
+
+header h1 { 
+margin: 0; 
+font-size: 1.4em; 
+font-weight: 500;
+}
+
+.ai-badge {
+background: var(--md-orange-500);
+color: white;
+font-size: 0.7em;
+padding: 2px 6px;
+border-radius: 10px;
+margin-left: 8px;
+vertical-align: super;
+}
+
+.tab-bar { 
+display: flex; 
+background-color: var(--md-white); 
+box-shadow: var(--md-elevation-1);
+border-bottom: 1px solid var(--md-grey-300);
+overflow-x: auto;
+}
+
+.tab { 
+flex: 1; 
+min-width: 80px;
+padding: 16px 12px; 
+text-align: center; 
+cursor: pointer; 
+border: none; 
+background: none; 
+font-size: 14px; 
+font-weight: 500;
+color: var(--md-grey-600);
+transition: all 0.3s ease;
+position: relative;
+}
+
+.tab.active { 
+color: var(--md-purple-700); 
+background-color: var(--md-purple-100);
+}
+
+.tab.active::after {
+content: '';
+position: absolute;
+bottom: 0;
+left: 0;
+right: 0;
+height: 3px;
+background-color: var(--md-purple-700);
+}
+
+.tab-content { 
+display: none; 
+padding: 20px;
+max-height: calc(100vh - 120px);
+overflow-y: auto;
+}
+
+.tab-content.active { 
+display: block; 
+}
+
+/* Adaptive Features Styling */
+.adaptive-panel {
+background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+border: 2px solid var(--md-blue-500);
+border-radius: 12px;
+margin: 16px 0;
+overflow: hidden;
+box-shadow: var(--md-elevation-2);
+}
+
+.adaptive-header {
+background: var(--md-blue-500);
+color: white;
+padding: 12px 16px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+font-weight: 500;
+}
+
+.adaptive-toggle {
+background: none;
+border: none;
+color: white;
+font-size: 16px;
+cursor: pointer;
+padding: 4px;
+}
+
+.adaptive-content {
+padding: 16px;
+}
+
+.performance-trends, .recommendations {
+margin-bottom: 16px;
+}
+
+.performance-trends h4, .recommendations h4 {
+margin: 0 0 12px 0;
+color: var(--md-grey-700);
+font-size: 16px;
+}
+
+.trend-item {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 8px 0;
+border-bottom: 1px solid var(--md-grey-300);
+}
+
+.trend-item:last-child {
+border-bottom: none;
+}
+
+.trend-label {
+font-weight: 500;
+color: var(--md-grey-700);
+}
+
+.trend-value {
+font-weight: 600;
+color: var(--md-purple-700);
+}
+
+.trend-icon {
+font-size: 18px;
+}
+
+.recommendation {
+background: white;
+border-radius: 8px;
+padding: 12px;
+margin: 8px 0;
+border-left: 4px solid var(--md-green-500);
+box-shadow: var(--md-elevation-1);
+}
+
+.recommendation.high {
+border-left-color: var(--md-red-500);
+}
+
+.recommendation.medium {
+border-left-color: var(--md-orange-500);
+}
+
+.recommendation-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 8px;
+}
+
+.recommendation-title {
+font-weight: 600;
+color: var(--md-grey-900);
+}
+
+.recommendation-priority {
+font-size: 0.8em;
+font-weight: 500;
+padding: 2px 6px;
+border-radius: 4px;
+background: var(--md-grey-300);
+color: var(--md-grey-700);
+}
+
+.recommendation.high .recommendation-priority {
+background: var(--md-red-500);
+color: white;
+}
+
+.recommendation.medium .recommendation-priority {
+background: var(--md-orange-500);
+color: white;
+}
+
+.recommendation-description {
+color: var(--md-grey-700);
+margin-bottom: 8px;
+line-height: 1.4;
+}
+
+.recommendation-actions ul {
+margin: 8px 0;
+padding-left: 16px;
+}
+
+.recommendation-actions li {
+color: var(--md-grey-600);
+margin: 4px 0;
+}
+
+.recommendation-meta {
+display: flex;
+justify-content: space-between;
+font-size: 0.9em;
+color: var(--md-grey-600);
+margin-top: 8px;
+}
+
+.adaptive-controls {
+display: flex;
+gap: 8px;
+margin-top: 16px;
+}
+
+.adaptive-error {
+background: #ffebee;
+color: #c62828;
+padding: 10px;
+border-radius: 4px;
+margin: 10px 0;
+border-left: 4px solid #c62828;
+}
+
+/* Exercise Cards with Adaptive Features */
+.exercise-card {
+background: var(--md-white);
+border-radius: 8px;
+margin: 12px 0;
+box-shadow: var(--md-elevation-1);
+overflow: hidden;
+transition: all 0.3s ease;
+}
+
+.exercise-card.adaptive-highlighted {
+border: 2px solid var(--md-blue-500);
+box-shadow: var(--md-elevation-4);
+}
+
+.exercise-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 16px;
+background: var(--md-grey-100);
+border-bottom: 1px solid var(--md-grey-300);
+}
+
+.exercise-name {
+font-weight: 600;
+color: var(--md-grey-900);
+font-size: 16px;
+}
+
+.adaptive-indicator {
+background: var(--md-blue-500);
+color: white;
+font-size: 0.7em;
+padding: 2px 6px;
+border-radius: 8px;
+}
+
+.exercise-alternatives {
+background: #f8f9fa;
+padding: 12px 16px;
+border-top: 1px solid var(--md-grey-300);
+font-size: 0.9em;
+}
+
+.exercise-alternatives h5 {
+margin: 0 0 8px 0;
+color: var(--md-grey-700);
+}
+
+.alternative-option {
+display: inline-block;
+background: var(--md-grey-200);
+color: var(--md-grey-700);
+padding: 4px 8px;
+margin: 2px 4px 2px 0;
+border-radius: 12px;
+font-size: 0.8em;
+cursor: pointer;
+transition: all 0.2s ease;
+}
+
+.alternative-option:hover {
+background: var(--md-blue-100);
+color: var(--md-blue-700);
+}
+
+/* Sets Table */
+.sets-table {
+width: 100%;
+border-collapse: collapse;
+margin: 16px 0;
+}
+
+.sets-table th {
+background: var(--md-grey-100);
+padding: 8px;
+text-align: center;
+font-weight: 500;
+color: var(--md-grey-700);
+border-bottom: 1px solid var(--md-grey-300);
+}
+
+.sets-table td {
+padding: 8px;
+text-align: center;
+border-bottom: 1px solid var(--md-grey-300);
+}
+
+.sets-table input {
+width: 60px;
+padding: 4px 6px;
+border: 1px solid var(--md-grey-300);
+border-radius: 4px;
+text-align: center;
+font-size: 14px;
+}
+
+.rpe-input {
+background: var(--md-orange-100);
+}
+
+.rpe-warning {
+background: var(--md-red-100) !important;
+border-color: var(--md-red-500);
+}
+
+.btn {
+padding: 10px 16px;
+border: none;
+border-radius: 6px;
+font-size: 14px;
+font-weight: 500;
+cursor: pointer;
+transition: all 0.3s ease;
+text-decoration: none;
+display: inline-block;
+text-align: center;
+}
+
+.btn-primary {
+background: var(--md-purple-500);
+color: white;
+}
+
+.btn-primary:hover {
+background: var(--md-purple-700);
+}
+
+.btn-secondary {
+background: var(--md-grey-300);
+color: var(--md-grey-700);
+}
+
+.btn-secondary:hover {
+background: var(--md-grey-600);
+color: white;
+}
+
+.btn-success {
+background: var(--md-green-500);
+color: white;
+}
+
+.btn-success:hover {
+background: var(--md-green-700);
+}
+
+/* Analytics Charts */
+.chart-container {
+background: white;
+border-radius: 8px;
+padding: 16px;
+margin: 16px 0;
+box-shadow: var(--md-elevation-1);
+}
+
+.chart-title {
+font-weight: 600;
+color: var(--md-grey-900);
+margin-bottom: 16px;
+text-align: center;
+}
+
+/* Progress Indicators */
+.progress-indicator {
+background: var(--md-grey-200);
+border-radius: 10px;
+height: 8px;
+margin: 8px 0;
+overflow: hidden;
+}
+
+.progress-bar {
+height: 100%;
+background: linear-gradient(90deg, var(--md-green-500), var(--md-green-700));
+transition: width 0.3s ease;
+}
+
+.progress-bar.warning {
+background: linear-gradient(90deg, var(--md-orange-500), var(--md-red-500));
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+.tab {
+font-size: 12px;
+padding: 12px 8px;
+}
+
+.exercise-header {
+flex-direction: column;
+align-items: flex-start;
+gap: 8px;
+}
+
+.adaptive-controls {
+flex-direction: column;
+}
+
+.recommendation-header {
+flex-direction: column;
+align-items: flex-start;
+gap: 4px;
+}
+}
+
+/* Animations */
+@keyframes pulse {
+0% { transform: scale(1); }
+50% { transform: scale(1.05); }
+100% { transform: scale(1); }
+}
+
+.adaptive-notification {
+animation: pulse 2s infinite;
+}
+
+.fadeIn {
+animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+from { opacity: 0; transform: translateY(20px); }
+to { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+<body>
+<div class="app-container">
+<header>
+<h1>PowerLifter Pro <span class="ai-badge">AI</span></h1>
+</header>
+
+<nav class="tab-bar">
+<button class="tab active" onclick="showTab('workout')">Workout</button>
+<button class="tab" onclick="showTab('analytics')">Analytics</button>
+<button class="tab" onclick="showTab('adaptive')">AI Insights</button>
+<button class="tab" onclick="showTab('settings')">Settings</button>
+</nav>
+
+<!-- Workout Tab -->
+<div id="workout" class="tab-content active">
+<div class="adaptive-panel" data-adaptive="true">
+<div class="adaptive-header">
+<h3>🤖 Real-Time Adaptive Coaching</h3>
+<button id="adaptive-toggle" class="adaptive-toggle">▼</button>
+</div>
+<div id="adaptive-content" class="adaptive-content">
+<div id="session-recommendations" class="recommendations">
+<h4>Today's Session Recommendations</h4>
+<div id="session-recommendations-display">
+<div class="recommendation medium">
+<div class="recommendation-header">
+<span class="recommendation-title">Intensity Check</span>
+<span class="recommendation-priority">MEDIUM</span>
+</div>
+<div class="recommendation-description">Based on your recent RPE trends, consider reducing intensity by 5% today.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="exercise-section">
+<h2>Today's Workout: Upper Power</h2>
+
+<div class="exercise-card adaptive-highlighted">
+<div class="exercise-header">
+<span class="exercise-name">Bench Press</span>
+<span class="adaptive-indicator">AI Enhanced</span>
+</div>
+<table class="sets-table">
+<thead>
+<tr>
+<th>Set</th>
+<th>Weight (lbs)</th>
+<th>Reps</th>
+<th>RPE</th>
+<th>Complete</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><input type="number" value="225" onchange="updatePerformance(this)"></td>
+<td><input type="number" value="5" onchange="updatePerformance(this)"></td>
+<td><input type="number" class="rpe-input" value="7.5" min="1" max="10" step="0.5" onchange="checkRPE(this)"></td>
+<td><input type="checkbox" onchange="updateAdherence(this)"></td>
+</tr>
+<tr>
+<td>2</td>
+<td><input type="number" value="235" onchange="updatePerformance(this)"></td>
+<td><input type="number" value="3" onchange="updatePerformance(this)"></td>
+<td><input type="number" class="rpe-input" value="8.0" min="1" max="10" step="0.5" onchange="checkRPE(this)"></td>
+<td><input type="checkbox" onchange="updateAdherence(this)"></td>
+</tr>
+<tr>
+<td>3</td>
+<td><input type="number" value="245" onchange="updatePerformance(this)"></td>
+<td><input type="number" value="1" onchange="updatePerformance(this)"></td>
+<td><input type="number" class="rpe-input" value="9.0" min="1" max="10" step="0.5" onchange="checkRPE(this)"></td>
+<td><input type="checkbox" onchange="updateAdherence(this)"></td>
+</tr>
+</tbody>
+</table>
+<div class="exercise-alternatives">
+<h5>AI Suggested Alternatives:</h5>
+<span class="alternative-option" onclick="selectAlternative('incline_press')">Incline Press</span>
+<span class="alternative-option" onclick="selectAlternative('dumbbell_press')">Dumbbell Press</span>
+<span class="alternative-option" onclick="selectAlternative('floor_press')">Floor Press</span>
+</div>
+</div>
+
+<div class="exercise-card">
+<div class="exercise-header">
+<span class="exercise-name">Squat</span>
+</div>
+<table class="sets-table">
+<thead>
+<tr>
+<th>Set</th>
+<th>Weight (lbs)</th>
+<th>Reps</th>
+<th>RPE</th>
+<th>Complete</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><input type="number" value="315" onchange="updatePerformance(this)"></td>
+<td><input type="number" value="5" onchange="updatePerformance(this)"></td>
+<td><input type="number" class="rpe-input" value="7.0" min="1" max="10" step="0.5" onchange="checkRPE(this)"></td>
+<td><input type="checkbox" onchange="updateAdherence(this)"></td>
+</tr>
+<tr>
+<td>2</td>
+<td><input type="number" value="335" onchange="updatePerformance(this)"></td>
+<td><input type="number" value="3" onchange="updatePerformance(this)"></td>
+<td><input type="number" class="rpe-input" value="8.5" min="1" max="10" step="0.5" onchange="checkRPE(this)"></td>
+<td><input type="checkbox" onchange="updateAdherence(this)"></td>
+</tr>
+<tr>
+<td>3</td>
+<td><input type="number" value="350" onchange="updatePerformance(this)"></td>
+<td><input type="number" value="1" onchange="updatePerformance(this)"></td>
+<td><input type="number" class="rpe-input" value="9.5" min="1" max="10" step="0.5" onchange="checkRPE(this)"></td>
+<td><input type="checkbox" onchange="updateAdherence(this)"></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="exercise-card">
+<div class="exercise-header">
+<span class="exercise-name">Deadlift</span>
+</div>
+<table class="sets-table">
+<thead>
+<tr>
+<th>Set</th>
+<th>Weight (lbs)</th>
+<th>Reps</th>
+<th>RPE</th>
+<th>Complete</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><input type="number" value="405" onchange="updatePerformance(this)"></td>
+<td><input type="number" value="3" onchange="updatePerformance(this)"></td>
+<td><input type="number" class="rpe-input" value="8.0" min="1" max="10" step="0.5" onchange="checkRPE(this)"></td>
+<td><input type="checkbox" onchange="updateAdherence(this)"></td>
+</tr>
+<tr>
+<td>2</td>
+<td><input type="number" value="425" onchange="updatePerformance(this)"></td>
+<td><input type="number" value="1" onchange="updatePerformance(this)"></td>
+<td><input type="number" class="rpe-input" value="9.0" min="1" max="10" step="0.5" onchange="checkRPE(this)"></td>
+<td><input type="checkbox" onchange="updateAdherence(this)"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div style="padding: 20px; text-align: center;">
+<button class="btn btn-success" onclick="completeWorkout()">Complete Workout & Analyze</button>
+</div>
+</div>
+
+<!-- Analytics Tab -->
+<div id="analytics" class="tab-content">
+<div class="chart-container">
+<h3 class="chart-title">Strength Progression</h3>
+<canvas id="strengthChart" width="400" height="200"></canvas>
+</div>
+
+<div class="chart-container">
+<h3 class="chart-title">RPE Trends</h3>
+<canvas id="rpeChart" width="400" height="200"></canvas>
+</div>
+
+<div class="chart-container">
+<h3 class="chart-title">Training Volume</h3>
+<canvas id="volumeChart" width="400" height="200"></canvas>
+</div>
+</div>
+
+<!-- AI Insights Tab -->
+<div id="adaptive" class="tab-content">
+<div class="adaptive-panel">
+<div class="adaptive-header">
+<h3>🔍 Performance Analysis</h3>
+</div>
+<div class="adaptive-content">
+<div id="performance-trends" class="performance-trends">
+<h4>Current Trends</h4>
+<div id="trends-display">
+<div class="trend-item">
+<span class="trend-label">AVG RPE:</span>
+<span class="trend-value">8.2</span>
+<span class="trend-icon">📈</span>
+</div>
+<div class="trend-item">
+<span class="trend-label">VOLUME:</span>
+<span class="trend-value">12,450 lbs</span>
+<span class="trend-icon">➡️</span>
+</div>
+<div class="trend-item">
+<span class="trend-label">STRENGTH:</span>
+<span class="trend-value">425 lbs</span>
+<span class="trend-icon">📈</span>
+</div>
+<div class="trend-item">
+<span class="trend-label">RECOVERY:</span>
+<span class="trend-value">7.1</span>
+<span class="trend-icon">📉</span>
+</div>
+</div>
+</div>
+
+<div id="recommendations" class="recommendations">
+<h4>AI Recommendations</h4>
+<div id="recommendations-display">
+<div class="recommendation high">
+<div class="recommendation-header">
+<span class="recommendation-title">Deload Week Recommended</span>
+<span class="recommendation-priority">HIGH</span>
+</div>
+<div class="recommendation-description">Your RPE has been consistently above 8.5 for the past 4 sessions. Consider reducing volume and intensity.</div>
+<div class="recommendation-actions">
+<ul>
+<li>Reduce training volume by 40%</li>
+<li>Maintain intensity at 85% of normal</li>
+<li>Focus on mobility and recovery</li>
+<li>Prioritize sleep and stress management</li>
+</ul>
+</div>
+<div class="recommendation-meta">
+<span>Duration: 1 week</span>
+<span>Confidence: 85%</span>
+</div>
+</div>
+
+<div class="recommendation medium">
+<div class="recommendation-header">
+<span class="recommendation-title">Focus on Recovery</span>
+<span class="recommendation-priority">MEDIUM</span>
+</div>
+<div class="recommendation-description">Recovery markers below optimal range.</div>
+<div class="recommendation-actions">
+<ul>
+<li>Prioritize 7-9 hours of sleep</li>
+<li>Manage stress levels</li>
+<li>Consider nutrition timing</li>
+<li>Add active recovery sessions</li>
+</ul>
+</div>
+<div class="recommendation-meta">
+<span>Duration: ongoing</span>
+<span>Confidence: 80%</span>
+</div>
+</div>
+</div>
+</div>
+
+<div id="adaptive-controls" class="adaptive-controls">
+<button id="force-analysis" class="btn btn-secondary">Analyze Now</button>
+<button id="export-data" class="btn btn-secondary">Export Data</button>
+</div>
+</div>
+</div>
+
+<div class="chart-container">
+<h3 class="chart-title">Adaptive Insights Timeline</h3>
+<canvas id="adaptiveChart" width="400" height="200"></canvas>
+</div>
+</div>
+
+<!-- Settings Tab -->
+<div id="settings" class="tab-content">
+<h2>Adaptive AI Settings</h2>
+
+<div style="background: white; padding: 16px; border-radius: 8px; margin: 16px 0; box-shadow: var(--md-elevation-1);">
+<h3>Performance Tracking</h3>
+<label style="display: block; margin: 12px 0;">
+<input type="checkbox" checked> Enable automatic RPE analysis
+</label>
+<label style="display: block; margin: 12px 0;">
+<input type="checkbox" checked> Track recovery metrics
+</label>
+<label style="display: block; margin: 12px 0;">
+<input type="checkbox" checked> Generate adaptation recommendations
+</label>
+</div>
+
+<div style="background: white; padding: 16px; border-radius: 8px; margin: 16px 0; box-shadow: var(--md-elevation-1);">
+<h3>Notification Preferences</h3>
+<label style="display: block; margin: 12px 0;">
+<input type="checkbox" checked> High fatigue warnings
+</label>
+<label style="display: block; margin: 12px 0;">
+<input type="checkbox" checked> Deload recommendations
+</label>
+<label style="display: block; margin: 12px 0;">
+<input type="checkbox"> Progression opportunities
+</label>
+</div>
+
+<div style="background: white; padding: 16px; border-radius: 8px; margin: 16px 0; box-shadow: var(--md-elevation-1);">
+<h3>Data Management</h3>
+<button class="btn btn-secondary" onclick="exportAllData()">Export All Data</button>
+<button class="btn btn-secondary" onclick="clearAdaptiveData()">Clear AI Data</button>
+</div>
+</div>
+</div>
+
+<script>
+// Global Variables
+let adaptiveSystem = null;
+let currentWorkoutData = {
+exercises: [],
+startTime: new Date(),
+subjective: {}
+};
+
+// Initialize Adaptive System on page load
+document.addEventListener('DOMContentLoaded', function() {
+console.log('🚀 Initializing PowerLifter Pro Adaptive...');
+
+// Initialize the adaptive fitness system
+initializeAdaptiveSystem();
+
+// Set up charts
+initializeCharts();
+
+// Load any existing workout data
+loadCurrentSession();
+
+console.log('✅ PowerLifter Pro Adaptive ready!');
+});
+
+/**
+* Initialize the adaptive fitness system
+*/
+function initializeAdaptiveSystem() {
+try {
+// Create adaptive system instance
+if (typeof AdaptiveFitnessSystem !== 'undefined') {
+adaptiveSystem = new AdaptiveFitnessSystem('strength');
+console.log('✅ Adaptive system initialized');
+} else {
+console.warn('⚠️ Adaptive system not available - running in basic mode');
+showAdaptiveError('Adaptive features not available - running in basic mode');
+}
+} catch (error) {
+console.error('❌ Failed to initialize adaptive system:', error);
+showAdaptiveError('Failed to initialize adaptive features');
+}
+}
+
+/**
+* Tab Navigation
+*/
+function showTab(tabName) {
+// Hide all tab contents
+const tabContents = document.querySelectorAll('.tab-content');
+tabContents.forEach(content => content.classList.remove('active'));
+
+// Remove active class from all tabs
+const tabs = document.querySelectorAll('.tab');
+tabs.forEach(tab => tab.classList.remove('active'));
+
+// Show selected tab
+document.getElementById(tabName).classList.add('active');
+event.target.classList.add('active');
+
+// Update charts if analytics tab is shown
+if (tabName === 'analytics') {
+updateCharts();
+}
+}
+
+/**
+* Performance Tracking Functions
+*/
+function updatePerformance(input) {
+console.log('📊 Performance data updated:', input.value);
+// Real-time performance tracking would go here
+}
+
+function checkRPE(input) {
+const rpe = parseFloat(input.value);
+
+// Visual feedback for RPE
+if (rpe >= 9.5) {
+input.classList.add('rpe-warning');
+showRPEWarning('Very high RPE detected - consider reducing load');
+} else {
+input.classList.remove('rpe-warning');
+}
+
+// Update adaptive system if available
+if (adaptiveSystem) {
+// This would update real-time RPE analysis
+console.log('🤖 RPE updated in adaptive system:', rpe);
+}
+}
+
+function updateAdherence(checkbox) {
+console.log('✅ Adherence updated:', checkbox.checked);
+// Track set completion for adherence analysis
+}
+
+function showRPEWarning(message) {
+// Create temporary warning notification
+const warning = document.createElement('div');
+warning.className = 'adaptive-error fadeIn';
+warning.textContent = '⚠️ ' + message;
+warning.style.position = 'fixed';
+warning.style.top = '20px';
+warning.style.right = '20px';
+warning.style.zIndex = '1000';
+warning.style.maxWidth = '300px';
+
+document.body.appendChild(warning);
+
+// Remove after 4 seconds
+setTimeout(() => {
+warning.remove();
+}, 4000);
+}
+
+/**
+* Workout Completion and Analysis
+*/
+function completeWorkout() {
+console.log('🏁 Completing workout...');
+
+// Collect workout data
+const workoutData = collectWorkoutData();
+
+// Show completion animation
+showWorkoutCompletion();
+
+// Analyze with adaptive system
+if (adaptiveSystem) {
+analyzeWorkoutWithAI(workoutData);
+} else {
+// Basic analysis without AI
+analyzeWorkoutBasic(workoutData);
+}
+}
+
+function collectWorkoutData() {
+const exercises = [];
+const exerciseCards = document.querySelectorAll('.exercise-card');
+
+exerciseCards.forEach(card => {
+const exerciseName = card.querySelector('.exercise-name').textContent;
+const sets = [];
+const rows = card.querySelectorAll('.sets-table tbody tr');
+
+rows.forEach(row => {
+const inputs = row.querySelectorAll('input');
+sets.push({
+weight: parseFloat(inputs[0].value) || 0,
+reps: parseInt(inputs[1].value) || 0,
+rpe: parseFloat(inputs[2].value) || 0,
+completed: inputs[3].checked
+});
+});
+
+exercises.push({
+name: exerciseName,
+sets: sets,
+isMainLift: ['Bench Press', 'Squat', 'Deadlift'].includes(exerciseName)
+});
+});
+
+return {
+date: new Date().toISOString(),
+exercises: exercises,
+duration: Math.floor((new Date() - currentWorkoutData.startTime) / 60000), // minutes
+subjective: getSubjectiveData()
+};
+}
+
+function getSubjectiveData() {
+// In a real app, this would come from a form
+return {
+energyLevel: 7,
+motivation: 8,
+sleepQuality: 6,
+stress: 4,
+soreness: 5
+};
+}
+
+function analyzeWorkoutWithAI(workoutData) {
+console.log('🤖 Analyzing workout with AI...');
+
+try {
+// Record workout with adaptive system
+adaptiveSystem.recordWorkoutSession(workoutData).then(() => {
+console.log('✅ Workout recorded and analyzed');
+updateAdaptiveDisplay();
+showAnalysisComplete();
+}).catch(error => {
+console.error('❌ AI analysis failed:', error);
+analyzeWorkoutBasic(workoutData);
+});
+} catch (error) {
+console.error('❌ AI analysis error:', error);
+analyzeWorkoutBasic(workoutData);
+}
+}
+
+function analyzeWorkoutBasic(workoutData) {
+console.log('📊 Basic workout analysis...');
+// Basic analysis without AI
+showAnalysisComplete();
+}
+
+function updateAdaptiveDisplay() {
+// Update the adaptive insights display
+console.log('🔄 Updating adaptive display...');
+// This would update the real-time recommendations and trends
+}
+
+function showWorkoutCompletion() {
+const message = document.createElement('div');
+message.className = 'adaptive-notification fadeIn';
+message.innerHTML = '🎉 Workout Complete! Analyzing performance...';
+message.style.cssText = `
+position: fixed;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+background: var(--md-green-500);
+color: white;
+padding: 20px 30px;
+border-radius: 12px;
+font-weight: 600;
+z-index: 1000;
+box-shadow: var(--md-elevation-4);
+`;
+
+document.body.appendChild(message);
+
+setTimeout(() => {
+message.remove();
+}, 3000);
+}
+
+function showAnalysisComplete() {
+const message = document.createElement('div');
+message.className = 'fadeIn';
+message.innerHTML = '✅ Analysis complete! Check the AI Insights tab for recommendations.';
+message.style.cssText = `
+position: fixed;
+bottom: 20px;
+right: 20px;
+background: var(--md-blue-500);
+color: white;
+padding: 12px 16px;
+border-radius: 8px;
+z-index: 1000;
+max-width: 300px;
+`;
+
+document.body.appendChild(message);
+
+setTimeout(() => {
+message.remove();
+}, 5000);
+}
+
+/**
+* Exercise Alternative Selection
+*/
+function selectAlternative(exerciseId) {
+console.log('🔄 Selecting alternative exercise:', exerciseId);
+
+// Show confirmation dialog
+if (confirm('Switch to this alternative exercise?')) {
+// Implement exercise substitution
+switchExercise(exerciseId);
+}
+}
+
+function switchExercise(exerciseId) {
+console.log('↔️ Switching exercise to:', exerciseId);
+// This would implement the actual exercise switching logic
+showExerciseSwitch(exerciseId);
+}
+
+function showExerciseSwitch(exerciseId) {
+const message = document.createElement('div');
+message.className = 'fadeIn';
+message.innerHTML = `🔄 Exercise switched to ${exerciseId.replace('_', ' ')}`;
+message.style.cssText = `
+position: fixed;
+top: 20px;
+left: 50%;
+transform: translateX(-50%);
+background: var(--md-orange-500);
+color: white;
+padding: 10px 20px;
+border-radius: 6px;
+z-index: 1000;
+`;
+
+document.body.appendChild(message);
+
+setTimeout(() => {
+message.remove();
+}, 3000);
+}
+
+/**
+* Chart Management
+*/
+function initializeCharts() {
+// Initialize Chart.js charts
+try {
+createStrengthChart();
+createRPEChart();
+createVolumeChart();
+createAdaptiveChart();
+} catch (error) {
+console.error('❌ Failed to initialize charts:', error);
+}
+}
+
+function createStrengthChart() {
+const ctx = document.getElementById('strengthChart');
+if (!ctx) return;
+
+new Chart(ctx, {
+type: 'line',
+data: {
+labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6'],
+datasets: [{
+label: 'Bench Press 1RM',
+data: [225, 230, 235, 235, 240, 245],
+borderColor: 'rgb(103, 58, 183)',
+tension: 0.1
+}, {
+label: 'Squat 1RM',
+data: [315, 320, 325, 330, 335, 340],
+borderColor: 'rgb(76, 175, 80)',
+tension: 0.1
+}, {
+label: 'Deadlift 1RM',
+data: [405, 410, 415, 420, 425, 430],
+borderColor: 'rgb(244, 67, 54)',
+tension: 0.1
+}]
+},
+options: {
+responsive: true,
+scales: {
+y: {
+beginAtZero: false
+}
+}
+}
+});
+}
+
+function createRPEChart() {
+const ctx = document.getElementById('rpeChart');
+if (!ctx) return;
+
+new Chart(ctx, {
+type: 'line',
+data: {
+labels: ['Mon', 'Wed', 'Fri', 'Mon', 'Wed', 'Fri', 'Mon'],
+datasets: [{
+label: 'Average RPE',
+data: [7.5, 8.0, 8.5, 8.2, 8.8, 9.2, 8.0],
+borderColor: 'rgb(255, 152, 0)',
+backgroundColor: 'rgba(255, 152, 0, 0.1)',
+tension: 0.1,
+fill: true
+}]
+},
+options: {
+responsive: true,
+scales: {
+y: {
+min: 6,
+max: 10
+}
+}
+}
+});
+}
+
+function createVolumeChart() {
+const ctx = document.getElementById('volumeChart');
+if (!ctx) return;
+
+new Chart(ctx, {
+type: 'bar',
+data: {
+labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6'],
+datasets: [{
+label: 'Training Volume (lbs)',
+data: [12000, 12500, 13000, 12800, 13200, 12450],
+backgroundColor: 'rgba(33, 150, 243, 0.7)',
+borderColor: 'rgb(33, 150, 243)',
+borderWidth: 1
+}]
+},
+options: {
+responsive: true,
+scales: {
+y: {
+beginAtZero: true
+}
+}
+}
+});
+}
+
+function createAdaptiveChart() {
+const ctx = document.getElementById('adaptiveChart');
+if (!ctx) return;
+
+new Chart(ctx, {
+type: 'line',
+data: {
+labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6'],
+datasets: [{
+label: 'Fatigue Index',
+data: [0.3, 0.4, 0.6, 0.8, 1.2, 0.7],
+borderColor: 'rgb(244, 67, 54)',
+tension: 0.1
+}, {
+label: 'Readiness Score',
+data: [0.8, 0.7, 0.6, 0.4, 0.3, 0.6],
+borderColor: 'rgb(76, 175, 80)',
+tension: 0.1
+}]
+},
+options: {
+responsive: true,
+scales: {
+y: {
+min: 0,
+max: 1.5
+}
+}
+}
+});
+}
+
+function updateCharts() {
+// Update chart data with latest information
+console.log('📊 Updating charts...');
+}
+
+/**
+* Data Management
+*/
+function loadCurrentSession() {
+// Load any existing session data
+console.log('📥 Loading current session...');
+}
+
+function exportAllData() {
+console.log('💾 Exporting all data...');
+if (adaptiveSystem) {
+adaptiveSystem.exportAdaptiveData();
+} else {
+// Basic export without AI data
+const data = {
+workouts: [],
+timestamp: new Date().toISOString()
+};
+downloadJSON(data, 'powerlifter-pro-data.json');
+}
+}
+
+function clearAdaptiveData() {
+if (confirm('Clear all adaptive AI data? This cannot be undone.')) {
+localStorage.clear();
+location.reload();
+}
+}
+
+function downloadJSON(data, filename) {
+const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+const url = URL.createObjectURL(blob);
+const link = document.createElement('a');
+link.href = url;
+link.download = filename;
+link.click();
+URL.revokeObjectURL(url);
+}
+
+/**
+* Error Handling
+*/
+function showAdaptiveError(message) {
+const errorDiv = document.createElement('div');
+errorDiv.className = 'adaptive-error';
+errorDiv.textContent = '⚠️ ' + message;
+
+const adaptivePanel = document.querySelector('.adaptive-panel');
+if (adaptivePanel) {
+adaptivePanel.insertBefore(errorDiv, adaptivePanel.firstChild);
+setTimeout(() => errorDiv.remove(), 8000);
+}
+}
+
+/**
+* Mock Adaptive Functions for Demo
+*/
+class AdaptiveFitnessSystem {
+constructor(trainingType) {
+this.trainingType = trainingType;
+this.isInitialized = true;
+console.log('🤖 Mock Adaptive System initialized for', trainingType);
+}
+
+async recordWorkoutSession(workoutData) {
+return new Promise((resolve) => {
+console.log('📊 Recording workout session:', workoutData);
+setTimeout(() => {
+console.log('✅ Session recorded successfully');
+resolve();
+}, 1000);
+});
+}
+
+exportAdaptiveData() {
+const data = {
+version: '1.0',
+trainingType: this.trainingType,
+exportDate: new Date().toISOString(),
+mockData: true
+};
+downloadJSON(data, `adaptive-data-${this.trainingType}.json`);
+}
+}
+
+// Make adaptive system available globally
+window.AdaptiveFitnessSystem = AdaptiveFitnessSystem;
+</script>
+</body>
+</html>

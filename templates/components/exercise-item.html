@@ -1,0 +1,71 @@
+<!-- Exercise Item Template -->
+<div class="exercise-item" data-exercise-id="{{EXERCISE_ID}}">
+    <h3>{{EXERCISE_NAME}}</h3>
+    {{#if EXERCISE_NOTES}}
+    <div class="exercise-notes">{{EXERCISE_NOTES}}</div>
+    {{/if}}
+    
+    {{#if IS_STRENGTH_EXERCISE}}
+    <!-- Strength Exercise (Heavy Single) -->
+    <div class="exercise-details">{{SET_LABEL}} - {{SETS}} sets × {{REPS}} reps @ {{PERCENTAGE}}% (Target: {{TARGET_WEIGHT}}lbs)</div>
+    <div class="inline-inputs">
+        <label>Weight:</label>
+        <input type="number" id="{{EXERCISE_ID}}_weight" step="2.5" placeholder="{{TARGET_WEIGHT}}">
+        <label>Reps:</label>
+        <input type="number" id="{{EXERCISE_ID}}_reps" value="{{REPS}}">
+        <label>RPE:</label>
+        <input type="number" id="{{EXERCISE_ID}}_rpe" min="6" max="10" step="0.5" placeholder="8">
+    </div>
+    <button class="action-button log-set-button" onclick="logHeavyStrengthSet('{{EXERCISE_ID}}', '{{EXERCISE_GROUP}}')">
+        Log Set
+    </button>
+    {{/if}}
+    
+    {{#if IS_VOLUME_EXERCISE}}
+    <!-- Volume Exercise -->
+    <div class="exercise-details">{{SETS}} sets × {{REPS}} reps @ {{PERCENTAGE}}% (Target: {{TARGET_WEIGHT}}lbs each set)</div>
+    {{#each SET_NUMBERS}}
+    <div class="set-item">
+        <span class="set-label">Set {{this}}:</span>
+        <div class="inline-inputs">
+            <label>Weight:</label>
+            <input type="number" id="{{../EXERCISE_ID}}_weight_{{this}}" step="2.5" placeholder="{{../TARGET_WEIGHT}}">
+            <label>Reps:</label>
+            <input type="number" id="{{../EXERCISE_ID}}_reps_{{this}}" value="{{../REPS}}">
+            <label>RPE:</label>
+            <input type="number" id="{{../EXERCISE_ID}}_rpe_{{this}}" min="6" max="10" step="0.5" placeholder="8">
+        </div>
+        <button class="action-button log-set-button" onclick="logGenericSet('{{../EXERCISE_ID}}', '{{../EXERCISE_GROUP}}', {{this}})">
+            Log Set {{this}}
+        </button>
+    </div>
+    {{/each}}
+    {{/if}}
+    
+    {{#if IS_ACCESSORY_EXERCISE}}
+    <!-- Accessory Exercise -->
+    <div class="exercise-details">{{SETS}} sets × {{REPS}} reps</div>
+    {{#each SET_NUMBERS}}
+    <div class="set-item" style="margin-bottom: 8px;">
+        <button class="action-button" onclick="openAccessoryLogModal('{{../EXERCISE_ID}}', '{{../EXERCISE_NAME}}', {{this}})">
+            Log Set {{this}}
+        </button>
+    </div>
+    {{/each}}
+    {{/if}}
+    
+    {{#if IS_CARDIO_EXERCISE}}
+    <!-- Cardio Exercise -->
+    <div class="exercise-details">{{DURATION}} - {{INTENSITY}}</div>
+    <button class="action-button" onclick="markCardioCompleted('{{EXERCISE_ID}}', '{{EXERCISE_NAME}}')">
+        Mark Completed
+    </button>
+    {{/if}}
+    
+    {{#if IS_MOBILITY_EXERCISE}}
+    <!-- Mobility Exercise -->
+    <button class="action-button" onclick="markMobilityCompleted('{{EXERCISE_ID}}', '{{EXERCISE_NAME}}')">
+        Mark Completed
+    </button>
+    {{/if}}
+</div>

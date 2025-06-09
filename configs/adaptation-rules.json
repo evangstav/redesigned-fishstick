@@ -1,0 +1,389 @@
+{
+  "version": "1.0",
+  "lastUpdated": "2024-01-01",
+  "evidenceBase": {
+    "sources": [
+      "Helms et al. (2018) - RPE-based autoregulation",
+      "Mansfield et al. (2023) - Fatigue management",
+      "DeWeese et al. (2015) - Periodization models",
+      "Kellmann et al. (2018) - Recovery monitoring"
+    ],
+    "principles": [
+      "Autoregulation based on RPE feedback",
+      "Progressive overload with fatigue management",
+      "Individual response accommodation",
+      "Evidence-based threshold triggers"
+    ]
+  },
+  "adaptationRules": {
+    "strength": {
+      "description": "Powerlifting and strength-focused training adaptations",
+      "characteristics": {
+        "intensityRange": [0.85, 1.0],
+        "repRange": [1, 5],
+        "setRange": [2, 5],
+        "restPeriods": [120, 300],
+        "frequency": [3, 6]
+      },
+      "triggers": {
+        "deload": {
+          "rpeThreshold": 9.5,
+          "consecutiveSessions": 3,
+          "volumeDropThreshold": 0.15,
+          "strengthPlateauWeeks": 2,
+          "recoveryScore": 4.0,
+          "description": "Triggers indicating need for deload phase"
+        },
+        "intensification": {
+          "rpeThreshold": 7.0,
+          "consecutiveSessions": 2,
+          "strengthIncrease": 0.05,
+          "volumeToleranceHigh": true,
+          "recoveryScore": 7.0,
+          "description": "Conditions favorable for intensity increase"
+        },
+        "volumeIncrease": {
+          "rpeThreshold": 7.5,
+          "consecutiveSessions": 3,
+          "adaptationStagnation": true,
+          "recoveryMaintained": true,
+          "description": "Conditions for volume progression"
+        }
+      },
+      "adaptations": {
+        "deload": {
+          "volumeReduction": 0.4,
+          "intensityMaintenance": 0.85,
+          "duration": 7,
+          "focusAreas": ["recovery", "technique", "mobility"],
+          "modifications": {
+            "sets": {"factor": 0.6, "minimum": 1},
+            "intensity": {"factor": 0.85, "minimum": 0.7},
+            "accessories": {"factor": 0.5, "minimum": 1},
+            "frequency": {"factor": 0.8, "minimum": 3}
+          }
+        },
+        "intensification": {
+          "volumeAdjustment": -0.1,
+          "intensityIncrease": 0.05,
+          "duration": 14,
+          "focusAreas": ["peak_strength", "neural_efficiency"],
+          "modifications": {
+            "sets": {"factor": 0.9, "minimum": 2},
+            "intensity": {"factor": 1.05, "maximum": 1.0},
+            "accessories": {"factor": 0.7, "minimum": 1},
+            "frequency": {"factor": 1.0, "maximum": 6}
+          }
+        },
+        "volumeProgression": {
+          "volumeIncrease": 0.15,
+          "intensityMaintenance": 1.0,
+          "duration": 21,
+          "focusAreas": ["work_capacity", "muscle_mass"],
+          "modifications": {
+            "sets": {"factor": 1.15, "maximum": 6},
+            "intensity": {"factor": 1.0, "minimum": 0.85},
+            "accessories": {"factor": 1.2, "maximum": 4},
+            "frequency": {"factor": 1.0, "maximum": 6}
+          }
+        }
+      }
+    },
+    "hypertrophy": {
+      "description": "Muscle growth and bodybuilding adaptations",
+      "characteristics": {
+        "intensityRange": [0.6, 0.8],
+        "repRange": [6, 12],
+        "setRange": [3, 6],
+        "restPeriods": [60, 120],
+        "frequency": [4, 7]
+      },
+      "triggers": {
+        "deload": {
+          "rpeThreshold": 9.0,
+          "consecutiveSessions": 4,
+          "volumeDropThreshold": 0.20,
+          "muscleGrowthPlateau": 3,
+          "recoveryScore": 4.5,
+          "description": "Hypertrophy-specific deload triggers"
+        },
+        "intensification": {
+          "rpeThreshold": 7.5,
+          "consecutiveSessions": 3,
+          "volumeIncrease": 0.10,
+          "muscleSizeIncrease": true,
+          "recoveryScore": 7.0,
+          "description": "Volume intensification opportunities"
+        },
+        "varietyChange": {
+          "plateauWeeks": 4,
+          "motivationDrop": true,
+          "exerciseResponseDecline": true,
+          "description": "Need for exercise variety and novel stimuli"
+        }
+      },
+      "adaptations": {
+        "deload": {
+          "volumeReduction": 0.3,
+          "intensityMaintenance": 0.8,
+          "duration": 7,
+          "focusAreas": ["recovery", "mind_muscle_connection"],
+          "modifications": {
+            "sets": {"factor": 0.7, "minimum": 2},
+            "intensity": {"factor": 0.8, "minimum": 0.6},
+            "exercises": {"variety": "maintain", "technique_focus": true},
+            "tempoWork": {"increase": true, "eccentric_focus": true}
+          }
+        },
+        "volumeIntensification": {
+          "volumeIncrease": 0.20,
+          "intensityMaintenance": 1.0,
+          "duration": 21,
+          "focusAreas": ["muscle_damage", "metabolic_stress"],
+          "modifications": {
+            "sets": {"factor": 1.2, "maximum": 6},
+            "intensity": {"factor": 1.0, "range": [0.65, 0.8]},
+            "dropSets": {"frequency": "increase"},
+            "supersets": {"implementation": "strategic"}
+          }
+        },
+        "exerciseVariation": {
+          "exerciseRotation": 0.3,
+          "novelStimulusIntroduction": true,
+          "duration": 28,
+          "focusAreas": ["movement_patterns", "muscle_confusion"],
+          "modifications": {
+            "primaryExercises": {"substitution_rate": 0.2},
+            "accessoryExercises": {"substitution_rate": 0.4},
+            "gripVariations": {"frequency": "increase"},
+            "angleVariations": {"implementation": true}
+          }
+        }
+      }
+    },
+    "endurance": {
+      "description": "Cardiovascular and endurance sport adaptations",
+      "characteristics": {
+        "intensityDistribution": "80/20",
+        "zoneDistribution": {
+          "zone1": 0.8,
+          "zone2": 0.15,
+          "zone3": 0.05
+        },
+        "volumeProgression": [0.08, 0.12],
+        "frequency": [5, 8]
+      },
+      "triggers": {
+        "deload": {
+          "rpeThreshold": 8.5,
+          "consecutiveSessions": 5,
+          "performanceDropThreshold": 0.10,
+          "hrvDecline": 0.15,
+          "recoveryScore": 4.0,
+          "description": "Endurance-specific fatigue markers"
+        },
+        "intensification": {
+          "rpeThreshold": 6.5,
+          "consecutiveSessions": 4,
+          "aerobicIncrease": 0.08,
+          "hrvStable": true,
+          "recoveryScore": 7.5,
+          "description": "Aerobic capacity building opportunities"
+        },
+        "peakingPhase": {
+          "targetEventWeeks": 8,
+          "baseBuilt": true,
+          "volumePeakReached": true,
+          "description": "Transition to race-specific training"
+        }
+      },
+      "adaptations": {
+        "activeRecovery": {
+          "volumeReduction": 0.5,
+          "intensityReduction": 0.3,
+          "duration": 7,
+          "focusAreas": ["aerobic_base", "movement_quality"],
+          "modifications": {
+            "zone1Volume": {"factor": 0.6, "maintain": true},
+            "zone2Volume": {"factor": 0.3, "minimum": 0.1},
+            "zone3Volume": {"factor": 0.1, "minimum": 0},
+            "crossTraining": {"increase": true, "low_impact": true}
+          }
+        },
+        "baseBuilding": {
+          "volumeIncrease": 0.12,
+          "intensityMaintenance": 0.8,
+          "duration": 28,
+          "focusAreas": ["aerobic_capacity", "fat_oxidation"],
+          "modifications": {
+            "zone1Volume": {"factor": 1.15, "primary_focus": true},
+            "zone2Volume": {"factor": 1.1, "secondary_focus": true},
+            "zone3Volume": {"factor": 0.8, "minimal": true},
+            "longSessions": {"frequency": "weekly", "progression": true}
+          }
+        },
+        "peakingIntensification": {
+          "volumeReduction": 0.3,
+          "intensityIncrease": 0.15,
+          "duration": 21,
+          "focusAreas": ["vo2max", "lactate_threshold", "neuromuscular_power"],
+          "modifications": {
+            "zone1Volume": {"factor": 0.7, "recovery_focused": true},
+            "zone2Volume": {"factor": 0.9, "race_pace": true},
+            "zone3Volume": {"factor": 1.3, "race_specific": true},
+            "intervalWork": {"increase": true, "sport_specific": true}
+          }
+        }
+      }
+    },
+    "general_fitness": {
+      "description": "General health and fitness adaptations",
+      "characteristics": {
+        "balancedApproach": true,
+        "strengthComponent": 0.4,
+        "cardiovascularComponent": 0.4,
+        "mobilityComponent": 0.2,
+        "frequency": [3, 5]
+      },
+      "triggers": {
+        "deload": {
+          "rpeThreshold": 8.0,
+          "consecutiveSessions": 4,
+          "motivationDrop": true,
+          "lifeStressHigh": true,
+          "recoveryScore": 5.0,
+          "description": "Lifestyle-focused deload triggers"
+        },
+        "progression": {
+          "rpeThreshold": 7.0,
+          "consecutiveSessions": 3,
+          "adherenceGood": true,
+          "fitnessImprovement": true,
+          "recoveryScore": 7.0,
+          "description": "General fitness progression opportunities"
+        },
+        "varietyBoost": {
+          "motivationDrop": true,
+          "plateauWeeks": 3,
+          "boredomIndicators": true,
+          "description": "Need for program variety and engagement"
+        }
+      },
+      "adaptations": {
+        "activeRecovery": {
+          "volumeReduction": 0.3,
+          "intensityReduction": 0.2,
+          "duration": 7,
+          "focusAreas": ["stress_relief", "movement_quality", "enjoyment"],
+          "modifications": {
+            "strengthWork": {"factor": 0.7, "bodyweight_focus": true},
+            "cardioWork": {"factor": 0.8, "low_intensity": true},
+            "mobilityWork": {"factor": 1.2, "relaxation_focus": true},
+            "funActivities": {"increase": true, "variety": true}
+          }
+        },
+        "balancedProgression": {
+          "volumeIncrease": 0.10,
+          "intensityIncrease": 0.05,
+          "duration": 21,
+          "focusAreas": ["overall_fitness", "functional_strength"],
+          "modifications": {
+            "strengthWork": {"factor": 1.1, "compound_movements": true},
+            "cardioWork": {"factor": 1.1, "variety": true},
+            "mobilityWork": {"factor": 1.0, "maintenance": true},
+            "skillWork": {"introduction": true, "progressive": true}
+          }
+        },
+        "motivationBoost": {
+          "exerciseVariation": 0.5,
+          "noveltyIntroduction": true,
+          "duration": 14,
+          "focusAreas": ["engagement", "adherence", "enjoyment"],
+          "modifications": {
+            "newExercises": {"introduction_rate": 0.3},
+            "challengeVariants": {"implementation": true},
+            "groupActivities": {"consideration": true},
+            "goalSetting": {"short_term_focus": true}
+          }
+        }
+      }
+    }
+  },
+  "globalModifiers": {
+    "experience_level": {
+      "beginner": {
+        "adaptationSensitivity": 1.5,
+        "recoveryTime": 1.3,
+        "progressionRate": 1.2,
+        "deloadFrequency": 0.8
+      },
+      "intermediate": {
+        "adaptationSensitivity": 1.0,
+        "recoveryTime": 1.0,
+        "progressionRate": 1.0,
+        "deloadFrequency": 1.0
+      },
+      "advanced": {
+        "adaptationSensitivity": 0.7,
+        "recoveryTime": 1.2,
+        "progressionRate": 0.8,
+        "deloadFrequency": 1.3
+      }
+    },
+    "age_adjustments": {
+      "under_25": {"recovery_factor": 0.9, "intensity_tolerance": 1.1},
+      "25_35": {"recovery_factor": 1.0, "intensity_tolerance": 1.0},
+      "35_45": {"recovery_factor": 1.1, "intensity_tolerance": 0.95},
+      "45_55": {"recovery_factor": 1.25, "intensity_tolerance": 0.9},
+      "over_55": {"recovery_factor": 1.4, "intensity_tolerance": 0.85}
+    },
+    "life_stress": {
+      "low": {"adaptation_rate": 1.1, "recovery_enhancement": 1.0},
+      "moderate": {"adaptation_rate": 1.0, "recovery_enhancement": 1.0},
+      "high": {"adaptation_rate": 0.8, "recovery_enhancement": 0.8},
+      "very_high": {"adaptation_rate": 0.6, "recovery_enhancement": 0.6}
+    }
+  },
+  "thresholds": {
+    "rpe_ranges": {
+      "very_easy": [1, 4],
+      "easy": [4, 6],
+      "moderate": [6, 7],
+      "hard": [7, 8.5],
+      "very_hard": [8.5, 9.5],
+      "maximum": [9.5, 10]
+    },
+    "recovery_scores": {
+      "excellent": [8.5, 10],
+      "good": [7, 8.5],
+      "fair": [5.5, 7],
+      "poor": [4, 5.5],
+      "very_poor": [0, 4]
+    },
+    "adaptation_confidence": {
+      "high": {"data_points": 10, "consistency": 0.8},
+      "medium": {"data_points": 5, "consistency": 0.6},
+      "low": {"data_points": 3, "consistency": 0.4}
+    }
+  },
+  "validationRules": {
+    "mandatory_checks": [
+      "rpe_within_range",
+      "volume_realistic",
+      "recovery_data_present",
+      "progression_logical"
+    ],
+    "safety_limits": {
+      "max_volume_increase": 0.20,
+      "max_intensity_increase": 0.10,
+      "min_recovery_days": 1,
+      "max_consecutive_hard_days": 3
+    },
+    "override_conditions": [
+      "user_injury_reported",
+      "medical_restriction",
+      "equipment_limitation",
+      "time_constraint"
+    ]
+  }
+}

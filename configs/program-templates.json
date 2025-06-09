@@ -1,0 +1,254 @@
+{
+  "templates": {
+    "4_day_strength": {
+      "name": "4-Day Strength Program",
+      "duration_weeks": 4,
+      "sessions_per_week": 4,
+      "workout_pattern": ["squat_day", "bench_day", "deadlift_day", "pull_day"],
+      "intensity_distribution": {
+        "heavy": 0.6,
+        "moderate": 0.3,
+        "light": 0.1
+      },
+      "workout_days": {
+        "squat_day": {
+          "name": "Squat Day",
+          "primary_movement": "squat_pattern",
+          "secondary_movements": ["hip_thrust"],
+          "accessories": 1,
+          "exercise_slots": [
+            {
+              "id": "squat_activation",
+              "type": "strength_single_heavy",
+              "exercise_id": "back_squat",
+              "liftName": "Back-squat",
+              "sets": 1,
+              "repsTarget": 3,
+              "percentage": 0.92,
+              "group": "Back-squat",
+              "setLabel": "Activation Set (>90% 1RM)",
+              "notes": "Warm-up: Mini-band glute activation. Aim for 3-5 reps. RPE ~8.5-9.5. This set contributes to e1RM."
+            },
+            {
+              "id": "squat_top",
+              "type": "strength_single_heavy",
+              "exercise_id": "back_squat",
+              "liftName": "Back-squat",
+              "sets": 1,
+              "repsTarget": 4,
+              "percentage": 0.88,
+              "group": "Back-squat",
+              "setLabel": "Main Top Set",
+              "notes": "Rest 2-5 min after this set. Aim for RPE ~8-9. This set contributes to e1RM."
+            },
+            {
+              "id": "squat_vol",
+              "type": "strength_volume",
+              "exercise_id": "back_squat",
+              "liftName": "Back-squat",
+              "sets": 3,
+              "reps": 6,
+              "percentage": 0.78,
+              "group": "Back-squat",
+              "notes": "Rest 2-3 min between sets."
+            },
+            {
+              "id": "squat_ht",
+              "type": "accessory",
+              "exercise_id": "hip_thrust",
+              "liftName": "Hip-thrust",
+              "sets": 4,
+              "reps": 8,
+              "notes": "Aim for RPE 7-9."
+            }
+          ]
+        },
+        "bench_day": {
+          "name": "Bench Day",
+          "primary_movement": "press_pattern",
+          "secondary_movements": ["overhead_press", "dips"],
+          "accessories": 2,
+          "exercise_slots": [
+            {
+              "id": "bench_activation",
+              "type": "strength_single_heavy",
+              "exercise_id": "bench_press",
+              "liftName": "Bench Press",
+              "sets": 1,
+              "repsTarget": 3,
+              "percentage": 0.92,
+              "group": "Bench Press",
+              "setLabel": "Activation Set (>90% 1RM)",
+              "notes": "Warm-up: Shoulder ER. Aim for 3-5 reps. RPE ~8.5-9.5. This set contributes to e1RM."
+            },
+            {
+              "id": "bench_top",
+              "type": "strength_single_heavy",
+              "exercise_id": "bench_press",
+              "liftName": "Bench Press",
+              "sets": 1,
+              "repsTarget": 4,
+              "percentage": 0.88,
+              "group": "Bench Press",
+              "setLabel": "Main Top Set",
+              "notes": "Rest 2-5 min after this set. Aim for RPE ~8-9. This set contributes to e1RM."
+            },
+            {
+              "id": "bench_vol",
+              "type": "strength_volume",
+              "exercise_id": "bench_press",
+              "liftName": "Bench Press",
+              "sets": 3,
+              "reps": 6,
+              "percentage": 0.78,
+              "group": "Bench Press",
+              "notes": "Rest 2-3 min between sets."
+            },
+            {
+              "id": "bench_ohp",
+              "type": "accessory",
+              "exercise_id": "overhead_press",
+              "liftName": "OHP",
+              "sets": 3,
+              "reps": 6,
+              "notes": "Aim for RPE 7-9. This lift also uses e1RM."
+            },
+            {
+              "id": "bench_dips",
+              "type": "accessory",
+              "exercise_id": "dips",
+              "liftName": "Dips",
+              "sets": 3,
+              "reps": 10,
+              "notes": "Aim for RPE 7-9, or near failure if appropriate. Log ADDED weight."
+            }
+          ]
+        },
+        "deadlift_day": {
+          "name": "Deadlift Day",
+          "primary_movement": "hinge_pattern",
+          "secondary_movements": ["romanian_deadlift"],
+          "accessories": 1,
+          "exercise_slots": [
+            {
+              "id": "deadlift_activation",
+              "type": "strength_single_heavy",
+              "exercise_id": "deadlift",
+              "liftName": "Deadlift",
+              "sets": 1,
+              "repsTarget": 3,
+              "percentage": 0.92,
+              "group": "Deadlift",
+              "setLabel": "Activation Set (>90% 1RM)",
+              "notes": "Aim for 3-5 reps. RPE ~8.5-9.5. This set contributes to e1RM."
+            },
+            {
+              "id": "deadlift_top",
+              "type": "strength_single_heavy",
+              "exercise_id": "deadlift",
+              "liftName": "Deadlift",
+              "sets": 1,
+              "repsTarget": 3,
+              "percentage": 0.90,
+              "group": "Deadlift",
+              "setLabel": "Main Top Set",
+              "notes": "Rest 2-5 min after this set. Aim for RPE ~8-9. This set contributes to e1RM."
+            },
+            {
+              "id": "deadlift_vol",
+              "type": "strength_volume",
+              "exercise_id": "deadlift",
+              "liftName": "Deadlift",
+              "sets": 3,
+              "reps": 6,
+              "percentage": 0.80,
+              "group": "Deadlift",
+              "notes": "Rest 2-3 min between sets."
+            },
+            {
+              "id": "deadlift_rdl",
+              "type": "accessory",
+              "exercise_id": "romanian_deadlift",
+              "liftName": "RDL",
+              "sets": 3,
+              "reps": 8,
+              "notes": "Aim for RPE 7-9."
+            }
+          ]
+        },
+        "pull_day": {
+          "name": "Pull Day",
+          "primary_movement": "pull_pattern",
+          "secondary_movements": ["weighted_pull_up", "chest_supported_row"],
+          "accessories": 2,
+          "has_cardio": true,
+          "exercise_slots": [
+            {
+              "id": "pull_hiit",
+              "type": "hiit",
+              "name": "Norwegian 4x4",
+              "details": "4 min @ 85-95% HRmax / 3 min active recovery @ ~70% HRmax, x4 repeats. Total duration approx 38-40min incl warm-up/cool-down.",
+              "notes": "Optional: 10-min HIIT (10x60s @ 90% HRmax / 60s easy) every 2-3 weeks for variety. Largest VO2-max gains."
+            },
+            {
+              "id": "pull_pullup",
+              "type": "accessory",
+              "exercise_id": "weighted_pull_up",
+              "liftName": "Weighted Pull-up",
+              "sets": 3,
+              "repsRange": "6-8",
+              "notes": "Aim for RPE 8-9. This lift uses e1RM. Log ADDED weight."
+            },
+            {
+              "id": "pull_row",
+              "type": "accessory",
+              "exercise_id": "chest_supported_row",
+              "liftName": "Chest-supported Row",
+              "sets": 3,
+              "reps": 10,
+              "notes": "Aim for RPE 7-9."
+            }
+          ]
+        },
+        "cardio_day": {
+          "name": "Cardio Day",
+          "primary_movement": "cardio",
+          "exercise_slots": [
+            {
+              "id": "cardio_z2",
+              "type": "cardio",
+              "name": "Zone 2 Run",
+              "duration": "40-45 min",
+              "intensity": "~70% HRmax or RPE 9-12 (able to speak in sentences).",
+              "notes": "Consider extending to 60+ min for enhanced heart health benefits. Dynamic mobility is enough; resistance training itself maintains flexibility."
+            }
+          ]
+        },
+        "mobility_day": {
+          "name": "Mobility Day",
+          "primary_movement": "mobility",
+          "exercise_slots": [
+            {
+              "id": "mobility_flow",
+              "type": "mobility",
+              "name": "Mobility Flow",
+              "notes": "Dynamic movements. Static stretching generally not needed if resistance training covers range of motion. Refer to §5 of your plan."
+            }
+          ]
+        },
+        "rest_day": {
+          "name": "Rest Day",
+          "primary_movement": "rest",
+          "exercise_slots": [
+            {
+              "id": "rest_mobility",
+              "type": "mobility",
+              "name": "Rest + Short Mobility",
+              "notes": "Focus on recovery. Gentle movements."
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -5,8 +5,9 @@ This guide explains how to set up the Anthropic Claude API for smart workout rec
 ## Current Production Setup
 
 **The app is already deployed and ready to use:**
-- **Live App**: https://evangstav.github.io/redesigned-fishstick/4-weeks.html
-- **API Proxy**: https://redesigned-fishstick-production.up.railway.app
+
+- **Live App**: <https://evangstav.github.io/redesigned-fishstick/4-weeks.html>
+- **API Proxy**: <https://redesigned-fishstick-production.up.railway.app>
 - **Status**: Fully functional - just add your Claude API key in the app settings
 
 ## Solution 1: Local Proxy Server (Recommended for Development)
@@ -102,6 +103,7 @@ This guide explains how to set up the Anthropic Claude API for smart workout rec
 ### Current Configuration
 
 The app is currently configured to use:
+
 ```javascript
 const proxyUrl = 'https://redesigned-fishstick-production.up.railway.app/api/anthropic';
 ```
@@ -182,6 +184,7 @@ const proxyUrl = 'https://redesigned-fishstick-production.up.railway.app/api/ant
 ## Smart Recommendations Features
 
 With the API key configured, you'll have access to:
+
 - **Program Structure Following**: AI follows proper workout sequence
 - **Detailed Performance Analysis**: Considers your recent workout performance
 - **Personalized Recommendations**: Based on energy, stress, soreness, and time available
@@ -195,4 +198,3 @@ With the API key configured, you'll have access to:
 - The app stores your API key in browser localStorage (local device only)
 - API requests are made server-to-server (proxy to Anthropic)
 - Your workout data never leaves your browser
-

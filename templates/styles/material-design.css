@@ -1,0 +1,61 @@
+:root {
+    /* Template Variables */
+    --md-purple-500: {{PRIMARY_COLOR}}; /* Primary Color */
+    --md-purple-700: {{ACCENT_COLOR}}; /* Darker Accent for Headers */
+    --md-purple-100: {{LIGHT_COLOR}}; /* Lighter Color for backgrounds/hovers */
+    --md-green-500: {{SUCCESS_COLOR}};  /* Green for increases/logging */
+    --md-green-700: {{SUCCESS_DARK}};
+    --md-red-500: {{ERROR_COLOR}};    /* Red for decreases/danger */
+    --md-red-700: {{ERROR_DARK}};
+    --md-grey-100: #f5f5f5;   /* Light grey for page background */
+    --md-grey-300: #e0e0e0;   /* Borders */
+    --md-grey-600: #757575;   /* Medium grey for descriptions */
+    --md-grey-700: #616161;   /* Secondary text */
+    --md-grey-900: #212121;   /* Primary text */
+    --md-white: #FFFFFF;
+    
+    /* Material Design Elevation */
+    --md-elevation-1: {{ELEVATION_1}};
+    --md-elevation-2: {{ELEVATION_2}};
+    --md-elevation-4: {{ELEVATION_4}};
+    
+    /* Typography */
+    --font-family: 'Roboto', sans-serif;
+    --font-size-body: 14px;
+    --font-size-title: 20px;
+    --font-size-headline: 24px;
+}
+
+/* Conditional CSS based on features */
+{{#if BODYWEIGHT_TRACKING}}
+.bodyweight-section { 
+    display: block; 
+}
+{{else}}
+.bodyweight-section { 
+    display: none; 
+}
+{{/if}}
+
+{{#if AI_RECOMMENDATIONS}}
+.recommendations-section {
+    display: block;
+}
+{{else}}
+.recommendations-section {
+    display: none;
+}
+{{/if}}
+
+{{#if ANALYTICS_ENABLED}}
+.analytics-section {
+    display: block;
+}
+{{else}}
+.analytics-section {
+    display: none;
+}
+{{/if}}
+
+/* Base styles will be compiled from base.css */
+{{BASE_CSS_CONTENT}}

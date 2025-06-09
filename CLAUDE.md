@@ -4,134 +4,151 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a fitness tracking application with analytics features. The application tracks a personalized 4-week strength and conditioning program, including:
+This is an **agentic fitness app generation system** that creates personalized workout applications using evidence-based training protocols. The system uses Claude API to generate scientifically-backed training programs tailored to individual athlete profiles.
 
-- Workout logging with RPE (Rating of Perceived Exertion)
-- Automatic e1RM (estimated 1 rep max) calculations using the Epley formula
-- Progressive overload tracking
-- Bodyweight history with Chart.js visualization
-- Weekly attendance summaries
-- Analytics dashboard with volume tracking, strength progression, training load, and frequency analysis
-- Smart Workout Recommendations via Claude API integration
+### **Core Features**
+
+- **Agentic Program Generation**: AI-powered workout program creation based on athlete profiles
+- **Evidence-Based Protocols**: Training programs follow scientific principles from how-to-train.md
+- **Template Engine**: Modular system for generating complete HTML fitness applications
+- **Multiple Training Focuses**: Strength, hypertrophy, endurance, and general fitness specializations
+- **Smart Analytics**: Advanced progress tracking with Chart.js visualizations
+- **Claude API Integration**: Smart workout recommendations and program adaptation
 
 ## Technical Architecture
 
-### **Current State: Deployed Web Application**
+### **Current State: Agentic Generation System**
 
-- **Single HTML File**: All functionality contained in `4-weeks.html`
-- **Cloud Deployment**: 
-  - **Frontend**: GitHub Pages hosting the HTML app
-  - **Backend**: Railway hosting the Claude API proxy server
-- **Client-Side JavaScript**: All logic implemented in vanilla JavaScript
-- **Chart.js Integration**: Advanced analytics with interactive charts
-- **localStorage Persistence**: All data stored locally in the browser
-
-### **Live Application**
-
-- **Production URL**: https://evangstav.github.io/redesigned-fishstick/4-weeks.html
-- **Proxy Server**: https://redesigned-fishstick-production.up.railway.app
+- **Template Engine**: Modular system for generating personalized fitness apps
+- **Evidence-Based AI**: Claude API integration with scientific training protocols
+- **Multi-App Generation**: Creates specialized apps for different training goals
+- **Cloud Deployment Ready**: Proxy server infrastructure for API integration
+- **Standalone Apps**: Each generated app is a complete, self-contained HTML application
 
 ### **Key Files & Structure**
 
 ```
-├── 4-weeks.html                  # Main application file (deployed to GitHub Pages)
-├── proxy-server.js               # Claude API proxy server (deployed to Railway)
-├── package.json                  # Dependencies for proxy server
-├── CLAUDE.md                     # This documentation file
-├── API-SETUP.md                  # API configuration and deployment guide
-└── improvement-plan.md           # Feature roadmap and completed improvements
+├── template-engine/              # Core generation system
+│   ├── agentic-generator.js      # AI-powered program generation
+│   ├── generator.js              # Base template engine
+│   └── validation.js             # Template validation
+├── templates/                    # Template system
+│   ├── base-template.html        # Main HTML template
+│   ├── components/               # Reusable UI components
+│   ├── scripts/                  # JavaScript modules
+│   └── styles/                   # CSS styling system
+├── configs/                      # Configuration files
+│   ├── exercise-database.json    # Exercise library
+│   ├── program-templates.json    # Program structures
+│   └── ui-themes.json           # Visual themes
+├── examples/
+│   └── generate-examples.js      # Example generation script
+├── generated-apps/               # Generated fitness applications
+├── how-to-train.md              # Evidence-based training protocols
+├── proxy-server.js              # Claude API proxy server
+└── package.json                 # Dependencies
 ```
 
 ## Key Components
 
-### **Analytics Dashboard**
+### **Agentic Program Generation**
 
-- **Volume Tracking**: Charts and metrics for muscle group volume over time
-- **Strength Progression**: e1RM tracking and progression visualization
-- **Training Load Analysis**: RPE-based stress monitoring with rolling averages
-- **Frequency Analysis**: Training frequency per muscle group with balance scoring
-- **Performance Metrics**: Comprehensive training quality assessment
+- **Evidence-Based Analysis**: Uses scientific protocols from how-to-train.md
+- **Athlete Profile Processing**: Analyzes goals, experience, time constraints, equipment
+- **Dynamic Program Creation**: Generates unique workout structures for each athlete type
+- **Protocol Differentiation**: 
+  - Strength: ≥85% 1RM, 1-5 reps, 2-3 sets, 2-5min rest
+  - Hypertrophy: 60-80% 1RM, 6-12 reps, 3-6 sets, 1-2min rest
+  - Endurance: 80/20 intensity distribution, HIIT protocols, Zone training
+  - General Fitness: Action plan checklist (≥10 sets/muscle/week, 150min moderate cardio)
 
-### **Data Management**
+### **Template Engine System**
 
-- **localStorage Persistence**: All data stored in browser's localStorage
-- **Versioned storage keys**: Prevents conflicts between different versions
-- **Export/Import**: JSON backup and restore functionality
-- **Error handling**: Graceful degradation when localStorage fails
+- **Modular Components**: Reusable HTML, CSS, and JavaScript modules
+- **Theme System**: Multiple visual themes for different training focuses
+- **Configuration-Driven**: JSON-based configuration for easy customization
+- **Validation**: Built-in validation for generated applications
+- **Standalone Output**: Each app is a complete, self-contained HTML file
 
-### **e1RM System**
+### **Generated Applications**
 
-- **Epley Formula**: Standard 1RM estimation based on weight and reps
-- **RPE Adjustments**: More accurate estimates using effective reps from RPE
-- **Automatic Updates**: e1RM recalculated after each completed set
-- **Progress Tracking**: Historical e1RM data for strength progression analysis
+- **Complete Fitness Apps**: Full-featured workout tracking applications
+- **Analytics Dashboard**: Volume tracking, strength progression, training load analysis
+- **Smart Recommendations**: Claude API integration for workout suggestions
+- **Data Management**: localStorage persistence, export/import functionality
+- **e1RM System**: Automatic 1RM calculations using Epley formula with RPE adjustments
 
 ## Development Workflow
 
 ### **Getting Started**
 
 ```bash
-# Install dependencies for proxy server
+# Install dependencies
 npm install
 
-# Start proxy server
-npm start
-# or
-npm run proxy
+# Generate example fitness apps
+node examples/generate-examples.js
 
-# Open 4-weeks.html in your browser
+# Start proxy server for API integration
+npm start
 ```
 
 ### **Development Scripts**
 
-- `npm start` - Start the proxy server
-- `npm run proxy` - Start the proxy server (alias)
+- `npm start` - Start the Claude API proxy server
+- `node examples/generate-examples.js` - Generate all example fitness apps
 
 ### **Development Process**
 
-- **HTML/CSS/JavaScript**: Edit `4-weeks.html` directly
-- **Proxy Server**: Modify `proxy-server.js` for API integration changes
-- **Local Development**: Open `4-weeks.html` in browser, refresh to see changes
-- **API Testing**: Use browser developer tools to monitor network requests
-- **Deployment**: Changes auto-deploy via GitHub Pages when pushed to main branch
+#### **Template Engine Development**
+- **Core Engine**: Modify `template-engine/generator.js` for base functionality
+- **Agentic System**: Update `template-engine/agentic-generator.js` for AI-powered generation
+- **Templates**: Edit files in `templates/` directory for UI/styling changes
+- **Configurations**: Modify JSON files in `configs/` for exercises, themes, programs
+
+#### **Evidence-Based Protocols**
+- **Training Science**: Update `how-to-train.md` with new research
+- **Protocol Implementation**: Modify `agentic-generator.js` to apply new protocols
+- **Validation**: Test generated apps to ensure scientific accuracy
+
+#### **Testing & Validation**
+- **Generate Examples**: Run generation script to test current system
+- **Browser Testing**: Open generated apps in browser to validate functionality
+- **Protocol Verification**: Ensure apps follow evidence-based guidelines
 
 ### **Code Style & Patterns**
 
-- **Vanilla JavaScript**: No build step or frameworks required
-- **ES6+ Features**: Modern JavaScript features supported in browsers
-- **Material Design**: CSS custom properties for consistent theming
-- **Modular Functions**: Well-organized JavaScript functions within the HTML file
-- **Error Handling**: Comprehensive error handling throughout the application
+- **Modular Architecture**: Separation of concerns across template engine components
+- **Evidence-Based Design**: All training protocols must reference scientific sources
+- **Configuration-Driven**: Use JSON configs for easy modification without code changes
+- **Vanilla JavaScript**: No build step required, all apps are standalone HTML files
+- **Material Design**: Consistent theming system across all generated applications
 
-## Smart Recommendations System
+## Agentic Generation System
 
-### **Enhanced AI Features (Latest Updates)**
+### **Evidence-Based Protocol Integration**
 
-- **Program Structure Following**: AI follows proper workout sequence (Squat → Bench → Deadlift → Pull)
-- **Detailed Performance Analysis**: Set-by-set RPE, weight, and volume tracking
-- **User Input Validation**: Requires actual user state instead of using defaults
-- **Context-aware recommendations**: Considers muscle group frequency, recovery needs
-- **Auto-progression suggestions**: Weight increases based on RPE patterns
-- **Equipment limitations**: Smart exercise substitutions
-- **Enhanced prompting**: Comprehensive workout history and performance data sent to Claude API
+- **Scientific Foundation**: All protocols derived from peer-reviewed research in how-to-train.md
+- **Training Specificity**: Programs automatically adapt to athlete goals using evidence-based parameters
+- **Protocol Validation**: Generated programs follow established training science principles
+- **Automatic Differentiation**: System creates genuinely different programs, not just cosmetic variations
 
-### **Program Structure Logic**
+### **Current Implementation Status**
 
-The AI now intelligently follows the 4-week program structure:
-1. **Squat Day** → **Bench Day** → **Deadlift Day** → **Pull Day** → (Cardio/Recovery as needed)
-2. **Recent Workout Analysis**: Considers last 3 workouts to determine proper sequence
-3. **Override Conditions**: Can deviate for recovery, equipment limitations, or fatigue
-4. **Fallback Intelligence**: Built-in logic mirrors AI recommendations when API unavailable
+✅ **Completed Features:**
+- **Template Engine**: Modular system for generating complete fitness applications
+- **Agentic Generation**: AI-powered program creation using Claude API
+- **Evidence-Based Protocols**: Scientific training principles integrated into generation logic
+- **Multi-App Support**: Specialized apps for strength, hypertrophy, endurance, general fitness
+- **Theme System**: Visual differentiation for different training focuses
 
-### **API Integration**
+### **AI Integration**
 
-- **Claude API**: Uses Claude 3 Haiku model via deployed Railway proxy server
-- **Enhanced Context**: Sends detailed recent workout performance, not just summaries
-- **Set-by-Set Analysis**: Individual set performance (weight × reps @ RPE) for last 3 workouts
-- **Program Guidance**: AI receives recommended next workout with reasoning
-- **Fallback system**: Built-in recommendation logic when API unavailable
-- **Error handling**: Graceful degradation with informative error messages
-- **Response parsing**: Extracts workout type, reasoning, modifications, and progression
+- **Claude API**: Haiku model integration via Railway proxy server
+- **Evidence-Based Prompting**: System sends scientific protocols as context
+- **Dynamic Program Structure**: AI generates workout plans following evidence-based guidelines
+- **Fallback System**: Static generation when API unavailable
+- **Error Handling**: Graceful degradation with informative error messages
 
 ## Data Persistence
 
@@ -152,33 +169,32 @@ The AI now intelligently follows the 4-week program structure:
 
 ### **Adding New Features**
 
-1. **Edit HTML**: Modify the UI structure in `4-weeks.html`
-2. **Add JavaScript**: Implement new functions in the script section
-3. **Update CSS**: Add styling for new components
-4. **Test functionality**: Use browser developer tools for debugging
-5. **Update this documentation**
+1. **Template Engine**: Modify components in `templates/` directory
+2. **Agentic Logic**: Update `template-engine/agentic-generator.js` for new AI behaviors
+3. **Evidence-Based Protocols**: Update `how-to-train.md` and corresponding implementation
+4. **Configuration**: Add new options to JSON files in `configs/` directory
+5. **Testing**: Generate examples and validate with Puppeteer
+6. **Update documentation**: Keep CLAUDE.md current with changes
 
 ### **Debugging**
 
-- **Browser DevTools**: Use console, network, and application tabs
-- **localStorage inspection**: View stored data in Application tab
-- **Console logging**: Add console.log statements for debugging
-- **Network monitoring**: Check API requests to proxy server
+- **Generation Scripts**: Run `node examples/generate-examples.js` to test system
+- **Browser DevTools**: Open generated apps and use console/network tabs
+- **Template Validation**: Check generated HTML structure and component integration
+- **Evidence Verification**: Ensure generated programs follow scientific protocols
+- **Agentic Testing**: Verify AI-generated content matches expected patterns
 
-### **Deployment**
+### **Deployment Options**
 
-**Current Production Setup:**
-- **Frontend**: GitHub Pages automatically deploys `4-weeks.html` from main branch
-- **Backend**: Railway hosts `proxy-server.js` with auto-deploy from GitHub
-- **URLs**: 
-  - App: https://evangstav.github.io/redesigned-fishstick/4-weeks.html
-  - API: https://redesigned-fishstick-production.up.railway.app
+**For Generated Apps:**
+- **Static Hosting**: Serve generated HTML files from any web server
+- **GitHub Pages**: Deploy generated apps to GitHub Pages for hosting
+- **Local Testing**: Open generated HTML files directly in browser
 
-**For New Deployments:**
-- **Static hosting**: Serve `4-weeks.html` from any web server
-- **Proxy server**: Deploy `proxy-server.js` on Node.js hosting (Railway, Render, Heroku)
-- **CORS setup**: Ensure proxy server allows requests from your domain
-- **API endpoint**: Update API URL in `4-weeks.html` to point to your deployed proxy
+**For Development System:**
+- **API Server**: Deploy `proxy-server.js` on Railway, Render, or Heroku
+- **Template Engine**: Can be run locally or as build step in CI/CD
+- **Configuration**: Update API endpoints in generated apps as needed
 
 ## Code Quality
 
@@ -195,3 +211,35 @@ The AI now intelligently follows the 4-week program structure:
 - **Code organization**: Related functions grouped together
 - **Architecture decisions**: Documented in this file
 
+## Next Development Stages
+
+### **Phase 1: Advanced Agentic Features** 🚀
+- **Real-time Claude API Integration**: Direct API calls from generated apps
+- **Dynamic Program Adaptation**: AI adjusts programs based on user progress
+- **Advanced Exercise Database**: Expand exercise library with video demonstrations
+- **Periodization Intelligence**: Long-term training cycle planning
+
+### **Phase 2: Enhanced User Experience** 🎯
+- **Interactive Workout Builder**: GUI for creating custom athlete profiles
+- **Social Features**: Sharing and comparing workout programs
+- **Mobile App Integration**: Progressive Web App (PWA) features
+- **Offline Functionality**: Enhanced offline capabilities with service workers
+
+### **Phase 3: Professional Features** 💼
+- **Coach Dashboard**: Multi-client management system
+- **Team Programs**: Group training program generation
+- **Performance Analytics**: Advanced statistical analysis and reporting
+- **Integration APIs**: Connect with fitness wearables and tracking devices
+
+### **Phase 4: Enterprise Scaling** 🏢
+- **White Label Solution**: Branded fitness app generation for gyms/trainers
+- **API Service**: Agentic generation as a service for third-party integration
+- **Advanced AI Models**: Integration with newer, more capable AI models
+- **Global Deployment**: Multi-language support and regional adaptations
+
+### **Development Guidance**
+
+- **Evidence-Based Development**: All new features must reference scientific sources
+- **Puppeteer Testing**: Always use Puppeteer to validate generated app functionality
+- **Modular Design**: Maintain separation of concerns in template engine architecture
+- **Documentation First**: Update CLAUDE.md before implementing major changes

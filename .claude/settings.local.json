@@ -1,3 +1,19 @@
 {
+  "permissions": {
+    "allow": [
+      "Bash(rg:*)",
+      "Bash(grep:*)",
+      "mcp__puppeteer__puppeteer_screenshot",
+      "mcp__puppeteer__puppeteer_click",
+      "mcp__puppeteer__puppeteer_evaluate",
+      "Bash(git add:*)",
+      "mcp__puppeteer__puppeteer_navigate",
+      "Bash(rm:*)",
+      "Bash(mkdir:*)",
+      "Bash(npm install)",
+      "Bash(node:*)",
+      "Bash(npm install:*)"
+    ]
+  },
   "enableAllProjectMcpServers": false
 }

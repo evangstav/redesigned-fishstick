@@ -1,0 +1,1589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Beginner Fitness Jou">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#673AB7">
+<title>Beginner Fitness Journey</title>
+<link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoi...">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+:root {
+--md-purple-500: #673AB7; 
+--md-purple-700: #512DA8; 
+--md-purple-100: #D1C4E9; 
+--md-green-500: #4CAF50; 
+--md-green-700: #388E3C;
+--md-red-500: #f44336; 
+--md-red-700: #D32F2F;
+--md-grey-100: #f5f5f5; 
+--md-grey-300: #e0e0e0; 
+--md-grey-600: #757575; 
+--md-grey-700: #616161; 
+--md-grey-900: #212121; 
+--md-white: #FFFFFF;
+--md-elevation-1: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+--md-elevation-2: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+--md-elevation-4: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+--font-family: 'Roboto', sans-serif;
+--font-size-body: 14px;
+--font-size-title: 20px;
+--font-size-headline: 24px;
+}
+.bodyweight-section { 
+display: block; 
+}
+.recommendations-section {
+display: block;
+}
+.analytics-section {
+display: none;
+}
+:root {
+--md-purple-500: #673AB7; 
+--md-purple-700: #512DA8; 
+--md-purple-100: #D1C4E9; 
+--md-green-500: #4CAF50; 
+--md-green-700: #388E3C;
+--md-red-500: #f44336; 
+--md-red-700: #D32F2F;
+--md-grey-100: #f5f5f5; 
+--md-grey-300: #e0e0e0; 
+--md-grey-600: #757575; 
+--md-grey-700: #616161; 
+--md-grey-900: #212121; 
+--md-white: #FFFFFF;
+--md-elevation-1: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+--md-elevation-2: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+--md-elevation-4: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+body { 
+font-family: 'Roboto', sans-serif; 
+margin: 0; 
+padding: 0; 
+background-color: var(--md-grey-100); 
+color: var(--md-grey-900); 
+line-height: 1.6;
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+}
+.app-container { 
+width: 100%;
+min-height: 100vh;
+background-color: var(--md-white); 
+overflow: hidden;
+}
+header { 
+background-color: var(--md-purple-700); 
+color: var(--md-white); 
+padding: 16px 20px; 
+text-align: center;
+}
+header h1 { 
+margin: 0; 
+font-size: 1.4em; 
+font-weight: 500;
+}
+.hamburger-menu {
+display: none;
+flex-direction: column;
+justify-content: space-around;
+width: 28px;
+height: 28px;
+background: transparent;
+border: none;
+cursor: pointer;
+padding: 0;
+z-index: 1001;
+}
+.hamburger-menu span {
+width: 100%;
+height: 3px;
+background-color: var(--md-white);
+border-radius: 2px;
+transition: all 0.3s ease;
+}
+.hamburger-menu.active span:nth-child(1) {
+transform: rotate(45deg) translate(6px, 6px);
+}
+.hamburger-menu.active span:nth-child(2) {
+opacity: 0;
+}
+.hamburger-menu.active span:nth-child(3) {
+transform: rotate(-45deg) translate(6px, -6px);
+}
+nav { 
+background-color: var(--md-purple-500); 
+box-shadow: var(--md-elevation-1);
+display: flex;
+flex-wrap: wrap;
+justify-content: center;
+padding: 4px 0;
+overflow-x: auto;
+-webkit-overflow-scrolling: touch;
+}
+nav button { 
+background-color: transparent; 
+color: var(--md-purple-100); 
+border: none; 
+padding: 12px 16px; 
+margin: 0; 
+border-radius: 0; 
+cursor: pointer; 
+font-size: 0.85em; 
+font-weight: 500;
+text-transform: uppercase;
+transition: background-color 0.2s, color 0.2s; 
+border-bottom: 3px solid transparent;
+white-space: nowrap;
+flex-shrink: 0;
+min-height: 44px; 
+}
+nav button:hover { 
+background-color: rgba(255,255,255,0.1);
+color: var(--md-white);
+}
+nav button.active { 
+color: var(--md-white);
+border-bottom: 3px solid var(--md-white); 
+}
+.content-area { 
+padding: 16px; 
+}
+.tab-content { display: none; } 
+.tab-content.active { display: block; } 
+.section { 
+margin-bottom: 24px; 
+padding: 20px; 
+background-color: var(--md-white); 
+border-radius: 6px; 
+border: 1px solid var(--md-grey-300);
+box-shadow: var(--md-elevation-1);
+}
+.section h2 { 
+font-size: 1.6em; 
+color: var(--md-purple-700); 
+margin-top: 0; 
+margin-bottom: 16px;
+padding-bottom: 10px; 
+border-bottom: 2px solid var(--md-purple-100); 
+font-weight: 500;
+}
+.section h3 { 
+font-size: 1.3em; 
+color: var(--md-purple-500); 
+margin-top: 20px; 
+margin-bottom: 12px;
+font-weight: 500;
+}
+.section h4 { 
+font-size: 1.1em; 
+color: var(--md-grey-900); 
+margin-top: 16px; 
+margin-bottom: 8px;
+font-weight: 500;
+}
+.section ul { padding-left: 20px; margin-bottom: 16px; }
+.section li { margin-bottom: 10px; color: var(--md-grey-700); }
+label { 
+display: block; 
+margin-top: 12px; 
+margin-bottom: 4px;
+font-weight: 500; 
+color: var(--md-grey-700);
+font-size: 0.9em;
+}
+input[type="text"], input[type="number"], input[type="date"], select { 
+width: 100%; 
+padding: 14px; 
+margin-top: 4px; 
+border: 1px solid var(--md-grey-300); 
+border-radius: 6px; 
+box-sizing: border-box; 
+font-size: 16px; 
+background-color: var(--md-white);
+color: var(--md-grey-900);
+transition: border-color 0.2s;
+}
+input[type="text"]:focus, input[type="number"]:focus, input[type="date"]:focus, select:focus {
+border-color: var(--md-purple-500);
+outline: none;
+box-shadow: 0 0 0 2px var(--md-purple-100);
+}
+.inline-inputs { 
+margin-bottom: 12px;
+display: flex;
+flex-direction: column;
+gap: 8px;
+}
+.inline-inputs label { 
+display: block; 
+margin-bottom: 4px; 
+font-weight: 500; 
+font-size: 0.9em;
+}
+.inline-inputs input[type="number"], .inline-inputs input[type="text"] { 
+width: 100%; 
+margin-right: 0; 
+padding: 14px;
+font-size: 16px; 
+}
+button.action-button, button.log-set-button, button.danger-button {
+color: var(--md-white); 
+padding: 14px 20px; 
+border: none; 
+border-radius: 6px; 
+cursor: pointer; 
+margin-top: 12px; 
+font-size: 1em;
+font-weight: 500;
+text-transform: uppercase;
+box-shadow: var(--md-elevation-1);
+transition: background-color 0.2s, box-shadow 0.2s;
+min-height: 48px; 
+min-width: 48px;
+}
+button.action-button { background-color: var(--md-purple-500); }
+button.action-button:hover { background-color: var(--md-purple-700); box-shadow: var(--md-elevation-2); }
+button.log-set-button { background-color: var(--md-green-500); } 
+button.log-set-button:hover { background-color: var(--md-green-700); box-shadow: var(--md-elevation-2); }
+button.danger-button { background-color: var(--md-red-500); } 
+button.danger-button:hover { background-color: var(--md-red-700); box-shadow: var(--md-elevation-2); }
+.exercise-item { 
+border-bottom: 1px solid var(--md-grey-300); 
+padding-bottom: 16px; 
+margin-bottom: 16px; 
+}
+.exercise-item:last-child { border-bottom: none; }
+.exercise-details { font-size: 0.95em; color: var(--md-grey-700); margin-bottom: 8px; }
+.exercise-notes { 
+font-style: normal; 
+font-size: 0.9em; 
+color: var(--md-grey-700); 
+background-color: var(--md-purple-100); 
+padding: 10px; 
+border-radius: 4px; 
+margin-top: 8px;
+border-left: 3px solid var(--md-purple-500);
+}
+.e1rm-manage-section table { 
+width: 100%; 
+margin-top: 16px; 
+border-collapse: collapse; 
+}
+.e1rm-manage-section th, .e1rm-manage-section td { 
+border: 1px solid var(--md-grey-300); 
+padding: 12px; 
+text-align: left; 
+font-size: 0.95em;
+}
+.e1rm-manage-section th { 
+background-color: var(--md-purple-100); 
+color: var(--md-purple-700);
+font-weight: 500;
+}
+.e1rm-manage-section td input[type="number"] {
+padding: 8px;
+font-size: 0.95em;
+max-width: 100px; 
+}
+.e1rm-change-indicator.increased { color: var(--md-green-500); margin-left: 5px; font-weight: bold;}
+.e1rm-change-indicator.decreased { color: var(--md-red-500); margin-left: 5px; font-weight: bold;}
+.workout-log-entry { 
+border: 1px solid var(--md-grey-300); 
+padding: 12px; 
+margin-top: 8px; 
+border-radius: 4px; 
+background-color: var(--md-white); 
+font-size: 0.9em; 
+box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+#dailyWorkoutLogContainer { 
+max-height: 250px; 
+overflow-y: auto; 
+margin-top:16px; 
+border: 1px solid var(--md-grey-300); 
+padding:10px; 
+background-color: var(--md-grey-100);
+border-radius: 4px;
+}
+.completed-marker { color: var(--md-green-500); font-weight: bold; margin-left: 10px; }
+.modal { 
+display: none; 
+position: fixed; 
+z-index: 1000; 
+left: 0; 
+top: 0; 
+width: 100%; 
+height: 100%; 
+overflow: auto; 
+background-color: rgba(0,0,0,0.6); 
+backdrop-filter: blur(4px);
+}
+.modal-content { 
+background-color: var(--md-white); 
+margin: 0;
+padding: 20px; 
+border-radius: 0;
+width: 100%; 
+height: 100%;
+box-shadow: none;
+position: relative;
+overflow-y: auto;
+}
+.close-button { 
+color: var(--md-grey-700); 
+position: absolute;
+top: 10px;
+right: 15px;
+font-size: 32px; 
+font-weight: bold; 
+cursor: pointer; 
+line-height: 1;
+}
+.close-button:hover, .close-button:focus { color: var(--md-grey-900); text-decoration: none; }
+.modal-content h3 { color: var(--md-purple-700); margin-top: 0; font-weight: 500; }
+.bodyweight-input-container { margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid var(--md-grey-300); }
+.bodyweight-input-container label { font-weight: 500; }
+.bodyweight-input-container input { max-width: 120px; display: inline-block; margin-right: 10px;}
+.metrics-input-group { display: flex; gap: 10px; align-items: flex-end; margin-bottom: 15px;}
+.metrics-input-group div { flex-grow: 1;}
+@media (min-width: 768px) {
+.app-container { 
+max-width: 900px;
+margin: 20px auto; 
+border-radius: 8px;
+box-shadow: var(--md-elevation-2);
+}
+.content-area { padding: 24px; }
+.section { 
+padding: 20px; 
+margin-bottom: 24px;
+}
+header {
+padding: 24px;
+}
+header h1 {
+font-size: 1.9em;
+}
+.hamburger-menu {
+display: none !important;
+}
+nav {
+padding: 8px 0;
+overflow-x: visible;
+}
+nav button {
+padding: 12px 18px;
+font-size: 0.98em;
+}
+.modal-content { 
+margin: 10% auto;
+padding: 24px; 
+border-radius: 8px;
+width: 90%; 
+max-width: 500px; 
+height: auto;
+box-shadow: var(--md-elevation-4);
+}
+.inline-inputs {
+display: block;
+margin-bottom: 10px;
+}
+.inline-inputs label { 
+display: inline-block; 
+margin-right: 5px; 
+font-weight: normal; 
+font-size: 0.95em;
+margin-bottom: 0;
+}
+.inline-inputs input[type="number"], .inline-inputs input[type="text"] { 
+width: 75px; 
+display: inline-block; 
+margin-right: 12px; 
+padding: 8px;
+font-size: 1em;
+}
+.metrics-input-group {
+flex-direction: row;
+gap: 10px;
+}
+}
+@media (max-width: 480px) {
+header h1 { font-size: 1.3em; }
+nav button { 
+padding: 8px 10px;
+font-size: 0.8em;
+min-width: 80px;
+}
+.content-area { padding: 12px; }
+.section { padding: 12px; }
+.bodyweight-input-container input {
+max-width: 100%;
+margin-bottom: 10px;
+}
+.modal-content {
+margin: 2% auto;
+width: 98%;
+padding: 16px;
+}
+}
+@media (min-width: 769px) and (max-width: 1024px) {
+.app-container {
+margin: 15px auto;
+max-width: 95%;
+}
+.content-area { padding: 20px; }
+}
+@media (hover: none) {
+button:hover {
+background-color: inherit; 
+}
+nav button:hover {
+background-color: rgba(255,255,255,0.1);
+}
+button.action-button:hover { background-color: var(--md-purple-500); }
+button.log-set-button:hover { background-color: var(--md-green-500); }
+button.danger-button:hover { background-color: var(--md-red-500); }
+}
+.rest-timer-container {
+position: fixed;
+top: 20px;
+right: 20px;
+background-color: var(--md-white);
+border: 2px solid var(--md-purple-500);
+border-radius: 8px;
+padding: 15px;
+box-shadow: var(--md-elevation-4);
+z-index: 999;
+min-width: 200px;
+text-align: center;
+transform: translateX(100%);
+transition: transform 0.3s ease;
+}
+.rest-timer-container.active {
+transform: translateX(0);
+}
+.rest-timer-display {
+font-size: 2em;
+font-weight: bold;
+color: var(--md-purple-700);
+margin: 10px 0;
+font-family: 'Roboto Mono', monospace;
+}
+.rest-timer-controls {
+display: flex;
+gap: 8px;
+justify-content: center;
+flex-wrap: wrap;
+}
+.rest-timer-controls button {
+padding: 6px 12px;
+font-size: 0.85em;
+min-height: auto;
+}
+.timer-preset-buttons {
+display: flex;
+gap: 5px;
+margin-bottom: 10px;
+justify-content: center;
+flex-wrap: wrap;
+}
+.timer-preset-buttons button {
+padding: 4px 8px;
+font-size: 0.75em;
+background-color: var(--md-grey-300);
+color: var(--md-grey-900);
+border: none;
+border-radius: 4px;
+cursor: pointer;
+}
+.timer-preset-buttons button:hover {
+background-color: var(--md-grey-700);
+color: var(--md-white);
+}
+@media (max-width: 768px) {
+.rest-timer-container {
+top: 10px;
+right: 10px;
+left: 10px;
+min-width: auto;
+padding: 12px;
+}
+.rest-timer-display {
+font-size: 1.8em;
+}
+}
+.metrics-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+gap: 15px;
+margin-top: 15px;
+}
+.metric-card {
+background-color: var(--md-white);
+border: 1px solid var(--md-grey-300);
+border-radius: 6px;
+padding: 15px;
+text-align: center;
+box-shadow: var(--md-elevation-1);
+}
+.metric-card h4 {
+margin: 0 0 8px 0;
+color: var(--md-purple-700);
+font-size: 0.9em;
+font-weight: 500;
+text-transform: uppercase;
+}
+.metric-value {
+font-size: 1.8em;
+font-weight: bold;
+color: var(--md-grey-900);
+margin: 5px 0;
+}
+.metric-unit {
+font-size: 0.85em;
+color: var(--md-grey-700);
+margin-top: 2px;
+}
+.metric-trend {
+font-size: 0.8em;
+margin-top: 5px;
+}
+.metric-trend.positive {
+color: var(--md-green-500);
+}
+.metric-trend.negative {
+color: var(--md-red-500);
+}
+.metric-trend.neutral {
+color: var(--md-grey-700);
+}
+@media (max-width: 768px) {
+.metrics-grid {
+grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+gap: 10px;
+}
+.metric-card {
+padding: 12px;
+}
+.metric-value {
+font-size: 1.5em;
+}
+}
+</style>
+</head>
+<body>
+<div class="app-container">
+<header>
+<h1>Beginner Fitness Journey</h1>
+</header>
+<nav id="mainNav">
+<button data-tab="guideTab" onclick="showTab('guideTab')">Guide</button>
+<button data-tab="smartRecommendationsTab" onclick="showTab('smartRecommendationsTab')">Smart Recommendations</button>
+<button data-tab="squatdayTab" onclick="showTab('squatdayTab')">Squat Day</button>
+<button data-tab="benchdayTab" onclick="showTab('benchdayTab')">Bench Day</button>
+<button data-tab="deadliftdayTab" onclick="showTab('deadliftdayTab')">Deadlift Day</button>
+<button data-tab="pulldayTab" onclick="showTab('pulldayTab')">Pull Day</button>
+<button data-tab="cardiodayTab" onclick="showTab('cardiodayTab')">Cardio Day</button>
+<button data-tab="mobilitydayTab" onclick="showTab('mobilitydayTab')">Mobility Day</button>
+<button data-tab="restdayTab" onclick="showTab('restdayTab')">Rest Day</button>
+<button data-tab="e1rmTab" onclick="showTab('e1rmTab')">Settings & e1RMs</button>
+</nav>
+<div class="content-area">
+<div id="guideTab" class="tab-content section">
+<h2>Program Guide</h2>
+<p>Welcome to your Beginner Fitness Journey! This guide will help you understand how to use the app and follow the program effectively.</p>
+<h4>Core Principles:</h4>
+<ul>
+<li><strong>Consistency is Key:</strong> Adherence to the plan over time will yield the best results.</li>
+<li><strong>Progressive Overload:</strong> The app calculates target weights based on your e1RM and adjusts automatically.</li>
+<li><strong>RPE (Rating of Perceived Exertion):</strong> Scale of 1-10 for honest effort tracking.</li>
+<li><strong>e1RM (Estimated 1 Rep Max):</strong> Updated automatically after logging heavy sets.</li>
+</ul>
+<h4>How to Use This App:</h4>
+<ol>
+<li><strong>Set Initial e1RMs & Bodyweight:</strong> Go to "Settings & e1RMs" tab first.</li>
+<li><strong>Choose Your Workout:</strong> Click any workout type in the navigation.</li>
+<li><strong>Perform & Log:</strong> Enter weight, reps, and RPE for each set.</li>
+<li><strong>Track Progress:</strong> View analytics and e1RM updates.</li>
+</ol>
+</div>
+<div id="smartRecommendationsTab" class="tab-content section" style="display: none;">
+<h2>Smart Workout Recommendations</h2>
+<p>Get AI-powered workout suggestions based on your current state and training history.</p>
+<div class="section">
+<h3>How are you feeling today?</h3>
+<div class="inline-inputs">
+<label>Energy Level (1-10):</label>
+<input type="number" id="energyLevel" min="1" max="10" value="7">
+<label>Stress Level (1-10):</label>
+<input type="number" id="stressLevel" min="1" max="10" value="5">
+<label>Time Available (minutes):</label>
+<input type="number" id="timeAvailable" min="15" max="180" value="60">
+</div>
+<button class="action-button" onclick="getSmartRecommendation()">Get Recommendation</button>
+</div>
+<div id="recommendationResult" class="section" style="display: none;">
+<h3>Recommended Workout</h3>
+<div id="recommendationContent"></div>
+</div>
+</div>
+<div id="squatdayTab" class="tab-content section" style="display: none;">
+<h2>Squat Day</h2>
+<div class="workout-content">
+<div class="exercise-item" data-exercise-id="goblet_squat">
+<h3>Goblet Squat</h3>
+<div class="exercise-notes">Action plan: resistance training component. Focus on movement quality.</div></div>
+<div class="exercise-item" data-exercise-id="pushup_progression">
+<h3>Push-up</h3>
+<div class="exercise-notes">Progressive push-up variation. Part of ≥10 sets per muscle weekly.</div></div>
+<div class="exercise-item" data-exercise-id="bodyweight_row">
+<h3>Bodyweight Row</h3>
+<div class="exercise-notes">Pulling pattern for balanced development. Use table or suspension trainer.</div></div>
+</div>
+<div class="section" style="margin-top: 20px;">
+<h3>Today's Log</h3>
+<div id="dailyWorkoutLogContainer">
+<p style="color: var(--md-grey-700); font-style: italic;">Complete exercises above to see your log entries here.</p>
+</div>
+</div>
+</div>
+<div id="benchdayTab" class="tab-content section" style="display: none;">
+<h2>Bench Day</h2>
+<div class="workout-content">
+<div class="exercise-item" data-exercise-id="moderate_cardio">
+<h3>Moderate Cardio</h3>
+<div class="exercise-notes">Evidence-based: 150min moderate weekly. Can hold conversation.</div>
+<div class="exercise-details">undefined</div>
+<button class="action-button" onclick="markCardioCompleted('moderate_cardio', 'undefined')">
+Mark Completed
+</button>
+</div>
+<div class="exercise-item" data-exercise-id="plank_progression">
+<h3>Plank Hold</h3>
+<div class="exercise-notes">Core stability progression. Part of strength foundation.</div>
+<div class="exercise-details">3 sets × 45 reps</div>
+<div class="set-item" style="margin-bottom: 8px;">
+<button class="action-button" onclick="openAccessoryLogModal('plank_progression', 'Plank Hold', 1)">
+Log Set 1
+</button>
+</div>
+<div class="set-item" style="margin-bottom: 8px;">
+<button class="action-button" onclick="openAccessoryLogModal('plank_progression', 'Plank Hold', 2)">
+Log Set 2
+</button>
+</div>
+<div class="set-item" style="margin-bottom: 8px;">
+<button class="action-button" onclick="openAccessoryLogModal('plank_progression', 'Plank Hold', 3)">
+Log Set 3
+</button>
+</div>
+</div>
+<div class="exercise-item" data-exercise-id="incidental_stairs">
+<h3>Stair Climbing</h3>
+<div class="exercise-notes">Evidence-based incidental activity. Daily stair sprints or brisk hill walks.</div>
+<div class="exercise-details">undefined</div>
+<button class="action-button" onclick="markCardioCompleted('incidental_stairs', 'undefined')">
+Mark Completed
+</button>
+</div>
+</div>
+<div class="section" style="margin-top: 20px;">
+<h3>Today's Log</h3>
+<div id="dailyWorkoutLogContainer">
+<p style="color: var(--md-grey-700); font-style: italic;">Complete exercises above to see your log entries here.</p>
+</div>
+</div>
+</div>
+<div id="deadliftdayTab" class="tab-content section" style="display: none;">
+<h2>Deadlift Day</h2>
+<div class="workout-content">
+<div class="exercise-item" data-exercise-id="squat_variation">
+<h3>Bodyweight Squat</h3>
+<div class="exercise-notes">Squat pattern reinforcement. Higher volume for general fitness.</div></div>
+<div class="exercise-item" data-exercise-id="pushup_variation">
+<h3>Incline Push-up</h3>
+<div class="exercise-notes">Push-up variation for continued progression.</div></div>
+<div class="exercise-item" data-exercise-id="weekly_hiit">
+<h3>Weekly HIIT Session</h3>
+<div class="exercise-notes">Evidence-based: 1 HIIT session weekly. Bodyweight movements in circuit.</div>
+<div class="exercise-details">undefined</div>
+<button class="action-button" onclick="markCardioCompleted('weekly_hiit', 'undefined')">
+Mark Completed
+</button>
+</div>
+</div>
+<div class="section" style="margin-top: 20px;">
+<h3>Today's Log</h3>
+<div id="dailyWorkoutLogContainer">
+<p style="color: var(--md-grey-700); font-style: italic;">Complete exercises above to see your log entries here.</p>
+</div>
+</div>
+</div>
+<div id="pulldayTab" class="tab-content section" style="display: none;">
+<h2>Pull Day</h2>
+<div class="workout-content">
+<div class="exercise-item" data-exercise-id="light_resistance">
+<h3>Light Resistance Work</h3>
+<div class="exercise-notes">Complete weekly resistance target. Light, high-rep movements.</div></div>
+<div class="exercise-item" data-exercise-id="mobility_work">
+<h3>Mobility Work</h3>
+<div class="exercise-notes">Movement quality and recovery. Part of holistic fitness approach.</div>
+<div class="exercise-details">1 sets × 600 reps</div>
+<div class="set-item" style="margin-bottom: 8px;">
+<button class="action-button" onclick="openAccessoryLogModal('mobility_work', 'Mobility Work', 1)">
+Log Set 1
+</button>
+</div>
+</div>
+<div class="exercise-item" data-exercise-id="lifestyle_integration">
+<h3>Wellness Checklist</h3>
+<div class="exercise-notes">Evidence-based action plan: 1.6-2.2g protein/kg, 5g creatine, 2g omega-3, 7-9h sleep.</div></div>
+</div>
+<div class="section" style="margin-top: 20px;">
+<h3>Today's Log</h3>
+<div id="dailyWorkoutLogContainer">
+<p style="color: var(--md-grey-700); font-style: italic;">Complete exercises above to see your log entries here.</p>
+</div>
+</div>
+</div>
+<div id="e1rmTab" class="tab-content section" style="display: none;">
+<h2>Settings & e1RMs</h2>
+<p>Configure your bodyweight and estimated 1-rep maxes for accurate target weight calculations.</p>
+<div class="section">
+<h3>Current Bodyweight</h3>
+<div class="bodyweight-input-container">
+<label for="bodyweightInput">Bodyweight (lbs):</label>
+<input type="number" id="bodyweightInput" value="140" step="0.1">
+<button class="action-button" onclick="updateBodyweight()">Update Bodyweight</button>
+</div>
+</div>
+<div class="section">
+<h3>e1RM Management</h3>
+<div class="e1rm-manage-section">
+<table>
+<thead>
+<tr>
+<th>Exercise</th>
+<th>Current e1RM (lbs)</th>
+<th>Update</th>
+</tr>
+</thead>
+<tbody id="e1rmTableBody">
+</tbody>
+</table>
+<button class="action-button" style="margin-top: 16px;" onclick="saveAllE1RMs()">Save All e1RMs</button>
+</div>
+</div>
+<div class="section">
+<h3>Data Management</h3>
+<button class="action-button" onclick="exportData()">Export Data</button>
+<button class="action-button" onclick="importData()">Import Data</button>
+<button class="danger-button" onclick="clearAllData()">Clear All Data</button>
+</div>
+</div>
+</div>
+</div>
+<script>
+const TEMPLATE_CONFIG = {
+"app_metadata": {
+"name": "Beginner Fitness Journey",
+"version": "1.0.0",
+"generated_date": "2025-06-09",
+"user_profile_hash": "u6y590"
+},
+"branding": {
+"theme_name": "Strength Purple",
+"primary_color": "#673AB7",
+"accent_color": "#512DA8",
+"light_color": "#D1C4E9",
+"success_color": "#4CAF50",
+"success_dark": "#388E3C",
+"error_color": "#f44336",
+"error_dark": "#D32F2F",
+"elevation_1": "0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)",
+"elevation_2": "0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)",
+"elevation_4": "0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)"
+},
+"features": {
+"ai_recommendations": true,
+"bodyweight_tracking": true,
+"rpe_logging": false,
+"analytics_enabled": false
+},
+"program_type": "4_day_strength",
+"equipment_access": [
+"bodyweight",
+"dumbbells",
+"basic_equipment"
+],
+"default_bodyweight": 140,
+"default_tab": "guideTab",
+"primary_goal": "general_fitness",
+"experience_level": "beginner",
+"sessions_per_week": 3,
+"time_per_session": 45,
+"age_range": "18-25",
+"limitations": "new_to_exercise"
+};
+const GENERATED_WORKOUT_PLAN = {
+"squat_day": {
+"name": "Full Body Strength (Session 1/3)",
+"primary_movement": "full_body",
+"focus_muscles": [
+"full_body"
+],
+"exercise_slots": [
+{
+"id": "goblet_squat",
+"type": "volume",
+"exercise_id": "goblet_squat",
+"liftName": "Goblet Squat",
+"sets": 3,
+"reps": 12,
+"repsTarget": 12,
+"percentage": 0,
+"group": "Goblet Squat",
+"setLabel": "Working Set",
+"notes": "Action plan: resistance training component. Focus on movement quality."
+},
+{
+"id": "pushup_progression",
+"type": "volume",
+"exercise_id": "pushup",
+"liftName": "Push-up",
+"sets": 3,
+"reps": 10,
+"repsTarget": 10,
+"percentage": 0,
+"group": "Push-up",
+"setLabel": "Working Set",
+"notes": "Progressive push-up variation. Part of ≥10 sets per muscle weekly."
+},
+{
+"id": "bodyweight_row",
+"type": "volume",
+"exercise_id": "bodyweight_row",
+"liftName": "Bodyweight Row",
+"sets": 3,
+"reps": 10,
+"repsTarget": 10,
+"percentage": 0,
+"group": "Bodyweight Row",
+"setLabel": "Working Set",
+"notes": "Pulling pattern for balanced development. Use table or suspension trainer."
+}
+]
+},
+"bench_day": {
+"name": "Aerobic Base + Movement (150min Target)",
+"primary_movement": "aerobic",
+"focus_muscles": [
+"cardiovascular"
+],
+"exercise_slots": [
+{
+"id": "moderate_cardio",
+"type": "cardio",
+"exercise_id": "brisk_walking",
+"liftName": "Moderate Cardio",
+"sets": 1,
+"reps": 1800,
+"repsTarget": 1800,
+"percentage": 0,
+"group": "Moderate Cardio",
+"setLabel": "Working Set",
+"notes": "Evidence-based: 150min moderate weekly. Can hold conversation."
+},
+{
+"id": "plank_progression",
+"type": "accessory",
+"exercise_id": "plank",
+"liftName": "Plank Hold",
+"sets": 3,
+"reps": 45,
+"repsTarget": 45,
+"percentage": 0,
+"group": "Plank Hold",
+"setLabel": "Working Set",
+"notes": "Core stability progression. Part of strength foundation."
+},
+{
+"id": "incidental_stairs",
+"type": "cardio",
+"exercise_id": "stair_climbing",
+"liftName": "Stair Climbing",
+"sets": 3,
+"reps": 20,
+"repsTarget": 20,
+"percentage": 0,
+"group": "Stair Climbing",
+"setLabel": "Working Set",
+"notes": "Evidence-based incidental activity. Daily stair sprints or brisk hill walks."
+}
+]
+},
+"deadlift_day": {
+"name": "Full Body Strength + HIIT (Session 2/3)",
+"primary_movement": "full_body",
+"focus_muscles": [
+"full_body"
+],
+"exercise_slots": [
+{
+"id": "squat_variation",
+"type": "volume",
+"exercise_id": "bodyweight_squat",
+"liftName": "Bodyweight Squat",
+"sets": 4,
+"reps": 15,
+"repsTarget": 15,
+"percentage": 0,
+"group": "Bodyweight Squat",
+"setLabel": "Working Set",
+"notes": "Squat pattern reinforcement. Higher volume for general fitness."
+},
+{
+"id": "pushup_variation",
+"type": "volume",
+"exercise_id": "incline_pushup",
+"liftName": "Incline Push-up",
+"sets": 3,
+"reps": 12,
+"repsTarget": 12,
+"percentage": 0,
+"group": "Incline Push-up",
+"setLabel": "Working Set",
+"notes": "Push-up variation for continued progression."
+},
+{
+"id": "weekly_hiit",
+"type": "cardio",
+"exercise_id": "bodyweight_hiit",
+"liftName": "Weekly HIIT Session",
+"sets": 6,
+"reps": 30,
+"repsTarget": 30,
+"percentage": 0,
+"group": "Weekly HIIT Session",
+"setLabel": "Working Set",
+"notes": "Evidence-based: 1 HIIT session weekly. Bodyweight movements in circuit."
+}
+]
+},
+"pull_day": {
+"name": "Active Recovery + Wellness (Session 3/3)",
+"primary_movement": "recovery",
+"focus_muscles": [
+"full_body"
+],
+"exercise_slots": [
+{
+"id": "light_resistance",
+"type": "volume",
+"exercise_id": "resistance_band_exercises",
+"liftName": "Light Resistance Work",
+"sets": 2,
+"reps": 15,
+"repsTarget": 15,
+"percentage": 0,
+"group": "Light Resistance Work",
+"setLabel": "Working Set",
+"notes": "Complete weekly resistance target. Light, high-rep movements."
+},
+{
+"id": "mobility_work",
+"type": "accessory",
+"exercise_id": "dynamic_stretching",
+"liftName": "Mobility Work",
+"sets": 1,
+"reps": 600,
+"repsTarget": 600,
+"percentage": 0,
+"group": "Mobility Work",
+"setLabel": "Working Set",
+"notes": "Movement quality and recovery. Part of holistic fitness approach."
+},
+{
+"id": "lifestyle_integration",
+"type": "lifestyle",
+"exercise_id": "wellness_checklist",
+"liftName": "Wellness Checklist",
+"sets": 1,
+"reps": 1,
+"repsTarget": 1,
+"percentage": 0,
+"group": "Wellness Checklist",
+"setLabel": "Working Set",
+"notes": "Evidence-based action plan: 1.6-2.2g protein/kg, 5g creatine, 2g omega-3, 7-9h sleep."
+}
+]
+}
+};
+const RPE_TO_RIR = { 10: 0, 9.5: 0.5, 9: 1, 8.5: 1.5, 8: 2, 7.5: 2.5, 7: 3, 6.5: 3.5, 6: 4 };
+const CORE_LIFTS_IN_PLAN = [];
+const BODYWEIGHT_ASSISTED_EXERCISES = [];
+const USER_WORKOUT_PLAN = {"squat_day":{"name":"Full Body Strength (Session 1/3)","primary_movement":"full_body","focus_muscles":["full_body"],"exercise_slots":[{"id":"goblet_squat","type":"volume","exercise_id":"goblet_squat","liftName":"Goblet Squat","sets":3,"reps":12,"repsTarget":12,"percentage":0,"group":"Goblet Squat","setLabel":"Working Set","notes":"Action plan: resistance training component. Focus on movement quality."},{"id":"pushup_progression","type":"volume","exercise_id":"pushup","liftName":"Push-up","sets":3,"reps":10,"repsTarget":10,"percentage":0,"group":"Push-up","setLabel":"Working Set","notes":"Progressive push-up variation. Part of ≥10 sets per muscle weekly."},{"id":"bodyweight_row","type":"volume","exercise_id":"bodyweight_row","liftName":"Bodyweight Row","sets":3,"reps":10,"repsTarget":10,"percentage":0,"group":"Bodyweight Row","setLabel":"Working Set","notes":"Pulling pattern for balanced development. Use table or suspension trainer."}]},"bench_day":{"name":"Aerobic Base + Movement (150min Target)","primary_movement":"aerobic","focus_muscles":["cardiovascular"],"exercise_slots":[{"id":"moderate_cardio","type":"cardio","exercise_id":"brisk_walking","liftName":"Moderate Cardio","sets":1,"reps":1800,"repsTarget":1800,"percentage":0,"group":"Moderate Cardio","setLabel":"Working Set","notes":"Evidence-based: 150min moderate weekly. Can hold conversation."},{"id":"plank_progression","type":"accessory","exercise_id":"plank","liftName":"Plank Hold","sets":3,"reps":45,"repsTarget":45,"percentage":0,"group":"Plank Hold","setLabel":"Working Set","notes":"Core stability progression. Part of strength foundation."},{"id":"incidental_stairs","type":"cardio","exercise_id":"stair_climbing","liftName":"Stair Climbing","sets":3,"reps":20,"repsTarget":20,"percentage":0,"group":"Stair Climbing","setLabel":"Working Set","notes":"Evidence-based incidental activity. Daily stair sprints or brisk hill walks."}]},"deadlift_day":{"name":"Full Body Strength + HIIT (Session 2/3)","primary_movement":"full_body","focus_muscles":["full_body"],"exercise_slots":[{"id":"squat_variation","type":"volume","exercise_id":"bodyweight_squat","liftName":"Bodyweight Squat","sets":4,"reps":15,"repsTarget":15,"percentage":0,"group":"Bodyweight Squat","setLabel":"Working Set","notes":"Squat pattern reinforcement. Higher volume for general fitness."},{"id":"pushup_variation","type":"volume","exercise_id":"incline_pushup","liftName":"Incline Push-up","sets":3,"reps":12,"repsTarget":12,"percentage":0,"group":"Incline Push-up","setLabel":"Working Set","notes":"Push-up variation for continued progression."},{"id":"weekly_hiit","type":"cardio","exercise_id":"bodyweight_hiit","liftName":"Weekly HIIT Session","sets":6,"reps":30,"repsTarget":30,"percentage":0,"group":"Weekly HIIT Session","setLabel":"Working Set","notes":"Evidence-based: 1 HIIT session weekly. Bodyweight movements in circuit."}]},"pull_day":{"name":"Active Recovery + Wellness (Session 3/3)","primary_movement":"recovery","focus_muscles":["full_body"],"exercise_slots":[{"id":"light_resistance","type":"volume","exercise_id":"resistance_band_exercises","liftName":"Light Resistance Work","sets":2,"reps":15,"repsTarget":15,"percentage":0,"group":"Light Resistance Work","setLabel":"Working Set","notes":"Complete weekly resistance target. Light, high-rep movements."},{"id":"mobility_work","type":"accessory","exercise_id":"dynamic_stretching","liftName":"Mobility Work","sets":1,"reps":600,"repsTarget":600,"percentage":0,"group":"Mobility Work","setLabel":"Working Set","notes":"Movement quality and recovery. Part of holistic fitness approach."},{"id":"lifestyle_integration","type":"lifestyle","exercise_id":"wellness_checklist","liftName":"Wellness Checklist","sets":1,"reps":1,"repsTarget":1,"percentage":0,"group":"Wellness Checklist","setLabel":"Working Set","notes":"Evidence-based action plan: 1.6-2.2g protein/kg, 5g creatine, 2g omega-3, 7-9h sleep."}]}};
+let exercisesE1RM = {}; 
+let e1RMChangeStatus = {}; 
+let userBodyweight = 140; 
+let bodyweightHistory = []; 
+function calculateE1RM(weight, reps, rpe = null) {
+if (!weight || !reps || weight <= 0 || reps <= 0) return 0;
+let effectiveReps = reps;
+if (rpe && RPE_TO_RIR[rpe] !== undefined) {
+effectiveReps = reps + RPE_TO_RIR[rpe];
+}
+return Math.round(weight * (1 + effectiveReps / 30) * 10) / 10;
+}
+function getCurrentE1RM(liftName) {
+return exercisesE1RM[liftName] || 0;
+}
+function updateE1RM(liftName, newE1RM, source = 'manual') {
+const currentE1RM = exercisesE1RM[liftName] || 0;
+const change = newE1RM - currentE1RM;
+exercisesE1RM[liftName] = newE1RM;
+e1RMChangeStatus[liftName] = {
+previous: currentE1RM,
+current: newE1RM,
+change: change,
+source: source,
+timestamp: new Date().toISOString()
+};
+saveE1RMs();
+return change;
+}
+function calculateTargetWeight(liftName, percentage) {
+const e1rm = getCurrentE1RM(liftName);
+if (!e1rm) return 0;
+const targetWeight = e1rm * percentage;
+return Math.round(targetWeight / 2.5) * 2.5;
+}
+function showTab(tabId) {
+const tabs = document.querySelectorAll('.tab-content');
+tabs.forEach(tab => {
+tab.style.display = 'none';
+tab.classList.remove('active');
+});
+const navButtons = document.querySelectorAll('nav button');
+navButtons.forEach(btn => btn.classList.remove('active'));
+const selectedTab = document.getElementById(tabId);
+if (selectedTab) {
+selectedTab.style.display = 'block';
+selectedTab.classList.add('active');
+}
+const activeButton = document.querySelector(`nav button[data-tab="${tabId}"]`);
+if (activeButton) {
+activeButton.classList.add('active');
+}
+if (tabId.includes('Day')) {
+updateWorkoutTab(tabId);
+}
+}
+function showError(title, message) {
+console.error(`${title}: ${message}`);
+alert(`Error: ${title}\n${message}`);
+}
+function showSuccess(message) {
+console.log(`Success: ${message}`);
+}
+function init() {
+try {
+loadE1RMs();
+loadBodyweight();
+loadBodyweightHistory();
+if (typeof renderE1RMTable === 'function') {
+renderE1RMTable();
+}
+if (TEMPLATE_CONFIG.features.analytics_enabled && typeof initializeAnalytics === 'function') {
+initializeAnalytics();
+}
+if (TEMPLATE_CONFIG.features.ai_recommendations && typeof initializeAIRecommendations === 'function') {
+initializeAIRecommendations();
+}
+showTab('guideTab');
+} catch (error) {
+showError('Initialization failed', error.message);
+}
+}
+function renderE1RMTable() {
+const tbody = document.getElementById('e1rmTableBody');
+if (!tbody) return;
+tbody.innerHTML = ''; 
+CORE_LIFTS_IN_PLAN.forEach(liftName => {
+const row = tbody.insertRow();
+row.insertCell().textContent = liftName;
+const currentE1RMCell = row.insertCell();
+const currentE1RM = exercisesE1RM[liftName] || 0;
+currentE1RMCell.textContent = currentE1RM.toFixed(1);
+if (e1RMChangeStatus[liftName]) {
+const indicatorSpan = document.createElement('span');
+indicatorSpan.classList.add('e1rm-change-indicator');
+if (e1RMChangeStatus[liftName].change > 0) {
+indicatorSpan.textContent = ' ↑';
+indicatorSpan.classList.add('increased');
+} else if (e1RMChangeStatus[liftName].change < 0) {
+indicatorSpan.textContent = ' ↓';
+indicatorSpan.classList.add('decreased');
+}
+currentE1RMCell.appendChild(indicatorSpan);
+}
+const inputCell = row.insertCell();
+const input = document.createElement('input');
+input.type = 'number';
+input.step = '2.5';
+input.value = currentE1RM;
+input.id = `e1rm_${liftName.replace(/[^a-zA-Z0-9]/g, '_')}`;
+inputCell.appendChild(input);
+});
+}
+{{ADDITIONAL_CORE_FUNCTIONS}}
+const STORAGE_CONFIG = {
+appId: 'u6y590',
+version: '1.0.0',
+keyPrefix: 'personalizedPlan'
+};
+function getStorageKeys() {
+const prefix = `${STORAGE_CONFIG.keyPrefix}_${STORAGE_CONFIG.appId}_${STORAGE_CONFIG.version}`;
+return {
+e1rms: `${prefix}_e1rms`,
+bodyweight: `${prefix}_bodyweight`,
+bodyweightHistory: `${prefix}_bodyweight_history`,
+settings: `${prefix}_settings`,
+workoutHistory: `${prefix}_workout_history`,
+analytics: `${prefix}_analytics`,
+apiKey: `${prefix}_api_key`,
+dailyLog: (date) => `${prefix}_daily_log_${date}`
+};
+}
+function saveE1RMs() {
+try {
+const keys = getStorageKeys();
+localStorage.setItem(keys.e1rms, JSON.stringify(exercisesE1RM));
+return true;
+} catch (error) {
+console.error('Failed to save e1RMs:', error);
+return false;
+}
+}
+function loadE1RMs() {
+try {
+const keys = getStorageKeys();
+const saved = localStorage.getItem(keys.e1rms);
+if (saved) {
+exercisesE1RM = JSON.parse(saved);
+} else {
+exercisesE1RM = {} || {};
+}
+return true;
+} catch (error) {
+console.error('Failed to load e1RMs:', error);
+exercisesE1RM = {};
+return false;
+}
+}
+function saveBodyweight() {
+try {
+const keys = getStorageKeys();
+localStorage.setItem(keys.bodyweight, userBodyweight.toString());
+return true;
+} catch (error) {
+console.error('Failed to save bodyweight:', error);
+return false;
+}
+}
+function loadBodyweight() {
+try {
+const keys = getStorageKeys();
+const saved = localStorage.getItem(keys.bodyweight);
+if (saved && !isNaN(parseFloat(saved))) {
+userBodyweight = parseFloat(saved);
+} else {
+userBodyweight = 140 || 0;
+}
+return true;
+} catch (error) {
+console.error('Failed to load bodyweight:', error);
+userBodyweight = 140 || 0;
+return false;
+}
+}
+function saveBodyweightHistory() {
+try {
+const keys = getStorageKeys();
+localStorage.setItem(keys.bodyweightHistory, JSON.stringify(bodyweightHistory));
+return true;
+} catch (error) {
+console.error('Failed to save bodyweight history:', error);
+return false;
+}
+}
+function loadBodyweightHistory() {
+try {
+const keys = getStorageKeys();
+const saved = localStorage.getItem(keys.bodyweightHistory);
+if (saved) {
+bodyweightHistory = JSON.parse(saved);
+} else {
+bodyweightHistory = [];
+}
+return true;
+} catch (error) {
+console.error('Failed to load bodyweight history:', error);
+bodyweightHistory = [];
+return false;
+}
+}
+function saveWorkoutHistory(workoutData) {
+try {
+const keys = getStorageKeys();
+let history = [];
+const saved = localStorage.getItem(keys.workoutHistory);
+if (saved) {
+history = JSON.parse(saved);
+}
+history.unshift(workoutData);
+if (history.length > 100) {
+history = history.slice(0, 100);
+}
+localStorage.setItem(keys.workoutHistory, JSON.stringify(history));
+return true;
+} catch (error) {
+console.error('Failed to save workout history:', error);
+return false;
+}
+}
+function loadWorkoutHistory() {
+try {
+const keys = getStorageKeys();
+const saved = localStorage.getItem(keys.workoutHistory);
+if (saved) {
+return JSON.parse(saved);
+}
+return [];
+} catch (error) {
+console.error('Failed to load workout history:', error);
+return [];
+}
+}
+function exportAppData() {
+try {
+const keys = getStorageKeys();
+const data = {
+appMetadata: {
+id: STORAGE_CONFIG.appId,
+version: STORAGE_CONFIG.version,
+exportDate: new Date().toISOString(),
+appName: 'Beginner Fitness Journey'
+},
+e1rms: exercisesE1RM,
+bodyweight: userBodyweight,
+bodyweightHistory: bodyweightHistory,
+workoutHistory: loadWorkoutHistory(),
+settings: JSON.parse(localStorage.getItem(keys.settings) || '{}'),
+analytics: JSON.parse(localStorage.getItem(keys.analytics) || '{}')
+};
+return JSON.stringify(data, null, 2);
+} catch (error) {
+console.error('Failed to export data:', error);
+return null;
+}
+}
+function importAppData(jsonData) {
+try {
+const data = JSON.parse(jsonData);
+if (!data.appMetadata || !data.e1rms) {
+throw new Error('Invalid import data format');
+}
+if (data.e1rms) {
+exercisesE1RM = data.e1rms;
+saveE1RMs();
+}
+if (data.bodyweight) {
+userBodyweight = data.bodyweight;
+saveBodyweight();
+}
+if (data.bodyweightHistory) {
+bodyweightHistory = data.bodyweightHistory;
+saveBodyweightHistory();
+}
+if (data.workoutHistory) {
+const keys = getStorageKeys();
+localStorage.setItem(keys.workoutHistory, JSON.stringify(data.workoutHistory));
+}
+if (data.settings) {
+const keys = getStorageKeys();
+localStorage.setItem(keys.settings, JSON.stringify(data.settings));
+}
+return true;
+} catch (error) {
+console.error('Failed to import data:', error);
+return false;
+}
+}
+function clearAllData() {
+try {
+const keys = getStorageKeys();
+Object.values(keys).forEach(key => {
+if (typeof key === 'string') {
+localStorage.removeItem(key);
+}
+});
+exercisesE1RM = {};
+userBodyweight = 140 || 0;
+bodyweightHistory = [];
+e1RMChangeStatus = {};
+return true;
+} catch (error) {
+console.error('Failed to clear data:', error);
+return false;
+}
+}
+function logHeavyStrengthSet(exerciseId, liftName) {
+const weightInput = document.getElementById(`${exerciseId}_weight`);
+const repsInput = document.getElementById(`${exerciseId}_reps`);
+const rpeInput = document.getElementById(`${exerciseId}_rpe`);
+const weight = parseFloat(weightInput.value);
+const reps = parseInt(repsInput.value);
+const rpe = parseFloat(rpeInput.value);
+if (!weight || !reps) {
+showError('Invalid Input', 'Please enter weight and reps');
+return;
+}
+if (CORE_LIFTS_IN_PLAN.includes(liftName)) {
+const calculatedE1RM = calculateE1RM(weight, reps, rpe);
+const currentE1RM = getCurrentE1RM(liftName);
+if (calculatedE1RM > currentE1RM) {
+updateE1RM(liftName, calculatedE1RM, 'workout');
+showSuccess(`New e1RM for ${liftName}: ${calculatedE1RM}lbs`);
+}
+}
+const setData = {
+exerciseId,
+liftName,
+weight,
+reps,
+rpe,
+timestamp: new Date().toISOString(),
+type: 'strength'
+};
+logWorkoutSet(setData);
+weightInput.value = '';
+repsInput.value = repsInput.defaultValue;
+rpeInput.value = '';
+showSuccess('Set logged successfully!');
+}
+function logGenericSet(exerciseId, liftName, setNumber) {
+const weightInput = document.getElementById(`${exerciseId}_weight_${setNumber}`);
+const repsInput = document.getElementById(`${exerciseId}_reps_${setNumber}`);
+const rpeInput = document.getElementById(`${exerciseId}_rpe_${setNumber}`);
+const weight = parseFloat(weightInput.value);
+const reps = parseInt(repsInput.value);
+const rpe = parseFloat(rpeInput.value);
+if (!weight || !reps) {
+showError('Invalid Input', 'Please enter weight and reps');
+return;
+}
+const setData = {
+exerciseId: `${exerciseId}_${setNumber}`,
+liftName,
+weight,
+reps,
+rpe,
+setNumber,
+timestamp: new Date().toISOString(),
+type: 'volume'
+};
+logWorkoutSet(setData);
+weightInput.value = '';
+repsInput.value = repsInput.defaultValue;
+rpeInput.value = '';
+showSuccess(`Set ${setNumber} logged successfully!`);
+}
+function openAccessoryLogModal(exerciseId, liftName, setNumber) {
+const weight = prompt(`Enter weight for ${liftName} Set ${setNumber}:`);
+const reps = prompt(`Enter reps completed for ${liftName} Set ${setNumber}:`);
+const rpe = prompt(`Enter RPE (6-10) for ${liftName} Set ${setNumber}:`);
+if (weight && reps) {
+const setData = {
+exerciseId: `${exerciseId}_${setNumber}`,
+liftName,
+weight: parseFloat(weight),
+reps: parseInt(reps),
+rpe: rpe ? parseFloat(rpe) : null,
+setNumber,
+timestamp: new Date().toISOString(),
+type: 'accessory'
+};
+logWorkoutSet(setData);
+showSuccess(`${liftName} Set ${setNumber} logged!`);
+}
+}
+function markCardioCompleted(exerciseId, exerciseName) {
+const setData = {
+exerciseId,
+exerciseName,
+timestamp: new Date().toISOString(),
+type: 'cardio',
+completed: true
+};
+logWorkoutSet(setData);
+showSuccess(`${exerciseName} marked as completed!`);
+}
+function markMobilityCompleted(exerciseId, exerciseName) {
+const setData = {
+exerciseId,
+exerciseName,
+timestamp: new Date().toISOString(),
+type: 'mobility',
+completed: true
+};
+logWorkoutSet(setData);
+showSuccess(`${exerciseName} marked as completed!`);
+}
+function logWorkoutSet(setData) {
+const today = new Date().toISOString().split('T')[0];
+const keys = getStorageKeys();
+const dailyLogKey = keys.dailyLog(today);
+let dailyLog = [];
+const existingLog = localStorage.getItem(dailyLogKey);
+if (existingLog) {
+dailyLog = JSON.parse(existingLog);
+}
+dailyLog.push(setData);
+localStorage.setItem(dailyLogKey, JSON.stringify(dailyLog));
+saveWorkoutHistory({
+date: today,
+sets: dailyLog,
+workoutType: getCurrentWorkoutType()
+});
+updateDailyLogDisplay();
+}
+function getCurrentWorkoutType() {
+const activeTabs = document.querySelectorAll('.tab-content.active');
+if (activeTabs.length > 0) {
+const activeId = activeTabs[0].id;
+const workoutMap = {
+'squatdayTab': 'Squat Day',
+'benchdayTab': 'Bench Day', 
+'deadliftdayTab': 'Deadlift Day',
+'pulldayTab': 'Pull Day',
+'cardiodayTab': 'Cardio Day',
+'mobilitydayTab': 'Mobility Day',
+'restdayTab': 'Rest Day'
+};
+return workoutMap[activeId] || 'Unknown';
+}
+return 'Unknown';
+}
+function updateDailyLogDisplay() {
+const container = document.getElementById('dailyWorkoutLogContainer');
+if (!container) return;
+const today = new Date().toISOString().split('T')[0];
+const keys = getStorageKeys();
+const dailyLogKey = keys.dailyLog(today);
+const existingLog = localStorage.getItem(dailyLogKey);
+if (!existingLog) {
+container.innerHTML = '<p style="color: var(--md-grey-700); font-style: italic;">Complete exercises above to see your log entries here.</p>';
+return;
+}
+const dailyLog = JSON.parse(existingLog);
+let logHtml = '<h4>Today\'s Completed Sets:</h4>';
+dailyLog.forEach((set, index) => {
+logHtml += `
+<div class="workout-log-entry">
+<strong>${set.liftName || set.exerciseName}</strong>
+${set.weight ? `${set.weight}lbs × ${set.reps} reps` : 'Completed'}
+${set.rpe ? ` @ RPE ${set.rpe}` : ''}
+<span class="completed-marker">✓</span>
+</div>
+`;
+});
+container.innerHTML = logHtml;
+}
+function updateBodyweight() {
+const input = document.getElementById('bodyweightInput');
+const newWeight = parseFloat(input.value);
+if (!newWeight || newWeight <= 0) {
+showError('Invalid Weight', 'Please enter a valid bodyweight');
+return;
+}
+const oldWeight = userBodyweight;
+userBodyweight = newWeight;
+if (Math.abs(newWeight - oldWeight) > 0.1) {
+const today = new Date().toISOString().split('T')[0];
+bodyweightHistory.push({
+date: today,
+weight: newWeight
+});
+saveBodyweightHistory();
+}
+saveBodyweight();
+showSuccess(`Bodyweight updated to ${newWeight}lbs`);
+}
+function exportData() {
+const data = exportAppData();
+if (data) {
+const blob = new Blob([data], { type: 'application/json' });
+const url = URL.createObjectURL(blob);
+const a = document.createElement('a');
+a.href = url;
+a.download = `fitness-data-${new Date().toISOString().split('T')[0]}.json`;
+a.click();
+URL.revokeObjectURL(url);
+showSuccess('Data exported successfully!');
+}
+}
+function importData() {
+const input = document.createElement('input');
+input.type = 'file';
+input.accept = '.json';
+input.onchange = (e) => {
+const file = e.target.files[0];
+if (!file) return;
+const reader = new FileReader();
+reader.onload = (e) => {
+const jsonData = e.target.result;
+if (importAppData(jsonData)) {
+showSuccess('Data imported successfully!');
+location.reload(); 
+} else {
+showError('Import Failed', 'Invalid data format');
+}
+};
+reader.readAsText(file);
+};
+input.click();
+}
+function saveAllE1RMs() {
+const coreLifts = CORE_LIFTS_IN_PLAN;
+let updated = 0;
+coreLifts.forEach(lift => {
+const input = document.getElementById(`e1rm_${lift.replace(/[^a-zA-Z0-9]/g, '_')}`);
+if (input) {
+const newValue = parseFloat(input.value);
+if (newValue && newValue > 0) {
+const oldValue = exercisesE1RM[lift] || 0;
+if (Math.abs(newValue - oldValue) > 0.1) {
+updateE1RM(lift, newValue, 'manual');
+updated++;
+}
+}
+}
+});
+showSuccess(`Updated ${updated} e1RM values`);
+}
+document.addEventListener('DOMContentLoaded', function() {
+if (typeof init === 'function') {
+init();
+}
+});
+</script>
+</body>
+</html>

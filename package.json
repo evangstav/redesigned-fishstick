@@ -5,7 +5,11 @@
   "main": "proxy-server.js",
   "scripts": {
     "start": "node proxy-server.js",
-    "proxy": "node proxy-server.js"
+    "proxy": "node proxy-server.js",
+    "test-template": "node template-engine/test-generator.js",
+    "generate-app": "node template-engine/test-generator.js",
+    "create-app": "node generate-custom-app.js",
+    "examples": "node examples/generate-examples.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
@@ -19,5 +23,8 @@
     "analytics"
   ],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "puppeteer": "^24.10.0"
+  }
 }

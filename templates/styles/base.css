@@ -1,0 +1,598 @@
+        :root {
+            --md-purple-500: #673AB7; /* Primary Purple */
+            --md-purple-700: #512DA8; /* Darker Purple for Headers/Accents */
+            --md-purple-100: #D1C4E9; /* Lighter Purple for backgrounds/hovers */
+            --md-green-500: #4CAF50;  /* Green for increases/logging */
+            --md-green-700: #388E3C;
+            --md-red-500: #f44336;    /* Red for decreases/danger */
+            --md-red-700: #D32F2F;
+            --md-grey-100: #f5f5f5;   /* Light grey for page background */
+            --md-grey-300: #e0e0e0;   /* Borders */
+            --md-grey-600: #757575;   /* Medium grey for descriptions */
+            --md-grey-700: #616161;   /* Secondary text */
+            --md-grey-900: #212121;   /* Primary text */
+            --md-white: #FFFFFF;
+            --md-elevation-1: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+            --md-elevation-2: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+            --md-elevation-4: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+        }
+
+        body { 
+            font-family: 'Roboto', sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            background-color: var(--md-grey-100); 
+            color: var(--md-grey-900); 
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            /* Mobile-first: no margin on small screens */
+        }
+        .app-container { 
+            width: 100%;
+            min-height: 100vh;
+            background-color: var(--md-white); 
+            overflow: hidden;
+            /* Mobile-first: full width, add margins only on larger screens */
+        }
+        header { 
+            background-color: var(--md-purple-700); 
+            color: var(--md-white); 
+            padding: 16px 20px; 
+            text-align: center;
+            /* Mobile-first: centered header */
+        }
+        header h1 { 
+            margin: 0; 
+            font-size: 1.4em; 
+            font-weight: 500;
+            /* Mobile-first: smaller size */
+        }
+        
+        /* Hamburger Menu Styles - Hidden for now */
+        .hamburger-menu {
+            display: none;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 28px;
+            height: 28px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            z-index: 1001;
+        }
+        .hamburger-menu span {
+            width: 100%;
+            height: 3px;
+            background-color: var(--md-white);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+        .hamburger-menu.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+        .hamburger-menu.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger-menu.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+        nav { 
+            background-color: var(--md-purple-500); 
+            box-shadow: var(--md-elevation-1);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 4px 0;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            /* Mobile-first: horizontal scrollable tabs */
+        }
+        nav button { 
+            background-color: transparent; 
+            color: var(--md-purple-100); 
+            border: none; 
+            padding: 12px 16px; 
+            margin: 0; 
+            border-radius: 0; 
+            cursor: pointer; 
+            font-size: 0.85em; 
+            font-weight: 500;
+            text-transform: uppercase;
+            transition: background-color 0.2s, color 0.2s; 
+            border-bottom: 3px solid transparent;
+            white-space: nowrap;
+            flex-shrink: 0;
+            min-height: 44px; /* Touch target compliance */
+        }
+        nav button:hover { 
+            background-color: rgba(255,255,255,0.1);
+            color: var(--md-white);
+        }
+        nav button.active { 
+            color: var(--md-white);
+            border-bottom: 3px solid var(--md-white); /* Active tab indicator */
+        }
+        .content-area { 
+            padding: 16px; 
+            /* Mobile-first: smaller padding */
+        }
+        .tab-content { display: none; } 
+        .tab-content.active { display: block; } 
+        .section { 
+            margin-bottom: 24px; 
+            padding: 20px; 
+            background-color: var(--md-white); 
+            border-radius: 6px; 
+            border: 1px solid var(--md-grey-300);
+            box-shadow: var(--md-elevation-1);
+        }
+        .section h2 { 
+            font-size: 1.6em; 
+            color: var(--md-purple-700); 
+            margin-top: 0; 
+            margin-bottom: 16px;
+            padding-bottom: 10px; 
+            border-bottom: 2px solid var(--md-purple-100); 
+            font-weight: 500;
+        }
+        .section h3 { 
+            font-size: 1.3em; 
+            color: var(--md-purple-500); 
+            margin-top: 20px; 
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+        .section h4 { 
+            font-size: 1.1em; 
+            color: var(--md-grey-900); 
+            margin-top: 16px; 
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        .section ul { padding-left: 20px; margin-bottom: 16px; }
+        .section li { margin-bottom: 10px; color: var(--md-grey-700); }
+        
+        label { 
+            display: block; 
+            margin-top: 12px; 
+            margin-bottom: 4px;
+            font-weight: 500; 
+            color: var(--md-grey-700);
+            font-size: 0.9em;
+        }
+        input[type="text"], input[type="number"], input[type="date"], select { 
+            width: 100%; 
+            padding: 14px; 
+            margin-top: 4px; 
+            border: 1px solid var(--md-grey-300); 
+            border-radius: 6px; 
+            box-sizing: border-box; 
+            font-size: 16px; /* Prevents zoom on iOS */
+            background-color: var(--md-white);
+            color: var(--md-grey-900);
+            transition: border-color 0.2s;
+            /* Mobile-first: larger touch targets */
+        }
+        input[type="text"]:focus, input[type="number"]:focus, input[type="date"]:focus, select:focus {
+            border-color: var(--md-purple-500);
+            outline: none;
+            box-shadow: 0 0 0 2px var(--md-purple-100);
+        }
+
+        .inline-inputs { 
+            margin-bottom: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            /* Mobile-first: stack vertically */
+        }
+        .inline-inputs label { 
+            display: block; 
+            margin-bottom: 4px; 
+            font-weight: 500; 
+            font-size: 0.9em;
+        }
+        .inline-inputs input[type="number"], .inline-inputs input[type="text"] { 
+            width: 100%; 
+            margin-right: 0; 
+            padding: 14px;
+            font-size: 16px; /* Prevents zoom on iOS */
+            /* Mobile-first: full width inputs */
+        }
+        
+        button.action-button, button.log-set-button, button.danger-button {
+            color: var(--md-white); 
+            padding: 14px 20px; 
+            border: none; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            margin-top: 12px; 
+            font-size: 1em;
+            font-weight: 500;
+            text-transform: uppercase;
+            box-shadow: var(--md-elevation-1);
+            transition: background-color 0.2s, box-shadow 0.2s;
+            min-height: 48px; /* Touch target compliance */
+            min-width: 48px;
+            /* Mobile-first: larger touch targets */
+        }
+        button.action-button { background-color: var(--md-purple-500); }
+        button.action-button:hover { background-color: var(--md-purple-700); box-shadow: var(--md-elevation-2); }
+        
+        button.log-set-button { background-color: var(--md-green-500); } 
+        button.log-set-button:hover { background-color: var(--md-green-700); box-shadow: var(--md-elevation-2); }
+        
+        button.danger-button { background-color: var(--md-red-500); } 
+        button.danger-button:hover { background-color: var(--md-red-700); box-shadow: var(--md-elevation-2); }
+
+        .exercise-item { 
+            border-bottom: 1px solid var(--md-grey-300); 
+            padding-bottom: 16px; 
+            margin-bottom: 16px; 
+        }
+        .exercise-item:last-child { border-bottom: none; }
+        .exercise-details { font-size: 0.95em; color: var(--md-grey-700); margin-bottom: 8px; }
+        .exercise-notes { 
+            font-style: normal; 
+            font-size: 0.9em; 
+            color: var(--md-grey-700); 
+            background-color: var(--md-purple-100); 
+            padding: 10px; 
+            border-radius: 4px; 
+            margin-top: 8px;
+            border-left: 3px solid var(--md-purple-500);
+        }
+        
+        .e1rm-manage-section table { 
+            width: 100%; 
+            margin-top: 16px; 
+            border-collapse: collapse; 
+        }
+        .e1rm-manage-section th, .e1rm-manage-section td { 
+            border: 1px solid var(--md-grey-300); 
+            padding: 12px; 
+            text-align: left; 
+            font-size: 0.95em;
+        }
+        .e1rm-manage-section th { 
+            background-color: var(--md-purple-100); 
+            color: var(--md-purple-700);
+            font-weight: 500;
+        }
+        .e1rm-manage-section td input[type="number"] {
+            padding: 8px;
+            font-size: 0.95em;
+            max-width: 100px; /* Ensure input doesn't get too wide */
+        }
+        .e1rm-change-indicator.increased { color: var(--md-green-500); margin-left: 5px; font-weight: bold;}
+        .e1rm-change-indicator.decreased { color: var(--md-red-500); margin-left: 5px; font-weight: bold;}
+
+
+        .workout-log-entry { 
+            border: 1px solid var(--md-grey-300); 
+            padding: 12px; 
+            margin-top: 8px; 
+            border-radius: 4px; 
+            background-color: var(--md-white); 
+            font-size: 0.9em; 
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+        #dailyWorkoutLogContainer { 
+            max-height: 250px; 
+            overflow-y: auto; 
+            margin-top:16px; 
+            border: 1px solid var(--md-grey-300); 
+            padding:10px; 
+            background-color: var(--md-grey-100);
+            border-radius: 4px;
+        }
+        .completed-marker { color: var(--md-green-500); font-weight: bold; margin-left: 10px; }
+        
+        .modal { 
+            display: none; 
+            position: fixed; 
+            z-index: 1000; 
+            left: 0; 
+            top: 0; 
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgba(0,0,0,0.6); 
+            backdrop-filter: blur(4px);
+            /* Mobile-first: full screen modal */
+        }
+        .modal-content { 
+            background-color: var(--md-white); 
+            margin: 0;
+            padding: 20px; 
+            border-radius: 0;
+            width: 100%; 
+            height: 100%;
+            box-shadow: none;
+            position: relative;
+            overflow-y: auto;
+            /* Mobile-first: full screen modal */
+        }
+        .close-button { 
+            color: var(--md-grey-700); 
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 32px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            line-height: 1;
+        }
+        .close-button:hover, .close-button:focus { color: var(--md-grey-900); text-decoration: none; }
+        .modal-content h3 { color: var(--md-purple-700); margin-top: 0; font-weight: 500; }
+        .bodyweight-input-container { margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid var(--md-grey-300); }
+        .bodyweight-input-container label { font-weight: 500; }
+        .bodyweight-input-container input { max-width: 120px; display: inline-block; margin-right: 10px;}
+        .metrics-input-group { display: flex; gap: 10px; align-items: flex-end; margin-bottom: 15px;}
+        .metrics-input-group div { flex-grow: 1;}
+
+        /* Tablet and larger screens - improve from mobile-first base */
+        @media (min-width: 768px) {
+            .app-container { 
+                max-width: 900px;
+                margin: 20px auto; 
+                border-radius: 8px;
+                box-shadow: var(--md-elevation-2);
+            }
+            .content-area { padding: 24px; }
+            .section { 
+                padding: 20px; 
+                margin-bottom: 24px;
+            }
+            
+            /* Desktop header - restore traditional layout */
+            header {
+                padding: 24px;
+            }
+            header h1 {
+                font-size: 1.9em;
+            }
+            
+            /* Hide hamburger menu on larger screens */
+            .hamburger-menu {
+                display: none !important;
+            }
+            
+            /* Desktop navigation - horizontal layout */
+            nav {
+                padding: 8px 0;
+                overflow-x: visible;
+            }
+            nav button {
+                padding: 12px 18px;
+                font-size: 0.98em;
+            }
+            
+            /* Desktop modal - windowed instead of full screen */
+            .modal-content { 
+                margin: 10% auto;
+                padding: 24px; 
+                border-radius: 8px;
+                width: 90%; 
+                max-width: 500px; 
+                height: auto;
+                box-shadow: var(--md-elevation-4);
+            }
+            
+            
+            /* Inline inputs can be horizontal on larger screens */
+            .inline-inputs {
+                display: block;
+                margin-bottom: 10px;
+            }
+            .inline-inputs label { 
+                display: inline-block; 
+                margin-right: 5px; 
+                font-weight: normal; 
+                font-size: 0.95em;
+                margin-bottom: 0;
+            }
+            .inline-inputs input[type="number"], .inline-inputs input[type="text"] { 
+                width: 75px; 
+                display: inline-block; 
+                margin-right: 12px; 
+                padding: 8px;
+                font-size: 1em;
+            }
+            
+            /* Horizontal metrics input group on larger screens */
+            .metrics-input-group {
+                flex-direction: row;
+                gap: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 { font-size: 1.3em; }
+            nav button { 
+                padding: 8px 10px;
+                font-size: 0.8em;
+                min-width: 80px;
+            }
+            .content-area { padding: 12px; }
+            .section { padding: 12px; }
+            
+            /* Stack form elements vertically on very small screens */
+            .bodyweight-input-container input {
+                max-width: 100%;
+                margin-bottom: 10px;
+            }
+            
+            /* Smaller modal on tiny screens */
+            .modal-content {
+                margin: 2% auto;
+                width: 98%;
+                padding: 16px;
+            }
+            
+        }
+
+        /* Landscape tablet */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .app-container {
+                margin: 15px auto;
+                max-width: 95%;
+            }
+            .content-area { padding: 20px; }
+        }
+
+        /* Touch-friendly improvements for all mobile devices */
+        @media (hover: none) {
+            button:hover {
+                background-color: inherit; /* Remove hover effects on touch devices */
+            }
+            nav button:hover {
+                background-color: rgba(255,255,255,0.1);
+            }
+            button.action-button:hover { background-color: var(--md-purple-500); }
+            button.log-set-button:hover { background-color: var(--md-green-500); }
+            button.danger-button:hover { background-color: var(--md-red-500); }
+        }
+
+        /* Rest Timer Styles */
+        .rest-timer-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: var(--md-white);
+            border: 2px solid var(--md-purple-500);
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: var(--md-elevation-4);
+            z-index: 999;
+            min-width: 200px;
+            text-align: center;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+        .rest-timer-container.active {
+            transform: translateX(0);
+        }
+        .rest-timer-display {
+            font-size: 2em;
+            font-weight: bold;
+            color: var(--md-purple-700);
+            margin: 10px 0;
+            font-family: 'Roboto Mono', monospace;
+        }
+        .rest-timer-controls {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .rest-timer-controls button {
+            padding: 6px 12px;
+            font-size: 0.85em;
+            min-height: auto;
+        }
+        .timer-preset-buttons {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .timer-preset-buttons button {
+            padding: 4px 8px;
+            font-size: 0.75em;
+            background-color: var(--md-grey-300);
+            color: var(--md-grey-900);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .timer-preset-buttons button:hover {
+            background-color: var(--md-grey-700);
+            color: var(--md-white);
+        }
+
+        @media (max-width: 768px) {
+            .rest-timer-container {
+                top: 10px;
+                right: 10px;
+                left: 10px;
+                min-width: auto;
+                padding: 12px;
+            }
+            .rest-timer-display {
+                font-size: 1.8em;
+            }
+        }
+
+        /* Analytics Styles */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .metric-card {
+            background-color: var(--md-white);
+            border: 1px solid var(--md-grey-300);
+            border-radius: 6px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: var(--md-elevation-1);
+        }
+        
+        .metric-card h4 {
+            margin: 0 0 8px 0;
+            color: var(--md-purple-700);
+            font-size: 0.9em;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+        
+        .metric-value {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: var(--md-grey-900);
+            margin: 5px 0;
+        }
+        
+        .metric-unit {
+            font-size: 0.85em;
+            color: var(--md-grey-700);
+            margin-top: 2px;
+        }
+        
+        .metric-trend {
+            font-size: 0.8em;
+            margin-top: 5px;
+        }
+        
+        .metric-trend.positive {
+            color: var(--md-green-500);
+        }
+        
+        .metric-trend.negative {
+            color: var(--md-red-500);
+        }
+        
+        .metric-trend.neutral {
+            color: var(--md-grey-700);
+        }
+        
+        @media (max-width: 768px) {
+            .metrics-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 10px;
+            }
+            
+            .metric-card {
+                padding: 12px;
+            }
+            
+            .metric-value {
+                font-size: 1.5em;
+            }
+        }

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="{{APP_TITLE_SHORT}}">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="{{PRIMARY_COLOR}}">
+    <title>{{APP_TITLE}}</title>
+    <link rel="manifest" href="data:application/json;base64,{{PWA_MANIFEST_BASE64}}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        {{COMPILED_CSS}}
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1>{{APP_HEADER_TITLE}}</h1>
+        </header>
+        <nav id="mainNav">
+            {{NAVIGATION_COMPONENT}}
+        </nav>
+        <div class="content-area">
+            {{TAB_CONTENT_SECTIONS}}
+        </div>
+    </div>
+    
+    <script>
+        {{COMPILED_JAVASCRIPT}}
+        
+        // Initialize the app when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof init === 'function') {
+                init();
+            }
+        });
+    </script>
+</body>
+</html>

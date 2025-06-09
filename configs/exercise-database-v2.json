@@ -1,0 +1,596 @@
+{
+  "version": "2.0",
+  "lastUpdated": "2024-01-01",
+  "description": "Enhanced exercise database with intelligent substitutions and alternatives",
+  "categories": {
+    "strength": {
+      "description": "Strength and powerlifting focused exercises",
+      "main_lifts": [
+        {
+          "id": "squat_back",
+          "name": "Back Squat",
+          "primary_muscles": ["quadriceps", "glutes"],
+          "secondary_muscles": ["core", "calves"],
+          "equipment": ["barbell", "squat_rack"],
+          "difficulty": 0.9,
+          "movement_pattern": "squat",
+          "bilateral": true,
+          "compound": true,
+          "alternatives": ["front_squat", "goblet_squat", "leg_press"],
+          "progressions": ["box_squat", "pause_squat", "tempo_squat"],
+          "regressions": ["bodyweight_squat", "goblet_squat", "wall_sit"],
+          "substitution_matrix": {
+            "injury_knee": ["leg_press", "bulgarian_split_squat"],
+            "injury_back": ["goblet_squat", "leg_press"],
+            "equipment_limited": ["goblet_squat", "bodyweight_squat"],
+            "mobility_limited": ["box_squat", "leg_press"]
+          },
+          "biomechanical_notes": {
+            "long_femur": "Consider front squat or elevated heel",
+            "ankle_mobility": "Use heel elevation or front squat",
+            "hip_mobility": "Box squat or goblet squat"
+          }
+        },
+        {
+          "id": "bench_press",
+          "name": "Bench Press",
+          "primary_muscles": ["chest", "triceps"],
+          "secondary_muscles": ["shoulders"],
+          "equipment": ["barbell", "bench"],
+          "difficulty": 0.8,
+          "movement_pattern": "horizontal_push",
+          "bilateral": true,
+          "compound": true,
+          "alternatives": ["incline_bench", "dumbbell_bench", "pushups"],
+          "progressions": ["pause_bench", "close_grip_bench", "floor_press"],
+          "regressions": ["incline_pushup", "dumbbell_bench", "machine_press"],
+          "substitution_matrix": {
+            "injury_shoulder": ["floor_press", "dumbbell_bench"],
+            "injury_wrist": ["dumbbell_bench", "machine_press"],
+            "equipment_limited": ["pushups", "dumbbell_bench"],
+            "range_motion": ["floor_press", "dumbbell_bench"]
+          },
+          "biomechanical_notes": {
+            "long_arms": "Consider floor press or closer grip",
+            "shoulder_impingement": "Incline or neutral grip variations",
+            "wrist_issues": "Use dumbbells or neutral grip"
+          }
+        },
+        {
+          "id": "deadlift_conventional",
+          "name": "Conventional Deadlift",
+          "primary_muscles": ["hamstrings", "glutes", "erector_spinae"],
+          "secondary_muscles": ["traps", "lats", "forearms"],
+          "equipment": ["barbell"],
+          "difficulty": 1.0,
+          "movement_pattern": "hip_hinge",
+          "bilateral": true,
+          "compound": true,
+          "alternatives": ["sumo_deadlift", "trap_bar_deadlift", "romanian_deadlift"],
+          "progressions": ["deficit_deadlift", "pause_deadlift", "stiff_leg_deadlift"],
+          "regressions": ["trap_bar_deadlift", "romanian_deadlift", "kettlebell_deadlift"],
+          "substitution_matrix": {
+            "injury_back": ["trap_bar_deadlift", "glute_bridge"],
+            "mobility_limited": ["trap_bar_deadlift", "sumo_deadlift"],
+            "equipment_limited": ["single_leg_deadlift", "good_mornings"],
+            "grip_strength": ["trap_bar_deadlift", "straps_allowed"]
+          },
+          "biomechanical_notes": {
+            "long_torso": "Consider sumo deadlift",
+            "ankle_mobility": "Elevate toes or sumo stance",
+            "hip_mobility": "Trap bar or elevated platform"
+          }
+        }
+      ],
+      "accessory_lifts": [
+        {
+          "id": "overhead_press",
+          "name": "Overhead Press",
+          "primary_muscles": ["shoulders", "triceps"],
+          "secondary_muscles": ["core", "upper_back"],
+          "equipment": ["barbell"],
+          "difficulty": 0.7,
+          "movement_pattern": "vertical_push",
+          "bilateral": true,
+          "compound": true,
+          "alternatives": ["dumbbell_press", "seated_press", "push_press"],
+          "progressions": ["push_press", "single_arm_press", "bottoms_up"],
+          "regressions": ["seated_press", "dumbbell_press", "machine_press"],
+          "substitution_matrix": {
+            "injury_shoulder": ["neutral_grip_press", "landmine_press"],
+            "mobility_limited": ["seated_press", "dumbbell_press"],
+            "equipment_limited": ["handstand_pushups", "pike_pushups"],
+            "core_weakness": ["seated_press", "supported_variations"]
+          }
+        },
+        {
+          "id": "barbell_row",
+          "name": "Barbell Row",
+          "primary_muscles": ["lats", "rhomboids", "middle_traps"],
+          "secondary_muscles": ["biceps", "rear_delts"],
+          "equipment": ["barbell"],
+          "difficulty": 0.6,
+          "movement_pattern": "horizontal_pull",
+          "bilateral": true,
+          "compound": true,
+          "alternatives": ["dumbbell_row", "t_bar_row", "cable_row"],
+          "progressions": ["pendlay_row", "chest_supported_row", "single_arm_row"],
+          "regressions": ["chest_supported_row", "cable_row", "machine_row"],
+          "substitution_matrix": {
+            "injury_back": ["chest_supported_row", "cable_row"],
+            "grip_strength": ["cable_row", "straps_allowed"],
+            "equipment_limited": ["inverted_rows", "resistance_band_rows"],
+            "core_weakness": ["chest_supported_row", "seated_cable_row"]
+          }
+        }
+      ]
+    },
+    "hypertrophy": {
+      "description": "Muscle building and bodybuilding exercises",
+      "compound_movements": [
+        {
+          "id": "incline_dumbbell_press",
+          "name": "Incline Dumbbell Press",
+          "primary_muscles": ["upper_chest", "shoulders"],
+          "secondary_muscles": ["triceps"],
+          "equipment": ["dumbbells", "incline_bench"],
+          "difficulty": 0.7,
+          "movement_pattern": "incline_push",
+          "bilateral": true,
+          "compound": true,
+          "alternatives": ["incline_barbell", "cable_incline_press", "incline_machine"],
+          "progressions": ["single_arm_press", "tempo_variations", "pause_reps"],
+          "regressions": ["machine_incline", "resistance_band_press", "incline_pushups"],
+          "substitution_matrix": {
+            "injury_shoulder": ["neutral_grip_variation", "machine_press"],
+            "equipment_limited": ["incline_pushups", "resistance_bands"],
+            "unilateral_weakness": ["single_arm_variations", "alternating"],
+            "stability_issues": ["machine_variations", "supported_bench"]
+          },
+          "hypertrophy_notes": {
+            "rep_range": [6, 12],
+            "tempo_focus": "2-1-2-1 (eccentric emphasis)",
+            "mind_muscle": "Focus on chest squeeze at top",
+            "volume_recommendations": "12-16 sets per week for chest"
+          }
+        },
+        {
+          "id": "romanian_deadlift",
+          "name": "Romanian Deadlift",
+          "primary_muscles": ["hamstrings", "glutes"],
+          "secondary_muscles": ["erector_spinae", "traps"],
+          "equipment": ["barbell"],
+          "difficulty": 0.8,
+          "movement_pattern": "hip_hinge",
+          "bilateral": true,
+          "compound": true,
+          "alternatives": ["dumbbell_rdl", "single_leg_rdl", "stiff_leg_deadlift"],
+          "progressions": ["deficit_rdl", "single_leg_rdl", "pause_rdl"],
+          "regressions": ["dumbbell_rdl", "cable_rdl", "good_mornings"],
+          "substitution_matrix": {
+            "injury_back": ["lying_leg_curls", "glute_ham_raise"],
+            "mobility_limited": ["seated_leg_curls", "cable_rdl"],
+            "equipment_limited": ["single_leg_rdl", "good_mornings"],
+            "grip_strength": ["dumbbell_rdl", "straps_usage"]
+          },
+          "hypertrophy_notes": {
+            "rep_range": [8, 15],
+            "tempo_focus": "3-1-1-1 (slow eccentric)",
+            "mind_muscle": "Feel hamstring stretch at bottom",
+            "volume_recommendations": "10-14 sets per week for hamstrings"
+          }
+        }
+      ],
+      "isolation_movements": [
+        {
+          "id": "lateral_raises",
+          "name": "Lateral Raises",
+          "primary_muscles": ["lateral_deltoids"],
+          "secondary_muscles": [],
+          "equipment": ["dumbbells"],
+          "difficulty": 0.4,
+          "movement_pattern": "lateral_raise",
+          "bilateral": true,
+          "compound": false,
+          "alternatives": ["cable_lateral_raise", "machine_lateral_raise", "plate_raise"],
+          "progressions": ["leaning_lateral_raise", "drop_sets", "mechanical_drop_sets"],
+          "regressions": ["resistance_band_raise", "partial_rom", "lighter_weights"],
+          "substitution_matrix": {
+            "injury_shoulder": ["resistance_bands", "partial_rom"],
+            "equipment_limited": ["resistance_bands", "water_bottles"],
+            "strength_limited": ["cable_variations", "machine_assistance"],
+            "joint_stress": ["cable_variations", "controlled_tempo"]
+          },
+          "hypertrophy_notes": {
+            "rep_range": [12, 20],
+            "tempo_focus": "2-1-2-1 (controlled throughout)",
+            "mind_muscle": "Lead with pinky, feel lateral delt",
+            "volume_recommendations": "16-22 sets per week for delts"
+          }
+        }
+      ]
+    },
+    "endurance": {
+      "description": "Cardiovascular and endurance training exercises",
+      "aerobic_base": [
+        {
+          "id": "easy_run",
+          "name": "Easy Run",
+          "primary_energy_system": "aerobic",
+          "intensity_zone": 1,
+          "equipment": ["running_shoes"],
+          "difficulty": 0.3,
+          "movement_pattern": "locomotion",
+          "duration_range": [30, 90],
+          "alternatives": ["easy_bike", "elliptical", "rowing"],
+          "progressions": ["tempo_run", "fartlek", "progression_run"],
+          "regressions": ["walk_run_intervals", "treadmill_walking", "pool_running"],
+          "substitution_matrix": {
+            "injury_knee": ["cycling", "pool_running", "elliptical"],
+            "injury_ankle": ["cycling", "upper_body_ergometer"],
+            "weather_limited": ["treadmill", "indoor_cycling", "rowing"],
+            "time_limited": ["high_intensity_intervals", "tempo_runs"]
+          },
+          "endurance_notes": {
+            "heart_rate_zone": "60-70% HRmax",
+            "rpe_target": [3, 5],
+            "breathing": "Conversational pace",
+            "volume_recommendations": "80% of weekly running volume"
+          }
+        },
+        {
+          "id": "tempo_run",
+          "name": "Tempo Run",
+          "primary_energy_system": "aerobic_threshold",
+          "intensity_zone": 2,
+          "equipment": ["running_shoes"],
+          "difficulty": 0.7,
+          "movement_pattern": "locomotion",
+          "duration_range": [20, 60],
+          "alternatives": ["tempo_bike", "threshold_rowing", "tempo_swimming"],
+          "progressions": ["cruise_intervals", "progression_tempo", "tempo_fartlek"],
+          "regressions": ["tempo_intervals", "shorter_duration", "easier_pace"],
+          "substitution_matrix": {
+            "injury_running": ["tempo_cycling", "threshold_rowing"],
+            "heat_stress": ["indoor_tempo", "early_morning"],
+            "altitude": ["reduce_pace", "reduce_duration"],
+            "fatigue": ["tempo_intervals", "reduce_intensity"]
+          },
+          "endurance_notes": {
+            "heart_rate_zone": "80-85% HRmax",
+            "rpe_target": [6, 7],
+            "breathing": "Controlled but elevated",
+            "volume_recommendations": "15% of weekly running volume"
+          }
+        }
+      ],
+      "high_intensity": [
+        {
+          "id": "vo2max_intervals",
+          "name": "VO2 Max Intervals",
+          "primary_energy_system": "vo2max",
+          "intensity_zone": 5,
+          "equipment": ["running_shoes"],
+          "difficulty": 0.9,
+          "movement_pattern": "locomotion",
+          "duration_range": [3, 8],
+          "interval_structure": "3-8min @ 95-100% effort, 2-4min recovery",
+          "alternatives": ["cycling_vo2max", "rowing_intervals", "hill_repeats"],
+          "progressions": ["longer_intervals", "shorter_recovery", "higher_intensity"],
+          "regressions": ["threshold_intervals", "shorter_work", "longer_recovery"],
+          "substitution_matrix": {
+            "injury_impact": ["cycling_intervals", "rowing_intervals"],
+            "weather_severe": ["treadmill_intervals", "indoor_cycling"],
+            "overreaching": ["threshold_intervals", "tempo_runs"],
+            "time_limited": ["tabata_protocol", "shorter_intervals"]
+          },
+          "endurance_notes": {
+            "heart_rate_zone": "95-100% HRmax",
+            "rpe_target": [8, 10],
+            "breathing": "Very labored",
+            "volume_recommendations": "5% of weekly running volume"
+          }
+        }
+      ]
+    },
+    "general_fitness": {
+      "description": "General health and fitness exercises for overall wellness",
+      "functional_movements": [
+        {
+          "id": "bodyweight_squat",
+          "name": "Bodyweight Squat",
+          "primary_muscles": ["quadriceps", "glutes"],
+          "secondary_muscles": ["core", "calves"],
+          "equipment": [],
+          "difficulty": 0.3,
+          "movement_pattern": "squat",
+          "bilateral": true,
+          "compound": true,
+          "alternatives": ["chair_squat", "wall_squat", "goblet_squat"],
+          "progressions": ["jump_squat", "pistol_squat", "weighted_squat"],
+          "regressions": ["chair_squat", "partial_squat", "wall_sit"],
+          "substitution_matrix": {
+            "knee_issues": ["wall_sit", "chair_squat"],
+            "balance_issues": ["chair_squat", "supported_squat"],
+            "mobility_limited": ["chair_squat", "partial_range"],
+            "strength_limited": ["assisted_squat", "box_squat"]
+          },
+          "fitness_notes": {
+            "rep_range": [10, 20],
+            "focus": "Movement quality and endurance",
+            "progression": "Increase reps before adding weight",
+            "frequency": "Daily movement practice"
+          }
+        },
+        {
+          "id": "pushup",
+          "name": "Push-up",
+          "primary_muscles": ["chest", "triceps"],
+          "secondary_muscles": ["shoulders", "core"],
+          "equipment": [],
+          "difficulty": 0.5,
+          "movement_pattern": "horizontal_push",
+          "bilateral": true,
+          "compound": true,
+          "alternatives": ["incline_pushup", "knee_pushup", "wall_pushup"],
+          "progressions": ["decline_pushup", "single_arm_pushup", "explosive_pushup"],
+          "regressions": ["incline_pushup", "knee_pushup", "wall_pushup"],
+          "substitution_matrix": {
+            "wrist_issues": ["pushup_handles", "fist_pushups"],
+            "shoulder_issues": ["incline_pushup", "limited_range"],
+            "strength_limited": ["knee_pushup", "incline_pushup"],
+            "back_issues": ["wall_pushup", "standing_pushup"]
+          },
+          "fitness_notes": {
+            "rep_range": [8, 25],
+            "focus": "Upper body strength and core stability",
+            "progression": "Master form before advancing",
+            "frequency": "3-4 times per week"
+          }
+        }
+      ],
+      "cardio_options": [
+        {
+          "id": "brisk_walk",
+          "name": "Brisk Walk",
+          "primary_energy_system": "aerobic",
+          "intensity_zone": 1,
+          "equipment": ["walking_shoes"],
+          "difficulty": 0.2,
+          "movement_pattern": "locomotion",
+          "duration_range": [15, 60],
+          "alternatives": ["treadmill_walk", "stationary_bike", "swimming"],
+          "progressions": ["incline_walk", "walk_jog_intervals", "hiking"],
+          "regressions": ["slow_walk", "seated_exercise", "water_walking"],
+          "substitution_matrix": {
+            "joint_issues": ["water_walking", "recumbent_bike"],
+            "weather_limited": ["mall_walking", "treadmill"],
+            "time_limited": ["stair_climbing", "high_intensity_walk"],
+            "balance_issues": ["supported_walking", "pool_walking"]
+          },
+          "fitness_notes": {
+            "heart_rate_zone": "50-65% HRmax",
+            "rpe_target": [2, 4],
+            "breathing": "Easy conversation",
+            "frequency": "Daily recommended"
+          }
+        }
+      ]
+    }
+  },
+  "substitution_rules": {
+    "by_injury": {
+      "knee_injury": {
+        "avoid": ["deep_squats", "lunges", "running", "jumping"],
+        "prefer": ["upper_body", "core", "swimming", "cycling"],
+        "modifications": ["partial_range", "supported_movements", "low_impact"]
+      },
+      "shoulder_injury": {
+        "avoid": ["overhead_pressing", "heavy_pulling", "behind_neck"],
+        "prefer": ["lower_body", "core", "neutral_grip", "machine_supported"],
+        "modifications": ["limited_range", "lighter_weights", "neutral_positions"]
+      },
+      "back_injury": {
+        "avoid": ["spinal_loading", "forward_flexion", "heavy_deadlifts"],
+        "prefer": ["supported_positions", "core_stability", "hip_hinges"],
+        "modifications": ["neutral_spine", "supported_variations", "lighter_loads"]
+      },
+      "wrist_injury": {
+        "avoid": ["weight_bearing_hands", "heavy_gripping", "wrist_extension"],
+        "prefer": ["machines", "straps_usage", "neutral_positions"],
+        "modifications": ["wrist_supports", "neutral_grip", "reduced_load"]
+      }
+    },
+    "by_equipment": {
+      "home_gym_basic": {
+        "available": ["dumbbells", "resistance_bands", "bodyweight"],
+        "substitutions": {
+          "barbell_squat": "goblet_squat",
+          "barbell_deadlift": "dumbbell_deadlift",
+          "barbell_row": "dumbbell_row",
+          "pull_ups": "resistance_band_rows"
+        }
+      },
+      "minimal_equipment": {
+        "available": ["bodyweight", "resistance_bands"],
+        "substitutions": {
+          "barbell_squat": "bodyweight_squat",
+          "bench_press": "pushups",
+          "deadlift": "single_leg_deadlift",
+          "overhead_press": "pike_pushup"
+        }
+      },
+      "commercial_gym": {
+        "available": ["all_equipment"],
+        "substitutions": {},
+        "note": "All exercises available with full progression options"
+      }
+    },
+    "by_experience": {
+      "beginner": {
+        "focus": ["movement_quality", "bodyweight", "machines", "basic_patterns"],
+        "avoid": ["complex_movements", "heavy_weights", "advanced_techniques"],
+        "progressions": ["master_basics", "add_resistance", "increase_complexity"]
+      },
+      "intermediate": {
+        "focus": ["free_weights", "compound_movements", "progressive_overload"],
+        "introduce": ["variations", "unilateral_work", "tempo_manipulation"],
+        "progressions": ["intensity_techniques", "specialized_training", "periodization"]
+      },
+      "advanced": {
+        "focus": ["specialization", "advanced_techniques", "periodization"],
+        "utilize": ["all_methods", "complex_programming", "autoregulation"],
+        "progressions": ["sport_specific", "competitive_preparation", "masterful_execution"]
+      }
+    }
+  },
+  "intelligent_matching": {
+    "movement_patterns": {
+      "squat_pattern": {
+        "primary": ["back_squat", "front_squat", "goblet_squat"],
+        "variations": ["box_squat", "pause_squat", "single_leg_squat"],
+        "alternatives": ["leg_press", "hack_squat", "smith_machine_squat"],
+        "bodyweight": ["bodyweight_squat", "jump_squat", "pistol_squat"]
+      },
+      "hip_hinge": {
+        "primary": ["deadlift", "romanian_deadlift", "good_morning"],
+        "variations": ["sumo_deadlift", "trap_bar_deadlift", "single_leg_rdl"],
+        "alternatives": ["hip_thrust", "glute_bridge", "reverse_hyper"],
+        "bodyweight": ["single_leg_deadlift", "good_morning", "glute_bridge"]
+      },
+      "horizontal_push": {
+        "primary": ["bench_press", "dumbbell_press", "pushup"],
+        "variations": ["incline_press", "decline_press", "floor_press"],
+        "alternatives": ["machine_press", "cable_press", "resistance_band_press"],
+        "bodyweight": ["pushup", "incline_pushup", "decline_pushup"]
+      },
+      "horizontal_pull": {
+        "primary": ["barbell_row", "dumbbell_row", "cable_row"],
+        "variations": ["t_bar_row", "landmine_row", "single_arm_row"],
+        "alternatives": ["machine_row", "resistance_band_row", "inverted_row"],
+        "bodyweight": ["inverted_row", "table_row", "door_frame_row"]
+      },
+      "vertical_push": {
+        "primary": ["overhead_press", "dumbbell_press", "handstand_pushup"],
+        "variations": ["seated_press", "single_arm_press", "push_press"],
+        "alternatives": ["machine_press", "cable_press", "resistance_band_press"],
+        "bodyweight": ["handstand_pushup", "pike_pushup", "wall_handstand"]
+      },
+      "vertical_pull": {
+        "primary": ["pull_up", "chin_up", "lat_pulldown"],
+        "variations": ["wide_grip", "neutral_grip", "single_arm"],
+        "alternatives": ["assisted_pullup", "machine_pulldown", "resistance_band"],
+        "bodyweight": ["pull_up", "chin_up", "door_frame_pullup"]
+      }
+    },
+    "muscle_groups": {
+      "quadriceps": {
+        "primary": ["squat", "leg_press", "lunge"],
+        "isolation": ["leg_extension", "bulgarian_split_squat", "step_up"],
+        "bodyweight": ["bodyweight_squat", "jump_squat", "wall_sit"]
+      },
+      "hamstrings": {
+        "primary": ["deadlift", "romanian_deadlift", "good_morning"],
+        "isolation": ["leg_curl", "glute_ham_raise", "single_leg_rdl"],
+        "bodyweight": ["single_leg_deadlift", "glute_bridge", "good_morning"]
+      },
+      "chest": {
+        "primary": ["bench_press", "dumbbell_press", "pushup"],
+        "isolation": ["fly", "cable_fly", "pec_deck"],
+        "bodyweight": ["pushup", "incline_pushup", "decline_pushup"]
+      },
+      "back": {
+        "primary": ["row", "pulldown", "pull_up"],
+        "isolation": ["reverse_fly", "face_pull", "shrug"],
+        "bodyweight": ["pull_up", "inverted_row", "superman"]
+      },
+      "shoulders": {
+        "primary": ["overhead_press", "lateral_raise", "upright_row"],
+        "isolation": ["lateral_raise", "rear_delt_fly", "front_raise"],
+        "bodyweight": ["handstand_pushup", "pike_pushup", "wall_slide"]
+      }
+    }
+  },
+  "adaptation_triggers": {
+    "plateau_detection": {
+      "strength_plateau": {
+        "definition": "No increase in 1RM for 3+ weeks",
+        "solutions": ["exercise_variation", "rep_range_change", "intensity_techniques"],
+        "alternatives": ["close_variations", "different_angles", "unilateral_work"]
+      },
+      "motivation_drop": {
+        "definition": "Decreased training enthusiasm or adherence",
+        "solutions": ["exercise_novelty", "training_style_change", "goal_reassessment"],
+        "alternatives": ["fun_variations", "partner_exercises", "outdoor_activities"]
+      },
+      "recovery_issues": {
+        "definition": "Persistent fatigue or poor performance",
+        "solutions": ["exercise_complexity_reduction", "volume_decrease", "recovery_focus"],
+        "alternatives": ["low_intensity_alternatives", "mobility_work", "active_recovery"]
+      }
+    },
+    "progression_opportunities": {
+      "strength_gains": {
+        "indicators": ["consistent_RPE_improvement", "weight_increases", "rep_increases"],
+        "progressions": ["heavier_variations", "complexity_increase", "skill_challenges"],
+        "next_level": ["advanced_techniques", "competition_lifts", "sport_specific"]
+      },
+      "endurance_improvements": {
+        "indicators": ["lower_resting_HR", "faster_recovery", "increased_capacity"],
+        "progressions": ["longer_duration", "higher_intensity", "complex_patterns"],
+        "next_level": ["sport_specific", "event_training", "performance_optimization"]
+      }
+    }
+  },
+  "ai_selection_criteria": {
+    "priority_factors": [
+      {
+        "factor": "injury_safety",
+        "weight": 0.30,
+        "description": "Avoid exercises that may aggravate existing injuries"
+      },
+      {
+        "factor": "equipment_availability",
+        "weight": 0.25,
+        "description": "Match exercises to available equipment"
+      },
+      {
+        "factor": "movement_pattern_match",
+        "weight": 0.20,
+        "description": "Maintain intended movement patterns and muscle groups"
+      },
+      {
+        "factor": "experience_appropriateness",
+        "weight": 0.15,
+        "description": "Match exercise complexity to user experience level"
+      },
+      {
+        "factor": "training_goal_alignment",
+        "weight": 0.10,
+        "description": "Ensure exercise supports specific training goals"
+      }
+    ],
+    "decision_matrix": {
+      "exact_match": {
+        "score": 1.0,
+        "use_case": "Ideal exercise available and appropriate"
+      },
+      "close_alternative": {
+        "score": 0.8,
+        "use_case": "Similar movement pattern, same muscle groups"
+      },
+      "functional_substitute": {
+        "score": 0.6,
+        "use_case": "Different exercise, same training effect"
+      },
+      "compromise_option": {
+        "score": 0.4,
+        "use_case": "Available option with some limitations"
+      },
+      "last_resort": {
+        "score": 0.2,
+        "use_case": "Minimal training effect but only option available"
+      }
+    }
+  }
+}

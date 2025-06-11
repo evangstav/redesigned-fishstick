@@ -24,7 +24,6 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
             --md-red-700: #D32F2F;
             --md-grey-100: #f5f5f5;   /* Light grey for page background */
             --md-grey-300: #e0e0e0;   /* Borders */
-            --md-grey-600: #757575;   /* Medium grey for descriptions */
             --md-grey-700: #616161;   /* Secondary text */
             --md-grey-900: #212121;   /* Primary text */
             --md-white: #FFFFFF;
@@ -63,36 +62,6 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
             font-size: 1.4em; 
             font-weight: 500;
             /* Mobile-first: smaller size */
-        }
-        
-        /* Hamburger Menu Styles - Hidden for now */
-        .hamburger-menu {
-            display: none;
-            flex-direction: column;
-            justify-content: space-around;
-            width: 28px;
-            height: 28px;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            padding: 0;
-            z-index: 1001;
-        }
-        .hamburger-menu span {
-            width: 100%;
-            height: 3px;
-            background-color: var(--md-white);
-            border-radius: 2px;
-            transition: all 0.3s ease;
-        }
-        .hamburger-menu.active span:nth-child(1) {
-            transform: rotate(45deg) translate(6px, 6px);
-        }
-        .hamburger-menu.active span:nth-child(2) {
-            opacity: 0;
-        }
-        .hamburger-menu.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(6px, -6px);
         }
         nav { 
             background-color: var(--md-purple-500); 
@@ -783,7 +752,7 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
             <div id="workoutDayTab" class="tab-content">
                 <div id="workoutDisplayArea" class="section">
                     <h2 id="workoutDayTitle">Select a day</h2>
-                    {/* Workout items will be populated here by JavaScript */}
+                    <!-- Workout items will be populated here by JavaScript -->
                 </div>
 
                 <div class="section">
@@ -1095,14 +1064,6 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
         let userBodyweight = 0; 
         let bodyweightHistory = []; // Array of {date: "YYYY-MM-DD", weight: number}
         
-        // Simplified Mobile Navigation (for future enhancement)
-        function toggleMobileNav() {
-            // Placeholder for future hamburger implementation
-        }
-        
-        function closeMobileNav() {
-            // Placeholder for future hamburger implementation
-        }
         
         // Service Worker Registration for PWA
         if ('serviceWorker' in navigator) {
@@ -3462,21 +3423,6 @@ Keep response evidence-based and practical.`;
             }
         }
 
-        // Cloud Sync Integration (Basic Implementation)
-        function initializeCloudSync() {
-            // Placeholder for Google Drive API integration
-            // This would require OAuth2 setup and Google Drive API key
-            const statusDiv = document.getElementById('dataManagementStatus');
-            statusDiv.textContent = 'Cloud sync feature coming soon! Use manual export/import for now.';
-            statusDiv.style.color = 'var(--md-blue-500)';
-        }
-
-        function syncToCloud() {
-            // Placeholder for cloud sync functionality
-            const statusDiv = document.getElementById('dataManagementStatus');
-            statusDiv.textContent = 'Cloud sync not yet configured. Please use manual export for backup.';
-            statusDiv.style.color = 'var(--md-orange-500)';
-        }
 
         // Enhanced Import with validation for selective exports
         function importSelectiveData(event) {

@@ -2606,8 +2606,8 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
         // Test API key validity using a CORS proxy
         async function testApiKey() {
             try {
-                // Use local proxy server to avoid CORS issues
-                const proxyUrl = 'https://redesigned-fishstick-production.up.railway.app/api/anthropic';
+                // Use Vercel serverless function to avoid browser CORS restrictions
+                const proxyUrl = 'https://4-week-program-b3jcwrn7t-estavs-projects.vercel.app/api/anthropic';
                 
                 const response = await fetch(proxyUrl, {
                     method: 'POST',

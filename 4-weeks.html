@@ -2768,8 +2768,8 @@ PROGRESSION: [Weight adjustments based on auto-progression analysis]
 
 Keep response evidence-based and practical.`;
 
-                // Use production proxy server to avoid browser CORS restrictions
-                const proxyUrl = 'https://redesigned-fishstick-production.up.railway.app/api/anthropic';
+                // Use Vercel serverless function to avoid browser CORS restrictions
+                const proxyUrl = 'https://4-week-program-b3jcwrn7t-estavs-projects.vercel.app/api/anthropic';
                 
                 const response = await fetch(proxyUrl, {
                     method: 'POST',

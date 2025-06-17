@@ -931,9 +931,15 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
                 </div>
 
                 <div class="section">
-                    <h2>Today's Log (<span id="currentDateDisplay"></span>)</h2>
+                    <h2>Workout Log (<span id="currentDateDisplay"></span>)</h2>
+                    <div class="metrics-input-group">
+                        <div>
+                            <label for="workoutLogDate">Date:</label>
+                            <input type="date" id="workoutLogDate">
+                        </div>
+                    </div>
                     <div id="dailyWorkoutLogContainer"></div>
-                    <button class="danger-button" onclick="clearDailyLog()" style="margin-top:10px;">Clear Today's Log</button>
+                    <button class="danger-button" id="clearDailyLogButton" onclick="clearDailyLog()" style="margin-top:10px;">Clear Today's Log</button>
                 </div>
             </div>
             
@@ -1276,7 +1282,8 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
         let currentSelectedDayKey = null; 
         let currentActiveTab = 'guideTab'; 
         const APP_VERSION_KEY = 'v4_material_bw_graph'; // Updated version key
-        const todayKey = new Date().toISOString().split('T')[0]; 
+        const todayKey = new Date().toISOString().split('T')[0];
+        let selectedLogDateKey = todayKey;
         let bodyweightChartInstance = null;
         
         // Rest Timer Variables
@@ -1377,14 +1384,14 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
 
 
             try {
-                const storedDailyLog = localStorage.getItem(`personalizedPlanDailyLog_${APP_VERSION_KEY}_${todayKey}`); 
+                const storedDailyLog = localStorage.getItem(`personalizedPlanDailyLog_${APP_VERSION_KEY}_${selectedLogDateKey}`);
                 if (storedDailyLog) {
                     dailyLog = JSON.parse(storedDailyLog);
                     if (typeof dailyLog !== 'object' || dailyLog === null) {
                         throw new Error('Invalid daily log format');
                     }
                 } else {
-                    dailyLog = {}; 
+                    dailyLog = {};
                 }
             } catch (error) {
                 showError('Failed to load daily log', error.message);
@@ -1399,9 +1406,38 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
                 localStorage.setItem(`personalizedPlanE1RMChangeStatus_${APP_VERSION_KEY}`, JSON.stringify(e1RMChangeStatus));
                 localStorage.setItem(`personalizedPlanBodyweight_${APP_VERSION_KEY}`, userBodyweight.toString());
                 localStorage.setItem(`personalizedPlanBwHistory_${APP_VERSION_KEY}`, JSON.stringify(bodyweightHistory));
-                localStorage.setItem(`personalizedPlanDailyLog_${APP_VERSION_KEY}_${todayKey}`, JSON.stringify(dailyLog));
+                localStorage.setItem(`personalizedPlanDailyLog_${APP_VERSION_KEY}_${selectedLogDateKey}`, JSON.stringify(dailyLog));
             } catch (error) {
                 showError('Failed to save data', error.message + '. Your data may not be preserved.');
+            }
+        }
+
+        function changeLogDate(date) {
+            if (!date) return;
+            selectedLogDateKey = date;
+            try {
+                const storedDailyLog = localStorage.getItem(`personalizedPlanDailyLog_${APP_VERSION_KEY}_${selectedLogDateKey}`);
+                if (storedDailyLog) {
+                    dailyLog = JSON.parse(storedDailyLog);
+                    if (typeof dailyLog !== 'object' || dailyLog === null) {
+                        dailyLog = {};
+                    }
+                } else {
+                    dailyLog = {};
+                }
+            } catch (error) {
+                console.error('Failed to load daily log for selected date', error);
+                dailyLog = {};
+            }
+            document.getElementById('currentDateDisplay').textContent = new Date(selectedLogDateKey).toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'});
+            const clearBtn = document.getElementById('clearDailyLogButton');
+            if (clearBtn) {
+                clearBtn.textContent = (selectedLogDateKey === todayKey ? 'Clear Today\'s Log' : 'Clear This Day\'s Log');
+            }
+            if (currentActiveTab === 'workoutDayTab' && currentSelectedDayKey) {
+                displayWorkoutForDay(currentSelectedDayKey);
+            } else {
+                renderDailyLog();
             }
         }
         
@@ -2109,11 +2145,11 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
         }
 
         function clearDailyLog() {
-            if(confirm("Are you sure you want to clear all logs for today? This only affects today's checkmarks and entries, not your e1RMs.")) {
+            if(confirm("Are you sure you want to clear all logs for this date? This only affects that day's checkmarks and entries, not your e1RMs.")) {
                 dailyLog = {};
-                saveData(); 
-                 if (currentActiveTab === 'workoutDayTab' && currentSelectedDayKey) displayWorkoutForDay(currentSelectedDayKey); 
-                 else renderDailyLog(); 
+                saveData();
+                 if (currentActiveTab === 'workoutDayTab' && currentSelectedDayKey) displayWorkoutForDay(currentSelectedDayKey);
+                 else renderDailyLog();
             }
         }
 
@@ -2902,9 +2938,11 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
             });
             
             document.getElementById('logBodyweightDate').value = todayKey; // Set default date for BW log
-            renderE1RMTable(); 
-            document.getElementById('currentDateDisplay').textContent = new Date(todayKey).toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'});
-            renderDailyLog(); 
+            const workoutDateInput = document.getElementById('workoutLogDate');
+            workoutDateInput.value = selectedLogDateKey;
+            workoutDateInput.addEventListener('change', (e) => changeLogDate(e.target.value));
+            renderE1RMTable();
+            changeLogDate(selectedLogDateKey);
             renderBodyweightChart();
             updateAttendanceSummary();
 

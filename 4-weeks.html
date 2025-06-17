@@ -843,14 +843,14 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
                         <ul>
                             <li>Scale of 1-10, where 10 is maximal effort (0 reps left), 9 is 1 rep left (RIR 1), 8 is 2 reps left (RIR 2), etc.</li>
                             <li>Use RPE honestly to guide your effort and help the app adjust your e1RM.</li>
-                            <li>Your plan often specifies target RPEs for activation and top sets (e.g., RPE 8-9).</li>
+                            <li>Your plan often specifies target RPEs for top sets (e.g., RPE 8-9).</li>
                         </ul>
                     </li>
                     <li><strong>e1RM (Estimated 1 Rep Max):</strong>
                         <ul>
                             <li>This is an estimate of the maximum weight you can lift for one repetition.</li>
                             <li>Set your initial e1RMs and Bodyweight in the "Settings &amp; e1RMs" tab.</li>
-                            <li>The app updates your e1RM for main lifts after you log "Activation Sets" and "Main Top Sets". The highest calculated e1RM from these sets in a session becomes your new e1RM for that lift.</li>
+                            <li>The app updates your e1RM for main lifts after you log your Main Top Sets. The highest calculated e1RM from these sets in a session becomes your new e1RM for that lift.</li>
                             <li>Accessory lifts that are also in the `CORE_LIFTS_IN_PLAN` list can also have their e1RMs updated if a logged set represents a new PR.</li>
                             <li>For bodyweight exercises like Dips and Weighted Pull-ups, the weight you log is *added weight*. The app uses your set bodyweight + added weight to calculate the e1RM (total load).</li>
                         </ul>
@@ -859,7 +859,6 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
 
                 <h4>Workout Structure:</h4>
                 <ul>
-                    <li><strong>Activation Sets (&gt;90% 1RM):</strong> Perform 1 set of 3-5 reps. These prepare you for heavy lifting, allow practice with heavy loads, and contribute to e1RM updates.</li>
                     <li><strong>Main Top Sets (e.g., 1x4 @ 88%):</strong> Your primary strength-building set for the main compound lifts. These also significantly contribute to e1RM updates.</li>
                     <li><strong>Volume Sets (e.g., 3x6 @ 78%):</strong> Build muscle mass and work capacity. Target weights are based on the e1RM at the start of the session.</li>
                     <li><strong>Accessory Lifts:</strong> Target specific muscle groups and support your main lifts. Aim for the prescribed reps/sets and an appropriate RPE (often 7-9).</li>
@@ -877,7 +876,7 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
                     <li><strong>Warm-ups:</strong> Perform dynamic, lift-specific warm-ups. Your plan mentions mini-band glute activation (Mon) and shoulder ER (Tue). One or two ramp-up sets for main lifts usually suffice.</li>
                     <li><strong>Rest Periods:</strong>
                         <ul>
-                            <li>After Activation/Main Top Sets: 2-5 minutes.</li>
+                            <li>After Main Top Sets: 2-5 minutes.</li>
                             <li>Between Volume Sets: 2-3 minutes.</li>
                             <li>Between Accessory Sets: As needed, typically 60-120 seconds.</li>
                         </ul>
@@ -1189,20 +1188,17 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
         // The user's workout plan structure - reorganized by workout type
         const USER_WORKOUT_PLAN = {
             "Squat Day": [
-                { id:"squat_activation", type: "strength_single_heavy", liftName: "Back-squat", sets: 1, repsTarget: 3, percentage: 0.92, group:"Back-squat", setLabel: "Activation Set (>90% 1RM)", notes: "Warm-up: Mini-band glute activation. Aim for 3-5 reps. RPE ~8.5-9.5. This set contributes to e1RM." },
                 { id:"squat_top", type: "strength_single_heavy", liftName: "Back-squat", sets: 1, repsTarget: 4, percentage: 0.88, group:"Back-squat", setLabel: "Main Top Set", notes: "Rest 2-5 min after this set. Aim for RPE ~8-9. This set contributes to e1RM." },
                 { id:"squat_vol", type: "strength_volume", liftName: "Back-squat", sets: 3, reps: 6, percentage: 0.78, group:"Back-squat", notes: "Rest 2-3 min between sets." },
                 { id:"squat_ht", type: "accessory", liftName: "Hip-thrust", sets: 4, reps: 8, notes: "Aim for RPE 7-9." }
             ],
             "Bench Day": [
-                { id:"bench_activation", type: "strength_single_heavy", liftName: "Bench Press", sets: 1, repsTarget: 3, percentage: 0.92, group:"Bench Press", setLabel: "Activation Set (>90% 1RM)", notes: "Warm-up: Shoulder ER. Aim for 3-5 reps. RPE ~8.5-9.5. This set contributes to e1RM." },
                 { id:"bench_top", type: "strength_single_heavy", liftName: "Bench Press", sets: 1, repsTarget: 4, percentage: 0.88, group:"Bench Press", setLabel: "Main Top Set", notes: "Rest 2-5 min after this set. Aim for RPE ~8-9. This set contributes to e1RM." },
                 { id:"bench_vol", type: "strength_volume", liftName: "Bench Press", sets: 3, reps: 6, percentage: 0.78, group:"Bench Press", notes: "Rest 2-3 min between sets." },
                 { id:"bench_ohp", type: "accessory", liftName: "OHP", sets: 3, reps: 6, notes: "Aim for RPE 7-9. This lift also uses e1RM." },
                 { id:"bench_dips", type: "accessory", liftName: "Dips", sets: 3, reps: 10, notes: "Aim for RPE 7-9, or near failure if appropriate. Log ADDED weight." }
             ],
             "Deadlift Day": [
-                { id:"deadlift_activation", type: "strength_single_heavy", liftName: "Deadlift", sets: 1, repsTarget: 3, percentage: 0.92, group:"Deadlift", setLabel: "Activation Set (>90% 1RM)", notes: "Aim for 3-5 reps. RPE ~8.5-9.5. This set contributes to e1RM." },
                 { id:"deadlift_top", type: "strength_single_heavy", liftName: "Deadlift", sets: 1, repsTarget: 3, percentage: 0.90, group:"Deadlift", setLabel: "Main Top Set", notes: "Rest 2-5 min after this set. Aim for RPE ~8-9. This set contributes to e1RM." },
                 { id:"deadlift_vol", type: "strength_volume", liftName: "Deadlift", sets: 3, reps: 6, percentage: 0.80, group:"Deadlift", notes: "Rest 2-3 min between sets." },
                 { id:"deadlift_rdl", type: "accessory", liftName: "RDL", sets: 3, reps: 8, notes: "Aim for RPE 7-9." }
@@ -1853,7 +1849,7 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
             displayWorkoutForDay(currentSelectedDayKey); 
             alert(`${groupName} set logged. Group e1RM (total load) is now ${finalGroupE1RM.toFixed(1)}.`);
             
-            // Auto-start rest timer for main/activation sets
+            // Auto-start rest timer for main sets
             startRestTimer(180); // 3 minutes for heavy sets
             
             } catch (error) {

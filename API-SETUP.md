@@ -35,6 +35,8 @@ This guide explains how to set up the Anthropic Claude API for smart workout rec
 - The proxy server runs on your local machine
 - It forwards API requests to Anthropic while adding proper CORS headers
 - Your API key stays secure on your local machine
+- The proxy server also exposes `/api/data/:id` endpoints for optional cloud
+  backups used by the app's data sync feature
 
 ## Solution 2: Serverless Function (Recommended for Production)
 

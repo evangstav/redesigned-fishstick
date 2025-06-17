@@ -924,6 +924,9 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
                         <button class="action-button" onclick="exportData()">Export All Data</button>
                         <button class="action-button" onclick="document.getElementById('importFile').click()">Import Data</button>
                         <input type="file" id="importFile" accept=".json" style="display: none;" onchange="importData(event)">
+                        <input type="text" id="syncId" placeholder="Sync ID" style="flex:1;min-width:120px;" />
+                        <button class="action-button" onclick="saveDataToCloud()">Save to Cloud</button>
+                        <button class="action-button" onclick="loadDataFromCloud()">Load from Cloud</button>
                     </div>
                     <div id="dataManagementStatus" style="font-size: 0.9em; color: var(--md-grey-700); margin-bottom: 10px;"></div>
                 </div>
@@ -1079,9 +1082,12 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
         }
         
         let dailyLog = {};      
-        let currentSelectedDayKey = null; 
-        let currentActiveTab = 'guideTab'; 
+        let currentSelectedDayKey = null;
+        let currentActiveTab = 'guideTab';
         const APP_VERSION_KEY = 'v4_material_bw_graph'; // Updated version key
+        const SERVER_BASE_URL = location.hostname === 'localhost'
+            ? 'http://localhost:3001'
+            : 'https://redesigned-fishstick-production.up.railway.app';
         const todayKey = new Date().toISOString().split('T')[0]; 
         let bodyweightChartInstance = null;
         let claudeApiKey = '';
@@ -2841,42 +2847,46 @@ Keep response evidence-based and practical.`;
         }
 
         // Data Export/Import Functions
+        function getExportDataObject() {
+            const exportData = {
+                version: APP_VERSION_KEY,
+                exportDate: new Date().toISOString(),
+                exercisesE1RM: exercisesE1RM,
+                e1RMChangeStatus: e1RMChangeStatus,
+                userBodyweight: userBodyweight,
+                bodyweightHistory: bodyweightHistory,
+                claudeApiKey: claudeApiKey,
+                dailyLogs: {}
+            };
+
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key && key.startsWith(`personalizedPlanDailyLog_${APP_VERSION_KEY}_`)) {
+                    const date = key.substring(`personalizedPlanDailyLog_${APP_VERSION_KEY}_`.length);
+                    exportData.dailyLogs[date] = JSON.parse(localStorage.getItem(key));
+                }
+            }
+
+            return exportData;
+        }
+
         function exportData() {
             try {
-                const exportData = {
-                    version: APP_VERSION_KEY,
-                    exportDate: new Date().toISOString(),
-                    exercisesE1RM: exercisesE1RM,
-                    e1RMChangeStatus: e1RMChangeStatus,
-                    userBodyweight: userBodyweight,
-                    bodyweightHistory: bodyweightHistory,
-                    claudeApiKey: claudeApiKey,
-                    dailyLogs: {}
-                };
-
-                // Export all daily logs
-                for (let i = 0; i < localStorage.length; i++) {
-                    const key = localStorage.key(i);
-                    if (key && key.startsWith(`personalizedPlanDailyLog_${APP_VERSION_KEY}_`)) {
-                        const date = key.substring(`personalizedPlanDailyLog_${APP_VERSION_KEY}_`.length);
-                        exportData.dailyLogs[date] = JSON.parse(localStorage.getItem(key));
-                    }
-                }
-
+                const exportData = getExportDataObject();
                 const dataStr = JSON.stringify(exportData, null, 2);
                 const dataBlob = new Blob([dataStr], {type: 'application/json'});
-                
+
                 const link = document.createElement('a');
                 link.href = URL.createObjectURL(dataBlob);
                 link.download = `fitness-tracker-backup-${new Date().toISOString().split('T')[0]}.json`;
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
-                
+
                 const statusDiv = document.getElementById('dataManagementStatus');
                 statusDiv.textContent = `Data exported successfully at ${new Date().toLocaleTimeString()}`;
                 statusDiv.style.color = 'var(--md-green-500)';
-                
+
             } catch (error) {
                 console.error('Export error:', error);
                 const statusDiv = document.getElementById('dataManagementStatus');
@@ -2900,64 +2910,9 @@ Keep response evidence-based and practical.`;
                     }
 
                     const confirmMessage = `Import data from ${new Date(importedData.exportDate).toLocaleDateString()}?\n\nThis will overwrite your current data. Make sure you've exported your current data first!`;
-                    
+
                     if (confirm(confirmMessage)) {
-                        // Import core data
-                        if (importedData.exercisesE1RM) {
-                            exercisesE1RM = importedData.exercisesE1RM;
-                        }
-                        if (importedData.e1RMChangeStatus) {
-                            e1RMChangeStatus = importedData.e1RMChangeStatus;
-                        }
-                        if (importedData.userBodyweight) {
-                            userBodyweight = importedData.userBodyweight;
-                            document.getElementById('currentBodyweight').value = userBodyweight;
-                        }
-                        if (importedData.bodyweightHistory) {
-                            bodyweightHistory = importedData.bodyweightHistory;
-                        }
-                        if (importedData.claudeApiKey) {
-                            claudeApiKey = importedData.claudeApiKey;
-                            document.getElementById('claudeApiKey').value = claudeApiKey;
-                        }
-
-                        // Import daily logs
-                        if (importedData.dailyLogs) {
-                            // Clear existing daily logs first
-                            const keysToRemove = [];
-                            for (let i = 0; i < localStorage.length; i++) {
-                                const key = localStorage.key(i);
-                                if (key && key.startsWith(`personalizedPlanDailyLog_${APP_VERSION_KEY}_`)) {
-                                    keysToRemove.push(key);
-                                }
-                            }
-                            keysToRemove.forEach(key => localStorage.removeItem(key));
-
-                            // Import new daily logs
-                            Object.entries(importedData.dailyLogs).forEach(([date, logData]) => {
-                                localStorage.setItem(`personalizedPlanDailyLog_${APP_VERSION_KEY}_${date}`, JSON.stringify(logData));
-                            });
-                        }
-
-                        // Update today's daily log if it exists in import
-                        if (importedData.dailyLogs && importedData.dailyLogs[todayKey]) {
-                            dailyLog = importedData.dailyLogs[todayKey];
-                        }
-
-                        // Save all data and refresh UI
-                        saveData();
-                        renderE1RMTable();
-                        renderBodyweightChart();
-                        updateAttendanceSummary();
-                        if (currentActiveTab === 'workoutDayTab' && currentSelectedDayKey) {
-                            displayWorkoutForDay(currentSelectedDayKey);
-                        } else {
-                            renderDailyLog();
-                        }
-
-                        const statusDiv = document.getElementById('dataManagementStatus');
-                        statusDiv.textContent = `Data imported successfully from ${new Date(importedData.exportDate).toLocaleDateString()}`;
-                        statusDiv.style.color = 'var(--md-green-500)';
+                        applyImportedData(importedData);
                     }
                     
                 } catch (error) {
@@ -2973,6 +2928,114 @@ Keep response evidence-based and practical.`;
             };
             
             reader.readAsText(file);
+        }
+
+        function applyImportedData(importedData) {
+            if (importedData.exercisesE1RM) {
+                exercisesE1RM = importedData.exercisesE1RM;
+            }
+            if (importedData.e1RMChangeStatus) {
+                e1RMChangeStatus = importedData.e1RMChangeStatus;
+            }
+            if (importedData.userBodyweight) {
+                userBodyweight = importedData.userBodyweight;
+                document.getElementById('currentBodyweight').value = userBodyweight;
+            }
+            if (importedData.bodyweightHistory) {
+                bodyweightHistory = importedData.bodyweightHistory;
+            }
+            if (importedData.claudeApiKey) {
+                claudeApiKey = importedData.claudeApiKey;
+                document.getElementById('claudeApiKey').value = claudeApiKey;
+            }
+
+            if (importedData.dailyLogs) {
+                const keysToRemove = [];
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    if (key && key.startsWith(`personalizedPlanDailyLog_${APP_VERSION_KEY}_`)) {
+                        keysToRemove.push(key);
+                    }
+                }
+                keysToRemove.forEach(key => localStorage.removeItem(key));
+
+                Object.entries(importedData.dailyLogs).forEach(([date, logData]) => {
+                    localStorage.setItem(`personalizedPlanDailyLog_${APP_VERSION_KEY}_${date}`, JSON.stringify(logData));
+                });
+            }
+
+            if (importedData.dailyLogs && importedData.dailyLogs[todayKey]) {
+                dailyLog = importedData.dailyLogs[todayKey];
+            }
+
+            saveData();
+            renderE1RMTable();
+            renderBodyweightChart();
+            updateAttendanceSummary();
+            if (currentActiveTab === 'workoutDayTab' && currentSelectedDayKey) {
+                displayWorkoutForDay(currentSelectedDayKey);
+            } else {
+                renderDailyLog();
+            }
+
+            const statusDiv = document.getElementById('dataManagementStatus');
+            statusDiv.textContent = `Data imported successfully from ${new Date(importedData.exportDate).toLocaleDateString()}`;
+            statusDiv.style.color = 'var(--md-green-500)';
+        }
+
+        async function saveDataToCloud() {
+            const syncId = document.getElementById('syncId').value.trim();
+            if (!syncId) {
+                alert('Enter a Sync ID to save data');
+                return;
+            }
+            try {
+                const exportData = getExportDataObject();
+                const response = await fetch(`${SERVER_BASE_URL}/api/data/${encodeURIComponent(syncId)}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(exportData)
+                });
+                const statusDiv = document.getElementById('dataManagementStatus');
+                if (response.ok) {
+                    statusDiv.textContent = 'Data saved to cloud successfully';
+                    statusDiv.style.color = 'var(--md-green-500)';
+                } else {
+                    statusDiv.textContent = 'Cloud save failed';
+                    statusDiv.style.color = 'var(--md-red-500)';
+                }
+            } catch (error) {
+                console.error('Cloud save error:', error);
+                const statusDiv = document.getElementById('dataManagementStatus');
+                statusDiv.textContent = 'Cloud save error';
+                statusDiv.style.color = 'var(--md-red-500)';
+            }
+        }
+
+        async function loadDataFromCloud() {
+            const syncId = document.getElementById('syncId').value.trim();
+            if (!syncId) {
+                alert('Enter a Sync ID to load data');
+                return;
+            }
+            try {
+                const response = await fetch(`${SERVER_BASE_URL}/api/data/${encodeURIComponent(syncId)}`);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch data');
+                }
+                const importedData = await response.json();
+                if (!importedData.version) {
+                    throw new Error('Invalid data format');
+                }
+                if (confirm(`Load cloud data from ${new Date(importedData.exportDate).toLocaleDateString()}?`)) {
+                    applyImportedData(importedData);
+                }
+            } catch (error) {
+                console.error('Cloud load error:', error);
+                const statusDiv = document.getElementById('dataManagementStatus');
+                statusDiv.textContent = 'Cloud load failed';
+                statusDiv.style.color = 'var(--md-red-500)';
+            }
         }
 
         // Rest Timer Functions

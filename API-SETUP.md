@@ -6,35 +6,8 @@ This guide explains how to set up the Anthropic Claude API for smart workout rec
 
 **The app is already deployed and ready to use:**
 - **Live App**: https://evangstav.github.io/redesigned-fishstick/4-weeks.html
-- **API Proxy**: https://redesigned-fishstick-production.up.railway.app
 - **Status**: Fully functional - just add your Claude API key in the app settings
 
-## Solution 1: Local Proxy Server (Recommended for Development)
-
-### Setup Steps
-
-1. **Install dependencies:**
-
-   ```bash
-   npm install
-   ```
-
-2. **Start the proxy server:**
-
-   ```bash
-   npm start
-   ```
-
-   The server will run on `http://localhost:3001`
-
-3. **Open your fitness app:**
-   Open `4-weeks.html` in your browser. The app is now configured to use the local proxy server.
-
-### How it works
-
-- The proxy server runs on your local machine
-- It forwards API requests to Anthropic while adding proper CORS headers
-- Your API key stays secure on your local machine
 
 ## Solution 2: Serverless Function (Recommended for Production)
 
@@ -88,7 +61,6 @@ This guide explains how to set up the Anthropic Claude API for smart workout rec
 1. **Connect GitHub Repository:**
    - Go to [Railway.app](https://railway.app)
    - Create new project from GitHub repo
-   - Railway auto-detects `proxy-server.js` and `package.json`
 
 2. **Environment Variables:**
    - No environment variables needed (API key provided by client)
@@ -99,12 +71,6 @@ This guide explains how to set up the Anthropic Claude API for smart workout rec
    - Railway URL: `https://[project-name]-production.up.railway.app`
    - Update this URL in `4-weeks.html`
 
-### Current Configuration
-
-The app is currently configured to use:
-```javascript
-const proxyUrl = 'https://redesigned-fishstick-production.up.railway.app/api/anthropic';
-```
 
 ### Vercel Functions
 
@@ -143,10 +109,9 @@ const proxyUrl = 'https://redesigned-fishstick-production.up.railway.app/api/ant
 
 ## Troubleshooting
 
-### "Failed to fetch" or CORS errors
+-### "Failed to fetch" or CORS errors
 
-- Ensure the proxy server is running (`npm start`)
-- Check that the proxy URL in the HTML matches your server port
+- Check that the API endpoint URL in the HTML matches your deployment
 - Verify your API key is correctly entered
 
 ### API key errors
@@ -191,8 +156,7 @@ With the API key configured, you'll have access to:
 ## Security Notes
 
 - **Never commit your API key** to version control
-- The proxy server doesn't store or log API keys
 - The app stores your API key in browser localStorage (local device only)
-- API requests are made server-to-server (proxy to Anthropic)
+- API requests are sent directly to Anthropic or through your deployed serverless function
 - Your workout data never leaves your browser
 

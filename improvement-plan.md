@@ -5,7 +5,7 @@
 - **Current Size**: ~220K characters (4,400+ lines)
 - **Estimated Tokens**: ~55K tokens (4:1 char:token ratio)
 - **Architecture**: Single HTML file with embedded CSS/JS
-- **Deployment**: Fully deployed on GitHub Pages + Railway
+- **Deployment**: Fully deployed on GitHub Pages
 - **Live URL**: <https://evangstav.github.io/redesigned-fishstick/4-weeks.html>
 - **Completed Features**: Analytics (#4), Enhanced Smart AI Recommendations (#5)
 
@@ -395,7 +395,7 @@
 
 ### **Completed Infrastructure (Latest Updates)**
 
-- **Full Cloud Deployment**: GitHub Pages + Railway hosting
+- **Full Cloud Deployment**: GitHub Pages hosting
 - **Live Production App**: Accessible from any device with internet
 - **Enhanced AI Integration**: Improved accuracy and program structure following
 - **Documentation Updates**: Comprehensive setup and API guides
@@ -403,9 +403,8 @@
 ### **Deployment Architecture**
 
 - **Frontend**: GitHub Pages auto-deploys from main branch
-- **Backend**: Railway proxy server with auto-deployment
 - **Data Migration**: Export/import functionality for cross-device usage
-- **API Integration**: Deployed Claude API proxy with enhanced context
+- **API Integration**: Enhanced context sent directly to Claude API
 
 ## 📈 **Token Budget Allocation**
 

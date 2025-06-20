@@ -2966,13 +2966,8 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
             renderBodyweightChart();
             updateAttendanceSummary();
 
-            // Add event listeners for sliders
-            document.getElementById('energyLevel').addEventListener('input', updateSliderValues);
-            document.getElementById('stressLevel').addEventListener('input', updateSliderValues);
-            updateSliderValues(); // Initial update
-
             // Start with the guide tab instead of auto-selecting a workout
-            showTab('guideTab'); 
+            showTab('guideTab');
         }
 
         window.onclick = function(event) { 

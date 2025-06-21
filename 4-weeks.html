@@ -53,6 +53,55 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
             --gradient-card: linear-gradient(135deg, var(--white) 0%, var(--grey-50) 100%);
         }
 
+        /* Dark Mode Theme */
+        [data-theme="dark"] {
+            /* Dark Theme Primary Colors */
+            --primary-500: #1DB584;      /* Brighter Teal for dark mode */
+            --primary-700: #14A172;      /* Medium Teal */
+            --primary-100: #2A4A4B;      /* Dark Teal */
+            --primary-50: #1A3334;       /* Very Dark Teal */
+            
+            /* Dark Theme Secondary Colors */
+            --secondary-500: #FF8A50;    /* Softer Orange for dark mode */
+            --secondary-700: #FF6B35;    /* Standard Orange */
+            --secondary-100: #4A2D1F;    /* Dark Orange */
+            
+            /* Dark Theme Accent */
+            --accent-500: #FF7043;       /* Softer Coral */
+            --accent-700: #FF5722;       /* Standard Coral */
+            
+            /* Dark Theme Status Colors */
+            --success-500: #66BB6A;      /* Softer Green */
+            --success-700: #4CAF50;
+            --error-500: #EF5350;        /* Softer Red */
+            --error-700: #F44336;
+            
+            /* Dark Theme Neutral Colors */
+            --grey-50: #121212;          /* Very dark background */
+            --grey-100: #1E1E1E;         /* Dark background */
+            --grey-300: #333333;         /* Dark borders */
+            --grey-700: #BDBDBD;         /* Light secondary text */
+            --grey-900: #E0E0E0;         /* Light primary text */
+            --white: #1E1E1E;            /* Dark surface */
+            
+            /* Dark Theme Shadows */
+            --shadow-1: 0 2px 4px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
+            --shadow-2: 0 4px 8px rgba(0, 0, 0, 0.4), 0 2px 4px rgba(0, 0, 0, 0.3);
+            --shadow-4: 0 12px 24px rgba(0, 0, 0, 0.5), 0 6px 12px rgba(0, 0, 0, 0.4);
+            --shadow-float: 0 8px 16px rgba(0, 0, 0, 0.4), 0 4px 8px rgba(0, 0, 0, 0.3);
+            
+            /* Dark Theme Gradients */
+            --gradient-primary: linear-gradient(135deg, var(--primary-500) 0%, var(--primary-700) 100%);
+            --gradient-secondary: linear-gradient(135deg, var(--secondary-500) 0%, var(--secondary-700) 100%);
+            --gradient-accent: linear-gradient(135deg, var(--accent-500) 0%, var(--accent-700) 100%);
+            --gradient-card: linear-gradient(135deg, var(--grey-100) 0%, var(--grey-50) 100%);
+        }
+
+        /* Theme transition animations */
+        * {
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
         body { 
             font-family: 'Roboto', sans-serif; 
             margin: 0; 
@@ -77,11 +126,13 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
             background: var(--gradient-primary);
             color: var(--white); 
             padding: 20px; 
-            text-align: center;
             box-shadow: var(--shadow-2);
             position: relative;
             overflow: hidden;
-            /* Mobile-first: centered header */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            /* Mobile-first: responsive flexbox layout */
         }
         header::before {
             content: '';
@@ -102,7 +153,58 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
             letter-spacing: 0.5px;
             position: relative;
             z-index: 1;
-            /* Mobile-first: smaller size */
+            flex: 1;
+            text-align: center;
+            /* Mobile-first: centered with flex */
+        }
+        
+        .theme-toggle {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--white);
+            font-size: 1.5em;
+            position: relative;
+            z-index: 2;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: scale(1.05);
+        }
+        
+        .theme-toggle:active {
+            transform: scale(0.95);
+        }
+        
+        .theme-icon {
+            transition: transform 0.3s ease;
+        }
+        
+        [data-theme="dark"] .theme-icon {
+            transform: rotate(180deg);
+        }
+        
+        /* Mobile adjustments for theme toggle */
+        @media (max-width: 480px) {
+            .theme-toggle {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2em;
+            }
+            
+            header h1 {
+                font-size: 1.5em;
+            }
         }
         nav { 
             background: var(--gradient-primary);
@@ -843,6 +945,9 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
     <div class="app-container">
         <header>
             <h1>My Training Plan</h1>
+            <button id="themeToggle" onclick="toggleTheme()" class="theme-toggle" title="Toggle dark mode">
+                <span class="theme-icon">🌙</span>
+            </button>
         </header>
         <nav id="mainNav">
             <button data-tab="guideTab" onclick="showTab('guideTab')">Guide</button>
@@ -1182,6 +1287,37 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
             </div>
 
             <button class="action-button" onclick="executeSelectiveExport()">Export Selected Data</button>
+        </div>
+    </div>
+
+    <!-- Bulk Edit Modal -->
+    <div id="bulkEditModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeBulkEditModal()">&times;</span>
+            <h3>Bulk Edit Selected Sets</h3>
+            <div id="bulkEditSelectedSets"></div>
+            <div style="margin-top: 20px;">
+                <h4>Apply to All Selected Sets:</h4>
+                <div class="inline-inputs" style="margin-top: 10px;">
+                    <label>Weight:</label>
+                    <input type="number" id="bulkWeight" placeholder="Leave blank to skip" step="0.1">
+                    <label>Reps:</label>
+                    <input type="number" id="bulkReps" placeholder="Leave blank to skip" min="1">
+                    <label>RPE:</label>
+                    <input type="number" id="bulkRPE" placeholder="Leave blank to skip" step="0.5" min="6" max="10">
+                </div>
+                <div style="margin-top: 15px;">
+                    <label>
+                        <input type="checkbox" id="bulkApplyRelative" style="margin-right: 8px;">
+                        Apply changes relative to current values (e.g., +5 lbs, +1 rep)
+                    </label>
+                </div>
+                <div style="margin-top: 15px; display: flex; gap: 10px;">
+                    <button class="action-button" onclick="applyBulkEdit()">Apply Changes</button>
+                    <button class="action-button" onclick="bulkLogAllSets()" style="background: var(--success-500);">Log All Selected Sets</button>
+                    <button class="action-button" onclick="closeBulkEditModal()" style="background: var(--grey-700);">Cancel</button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -1703,7 +1839,27 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
             if (dayTitleElement) { 
                 dayTitleElement.textContent = `${workoutKey}`;
             }
-            displayArea.innerHTML = `<h2 id="workoutDayTitle">${workoutKey}</h2>`; 
+            displayArea.innerHTML = `
+                <h2 id="workoutDayTitle">${workoutKey}</h2>
+                <div class="bulk-edit-controls" style="margin: 15px 0; padding: 12px; background: var(--grey-50); border-radius: 8px; border: 1px solid var(--grey-300); display: none;" id="bulkEditControls">
+                    <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+                        <label style="font-weight: 500;">
+                            <input type="checkbox" id="selectAllSets" style="margin-right: 8px;"> Select All Sets
+                        </label>
+                        <button class="action-button" onclick="showBulkEditModal()" disabled id="bulkEditBtn" style="font-size: 0.9em; padding: 6px 12px;">
+                            Bulk Edit Selected (<span id="selectedCount">0</span>)
+                        </button>
+                        <button class="action-button" onclick="hideBulkEditControls()" style="background: var(--grey-700); font-size: 0.9em; padding: 6px 12px;">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+                <div style="text-align: right; margin-bottom: 10px;">
+                    <button class="action-button" onclick="showBulkEditControls()" style="font-size: 0.9em; padding: 6px 12px; background: var(--secondary-500);">
+                        Enable Bulk Edit
+                    </button>
+                </div>
+            `; 
             
             const workoutItems = USER_WORKOUT_PLAN[workoutKey];
             if (!workoutItems) {
@@ -1792,12 +1948,20 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
 
 
                         content += `
-                            <div class="inline-inputs" style="margin-top:5px;">
-                                <span>Set ${i} (Target: ${item.reps} reps @ ~${targetWeightDisplay}):</span><br>
-                                <label>${weightLabel}</label><input type="number" id="${item.id}_set${i}_weight" placeholder="Wt" value="${prefillWeightValue}">
-                                <label>Reps:</label><input type="number" id="${item.id}_set${i}_reps" placeholder="Reps" value="${setData?.actualReps || ''}">
-                                <label>RPE:</label><input type="number" id="${item.id}_set${i}_rpe" step="0.5" min="6" max="10" placeholder="RPE" value="${setData?.actualRPE || ''}">
-                                <button class="action-button log-set-button" style="padding: 5px 8px; font-size:0.8em;" onclick="logGenericSet('${item.id}', '${item.group || item.liftName}', ${i})" ${setLogged ? 'disabled' : ''}>Log Set ${i}</button> ${setCompletedMark}
+                            <div class="inline-inputs" style="margin-top:5px; position: relative;">
+                                <div style="display: flex; align-items: center; margin-bottom: 5px;">
+                                    <label class="bulk-edit-checkbox" style="margin-right: 15px; display: none;">
+                                        <input type="checkbox" class="set-checkbox" data-item-id="${item.id}" data-set-index="${i}" data-exercise-name="${item.liftName}" style="margin-right: 5px;">
+                                        Select
+                                    </label>
+                                    <span>Set ${i} (Target: ${item.reps} reps @ ~${targetWeightDisplay}):</span>
+                                </div>
+                                <div class="set-inputs">
+                                    <label>${weightLabel}</label><input type="number" id="${item.id}_set${i}_weight" placeholder="Wt" value="${prefillWeightValue}">
+                                    <label>Reps:</label><input type="number" id="${item.id}_set${i}_reps" placeholder="Reps" value="${setData?.actualReps || ''}">
+                                    <label>RPE:</label><input type="number" id="${item.id}_set${i}_rpe" step="0.5" min="6" max="10" placeholder="RPE" value="${setData?.actualRPE || ''}">
+                                    <button class="action-button log-set-button" style="padding: 5px 8px; font-size:0.8em;" onclick="logGenericSet('${item.id}', '${item.group || item.liftName}', ${i})" ${setLogged ? 'disabled' : ''}>Log Set ${i}</button> ${setCompletedMark}
+                                </div>
                             </div>`;
                     }
                 } else if (item.type === 'accessory') {
@@ -1838,6 +2002,8 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
 
         function logHeavyStrengthSet(itemId, groupName) {
             try {
+                saveStateForUndo(`Log heavy set for ${groupName}`);
+                
                 const addedWeightInput = parseFloat(document.getElementById(`${itemId}_weight`).value); // This is either total weight or added weight
                 const reps = parseInt(document.getElementById(`${itemId}_reps`).value);
                 const rpe = parseFloat(document.getElementById(`${itemId}_rpe`).value);
@@ -1918,6 +2084,8 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
         }
 
         function logGenericSet(itemId, groupName, setIndex) {
+            saveStateForUndo(`Log set ${setIndex} for ${groupName}`);
+            
             const addedWeightInput = parseFloat(document.getElementById(`${itemId}_set${setIndex}_weight`).value);
             const reps = parseInt(document.getElementById(`${itemId}_set${setIndex}_reps`).value);
             const rpe = parseFloat(document.getElementById(`${itemId}_set${setIndex}_rpe`).value);
@@ -2309,37 +2477,84 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
         // CSV Export Function
         function exportDataCSV() {
             try {
+                const timestamp = new Date().toISOString();
                 let csvContent = "";
                 
-                // Export e1RM data
+                // Header with metadata
+                csvContent += `Fitness Tracker Data Export\n`;
+                csvContent += `Export Date/Time,"${timestamp}"\n`;
+                csvContent += `Application Version,"${APP_VERSION_KEY}"\n`;
+                csvContent += `Total Workouts,"${Object.keys(localStorage).filter(key => key.startsWith(`personalizedPlanDailyLog_${APP_VERSION_KEY}_`)).length}"\n\n`;
+                
+                // Enhanced e1RM data with change status
                 csvContent += "Exercise 1RM Data\n";
-                csvContent += "Exercise,Current e1RM (kg),Date Updated\n";
+                csvContent += "Exercise,Current e1RM (kg),Change Status,Date Updated\n";
                 Object.entries(exercisesE1RM).forEach(([exercise, value]) => {
-                    csvContent += `"${exercise}","${value}","${new Date().toISOString().split('T')[0]}"\n`;
+                    const changeStatus = e1RMChangeStatus[exercise] || 'No Change';
+                    csvContent += `"${exercise}","${value}","${changeStatus}","${new Date().toISOString().split('T')[0]}"\n`;
                 });
                 
+                // Bodyweight history with trends
                 csvContent += "\nBodyweight History\n";
-                csvContent += "Date,Weight (kg)\n";
-                bodyweightHistory.forEach(entry => {
-                    csvContent += `"${entry.date}","${entry.weight}"\n`;
+                csvContent += "Date,Weight (kg),Change from Previous\n";
+                bodyweightHistory.forEach((entry, index) => {
+                    let change = '';
+                    if (index > 0) {
+                        const prevWeight = bodyweightHistory[index - 1].weight;
+                        const diff = (entry.weight - prevWeight).toFixed(1);
+                        change = diff > 0 ? `+${diff}` : diff;
+                    }
+                    csvContent += `"${entry.date}","${entry.weight}","${change}"\n`;
                 });
                 
-                // Export daily logs
-                csvContent += "\nWorkout Logs\n";
-                csvContent += "Date,Exercise,Set,Weight,Reps,RPE,e1RM\n";
+                // Enhanced workout logs with calculated metrics
+                csvContent += "\nDetailed Workout Logs\n";
+                csvContent += "Date,Exercise,Set,Weight,Reps,RPE,e1RM,Volume,Training Load,Workout Type,Notes\n";
                 
+                const workoutData = [];
                 for (let i = 0; i < localStorage.length; i++) {
                     const key = localStorage.key(i);
                     if (key && key.startsWith(`personalizedPlanDailyLog_${APP_VERSION_KEY}_`)) {
                         const date = key.substring(`personalizedPlanDailyLog_${APP_VERSION_KEY}_`.length);
                         const logData = JSON.parse(localStorage.getItem(key));
                         
-                        Object.entries(logData).forEach(([exerciseName, sets]) => {
-                            if (Array.isArray(sets)) {
-                                sets.forEach((set, index) => {
-                                    if (set.weight && set.reps) {
-                                        const e1rm = set.weight * (1 + (set.reps / 30));
-                                        csvContent += `"${date}","${exerciseName}","${index + 1}","${set.weight}","${set.reps}","${set.rpe || ''}","${e1rm.toFixed(1)}"\n`;
+                        Object.entries(logData).forEach(([itemId, itemData]) => {
+                            if (itemData) {
+                                // Handle single sets
+                                if (itemData.actualWeight && itemData.actualReps) {
+                                    const weight = itemData.actualWeight;
+                                    const reps = itemData.actualReps;
+                                    const rpe = itemData.actualRPE || '';
+                                    const e1rm = calculateEpleyE1RM(weight, reps);
+                                    const volume = weight * reps;
+                                    const trainingLoad = rpe ? (volume * rpe / 10) : '';
+                                    const notes = itemData.userNotes || '';
+                                    
+                                    // Determine workout type from exercise name
+                                    const workoutType = getWorkoutType(itemId);
+                                    
+                                    workoutData.push({
+                                        date, exercise: itemId, set: '1', weight, reps, rpe, e1rm, volume, trainingLoad, workoutType, notes
+                                    });
+                                }
+                                
+                                // Handle multiple sets
+                                Object.entries(itemData).forEach(([setKey, setData]) => {
+                                    if (setKey.startsWith('set') && setData && setData.actualWeight && setData.actualReps) {
+                                        const setNumber = setKey.replace('set', '');
+                                        const weight = setData.actualWeight;
+                                        const reps = setData.actualReps;
+                                        const rpe = setData.actualRPE || '';
+                                        const e1rm = calculateEpleyE1RM(weight, reps);
+                                        const volume = weight * reps;
+                                        const trainingLoad = rpe ? (volume * rpe / 10) : '';
+                                        const notes = setData.userNotes || '';
+                                        
+                                        const workoutType = getWorkoutType(itemId);
+                                        
+                                        workoutData.push({
+                                            date, exercise: itemId, set: setNumber, weight, reps, rpe, e1rm, volume, trainingLoad, workoutType, notes
+                                        });
                                     }
                                 });
                             }
@@ -2347,24 +2562,54 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
                     }
                 }
                 
+                // Sort by date, then exercise, then set
+                workoutData.sort((a, b) => {
+                    if (a.date !== b.date) return a.date.localeCompare(b.date);
+                    if (a.exercise !== b.exercise) return a.exercise.localeCompare(b.exercise);
+                    return parseInt(a.set) - parseInt(b.set);
+                });
+                
+                workoutData.forEach(row => {
+                    csvContent += `"${row.date}","${row.exercise}","${row.set}","${row.weight}","${row.reps}","${row.rpe}","${row.e1rm.toFixed(1)}","${row.volume}","${row.trainingLoad}","${row.workoutType}","${row.notes}"\n`;
+                });
+                
+                // Summary statistics
+                csvContent += "\nWorkout Summary Statistics\n";
+                csvContent += "Metric,Value\n";
+                csvContent += `"Total Sets Completed","${workoutData.length}"\n`;
+                csvContent += `"Total Volume (lbs × reps)","${workoutData.reduce((sum, row) => sum + row.volume, 0).toFixed(1)}"\n`;
+                csvContent += `"Average RPE","${(workoutData.filter(row => row.rpe).reduce((sum, row) => sum + parseFloat(row.rpe), 0) / workoutData.filter(row => row.rpe).length || 0).toFixed(1)}"\n`;
+                csvContent += `"Unique Exercises","${new Set(workoutData.map(row => row.exercise)).size}"\n`;
+                csvContent += `"Date Range","${workoutData.length > 0 ? workoutData[0].date + ' to ' + workoutData[workoutData.length - 1].date : 'No data'}"\n`;
+                
                 const blob = new Blob([csvContent], { type: 'text/csv' });
                 const link = document.createElement('a');
                 link.href = URL.createObjectURL(blob);
-                link.download = `fitness-tracker-export-${new Date().toISOString().split('T')[0]}.csv`;
+                link.download = `fitness-tracker-enhanced-export-${new Date().toISOString().split('T')[0]}.csv`;
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
                 
                 const statusDiv = document.getElementById('dataManagementStatus');
-                statusDiv.textContent = `CSV data exported successfully at ${new Date().toLocaleTimeString()}`;
-                statusDiv.style.color = 'var(--md-green-500)';
+                statusDiv.textContent = `Enhanced CSV data exported successfully at ${new Date().toLocaleTimeString()}`;
+                statusDiv.style.color = 'var(--success-500)';
                 
             } catch (error) {
                 console.error('CSV Export error:', error);
                 const statusDiv = document.getElementById('dataManagementStatus');
                 statusDiv.textContent = 'CSV export failed. Check console for details.';
-                statusDiv.style.color = 'var(--md-red-500)';
+                statusDiv.style.color = 'var(--error-500)';
             }
+        }
+        
+        function getWorkoutType(exerciseId) {
+            // Determine workout type based on exercise
+            const exerciseLower = exerciseId.toLowerCase();
+            if (exerciseLower.includes('squat')) return 'Squat Day';
+            if (exerciseLower.includes('bench') || exerciseLower.includes('press')) return 'Bench Day';
+            if (exerciseLower.includes('deadlift')) return 'Deadlift Day';
+            if (exerciseLower.includes('pull') || exerciseLower.includes('row') || exerciseLower.includes('chin')) return 'Pull Day';
+            return 'General';
         }
 
         // Selective Export Modal Functions
@@ -2942,8 +3187,563 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
             }
         }
 
+        // Bulk Edit Functions
+        function showBulkEditControls() {
+            document.getElementById('bulkEditControls').style.display = 'block';
+            const checkboxes = document.querySelectorAll('.bulk-edit-checkbox');
+            checkboxes.forEach(checkbox => checkbox.style.display = 'block');
+            
+            // Add event listeners for checkboxes
+            const setCheckboxes = document.querySelectorAll('.set-checkbox');
+            setCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', updateSelectedCount);
+            });
+            
+            document.getElementById('selectAllSets').addEventListener('change', toggleSelectAll);
+        }
+        
+        function hideBulkEditControls() {
+            document.getElementById('bulkEditControls').style.display = 'none';
+            const checkboxes = document.querySelectorAll('.bulk-edit-checkbox');
+            checkboxes.forEach(checkbox => checkbox.style.display = 'none');
+            
+            // Clear all selections
+            const setCheckboxes = document.querySelectorAll('.set-checkbox');
+            setCheckboxes.forEach(checkbox => {
+                checkbox.checked = false;
+                checkbox.parentElement.parentElement.parentElement.style.background = '';
+            });
+            document.getElementById('selectAllSets').checked = false;
+            updateSelectedCount();
+        }
+        
+        function toggleSelectAll() {
+            const selectAll = document.getElementById('selectAllSets');
+            const setCheckboxes = document.querySelectorAll('.set-checkbox');
+            
+            setCheckboxes.forEach(checkbox => {
+                checkbox.checked = selectAll.checked;
+                const setContainer = checkbox.parentElement.parentElement.parentElement;
+                setContainer.style.background = checkbox.checked ? 'var(--primary-50)' : '';
+            });
+            
+            updateSelectedCount();
+        }
+        
+        function updateSelectedCount() {
+            const selectedCheckboxes = document.querySelectorAll('.set-checkbox:checked');
+            const count = selectedCheckboxes.length;
+            document.getElementById('selectedCount').textContent = count;
+            document.getElementById('bulkEditBtn').disabled = count === 0;
+            
+            // Update visual feedback
+            selectedCheckboxes.forEach(checkbox => {
+                const setContainer = checkbox.parentElement.parentElement.parentElement;
+                setContainer.style.background = 'var(--primary-50)';
+                setContainer.style.border = '2px solid var(--primary-500)';
+                setContainer.style.borderRadius = '8px';
+            });
+            
+            // Remove highlighting from unchecked boxes
+            const unselectedCheckboxes = document.querySelectorAll('.set-checkbox:not(:checked)');
+            unselectedCheckboxes.forEach(checkbox => {
+                const setContainer = checkbox.parentElement.parentElement.parentElement;
+                setContainer.style.background = '';
+                setContainer.style.border = '';
+                setContainer.style.borderRadius = '';
+            });
+        }
+        
+        function showBulkEditModal() {
+            const selectedCheckboxes = document.querySelectorAll('.set-checkbox:checked');
+            if (selectedCheckboxes.length === 0) return;
+            
+            const modal = document.getElementById('bulkEditModal');
+            const selectedSetsDiv = document.getElementById('bulkEditSelectedSets');
+            
+            let content = '<h4>Selected Sets:</h4><ul>';
+            selectedCheckboxes.forEach(checkbox => {
+                const exerciseName = checkbox.dataset.exerciseName;
+                const setIndex = checkbox.dataset.setIndex;
+                const itemId = checkbox.dataset.itemId;
+                
+                const weightInput = document.getElementById(`${itemId}_set${setIndex}_weight`);
+                const repsInput = document.getElementById(`${itemId}_set${setIndex}_reps`);
+                const rpeInput = document.getElementById(`${itemId}_set${setIndex}_rpe`);
+                
+                content += `<li><strong>${exerciseName} - Set ${setIndex}</strong><br>
+                    Current: ${weightInput.value || 0} lbs × ${repsInput.value || 0} reps @ ${rpeInput.value || 0} RPE</li>`;
+            });
+            content += '</ul>';
+            
+            selectedSetsDiv.innerHTML = content;
+            modal.style.display = 'block';
+            
+            // Clear previous values
+            document.getElementById('bulkWeight').value = '';
+            document.getElementById('bulkReps').value = '';
+            document.getElementById('bulkRPE').value = '';
+            document.getElementById('bulkApplyRelative').checked = false;
+        }
+        
+        function closeBulkEditModal() {
+            document.getElementById('bulkEditModal').style.display = 'none';
+        }
+        
+        function applyBulkEdit() {
+            const selectedCheckboxes = document.querySelectorAll('.set-checkbox:checked');
+            const bulkWeight = document.getElementById('bulkWeight').value;
+            const bulkReps = document.getElementById('bulkReps').value;
+            const bulkRPE = document.getElementById('bulkRPE').value;
+            const isRelative = document.getElementById('bulkApplyRelative').checked;
+            
+            selectedCheckboxes.forEach(checkbox => {
+                const itemId = checkbox.dataset.itemId;
+                const setIndex = checkbox.dataset.setIndex;
+                
+                const weightInput = document.getElementById(`${itemId}_set${setIndex}_weight`);
+                const repsInput = document.getElementById(`${itemId}_set${setIndex}_reps`);
+                const rpeInput = document.getElementById(`${itemId}_set${setIndex}_rpe`);
+                
+                if (bulkWeight) {
+                    if (isRelative) {
+                        const currentWeight = parseFloat(weightInput.value) || 0;
+                        weightInput.value = (currentWeight + parseFloat(bulkWeight)).toFixed(1);
+                    } else {
+                        weightInput.value = bulkWeight;
+                    }
+                }
+                
+                if (bulkReps) {
+                    if (isRelative) {
+                        const currentReps = parseInt(repsInput.value) || 0;
+                        repsInput.value = currentReps + parseInt(bulkReps);
+                    } else {
+                        repsInput.value = bulkReps;
+                    }
+                }
+                
+                if (bulkRPE) {
+                    if (isRelative) {
+                        const currentRPE = parseFloat(rpeInput.value) || 0;
+                        const newRPE = currentRPE + parseFloat(bulkRPE);
+                        rpeInput.value = Math.max(6, Math.min(10, newRPE));
+                    } else {
+                        rpeInput.value = bulkRPE;
+                    }
+                }
+            });
+            
+            closeBulkEditModal();
+            showSuccess(`Updated ${selectedCheckboxes.length} sets successfully!`);
+        }
+        
+        function bulkLogAllSets() {
+            const selectedCheckboxes = document.querySelectorAll('.set-checkbox:checked');
+            let loggedCount = 0;
+            let errors = [];
+            
+            selectedCheckboxes.forEach(checkbox => {
+                const itemId = checkbox.dataset.itemId;
+                const setIndex = checkbox.dataset.setIndex;
+                const exerciseName = checkbox.dataset.exerciseName;
+                
+                const weightInput = document.getElementById(`${itemId}_set${setIndex}_weight`);
+                const repsInput = document.getElementById(`${itemId}_set${setIndex}_reps`);
+                const rpeInput = document.getElementById(`${itemId}_set${setIndex}_rpe`);
+                
+                // Validate inputs
+                if (!weightInput.value || !repsInput.value || !rpeInput.value) {
+                    errors.push(`${exerciseName} Set ${setIndex}: Missing values`);
+                    return;
+                }
+                
+                try {
+                    // Use existing logGenericSet function
+                    const exerciseGroup = USER_WORKOUT_PLAN[currentSelectedDayKey].find(item => item.id === itemId)?.group || exerciseName;
+                    logGenericSet(itemId, exerciseGroup, parseInt(setIndex));
+                    loggedCount++;
+                } catch (error) {
+                    errors.push(`${exerciseName} Set ${setIndex}: ${error.message}`);
+                }
+            });
+            
+            closeBulkEditModal();
+            hideBulkEditControls();
+            
+            if (errors.length > 0) {
+                showError(`Logged ${loggedCount} sets. Errors: ${errors.join(', ')}`);
+            } else {
+                showSuccess(`Successfully logged ${loggedCount} sets!`);
+            }
+        }
+
+        // Undo/Redo System
+        let undoStack = [];
+        let redoStack = [];
+        const MAX_UNDO_HISTORY = 20;
+        
+        function saveStateForUndo(actionDescription) {
+            // Save current state before making changes
+            const currentState = {
+                dailyLog: JSON.parse(JSON.stringify(dailyLog)),
+                exercisesE1RM: JSON.parse(JSON.stringify(exercisesE1RM)),
+                bodyweightHistory: JSON.parse(JSON.stringify(bodyweightHistory)),
+                timestamp: Date.now(),
+                description: actionDescription
+            };
+            
+            undoStack.push(currentState);
+            
+            // Limit undo history size
+            if (undoStack.length > MAX_UNDO_HISTORY) {
+                undoStack.shift();
+            }
+            
+            // Clear redo stack when new action is performed
+            redoStack = [];
+            
+            updateUndoRedoButtons();
+        }
+        
+        function performUndo() {
+            if (undoStack.length === 0) return;
+            
+            // Save current state to redo stack
+            const currentState = {
+                dailyLog: JSON.parse(JSON.stringify(dailyLog)),
+                exercisesE1RM: JSON.parse(JSON.stringify(exercisesE1RM)),
+                bodyweightHistory: JSON.parse(JSON.stringify(bodyweightHistory)),
+                timestamp: Date.now(),
+                description: 'Redo point'
+            };
+            redoStack.push(currentState);
+            
+            // Restore previous state
+            const previousState = undoStack.pop();
+            dailyLog = previousState.dailyLog;
+            exercisesE1RM = previousState.exercisesE1RM;
+            bodyweightHistory = previousState.bodyweightHistory;
+            
+            // Save to localStorage
+            saveData();
+            
+            // Refresh UI
+            if (currentSelectedDayKey) {
+                displayWorkoutForDay(currentSelectedDayKey);
+            }
+            renderE1RMTable();
+            renderBodyweightChart();
+            updateAttendanceSummary();
+            
+            updateUndoRedoButtons();
+            showSuccess(`Undone: ${previousState.description}`);
+        }
+        
+        function performRedo() {
+            if (redoStack.length === 0) return;
+            
+            // Save current state to undo stack
+            const currentState = {
+                dailyLog: JSON.parse(JSON.stringify(dailyLog)),
+                exercisesE1RM: JSON.parse(JSON.stringify(exercisesE1RM)),
+                bodyweightHistory: JSON.parse(JSON.stringify(bodyweightHistory)),
+                timestamp: Date.now(),
+                description: 'Undo point'
+            };
+            undoStack.push(currentState);
+            
+            // Restore redo state
+            const redoState = redoStack.pop();
+            dailyLog = redoState.dailyLog;
+            exercisesE1RM = redoState.exercisesE1RM;
+            bodyweightHistory = redoState.bodyweightHistory;
+            
+            // Save to localStorage
+            saveData();
+            
+            // Refresh UI
+            if (currentSelectedDayKey) {
+                displayWorkoutForDay(currentSelectedDayKey);
+            }
+            renderE1RMTable();
+            renderBodyweightChart();
+            updateAttendanceSummary();
+            
+            updateUndoRedoButtons();
+            showSuccess(`Redone: ${redoState.description}`);
+        }
+        
+        function updateUndoRedoButtons() {
+            // This will be called to update button states if we add UI buttons
+            // For now, just used for internal state management
+        }
+
+        // Dark Mode Theme Functions
+        function initializeTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            // Use saved theme, or default to system preference
+            const theme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
+            applyTheme(theme);
+            
+            // Listen for system theme changes
+            if (window.matchMedia) {
+                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+                    if (!localStorage.getItem('theme')) {
+                        applyTheme(e.matches ? 'dark' : 'light');
+                    }
+                });
+            }
+        }
+        
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            applyTheme(newTheme);
+            localStorage.setItem('theme', newTheme);
+        }
+        
+        function applyTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            
+            // Update the toggle button icon
+            const themeIcon = document.querySelector('.theme-icon');
+            if (themeIcon) {
+                themeIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
+            }
+            
+            // Update button title
+            const themeToggle = document.getElementById('themeToggle');
+            if (themeToggle) {
+                themeToggle.title = theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode';
+            }
+            
+            // Update meta theme-color for mobile browsers
+            const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+            if (metaThemeColor) {
+                const themeColors = {
+                    light: '#0D7377',
+                    dark: '#1DB584'
+                };
+                metaThemeColor.setAttribute('content', themeColors[theme]);
+            }
+        }
+
+        // Keyboard shortcuts and auto-focus management
+        function initializeKeyboardShortcuts() {
+            document.addEventListener('keydown', function(event) {
+                // Don't interfere with typing in input fields
+                if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') {
+                    handleInputFieldKeydown(event);
+                    return;
+                }
+                
+                // Global shortcuts (when not typing in inputs)
+                if (event.ctrlKey || event.metaKey) {
+                    handleCtrlShortcuts(event);
+                } else {
+                    handleGlobalShortcuts(event);
+                }
+            });
+            
+            // Auto-focus management for workout input fields
+            setupAutoFocusForWorkoutInputs();
+        }
+        
+        function handleInputFieldKeydown(event) {
+            const input = event.target;
+            
+            // Tab navigation within input groups
+            if (event.key === 'Tab') {
+                event.preventDefault();
+                navigateToNextInput(input, event.shiftKey);
+                return;
+            }
+            
+            // Enter to submit or move to next field
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                
+                // Check if this is in a modal
+                const modal = input.closest('.modal');
+                if (modal) {
+                    handleModalEnter(input, modal);
+                    return;
+                }
+                
+                // Check if this is in a set logging group
+                const setGroup = input.closest('.inline-inputs');
+                if (setGroup) {
+                    handleSetGroupEnter(input, setGroup);
+                    return;
+                }
+            }
+            
+            // Escape to clear input or close modal
+            if (event.key === 'Escape') {
+                const modal = input.closest('.modal');
+                if (modal) {
+                    closeModal();
+                } else {
+                    input.value = '';
+                    input.blur();
+                }
+                return;
+            }
+        }
+        
+        function handleCtrlShortcuts(event) {
+            switch(event.key.toLowerCase()) {
+                case 's':
+                    event.preventDefault();
+                    saveAllSettingsAndE1RMs();
+                    showSuccess('Data saved successfully!');
+                    break;
+                case 'e':
+                    event.preventDefault();
+                    exportData();
+                    break;
+                case 'z':
+                    event.preventDefault();
+                    performUndo();
+                    break;
+                case 'y':
+                    event.preventDefault();
+                    performRedo();
+                    break;
+            }
+        }
+        
+        function handleGlobalShortcuts(event) {
+            switch(event.key) {
+                case '1':
+                    showTab('guideTab');
+                    break;
+                case '2':
+                    showTab('analyticsTab');
+                    break;
+                case '3':
+                    showTab('e1rmTab');
+                    break;
+                case '4':
+                case '5':
+                case '6':
+                case '7':
+                    // Navigate to workout day tabs
+                    const workoutKeys = Object.keys(USER_WORKOUT_PLAN);
+                    const dayIndex = parseInt(event.key) - 4;
+                    if (dayIndex < workoutKeys.length) {
+                        displayWorkoutForDay(workoutKeys[dayIndex]);
+                    }
+                    break;
+                case 't':
+                    toggleRestTimer();
+                    break;
+                case 'r':
+                    if (document.getElementById('restTimer').classList.contains('active')) {
+                        hideRestTimer();
+                    } else {
+                        startRestTimer(90); // Default 90 second timer
+                    }
+                    break;
+                case 'Escape':
+                    // Close any open modals
+                    closeModal();
+                    break;
+            }
+        }
+        
+        function navigateToNextInput(currentInput, reverse = false) {
+            const container = currentInput.closest('.inline-inputs') || currentInput.closest('.modal-content');
+            if (!container) return;
+            
+            const inputs = Array.from(container.querySelectorAll('input[type="number"], input[type="text"], input[type="date"]'));
+            const currentIndex = inputs.indexOf(currentInput);
+            
+            if (currentIndex === -1) return;
+            
+            let nextIndex;
+            if (reverse) {
+                nextIndex = currentIndex > 0 ? currentIndex - 1 : inputs.length - 1;
+            } else {
+                nextIndex = currentIndex < inputs.length - 1 ? currentIndex + 1 : 0;
+            }
+            
+            inputs[nextIndex].focus();
+            inputs[nextIndex].select();
+        }
+        
+        function handleModalEnter(input, modal) {
+            const modalId = modal.id;
+            
+            if (modalId === 'accessoryLogModal') {
+                // Check if all required fields are filled
+                const weightInput = modal.querySelector('#modalWeight');
+                const repsInput = modal.querySelector('#modalReps');
+                const rpeInput = modal.querySelector('#modalRPE');
+                
+                if (input === rpeInput || (weightInput.value && repsInput.value && rpeInput.value)) {
+                    submitAccessorySetLog();
+                } else {
+                    // Move to next empty field
+                    if (!weightInput.value) weightInput.focus();
+                    else if (!repsInput.value) repsInput.focus();
+                    else if (!rpeInput.value) rpeInput.focus();
+                }
+            }
+        }
+        
+        function handleSetGroupEnter(input, setGroup) {
+            // Find the associated log button
+            const logButton = setGroup.parentElement.querySelector('button[onclick*="log"]');
+            
+            if (logButton) {
+                // Check if all required fields are filled
+                const weightInput = setGroup.querySelector('input[id*="_weight"]');
+                const repsInput = setGroup.querySelector('input[id*="_reps"]');
+                const rpeInput = setGroup.querySelector('input[id*="_rpe"]');
+                
+                if (input === rpeInput || (weightInput && repsInput && rpeInput && 
+                    weightInput.value && repsInput.value && rpeInput.value)) {
+                    logButton.click();
+                } else {
+                    // Move to next empty field
+                    if (weightInput && !weightInput.value) weightInput.focus();
+                    else if (repsInput && !repsInput.value) repsInput.focus();
+                    else if (rpeInput && !rpeInput.value) rpeInput.focus();
+                }
+            }
+        }
+        
+        function setupAutoFocusForWorkoutInputs() {
+            // Add event listeners to auto-focus next field when current field is filled
+            document.addEventListener('input', function(event) {
+                const input = event.target;
+                
+                if (input.type === 'number' && input.id.match(/_(weight|reps|rpe)$/)) {
+                    const value = input.value;
+                    
+                    // Auto-advance when reasonable values are entered
+                    if (input.id.includes('_weight') && value && parseFloat(value) > 0) {
+                        const repsInput = input.parentElement.querySelector('input[id*="_reps"]');
+                        if (repsInput && !repsInput.value) {
+                            setTimeout(() => repsInput.focus(), 100);
+                        }
+                    } else if (input.id.includes('_reps') && value && parseInt(value) > 0) {
+                        const rpeInput = input.parentElement.querySelector('input[id*="_rpe"]');
+                        if (rpeInput && !rpeInput.value) {
+                            setTimeout(() => rpeInput.focus(), 100);
+                        }
+                    }
+                }
+            });
+        }
+
         function init() {
             loadData(); 
+            initializeTheme();
             const nav = document.getElementById('mainNav');
             const analyticsButton = nav.querySelector('button[data-tab="analyticsTab"]'); // Find analytics button
             const e1rmButton = nav.querySelector('button[data-tab="e1rmTab"]'); 
@@ -2968,6 +3768,9 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
 
             // Start with the guide tab instead of auto-selecting a workout
             showTab('guideTab');
+            
+            // Initialize keyboard shortcuts and auto-focus management
+            initializeKeyboardShortcuts();
         }
 
         window.onclick = function(event) { 

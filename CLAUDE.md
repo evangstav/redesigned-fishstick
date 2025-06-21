@@ -13,6 +13,9 @@ This is a fitness tracking application with analytics features. The application 
 - Weekly attendance summaries
 - Analytics dashboard with volume tracking, strength progression, training load, and frequency analysis
 - Smart Workout Recommendations via Claude API integration
+- **Desktop-optimized workflow** with keyboard shortcuts and bulk editing
+- **Dark mode support** with system preference detection
+- **Enhanced data export** with comprehensive analytics
 
 ## Technical Architecture
 
@@ -133,9 +136,49 @@ The AI now intelligently follows the 4-week program structure:
 
 ### **Export/Import**
 
+- **Enhanced CSV Export**: Detailed analytics with volume, training load, workout type categorization
 - **JSON format**: Complete backup of all application data
 - **Validation**: Import validation with error reporting
 - **Backup creation**: Manual backup and restore functionality
+
+## Desktop Workflow Features
+
+### **Keyboard Shortcuts System**
+
+- **Tab Navigation**: Seamless progression through Weight → Reps → RPE fields
+- **Enter Submission**: Log sets directly from input fields
+- **Global Shortcuts**:
+  - `1`, `2`, `3` = Navigate to Guide, Analytics, Settings tabs
+  - `4-7` = Navigate to workout day tabs
+  - `Ctrl+S` = Save all data
+  - `Ctrl+Z/Y` = Undo/Redo actions
+  - `T` = Toggle rest timer
+  - `R` = Start 90-second rest timer
+- **Auto-focus Management**: Automatic progression between related input fields
+
+### **Bulk Set Editing**
+
+- **Multi-select Interface**: Select multiple sets with checkboxes
+- **Bulk Value Updates**: Apply changes to all selected sets simultaneously
+- **Relative Changes**: Add/subtract values from existing data (+5 lbs, +1 rep)
+- **Bulk Logging**: Log all selected sets with one action
+- **Visual Feedback**: Clear highlighting of selected sets
+
+### **Dark Mode Support**
+
+- **Complete Theme System**: Comprehensive dark mode with optimized colors
+- **System Preference Detection**: Automatic theme based on OS preference
+- **localStorage Persistence**: Theme choice saved across sessions
+- **Smooth Transitions**: Animated theme switching with CSS transitions
+- **Mobile Responsive**: Optimized toggle button for all screen sizes
+
+### **Undo/Redo System**
+
+- **20-level History**: Track major data changes with detailed history
+- **Smart State Saving**: Automatic state capture before important actions
+- **Keyboard Integration**: Ctrl+Z/Y shortcuts for quick undo/redo
+- **Action Descriptions**: Clear labeling of what each undo operation reverses
+- **UI Synchronization**: Automatic refresh of all UI components after undo/redo
 
 ## Common Development Tasks
 

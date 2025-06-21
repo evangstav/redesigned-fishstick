@@ -7,272 +7,58 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="Strength Tracker">
     <meta name="mobile-web-app-capable" content="yes">
-    <meta name="theme-color" content="#0D7377">
+    <meta name="theme-color" content="#673AB7">
     <title>Personalized Strength Plan Tracker</title>
     <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiUGVyc29uYWxpemVkIFN0cmVuZ3RoIFRyYWNrZXIiLCJzaG9ydF9uYW1lIjoiU3RyZW5ndGggVHJhY2tlciIsInN0YXJ0X3VybCI6Ii4vIiwiZGlzcGxheSI6InN0YW5kYWxvbmUiLCJiYWNrZ3JvdW5kX2NvbG9yIjoiI2Y1ZjVmNSIsInRoZW1lX2NvbG9yIjoiIzY3M0FCNyIsImljb25zIjpbeyJzcmMiOiJkYXRhOmltYWdlL3N2Zyt4bWw7YmFzZTY0LFBITjJaeUI0Yld4dWN6MGlhSFIwY0RvdkwzZDNkeTUzTXk1dmNtY3ZNakF3TUM5emRtY2lJSGRwWkhSb1BTSnhOalFpSUdobGFXZG9kRDBpTmpZMElqNDhjbVZqZENCM2FXUjBhRDBpTmpZMElpQm9aV2xuYUhROUlqWTJOQ0lpSUdacGJHdzlJaU0yTnpOQlFqY2lMejQ4ZEdWNGRDQjRQU0l6TWpJaUlIazlJak0wTWlJZ1ptbHNiRDBpSTJabVptWm1aaUlnWm05dWRDMW1ZVzFwYkhrOUlrRnlhV0ZzSWlCbWIyNTBMWE5wZW1VOUlqWXdJaUJtYjI1MExYZGxhV2RvZEQwaVltOXNaQ0lpZEhWNGRDMWhibU5vYjNJOUltMXBaR1JzWlNJK1UwUThMM1JsZUhRK1BDOW5Qand2YzNabkdBPT0iLCJzaXplcyI6IjY0eDY0IiwidHlwZSI6ImltYWdlL3N2Zyt4bWwifSx7InNyYyI6ImRhdGE6aW1hZ2Uvc3ZnK3htbDtiYXNlNjQsUEhOMlp5QjRiV3h1Y3owb
 WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb2REMGlORFU0SWo0OGNtVmpkQ0IzYVdSMGFEMGlORFU0SWlCb1pXbG5hSFE5SWpRMU9DSWdabWxzYkQwaUl6WTNNMEZDTnlJdlBqeDBaWGgwSUhnOUlqRXlPQ0lnZVQwaWJUSTBOU0krU1VRa0wwVjNQekFZV2FuQmhjM2RZMXZabGI1SkhPQTVtU0ZOajZvSUl3cFdHSHN2Ly9NSGVjaUJJYkNhMkgzb3ZqNWVMaDFBZ3lndCIsInNpemVzIjoiMTI4eDEyOCIsInR5cGUiOiJpbWFnZS9zdmcreG1sIn0seyJzcmMiOiJkYXRhOmltYWdlL3N2Zyt4bWw7YmFzZTY0LFBITjJaeUI0Yld4dWN6MGlhSFIwY0RvdkwzZDNkeTUzTXk1dmNtY3ZNakF3TUM5emRtY2lJSGRwWkhSb1BTSnFOVEVpSUdobGFXZG9kRDBpTlRFeUlqNDhjbVZqZENCM2FXUjBhRDBpTlRFeUlpQm9aV2xuYUhROUlqVXhNaUlnWm1sc2JEMGlJeUEyTnpNVaUJjNVlUVlpUzVjdkwzUmxlSFErUEhSbGVIUWdlRDBpTWpVMklpQjVQU0l6TmpZaUlHWnBiR3c5SWlObVptWm1abVlpSUdadmJuUXRabUZ0YVd4NVBTSkJjbWxoYkNJZ1ptOXVkQzF6YVhwbFBTSXpNaUlnWm05dWRDMTNaV2xuYUhROUltSnZiR1FpSUhSMWVIUXRZVzVqYUc5eVBTSnRhV1JrYkdVaTVV", "sizes": "256x256", "type": "image/svg+xml"}]}
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./src/styles/base.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        :root {
-            /* Modern Teal/Orange Theme */
-            --primary-500: #0D7377;      /* Deep Teal - Primary */
-            --primary-700: #094C4F;      /* Darker Teal - Headers/Accents */
-            --primary-100: #A7D3D4;      /* Light Teal - Backgrounds/Hovers */
-            --primary-50: #E8F4F4;       /* Very Light Teal */
-            --secondary-500: #FF6B35;    /* Vibrant Orange - Secondary */
-            --secondary-700: #E55A2B;    /* Darker Orange */
-            --secondary-100: #FFD6C7;    /* Light Orange */
-            --accent-500: #FF5722;       /* Coral - Accent/CTAs */
-            --accent-700: #E64A19;       /* Darker Coral */
-            
-            /* Status Colors */
-            --success-500: #4CAF50;      /* Green for increases/success */
-            --success-700: #388E3C;
-            --error-500: #f44336;        /* Red for decreases/danger */
-            --error-700: #D32F2F;
-            
-            /* Neutral Colors */
-            --grey-50: #FAFAFA;          /* Very light grey */
-            --grey-100: #F5F5F5;         /* Light grey */
-            --grey-300: #E0E0E0;         /* Borders */
-            --grey-700: #616161;         /* Secondary text */
-            --grey-900: #212121;         /* Primary text */
-            --white: #FFFFFF;
-            
-            /* Enhanced Shadows */
-            --shadow-1: 0 2px 4px rgba(13, 115, 119, 0.1), 0 1px 2px rgba(13, 115, 119, 0.06);
-            --shadow-2: 0 4px 8px rgba(13, 115, 119, 0.12), 0 2px 4px rgba(13, 115, 119, 0.08);
-            --shadow-4: 0 12px 24px rgba(13, 115, 119, 0.15), 0 6px 12px rgba(13, 115, 119, 0.1);
-            --shadow-float: 0 8px 16px rgba(13, 115, 119, 0.15), 0 4px 8px rgba(13, 115, 119, 0.1);
-            
-            /* Gradients */
-            --gradient-primary: linear-gradient(135deg, var(--primary-500) 0%, var(--primary-700) 100%);
-            --gradient-secondary: linear-gradient(135deg, var(--secondary-500) 0%, var(--secondary-700) 100%);
-            --gradient-accent: linear-gradient(135deg, var(--accent-500) 0%, var(--accent-700) 100%);
-            --gradient-card: linear-gradient(135deg, var(--white) 0%, var(--grey-50) 100%);
-        }
-
-        /* Dark Mode Theme */
-        [data-theme="dark"] {
-            /* Dark Theme Primary Colors */
-            --primary-500: #1DB584;      /* Brighter Teal for dark mode */
-            --primary-700: #14A172;      /* Medium Teal */
-            --primary-100: #2A4A4B;      /* Dark Teal */
-            --primary-50: #1A3334;       /* Very Dark Teal */
-            
-            /* Dark Theme Secondary Colors */
-            --secondary-500: #FF8A50;    /* Softer Orange for dark mode */
-            --secondary-700: #FF6B35;    /* Standard Orange */
-            --secondary-100: #4A2D1F;    /* Dark Orange */
-            
-            /* Dark Theme Accent */
-            --accent-500: #FF7043;       /* Softer Coral */
-            --accent-700: #FF5722;       /* Standard Coral */
-            
-            /* Dark Theme Status Colors */
-            --success-500: #66BB6A;      /* Softer Green */
-            --success-700: #4CAF50;
-            --error-500: #EF5350;        /* Softer Red */
-            --error-700: #F44336;
-            
-            /* Dark Theme Neutral Colors */
-            --grey-50: #121212;          /* Very dark background */
-            --grey-100: #1E1E1E;         /* Dark background */
-            --grey-300: #333333;         /* Dark borders */
-            --grey-700: #BDBDBD;         /* Light secondary text */
-            --grey-900: #E0E0E0;         /* Light primary text */
-            --white: #1E1E1E;            /* Dark surface */
-            
-            /* Dark Theme Shadows */
-            --shadow-1: 0 2px 4px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
-            --shadow-2: 0 4px 8px rgba(0, 0, 0, 0.4), 0 2px 4px rgba(0, 0, 0, 0.3);
-            --shadow-4: 0 12px 24px rgba(0, 0, 0, 0.5), 0 6px 12px rgba(0, 0, 0, 0.4);
-            --shadow-float: 0 8px 16px rgba(0, 0, 0, 0.4), 0 4px 8px rgba(0, 0, 0, 0.3);
-            
-            /* Dark Theme Gradients */
-            --gradient-primary: linear-gradient(135deg, var(--primary-500) 0%, var(--primary-700) 100%);
-            --gradient-secondary: linear-gradient(135deg, var(--secondary-500) 0%, var(--secondary-700) 100%);
-            --gradient-accent: linear-gradient(135deg, var(--accent-500) 0%, var(--accent-700) 100%);
-            --gradient-card: linear-gradient(135deg, var(--grey-100) 0%, var(--grey-50) 100%);
-        }
-
-        /* Theme transition animations */
-        * {
-            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        body { 
-            font-family: 'Roboto', sans-serif; 
-            margin: 0; 
-            padding: 0; 
-            background: linear-gradient(135deg, var(--grey-50) 0%, var(--primary-50) 50%, var(--grey-50) 100%);
-            color: var(--grey-900); 
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            min-height: 100vh;
-            /* Mobile-first: no margin on small screens */
-        }
-        .app-container { 
-            width: 100%;
-            min-height: 100vh;
-            background: var(--gradient-card);
-            overflow: hidden;
-            box-shadow: var(--shadow-2);
-            /* Mobile-first: full width, add margins only on larger screens */
-        }
+        /* Component-Specific Styles */
+        
         header { 
-            background: var(--gradient-primary);
-            color: var(--white); 
-            padding: 20px; 
-            box-shadow: var(--shadow-2);
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            /* Mobile-first: responsive flexbox layout */
-        }
-        header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)" /></svg>');
-            opacity: 0.3;
-            pointer-events: none;
-        }
-        header h1 { 
-            margin: 0; 
-            font-size: 1.8em; 
-            font-weight: 700;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
-            letter-spacing: 0.5px;
-            position: relative;
-            z-index: 1;
-            flex: 1;
+            background-color: var(--md-purple-700); 
+            color: var(--md-white); 
+            padding: 16px 20px; 
             text-align: center;
-            /* Mobile-first: centered with flex */
-        }
-        
-        .theme-toggle {
-            background: rgba(255, 255, 255, 0.2);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            width: 48px;
-            height: 48px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            color: var(--white);
-            font-size: 1.5em;
-            position: relative;
-            z-index: 2;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-        }
-        
-        .theme-toggle:hover {
-            background: rgba(255, 255, 255, 0.3);
-            border-color: rgba(255, 255, 255, 0.5);
-            transform: scale(1.05);
-        }
-        
-        .theme-toggle:active {
-            transform: scale(0.95);
-        }
-        
-        .theme-icon {
-            transition: transform 0.3s ease;
-        }
-        
-        [data-theme="dark"] .theme-icon {
-            transform: rotate(180deg);
-        }
-        
-        /* Mobile adjustments for theme toggle */
-        @media (max-width: 480px) {
-            .theme-toggle {
-                width: 40px;
-                height: 40px;
-                font-size: 1.2em;
-            }
-            
-            header h1 {
-                font-size: 1.5em;
-            }
+            /* Mobile-first: centered header */
         }
         nav { 
-            background: var(--gradient-primary);
-            box-shadow: var(--shadow-2);
+            background-color: var(--md-purple-500); 
+            box-shadow: var(--md-elevation-1);
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            padding: 8px 0;
+            padding: 4px 0;
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
-            position: relative;
             /* Mobile-first: horizontal scrollable tabs */
         }
-        nav::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.3) 50%, transparent 100%);
-        }
         nav button { 
-            background: transparent;
-            color: rgba(255,255,255,0.8); 
+            background-color: transparent; 
+            color: var(--md-purple-100); 
             border: none; 
-            padding: 12px 20px; 
-            margin: 0 4px; 
-            border-radius: 8px 8px 0 0; 
+            padding: 12px 16px; 
+            margin: 0; 
+            border-radius: 0; 
             cursor: pointer; 
-            font-size: 0.9em; 
-            font-weight: 600;
+            font-size: 0.85em; 
+            font-weight: 500;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+            transition: background-color 0.2s, color 0.2s; 
             border-bottom: 3px solid transparent;
             white-space: nowrap;
             flex-shrink: 0;
-            min-height: 44px;
-            position: relative;
-            overflow: hidden;
-            /* Touch target compliance */
-        }
-        nav button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
-        }
-        nav button:hover::before {
-            left: 100%;
+            min-height: 44px; /* Touch target compliance */
         }
         nav button:hover { 
-            background: rgba(255,255,255,0.15);
-            color: var(--white);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            background-color: rgba(255,255,255,0.1);
+            color: var(--md-white);
         }
         nav button.active { 
-            color: var(--white);
-            background: rgba(255,255,255,0.2);
-            border-bottom: 3px solid var(--secondary-500);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-            /* Active tab indicator */
+            color: var(--md-white);
+            border-bottom: 3px solid var(--md-white); /* Active tab indicator */
         }
         .content-area { 
             padding: 16px; 
@@ -281,108 +67,64 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
         .tab-content { display: none; } 
         .tab-content.active { display: block; } 
         .section { 
-            margin-bottom: 28px; 
-            padding: 24px; 
-            background: var(--gradient-card);
-            border-radius: 16px; 
-            border: none;
-            box-shadow: var(--shadow-2);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-        .section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: var(--gradient-secondary);
-        }
-        .section:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-float);
+            margin-bottom: 24px; 
+            padding: 20px; 
+            background-color: var(--md-white); 
+            border-radius: 6px; 
+            border: 1px solid var(--md-grey-300);
+            box-shadow: var(--md-elevation-1);
         }
         .section h2 { 
-            font-size: 2.1em; 
-            color: var(--primary-700); 
+            font-size: 1.6em; 
+            color: var(--md-purple-700); 
             margin-top: 0; 
-            margin-bottom: 20px;
-            padding-bottom: 12px; 
-            border-bottom: 3px solid var(--primary-100); 
-            font-weight: 700;
-            letter-spacing: 0.3px;
-            position: relative;
-        }
-        .section h2::after {
-            content: '';
-            position: absolute;
-            bottom: -3px;
-            left: 0;
-            width: 60px;
-            height: 3px;
-            background: var(--gradient-secondary);
-            border-radius: 2px;
+            margin-bottom: 16px;
+            padding-bottom: 10px; 
+            border-bottom: 2px solid var(--md-purple-100); 
+            font-weight: 500;
         }
         .section h3 { 
-            font-size: 1.5em; 
-            color: var(--primary-600, var(--primary-500)); 
-            margin-top: 24px; 
-            margin-bottom: 14px;
-            font-weight: 600;
-            letter-spacing: 0.2px;
+            font-size: 1.3em; 
+            color: var(--md-purple-500); 
+            margin-top: 20px; 
+            margin-bottom: 12px;
+            font-weight: 500;
         }
         .section h4 { 
-            font-size: 1.2em; 
-            color: var(--grey-900); 
-            margin-top: 18px; 
-            margin-bottom: 10px;
-            font-weight: 600;
+            font-size: 1.1em; 
+            color: var(--md-grey-900); 
+            margin-top: 16px; 
+            margin-bottom: 8px;
+            font-weight: 500;
         }
-        .section ul { padding-left: 24px; margin-bottom: 18px; }
-        .section li { 
-            margin-bottom: 12px; 
-            color: var(--grey-700);
-            line-height: 1.7;
-            position: relative;
-        }
-        .section li::before {
-            content: '▸';
-            color: var(--secondary-500);
-            font-weight: bold;
-            position: absolute;
-            left: -16px;
-        }
+        .section ul { padding-left: 20px; margin-bottom: 16px; }
+        .section li { margin-bottom: 10px; color: var(--md-grey-700); }
         
         label { 
             display: block; 
-            margin-top: 14px; 
-            margin-bottom: 6px;
-            font-weight: 600; 
-            color: var(--grey-700);
-            font-size: 0.95em;
-            letter-spacing: 0.3px;
+            margin-top: 12px; 
+            margin-bottom: 4px;
+            font-weight: 500; 
+            color: var(--md-grey-700);
+            font-size: 0.9em;
         }
         input[type="text"], input[type="number"], input[type="date"], select { 
             width: 100%; 
-            padding: 16px; 
-            margin-top: 6px; 
-            border: 2px solid var(--grey-300); 
-            border-radius: 12px; 
+            padding: 14px; 
+            margin-top: 4px; 
+            border: 1px solid var(--md-grey-300); 
+            border-radius: 6px; 
             box-sizing: border-box; 
             font-size: 16px; /* Prevents zoom on iOS */
-            background: var(--white);
-            color: var(--grey-900);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+            background-color: var(--md-white);
+            color: var(--md-grey-900);
+            transition: border-color 0.2s;
             /* Mobile-first: larger touch targets */
         }
         input[type="text"]:focus, input[type="number"]:focus, input[type="date"]:focus, select:focus {
-            border-color: var(--primary-500);
+            border-color: var(--md-purple-500);
             outline: none;
-            box-shadow: 0 0 0 3px var(--primary-100), var(--shadow-2);
-            transform: translateY(-1px);
+            box-shadow: 0 0 0 2px var(--md-purple-100);
         }
 
         .inline-inputs { 
@@ -407,57 +149,29 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
         }
         
         button.action-button, button.log-set-button, button.danger-button {
-            color: var(--white); 
-            padding: 16px 24px; 
+            color: var(--md-white); 
+            padding: 14px 20px; 
             border: none; 
-            border-radius: 12px; 
+            border-radius: 6px; 
             cursor: pointer; 
-            margin-top: 16px; 
+            margin-top: 12px; 
             font-size: 1em;
-            font-weight: 600;
+            font-weight: 500;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            box-shadow: var(--shadow-2);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            min-height: 52px;
-            min-width: 52px;
-            position: relative;
-            overflow: hidden;
+            box-shadow: var(--md-elevation-1);
+            transition: background-color 0.2s, box-shadow 0.2s;
+            min-height: 48px; /* Touch target compliance */
+            min-width: 48px;
             /* Mobile-first: larger touch targets */
         }
-        button.action-button::before, button.log-set-button::before, button.danger-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
-        }
-        button.action-button:hover::before, button.log-set-button:hover::before, button.danger-button:hover::before {
-            left: 100%;
-        }
-        button.action-button { background: var(--gradient-primary); }
-        button.action-button:hover { 
-            background: var(--gradient-accent); 
-            box-shadow: var(--shadow-float); 
-            transform: translateY(-3px) scale(1.02);
-        }
+        button.action-button { background-color: var(--md-purple-500); }
+        button.action-button:hover { background-color: var(--md-purple-700); box-shadow: var(--md-elevation-2); }
         
-        button.log-set-button { background: linear-gradient(135deg, var(--success-500) 0%, var(--success-700) 100%); } 
-        button.log-set-button:hover { 
-            background: linear-gradient(135deg, var(--success-700) 0%, var(--success-500) 100%); 
-            box-shadow: var(--shadow-float); 
-            transform: translateY(-3px) scale(1.02);
-        }
+        button.log-set-button { background-color: var(--md-green-500); } 
+        button.log-set-button:hover { background-color: var(--md-green-700); box-shadow: var(--md-elevation-2); }
         
-        button.danger-button { background: linear-gradient(135deg, var(--error-500) 0%, var(--error-700) 100%); } 
-        button.danger-button:hover { 
-            background: linear-gradient(135deg, var(--error-700) 0%, var(--error-500) 100%); 
-            box-shadow: var(--shadow-float); 
-            transform: translateY(-3px) scale(1.02);
-        }
+        button.danger-button { background-color: var(--md-red-500); } 
+        button.danger-button:hover { background-color: var(--md-red-700); box-shadow: var(--md-elevation-2); }
 
         .exercise-item { 
             border-bottom: 1px solid var(--md-grey-300); 
@@ -469,13 +183,12 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
         .exercise-notes { 
             font-style: normal; 
             font-size: 0.9em; 
-            color: var(--grey-700); 
-            background: linear-gradient(135deg, var(--primary-50) 0%, var(--secondary-100) 100%);
-            padding: 14px; 
-            border-radius: 12px; 
-            margin-top: 10px;
-            border-left: 4px solid var(--secondary-500);
-            box-shadow: var(--shadow-1);
+            color: var(--md-grey-700); 
+            background-color: var(--md-purple-100); 
+            padding: 10px; 
+            border-radius: 4px; 
+            margin-top: 8px;
+            border-left: 3px solid var(--md-purple-500);
         }
         
         .e1rm-manage-section table { 
@@ -484,83 +197,44 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
             border-collapse: collapse; 
         }
         .e1rm-manage-section th, .e1rm-manage-section td { 
-            border: 1px solid var(--grey-300); 
-            padding: 14px; 
+            border: 1px solid var(--md-grey-300); 
+            padding: 12px; 
             text-align: left; 
             font-size: 0.95em;
         }
-        .e1rm-manage-section td {
-            background: var(--white);
-            transition: background-color 0.2s;
-        }
-        .e1rm-manage-section tr:hover td {
-            background: var(--primary-50);
-        }
         .e1rm-manage-section th { 
-            background: var(--gradient-secondary);
-            color: var(--white);
-            font-weight: 600;
-            letter-spacing: 0.3px;
+            background-color: var(--md-purple-100); 
+            color: var(--md-purple-700);
+            font-weight: 500;
         }
         .e1rm-manage-section td input[type="number"] {
             padding: 8px;
             font-size: 0.95em;
             max-width: 100px; /* Ensure input doesn't get too wide */
         }
-        .e1rm-change-indicator.increased { 
-            color: var(--success-500); 
-            margin-left: 6px; 
-            font-weight: 700;
-            background: var(--success-100);
-            padding: 2px 6px;
-            border-radius: 8px;
-            font-size: 0.85em;
-        }
-        .e1rm-change-indicator.decreased { 
-            color: var(--error-500); 
-            margin-left: 6px; 
-            font-weight: 700;
-            background: var(--error-100, #FFEBEE);
-            padding: 2px 6px;
-            border-radius: 8px;
-            font-size: 0.85em;
-        }
+        .e1rm-change-indicator.increased { color: var(--md-green-500); margin-left: 5px; font-weight: bold;}
+        .e1rm-change-indicator.decreased { color: var(--md-red-500); margin-left: 5px; font-weight: bold;}
 
 
         .workout-log-entry { 
-            border: none;
-            padding: 16px; 
-            margin-top: 12px; 
-            border-radius: 12px; 
-            background: var(--gradient-card);
+            border: 1px solid var(--md-grey-300); 
+            padding: 12px; 
+            margin-top: 8px; 
+            border-radius: 4px; 
+            background-color: var(--md-white); 
             font-size: 0.9em; 
-            box-shadow: var(--shadow-1);
-            border-left: 4px solid var(--primary-500);
-            transition: all 0.2s;
-        }
-        .workout-log-entry:hover {
-            transform: translateX(4px);
-            box-shadow: var(--shadow-2);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
         }
         #dailyWorkoutLogContainer { 
-            max-height: 280px; 
+            max-height: 250px; 
             overflow-y: auto; 
-            margin-top: 18px; 
-            border: none;
-            padding: 16px; 
-            background: var(--gradient-card);
-            border-radius: 12px;
-            box-shadow: var(--shadow-1);
+            margin-top:16px; 
+            border: 1px solid var(--md-grey-300); 
+            padding:10px; 
+            background-color: var(--md-grey-100);
+            border-radius: 4px;
         }
-        .completed-marker { 
-            color: var(--success-500); 
-            font-weight: 700; 
-            margin-left: 12px;
-            background: var(--success-100);
-            padding: 3px 8px;
-            border-radius: 12px;
-            font-size: 0.85em;
-        }
+        .completed-marker { color: var(--md-green-500); font-weight: bold; margin-left: 10px; }
         
         .modal { 
             display: none; 
@@ -598,155 +272,25 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
             line-height: 1;
         }
         .close-button:hover, .close-button:focus { color: var(--md-grey-900); text-decoration: none; }
-        .modal-content h3 { 
-            color: var(--primary-700); 
-            margin-top: 0; 
-            font-weight: 700;
-            font-size: 1.6em;
-            padding-bottom: 12px;
-            border-bottom: 2px solid var(--primary-100);
-        }
+        .modal-content h3 { color: var(--md-purple-700); margin-top: 0; font-weight: 500; }
         .bodyweight-input-container { margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid var(--md-grey-300); }
         .bodyweight-input-container label { font-weight: 500; }
         .bodyweight-input-container input { max-width: 120px; display: inline-block; margin-right: 10px;}
         .metrics-input-group { display: flex; gap: 10px; align-items: flex-end; margin-bottom: 15px;}
         .metrics-input-group div { flex-grow: 1;}
 
-        /* Tablet and larger screens - improve from mobile-first base */
-        @media (min-width: 768px) {
-            .app-container { 
-                max-width: 900px;
-                margin: 20px auto; 
-                border-radius: 8px;
-                box-shadow: var(--md-elevation-2);
-            }
-            .content-area { padding: 24px; }
-            .section { 
-                padding: 20px; 
-                margin-bottom: 24px;
-            }
-            
-            /* Desktop header - restore traditional layout */
-            header {
-                padding: 24px;
-            }
-            header h1 {
-                font-size: 1.9em;
-            }
-            
-            /* Hide hamburger menu on larger screens */
-            .hamburger-menu {
-                display: none !important;
-            }
-            
-            /* Desktop navigation - horizontal layout */
-            nav {
-                padding: 8px 0;
-                overflow-x: visible;
-            }
-            nav button {
-                padding: 12px 18px;
-                font-size: 0.98em;
-            }
-            
-            /* Desktop modal - windowed instead of full screen */
-            .modal-content { 
-                margin: 10% auto;
-                padding: 24px; 
-                border-radius: 8px;
-                width: 90%; 
-                max-width: 500px; 
-                height: auto;
-                box-shadow: var(--md-elevation-4);
-            }
-            
-            
-            /* Inline inputs can be horizontal on larger screens */
-            .inline-inputs {
-                display: block;
-                margin-bottom: 10px;
-            }
-            .inline-inputs label { 
-                display: inline-block; 
-                margin-right: 5px; 
-                font-weight: normal; 
-                font-size: 0.95em;
-                margin-bottom: 0;
-            }
-            .inline-inputs input[type="number"], .inline-inputs input[type="text"] { 
-                width: 75px; 
-                display: inline-block; 
-                margin-right: 12px; 
-                padding: 8px;
-                font-size: 1em;
-            }
-            
-            /* Horizontal metrics input group on larger screens */
-            .metrics-input-group {
-                flex-direction: row;
-                gap: 10px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            header h1 { font-size: 1.3em; }
-            nav button { 
-                padding: 8px 10px;
-                font-size: 0.8em;
-                min-width: 80px;
-            }
-            .content-area { padding: 12px; }
-            .section { padding: 12px; }
-            
-            /* Stack form elements vertically on very small screens */
-            .bodyweight-input-container input {
-                max-width: 100%;
-                margin-bottom: 10px;
-            }
-            
-            /* Smaller modal on tiny screens */
-            .modal-content {
-                margin: 2% auto;
-                width: 98%;
-                padding: 16px;
-            }
-            
-        }
-
-        /* Landscape tablet */
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .app-container {
-                margin: 15px auto;
-                max-width: 95%;
-            }
-            .content-area { padding: 20px; }
-        }
-
-        /* Touch-friendly improvements for all mobile devices */
-        @media (hover: none) {
-            button:hover {
-                background-color: inherit; /* Remove hover effects on touch devices */
-            }
-            nav button:hover {
-                background-color: rgba(255,255,255,0.1);
-            }
-            button.action-button:hover { background-color: var(--md-purple-500); }
-            button.log-set-button:hover { background-color: var(--md-green-500); }
-            button.danger-button:hover { background-color: var(--md-red-500); }
-        }
-
         /* Rest Timer Styles */
         .rest-timer-container {
             position: fixed;
             top: 20px;
             right: 20px;
-            background: var(--gradient-card);
-            border: 2px solid var(--primary-500);
-            border-radius: 16px;
-            padding: 20px;
-            box-shadow: var(--shadow-4);
+            background-color: var(--md-white);
+            border: 2px solid var(--md-purple-500);
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: var(--md-elevation-4);
             z-index: 999;
-            min-width: 220px;
+            min-width: 200px;
             text-align: center;
             transform: translateX(100%);
             transition: transform 0.3s ease;
@@ -755,13 +299,10 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
             transform: translateX(0);
         }
         .rest-timer-display {
-            font-size: 2.2em;
-            font-weight: 800;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin: 12px 0;
+            font-size: 2em;
+            font-weight: bold;
+            color: var(--md-purple-700);
+            margin: 10px 0;
             font-family: 'Roboto Mono', monospace;
         }
         .rest-timer-controls {
@@ -783,33 +324,17 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
             flex-wrap: wrap;
         }
         .timer-preset-buttons button {
-            padding: 6px 12px;
-            font-size: 0.8em;
-            background: var(--gradient-secondary);
-            color: var(--white);
+            padding: 4px 8px;
+            font-size: 0.75em;
+            background-color: var(--md-grey-300);
+            color: var(--md-grey-900);
             border: none;
-            border-radius: 8px;
+            border-radius: 4px;
             cursor: pointer;
-            font-weight: 600;
-            transition: all 0.2s;
         }
         .timer-preset-buttons button:hover {
-            background: var(--gradient-primary);
-            transform: translateY(-1px);
-            box-shadow: var(--shadow-2);
-        }
-
-        @media (max-width: 768px) {
-            .rest-timer-container {
-                top: 10px;
-                right: 10px;
-                left: 10px;
-                min-width: auto;
-                padding: 12px;
-            }
-            .rest-timer-display {
-                font-size: 1.8em;
-            }
+            background-color: var(--md-grey-700);
+            color: var(--md-white);
         }
 
         /* Analytics Styles */
@@ -821,55 +346,33 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
         }
         
         .metric-card {
-            background: var(--gradient-card);
-            border: none;
-            border-radius: 16px;
-            padding: 20px;
+            background-color: var(--md-white);
+            border: 1px solid var(--md-grey-300);
+            border-radius: 6px;
+            padding: 15px;
             text-align: center;
-            box-shadow: var(--shadow-2);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-        .metric-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--gradient-secondary);
-        }
-        .metric-card:hover {
-            transform: translateY(-6px) scale(1.02);
-            box-shadow: var(--shadow-float);
+            box-shadow: var(--md-elevation-1);
         }
         
         .metric-card h4 {
-            margin: 0 0 10px 0;
-            color: var(--primary-700);
-            font-size: 0.95em;
-            font-weight: 700;
+            margin: 0 0 8px 0;
+            color: var(--md-purple-700);
+            font-size: 0.9em;
+            font-weight: 500;
             text-transform: uppercase;
-            letter-spacing: 0.8px;
         }
         
         .metric-value {
-            font-size: 2.2em;
-            font-weight: 800;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin: 8px 0;
-            line-height: 1.2;
+            font-size: 1.8em;
+            font-weight: bold;
+            color: var(--md-grey-900);
+            margin: 5px 0;
         }
         
         .metric-unit {
-            font-size: 0.9em;
-            color: var(--grey-700);
-            margin-top: 4px;
-            font-weight: 500;
+            font-size: 0.85em;
+            color: var(--md-grey-700);
+            margin-top: 2px;
         }
         
         .metric-trend {
@@ -878,86 +381,34 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
         }
         
         .metric-trend.positive {
-            color: var(--success-500);
-            background: var(--success-100);
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-weight: 600;
+            color: var(--md-green-500);
         }
         
         .metric-trend.negative {
-            color: var(--error-500);
-            background: var(--error-100, #FFEBEE);
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-weight: 600;
+            color: var(--md-red-500);
         }
         
         .metric-trend.neutral {
-            color: var(--grey-700);
-            background: var(--grey-100);
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-weight: 600;
+            color: var(--md-grey-700);
         }
         
-        @media (max-width: 768px) {
-            .metrics-grid {
-                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-                gap: 10px;
-            }
-            
-            .metric-card {
-                padding: 12px;
-            }
-            
-            .metric-value {
-                font-size: 1.5em;
-            }
-        }
-
-        /* Guide tab readability tweaks */
-        #guideTab {
-            max-width: 750px;
-            margin: 0 auto;
-            line-height: 1.8;
-        }
-
-        #guideTab p {
-            margin-bottom: 16px;
-        }
-
-        #guideTab ul, #guideTab ol {
-            margin-bottom: 20px;
-            padding-left: 28px;
-        }
-
-        #guideTab li {
-            margin-bottom: 10px;
-        }
-
-        #guideTab .intro {
-            font-size: 1.1em;
-        }
     </style>
 </head>
 <body>
     <div class="app-container">
         <header>
             <h1>My Training Plan</h1>
-            <button id="themeToggle" onclick="toggleTheme()" class="theme-toggle" title="Toggle dark mode">
-                <span class="theme-icon">🌙</span>
-            </button>
         </header>
         <nav id="mainNav">
             <button data-tab="guideTab" onclick="showTab('guideTab')">Guide</button>
+            <button data-tab="smartRecommendationsTab" onclick="showTab('smartRecommendationsTab')">Smart Recommendations</button>
                     <button data-tab="analyticsTab" onclick="showTab('analyticsTab')">Analytics</button>
             <button data-tab="e1rmTab" onclick="showTab('e1rmTab')">Settings &amp; e1RMs</button>
         </nav>
         <div class="content-area">
             <div id="guideTab" class="tab-content section">
                 <h2>Program Guide</h2>
-                <p class="intro">Welcome! This short guide explains how to use the tracker and follow your program effectively.</p>
+                <p>Welcome to your personalized strength and conditioning plan tracker! This guide will help you understand how to use the app and follow the program effectively.</p>
 
                 <h4>Core Principles:</h4>
                 <ul>
@@ -972,14 +423,14 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
                         <ul>
                             <li>Scale of 1-10, where 10 is maximal effort (0 reps left), 9 is 1 rep left (RIR 1), 8 is 2 reps left (RIR 2), etc.</li>
                             <li>Use RPE honestly to guide your effort and help the app adjust your e1RM.</li>
-                            <li>Your plan often specifies target RPEs for top sets (e.g., RPE 8-9).</li>
+                            <li>Your plan often specifies target RPEs for activation and top sets (e.g., RPE 8-9).</li>
                         </ul>
                     </li>
                     <li><strong>e1RM (Estimated 1 Rep Max):</strong>
                         <ul>
                             <li>This is an estimate of the maximum weight you can lift for one repetition.</li>
                             <li>Set your initial e1RMs and Bodyweight in the "Settings &amp; e1RMs" tab.</li>
-                            <li>The app updates your e1RM for main lifts after you log your Main Top Sets. The highest calculated e1RM from these sets in a session becomes your new e1RM for that lift.</li>
+                            <li>The app updates your e1RM for main lifts after you log "Activation Sets" and "Main Top Sets". The highest calculated e1RM from these sets in a session becomes your new e1RM for that lift.</li>
                             <li>Accessory lifts that are also in the `CORE_LIFTS_IN_PLAN` list can also have their e1RMs updated if a logged set represents a new PR.</li>
                             <li>For bodyweight exercises like Dips and Weighted Pull-ups, the weight you log is *added weight*. The app uses your set bodyweight + added weight to calculate the e1RM (total load).</li>
                         </ul>
@@ -988,6 +439,7 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
 
                 <h4>Workout Structure:</h4>
                 <ul>
+                    <li><strong>Activation Sets (&gt;90% 1RM):</strong> Perform 1 set of 3-5 reps. These prepare you for heavy lifting, allow practice with heavy loads, and contribute to e1RM updates.</li>
                     <li><strong>Main Top Sets (e.g., 1x4 @ 88%):</strong> Your primary strength-building set for the main compound lifts. These also significantly contribute to e1RM updates.</li>
                     <li><strong>Volume Sets (e.g., 3x6 @ 78%):</strong> Build muscle mass and work capacity. Target weights are based on the e1RM at the start of the session.</li>
                     <li><strong>Accessory Lifts:</strong> Target specific muscle groups and support your main lifts. Aim for the prescribed reps/sets and an appropriate RPE (often 7-9).</li>
@@ -1005,7 +457,7 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
                     <li><strong>Warm-ups:</strong> Perform dynamic, lift-specific warm-ups. Your plan mentions mini-band glute activation (Mon) and shoulder ER (Tue). One or two ramp-up sets for main lifts usually suffice.</li>
                     <li><strong>Rest Periods:</strong>
                         <ul>
-                            <li>After Main Top Sets: 2-5 minutes.</li>
+                            <li>After Activation/Main Top Sets: 2-5 minutes.</li>
                             <li>Between Volume Sets: 2-3 minutes.</li>
                             <li>Between Accessory Sets: As needed, typically 60-120 seconds.</li>
                         </ul>
@@ -1023,7 +475,7 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
                 <h4>How to Use This App:</h4>
                 <ol>
                     <li><strong>Set Initial e1RMs &amp; Bodyweight:</strong> Go to the "Settings &amp; e1RMs" tab. Input your current bodyweight and estimated 1 Rep Max for all listed exercises. Click "Save All Settings &amp; e1RMs". This is crucial for the app to calculate your target weights and track bodyweight exercises accurately.</li>
-                    <li><strong>Choose Your Workout:</strong> Click any workout type in the top navigation (e.g., "Squat Day", "Bench Day", "Deadlift Day"). You can do these workouts on any day of the week that works for your schedule.</li>
+                    <li><strong>Choose Your Workout:</strong> Click any workout type in the top navigation (e.g., "Squat Day", "Bench Day", "Deadlift Day"). You can do these workouts on any day of the week that works for your schedule. <em>NEW: Use the "Smart Recommendations" tab to get AI-powered workout suggestions based on how you're feeling and your recent training history!</em></li>
                     <li><strong>Perform &amp; Log:</strong>
                         <ul>
                             <li>For each exercise, the app will show target weights (if applicable).</li>
@@ -1048,31 +500,65 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
                     <li><strong>Mobility Day:</strong> Dynamic movement and flexibility work</li>
                     <li><strong>Rest Day:</strong> Light mobility and recovery</li>
                 </ul>
-
-                <h4>Desktop Features & Shortcuts:</h4>
-                <p>This app includes powerful desktop-optimized features to streamline your workout logging:</p>
-                <ul>
-                    <li><strong>Keyboard Shortcuts:</strong>
-                        <ul>
-                            <li><code>Tab</code> - Navigate between Weight → Reps → RPE fields</li>
-                            <li><code>Enter</code> - Log the current set (when all fields are filled)</li>
-                            <li><code>1-3</code> - Navigate to Guide, Analytics, Settings tabs</li>
-                            <li><code>4-7</code> - Navigate to workout day tabs</li>
-                            <li><code>Ctrl+S</code> - Save all data</li>
-                            <li><code>Ctrl+Z</code> / <code>Ctrl+Y</code> - Undo/Redo actions</li>
-                            <li><code>T</code> - Toggle rest timer visibility</li>
-                            <li><code>R</code> - Start 90-second rest timer</li>
-                        </ul>
-                    </li>
-                    <li><strong>Bulk Set Editing:</strong> Click "Enable Bulk Edit" in any workout to select multiple sets and update them simultaneously - perfect for progressive overload or deload weeks</li>
-                    <li><strong>Dark Mode:</strong> Click the 🌙 button in the header to toggle between light and dark themes</li>
-                    <li><strong>Enhanced CSV Export:</strong> Export detailed analytics including volume, training load, and summary statistics from Settings & e1RMs</li>
-                    <li><strong>Undo System:</strong> Accidentally logged the wrong weight? Use Ctrl+Z to undo your last 20 actions</li>
-                </ul>
-
                 <p><em>This app uses your browser's local storage to save data. It will persist as long as you use the same browser and don't clear its site data.</em></p>
             </div>
 
+            <div id="smartRecommendationsTab" class="tab-content section">
+                <h2>Smart Workout Recommendations</h2>
+                <p>Get AI-powered workout recommendations based on your training history, current fitness level, and how you're feeling today.</p>
+                
+                <div class="section">
+                    <h3>How are you feeling today?</h3>
+                    <div style="margin-bottom: 15px;">
+                        <label for="energyLevel">Energy Level (1-10):</label>
+                        <input type="range" id="energyLevel" min="1" max="10" value="7" style="width: 100%; margin: 10px 0;">
+                        <div style="display: flex; justify-content: space-between; font-size: 0.8em; color: var(--md-grey-700);">
+                            <span>Very Low</span>
+                            <span id="energyLevelValue">7</span>
+                            <span>Very High</span>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 15px;">
+                        <label for="stressLevel">Stress Level (1-10):</label>
+                        <input type="range" id="stressLevel" min="1" max="10" value="5" style="width: 100%; margin: 10px 0;">
+                        <div style="display: flex; justify-content: space-between; font-size: 0.8em; color: var(--md-grey-700);">
+                            <span>Very Low</span>
+                            <span id="stressLevelValue">5</span>
+                            <span>Very High</span>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 15px;">
+                        <label for="musclesSore">Any muscle soreness or fatigue?</label>
+                        <textarea id="musclesSore" placeholder="e.g., legs still sore from yesterday's squat session, feeling fresh overall, shoulders tight..." style="width: 100%; padding: 10px; border: 1px solid var(--md-grey-300); border-radius: 4px; box-sizing: border-box;"></textarea>
+                    </div>
+                    
+                    <div style="margin-bottom: 15px;">
+                        <label for="timeAvailable">Time available (minutes):</label>
+                        <input type="number" id="timeAvailable" value="60" min="15" max="180" style="width: 100px;">
+                    </div>
+                    
+                    <div style="margin-bottom: 15px;">
+                        <label for="specificGoals">Specific goals for today (optional):</label>
+                        <textarea id="specificGoals" placeholder="e.g., want to focus on upper body, need a lighter day, want to push hard today..." style="width: 100%; padding: 10px; border: 1px solid var(--md-grey-300); border-radius: 4px; box-sizing: border-box;"></textarea>
+                    </div>
+                    
+                    <div style="margin-bottom: 15px;">
+                        <label for="equipmentLimitations">Equipment limitations (optional):</label>
+                        <textarea id="equipmentLimitations" placeholder="e.g., no barbell today, only dumbbells, home gym setup, no squat rack..." style="width: 100%; padding: 10px; border: 1px solid var(--md-grey-300); border-radius: 4px; box-sizing: border-box;"></textarea>
+                    </div>
+                    
+                    <button class="action-button" onclick="getWorkoutRecommendation()" id="getRecommendationBtn">Get AI Recommendation</button>
+                    <button class="action-button" onclick="generateSimpleRecommendation()" style="margin-left: 10px;">Get Quick Recommendation</button>
+                </div>
+                
+                <div id="recommendationResult" class="section" style="display: none;">
+                    <h3>Your Recommended Workout</h3>
+                    <div id="recommendationContent"></div>
+                    <button class="action-button" onclick="acceptRecommendation()" id="acceptRecommendationBtn" style="margin-top: 15px;">Start This Workout</button>
+                </div>
+            </div>
 
             <div id="workoutDayTab" class="tab-content">
                 <div id="workoutDisplayArea" class="section">
@@ -1081,15 +567,9 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
                 </div>
 
                 <div class="section">
-                    <h2>Workout Log (<span id="currentDateDisplay"></span>)</h2>
-                    <div class="metrics-input-group">
-                        <div>
-                            <label for="workoutLogDate">Date:</label>
-                            <input type="date" id="workoutLogDate">
-                        </div>
-                    </div>
+                    <h2>Today's Log (<span id="currentDateDisplay"></span>)</h2>
                     <div id="dailyWorkoutLogContainer"></div>
-                    <button class="danger-button" id="clearDailyLogButton" onclick="clearDailyLog()" style="margin-top:10px;">Clear Today's Log</button>
+                    <button class="danger-button" onclick="clearDailyLog()" style="margin-top:10px;">Clear Today's Log</button>
                 </div>
             </div>
             
@@ -1212,6 +692,16 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
                     <span style="font-size:0.85em; color: var(--md-grey-700); display:block; margin-top:4px;">This is used for e1RM calculations on bodyweight exercises. Log historical bodyweight in the 'Progress' tab.</span>
                 </div>
                 <div class="bodyweight-input-container">
+                    <label for="claudeApiKey">Claude API Key (Optional - for workout recommendations):</label>
+                    <input type="password" id="claudeApiKey" placeholder="sk-ant-...">
+                    <div style="margin-top: 8px;">
+                        <button class="action-button" onclick="saveClaudeApiKey()" style="padding: 8px 12px; font-size: 0.9em; margin-right: 8px;">Save API Key</button>
+                        <button class="action-button" onclick="testClaudeApiKey()" style="padding: 8px 12px; font-size: 0.9em;">Test API Key</button>
+                    </div>
+                    <span style="font-size:0.85em; color: var(--md-grey-700); display:block; margin-top:4px;">Enter your Claude API key to enable AI-powered workout recommendations based on your history and how you're feeling.</span>
+                    <div id="apiKeyStatus" style="font-size: 0.85em; margin-top: 4px;"></div>
+                </div>
+                <div class="bodyweight-input-container">
                     <h3>Data Management</h3>
                     
                     <!-- Advanced Export Section -->
@@ -1312,37 +802,6 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
         </div>
     </div>
 
-    <!-- Bulk Edit Modal -->
-    <div id="bulkEditModal" class="modal">
-        <div class="modal-content">
-            <span class="close-button" onclick="closeBulkEditModal()">&times;</span>
-            <h3>Bulk Edit Selected Sets</h3>
-            <div id="bulkEditSelectedSets"></div>
-            <div style="margin-top: 20px;">
-                <h4>Apply to All Selected Sets:</h4>
-                <div class="inline-inputs" style="margin-top: 10px;">
-                    <label>Weight:</label>
-                    <input type="number" id="bulkWeight" placeholder="Leave blank to skip" step="0.1">
-                    <label>Reps:</label>
-                    <input type="number" id="bulkReps" placeholder="Leave blank to skip" min="1">
-                    <label>RPE:</label>
-                    <input type="number" id="bulkRPE" placeholder="Leave blank to skip" step="0.5" min="6" max="10">
-                </div>
-                <div style="margin-top: 15px;">
-                    <label>
-                        <input type="checkbox" id="bulkApplyRelative" style="margin-right: 8px;">
-                        Apply changes relative to current values (e.g., +5 lbs, +1 rep)
-                    </label>
-                </div>
-                <div style="margin-top: 15px; display: flex; gap: 10px;">
-                    <button class="action-button" onclick="applyBulkEdit()">Apply Changes</button>
-                    <button class="action-button" onclick="bulkLogAllSets()" style="background: var(--success-500);">Log All Selected Sets</button>
-                    <button class="action-button" onclick="closeBulkEditModal()" style="background: var(--grey-700);">Cancel</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Rest Timer -->
     <div id="restTimer" class="rest-timer-container">
         <div style="font-size: 0.9em; font-weight: 500; margin-bottom: 8px;">Rest Timer</div>
@@ -1366,46 +825,41 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
         </div>
     </div>
 
-    <script>
-        // RPE to Reps In Reserve mapping
-        const RPE_TO_RIR = { 10: 0, 9.5: 0.5, 9: 1, 8.5: 1.5, 8: 2, 7.5: 2.5, 7: 3, 6.5: 3.5, 6: 4 };
-        // Core lifts for which e1RM will be tracked
-        const CORE_LIFTS_IN_PLAN = ["Back-squat", "Bench Press", "Deadlift", "OHP", "Weighted Pull-up", "Hip-thrust", "RDL", "Dips", "Chest-supported Row"];
-        const BODYWEIGHT_ASSISTED_EXERCISES = ["Weighted Pull-up", "Dips"]; 
-
-        // The user's workout plan structure - reorganized by workout type
-        const USER_WORKOUT_PLAN = {
-            "Squat Day": [
-                { id:"squat_top", type: "strength_single_heavy", liftName: "Back-squat", sets: 1, repsTarget: 4, percentage: 0.88, group:"Back-squat", setLabel: "Main Top Set", notes: "Rest 2-5 min after this set. Aim for RPE ~8-9. This set contributes to e1RM." },
-                { id:"squat_vol", type: "strength_volume", liftName: "Back-squat", sets: 3, reps: 6, percentage: 0.78, group:"Back-squat", notes: "Rest 2-3 min between sets." },
-                { id:"squat_ht", type: "accessory", liftName: "Hip-thrust", sets: 4, reps: 8, notes: "Aim for RPE 7-9." }
-            ],
-            "Bench Day": [
-                { id:"bench_top", type: "strength_single_heavy", liftName: "Bench Press", sets: 1, repsTarget: 4, percentage: 0.88, group:"Bench Press", setLabel: "Main Top Set", notes: "Rest 2-5 min after this set. Aim for RPE ~8-9. This set contributes to e1RM." },
-                { id:"bench_vol", type: "strength_volume", liftName: "Bench Press", sets: 3, reps: 6, percentage: 0.78, group:"Bench Press", notes: "Rest 2-3 min between sets." },
-                { id:"bench_ohp", type: "accessory", liftName: "OHP", sets: 3, reps: 6, notes: "Aim for RPE 7-9. This lift also uses e1RM." },
-                { id:"bench_dips", type: "accessory", liftName: "Dips", sets: 3, reps: 10, notes: "Aim for RPE 7-9, or near failure if appropriate. Log ADDED weight." }
-            ],
-            "Deadlift Day": [
-                { id:"deadlift_top", type: "strength_single_heavy", liftName: "Deadlift", sets: 1, repsTarget: 3, percentage: 0.90, group:"Deadlift", setLabel: "Main Top Set", notes: "Rest 2-5 min after this set. Aim for RPE ~8-9. This set contributes to e1RM." },
-                { id:"deadlift_vol", type: "strength_volume", liftName: "Deadlift", sets: 3, reps: 6, percentage: 0.80, group:"Deadlift", notes: "Rest 2-3 min between sets." },
-                { id:"deadlift_rdl", type: "accessory", liftName: "RDL", sets: 3, reps: 8, notes: "Aim for RPE 7-9." }
-            ],
-            "Pull Day": [
-                { id:"pull_hiit", type: "hiit", name: "Norwegian 4x4", details: "4 min @ 85-95% HRmax / 3 min active recovery @ ~70% HRmax, x4 repeats. Total duration approx 38-40min incl warm-up/cool-down.", notes: "Optional: 10-min HIIT (10x60s @ 90% HRmax / 60s easy) every 2-3 weeks for variety. Largest VO2-max gains." },
-                { id:"pull_pullup", type: "accessory", liftName: "Weighted Pull-up", sets: 3, repsRange: "6-8", notes: "Aim for RPE 8-9. This lift uses e1RM. Log ADDED weight." },
-                { id:"pull_row", type: "accessory", liftName: "Chest-supported Row", sets: 3, reps: 10, notes: "Aim for RPE 7-9." }
-            ],
-            "Cardio Day": [ 
-                { id:"cardio_z2", type: "cardio", name: "Zone 2 Run", duration: "40-45 min", intensity: "~70% HRmax or RPE 9-12 (able to speak in sentences).", notes: "Consider extending to 60+ min for enhanced heart health benefits. Dynamic mobility is enough; resistance training itself maintains flexibility." } 
-            ],
-            "Mobility Day": [ 
-                { id:"mobility_flow", type: "mobility", name: "Mobility Flow", notes: "Dynamic movements. Static stretching generally not needed if resistance training covers range of motion. Refer to §5 of your plan." } 
-            ],
-            "Rest Day": [ 
-                { id:"rest_mobility", type: "mobility", name: "Rest + Short Mobility", notes: "Focus on recovery. Gentle movements." } 
-            ]
-        };
+    <script type="module">
+        // Import Rest Timer Module
+        import restTimer from './src/components/restTimer.js';
+        
+        // Import Exercise Types Module
+        import {
+            RPE_TO_RIR,
+            CORE_LIFTS_IN_PLAN,
+            BODYWEIGHT_ASSISTED_EXERCISES,
+            USER_WORKOUT_PLAN,
+            getMuscleGroupsForExercise,
+            getEquipmentSubstitutions
+        } from './src/data/exerciseTypes.js';
+        
+        // Import Constants Module
+        import {
+            APP_VERSION_KEY,
+            STORAGE_KEYS,
+            PROXY_URL,
+            API_MODEL,
+            API_VERSION,
+            API_MAX_TOKENS,
+            API_TEST_MAX_TOKENS,
+            MUSCLE_GROUP_MAPPINGS,
+            DEFAULT_MUSCLE_GROUP,
+            WORKOUT_TYPES,
+            KEY_EXERCISES,
+            THEME_COLORS,
+            ELEVATION_SHADOWS,
+            CHART_COLORS,
+            VALIDATION_LIMITS,
+            TIMER_CONSTANTS,
+            SERVICE_WORKER_CONFIG,
+            EXTERNAL_RESOURCES
+        } from './src/core/constants.js';
 
         // Global state variables
         let exercisesE1RM = {}; 
@@ -1459,17 +913,10 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
         let dailyLog = {};      
         let currentSelectedDayKey = null; 
         let currentActiveTab = 'guideTab'; 
-        const APP_VERSION_KEY = 'v4_material_bw_graph'; // Updated version key
-        const todayKey = new Date().toISOString().split('T')[0];
-        let selectedLogDateKey = todayKey;
+        const todayKey = new Date().toISOString().split('T')[0]; 
         let bodyweightChartInstance = null;
-        
-        // Rest Timer Variables
-        let restTimerInterval = null;
-        let restTimerSeconds = 0;
-        let restTimerTotalSeconds = 0;
-        let restTimerPaused = false;
-
+        let claudeApiKey = '';
+        let currentRecommendation = null;
 
         // Epley formula for e1RM calculation
         function calculateEpleyE1RM(weight, reps) {
@@ -1560,16 +1007,26 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
                 bodyweightHistory = [];
             }
 
+            try {
+                const storedApiKey = localStorage.getItem(`personalizedPlanClaudeApiKey_${APP_VERSION_KEY}`);
+                if (storedApiKey) {
+                    claudeApiKey = storedApiKey;
+                    document.getElementById('claudeApiKey').value = claudeApiKey;
+                }
+            } catch (error) {
+                showError('Failed to load API key', error.message);
+                claudeApiKey = '';
+            }
 
             try {
-                const storedDailyLog = localStorage.getItem(`personalizedPlanDailyLog_${APP_VERSION_KEY}_${selectedLogDateKey}`);
+                const storedDailyLog = localStorage.getItem(`personalizedPlanDailyLog_${APP_VERSION_KEY}_${todayKey}`); 
                 if (storedDailyLog) {
                     dailyLog = JSON.parse(storedDailyLog);
                     if (typeof dailyLog !== 'object' || dailyLog === null) {
                         throw new Error('Invalid daily log format');
                     }
                 } else {
-                    dailyLog = {};
+                    dailyLog = {}; 
                 }
             } catch (error) {
                 showError('Failed to load daily log', error.message);
@@ -1584,38 +1041,10 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
                 localStorage.setItem(`personalizedPlanE1RMChangeStatus_${APP_VERSION_KEY}`, JSON.stringify(e1RMChangeStatus));
                 localStorage.setItem(`personalizedPlanBodyweight_${APP_VERSION_KEY}`, userBodyweight.toString());
                 localStorage.setItem(`personalizedPlanBwHistory_${APP_VERSION_KEY}`, JSON.stringify(bodyweightHistory));
-                localStorage.setItem(`personalizedPlanDailyLog_${APP_VERSION_KEY}_${selectedLogDateKey}`, JSON.stringify(dailyLog));
+                localStorage.setItem(`personalizedPlanClaudeApiKey_${APP_VERSION_KEY}`, claudeApiKey);
+                localStorage.setItem(`personalizedPlanDailyLog_${APP_VERSION_KEY}_${todayKey}`, JSON.stringify(dailyLog));
             } catch (error) {
                 showError('Failed to save data', error.message + '. Your data may not be preserved.');
-            }
-        }
-
-        function changeLogDate(date) {
-            if (!date) return;
-            selectedLogDateKey = date;
-            try {
-                const storedDailyLog = localStorage.getItem(`personalizedPlanDailyLog_${APP_VERSION_KEY}_${selectedLogDateKey}`);
-                if (storedDailyLog) {
-                    dailyLog = JSON.parse(storedDailyLog);
-                    if (typeof dailyLog !== 'object' || dailyLog === null) {
-                        dailyLog = {};
-                    }
-                } else {
-                    dailyLog = {};
-                }
-            } catch (error) {
-                console.error('Failed to load daily log for selected date', error);
-                dailyLog = {};
-            }
-            document.getElementById('currentDateDisplay').textContent = new Date(selectedLogDateKey).toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'});
-            const clearBtn = document.getElementById('clearDailyLogButton');
-            if (clearBtn) {
-                clearBtn.textContent = (selectedLogDateKey === todayKey ? 'Clear Today\'s Log' : 'Clear This Day\'s Log');
-            }
-            if (currentActiveTab === 'workoutDayTab' && currentSelectedDayKey) {
-                displayWorkoutForDay(currentSelectedDayKey);
-            } else {
-                renderDailyLog();
             }
         }
         
@@ -1781,6 +1210,59 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
             });
         }
         
+        // Saves just the Claude API key
+        function saveClaudeApiKey() {
+            const apiKeyInput = document.getElementById('claudeApiKey');
+            claudeApiKey = apiKeyInput.value.trim();
+            localStorage.setItem(`personalizedPlanClaudeApiKey_${APP_VERSION_KEY}`, claudeApiKey);
+            
+            const statusDiv = document.getElementById('apiKeyStatus');
+            statusDiv.textContent = 'API key saved!';
+            statusDiv.style.color = 'var(--md-green-500)';
+        }
+
+        // Test the Claude API key
+        async function testClaudeApiKey() {
+            const apiKeyInput = document.getElementById('claudeApiKey');
+            const statusDiv = document.getElementById('apiKeyStatus');
+            
+            const tempKey = apiKeyInput.value.trim();
+            if (!tempKey) {
+                statusDiv.textContent = 'Please enter an API key first';
+                statusDiv.style.color = 'var(--md-red-500)';
+                return;
+            }
+
+            if (!tempKey.startsWith('sk-ant-')) {
+                statusDiv.textContent = 'Invalid API key format. Should start with "sk-ant-"';
+                statusDiv.style.color = 'var(--md-red-500)';
+                return;
+            }
+
+            statusDiv.textContent = 'Testing API key...';
+            statusDiv.style.color = 'var(--md-grey-700)';
+
+            // Temporarily set the key for testing
+            const originalKey = claudeApiKey;
+            claudeApiKey = tempKey;
+
+            try {
+                const result = await testApiKey();
+                if (result.valid) {
+                    statusDiv.textContent = '✓ API key is valid and working!';
+                    statusDiv.style.color = 'var(--md-green-500)';
+                } else {
+                    statusDiv.textContent = `✗ ${result.message}`;
+                    statusDiv.style.color = 'var(--md-red-500)';
+                }
+            } catch (error) {
+                statusDiv.textContent = `✗ Test failed: ${error.message}`;
+                statusDiv.style.color = 'var(--md-red-500)';
+            }
+
+            // Restore original key
+            claudeApiKey = originalKey;
+        }
 
         // Saves all e1RMs and current bodyweight from the editable fields in the table
         function saveAllSettingsAndE1RMs() {
@@ -1814,6 +1296,9 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
                 alert("Invalid bodyweight entered. Bodyweight not saved.");
             }
 
+            // Save Claude API key
+            const apiKeyInput = document.getElementById('claudeApiKey');
+            claudeApiKey = apiKeyInput.value.trim();
 
             saveData(); 
             renderE1RMTable(); 
@@ -1861,27 +1346,7 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
             if (dayTitleElement) { 
                 dayTitleElement.textContent = `${workoutKey}`;
             }
-            displayArea.innerHTML = `
-                <h2 id="workoutDayTitle">${workoutKey}</h2>
-                <div class="bulk-edit-controls" style="margin: 15px 0; padding: 12px; background: var(--grey-50); border-radius: 8px; border: 1px solid var(--grey-300); display: none;" id="bulkEditControls">
-                    <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
-                        <label style="font-weight: 500;">
-                            <input type="checkbox" id="selectAllSets" style="margin-right: 8px;"> Select All Sets
-                        </label>
-                        <button class="action-button" onclick="showBulkEditModal()" disabled id="bulkEditBtn" style="font-size: 0.9em; padding: 6px 12px;">
-                            Bulk Edit Selected (<span id="selectedCount">0</span>)
-                        </button>
-                        <button class="action-button" onclick="hideBulkEditControls()" style="background: var(--grey-700); font-size: 0.9em; padding: 6px 12px;">
-                            Cancel
-                        </button>
-                    </div>
-                </div>
-                <div style="text-align: right; margin-bottom: 10px;">
-                    <button class="action-button" onclick="showBulkEditControls()" style="font-size: 0.9em; padding: 6px 12px; background: var(--secondary-500);">
-                        Enable Bulk Edit
-                    </button>
-                </div>
-            `; 
+            displayArea.innerHTML = `<h2 id="workoutDayTitle">${workoutKey}</h2>`; 
             
             const workoutItems = USER_WORKOUT_PLAN[workoutKey];
             if (!workoutItems) {
@@ -1970,20 +1435,12 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
 
 
                         content += `
-                            <div class="inline-inputs" style="margin-top:5px; position: relative;">
-                                <div style="display: flex; align-items: center; margin-bottom: 5px;">
-                                    <label class="bulk-edit-checkbox" style="margin-right: 15px; display: none;">
-                                        <input type="checkbox" class="set-checkbox" data-item-id="${item.id}" data-set-index="${i}" data-exercise-name="${item.liftName}" style="margin-right: 5px;">
-                                        Select
-                                    </label>
-                                    <span>Set ${i} (Target: ${item.reps} reps @ ~${targetWeightDisplay}):</span>
-                                </div>
-                                <div class="set-inputs">
-                                    <label>${weightLabel}</label><input type="number" id="${item.id}_set${i}_weight" placeholder="Wt" value="${prefillWeightValue}">
-                                    <label>Reps:</label><input type="number" id="${item.id}_set${i}_reps" placeholder="Reps" value="${setData?.actualReps || ''}">
-                                    <label>RPE:</label><input type="number" id="${item.id}_set${i}_rpe" step="0.5" min="6" max="10" placeholder="RPE" value="${setData?.actualRPE || ''}">
-                                    <button class="action-button log-set-button" style="padding: 5px 8px; font-size:0.8em;" onclick="logGenericSet('${item.id}', '${item.group || item.liftName}', ${i})" ${setLogged ? 'disabled' : ''}>Log Set ${i}</button> ${setCompletedMark}
-                                </div>
+                            <div class="inline-inputs" style="margin-top:5px;">
+                                <span>Set ${i} (Target: ${item.reps} reps @ ~${targetWeightDisplay}):</span><br>
+                                <label>${weightLabel}</label><input type="number" id="${item.id}_set${i}_weight" placeholder="Wt" value="${prefillWeightValue}">
+                                <label>Reps:</label><input type="number" id="${item.id}_set${i}_reps" placeholder="Reps" value="${setData?.actualReps || ''}">
+                                <label>RPE:</label><input type="number" id="${item.id}_set${i}_rpe" step="0.5" min="6" max="10" placeholder="RPE" value="${setData?.actualRPE || ''}">
+                                <button class="action-button log-set-button" style="padding: 5px 8px; font-size:0.8em;" onclick="logGenericSet('${item.id}', '${item.group || item.liftName}', ${i})" ${setLogged ? 'disabled' : ''}>Log Set ${i}</button> ${setCompletedMark}
                             </div>`;
                     }
                 } else if (item.type === 'accessory') {
@@ -2024,8 +1481,6 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
 
         function logHeavyStrengthSet(itemId, groupName) {
             try {
-                saveStateForUndo(`Log heavy set for ${groupName}`);
-                
                 const addedWeightInput = parseFloat(document.getElementById(`${itemId}_weight`).value); // This is either total weight or added weight
                 const reps = parseInt(document.getElementById(`${itemId}_reps`).value);
                 const rpe = parseFloat(document.getElementById(`${itemId}_rpe`).value);
@@ -2097,8 +1552,8 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
             displayWorkoutForDay(currentSelectedDayKey); 
             alert(`${groupName} set logged. Group e1RM (total load) is now ${finalGroupE1RM.toFixed(1)}.`);
             
-            // Auto-start rest timer for main sets
-            startRestTimer(180); // 3 minutes for heavy sets
+            // Auto-start rest timer for main/activation sets
+            restTimer.startForMainSet(); // 3 minutes for heavy sets
             
             } catch (error) {
                 showError('Failed to log set', error.message);
@@ -2106,8 +1561,6 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
         }
 
         function logGenericSet(itemId, groupName, setIndex) {
-            saveStateForUndo(`Log set ${setIndex} for ${groupName}`);
-            
             const addedWeightInput = parseFloat(document.getElementById(`${itemId}_set${setIndex}_weight`).value);
             const reps = parseInt(document.getElementById(`${itemId}_set${setIndex}_reps`).value);
             const rpe = parseFloat(document.getElementById(`${itemId}_set${setIndex}_rpe`).value);
@@ -2176,7 +1629,7 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
             alert(`${groupName} Set ${setIndex} logged.`);
             
             // Auto-start rest timer for volume sets (shorter rest)
-            startRestTimer(120); // 2 minutes for volume sets
+            restTimer.startForVolumeSet(); // 2 minutes for volume sets
         }
         
         function openAccessoryLogModal(itemId, liftName, setIndex) {
@@ -2285,7 +1738,7 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
             alert(`${liftName} Set ${setIndex} logged.`);
             
             // Auto-start rest timer for accessory sets
-            startRestTimer(90); // 1.5 minutes for accessory sets
+            restTimer.startForAccessorySet(); // 1.5 minutes for accessory sets
         }
 
         function logActivityAsCompleted(itemId) {
@@ -2355,14 +1808,804 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
         }
 
         function clearDailyLog() {
-            if(confirm("Are you sure you want to clear all logs for this date? This only affects that day's checkmarks and entries, not your e1RMs.")) {
+            if(confirm("Are you sure you want to clear all logs for today? This only affects today's checkmarks and entries, not your e1RMs.")) {
                 dailyLog = {};
-                saveData();
-                 if (currentActiveTab === 'workoutDayTab' && currentSelectedDayKey) displayWorkoutForDay(currentSelectedDayKey);
-                 else renderDailyLog();
+                saveData(); 
+                 if (currentActiveTab === 'workoutDayTab' && currentSelectedDayKey) displayWorkoutForDay(currentSelectedDayKey); 
+                 else renderDailyLog(); 
             }
         }
 
+        // Smart Recommendations Functions
+        function updateSliderValues() {
+            document.getElementById('energyLevelValue').textContent = document.getElementById('energyLevel').value;
+            document.getElementById('stressLevelValue').textContent = document.getElementById('stressLevel').value;
+        }
+
+        function getRecentWorkoutHistory() {
+            const history = [];
+            const now = new Date();
+            
+            // Look back 14 days for workout history
+            for (let i = 0; i < 14; i++) {
+                const date = new Date(now);
+                date.setDate(date.getDate() - i);
+                const dateStr = date.toISOString().split('T')[0];
+                
+                const logData = localStorage.getItem(`personalizedPlanDailyLog_${APP_VERSION_KEY}_${dateStr}`);
+                if (logData) {
+                    const log = JSON.parse(logData);
+                    if (Object.keys(log).length > 0) {
+                        // Determine which workout type was done
+                        let workoutType = 'Unknown';
+                        let totalVolume = 0;
+                        let avgRPE = 0;
+                        let rpeCount = 0;
+                        let muscleGroupsWorked = new Set();
+                        
+                        for (const [type, exercises] of Object.entries(USER_WORKOUT_PLAN)) {
+                            const typeExerciseIds = exercises.map(e => e.id);
+                            const logExerciseIds = Object.keys(log);
+                            
+                            if (typeExerciseIds.some(id => logExerciseIds.includes(id))) {
+                                workoutType = type;
+                                break;
+                            }
+                        }
+                        
+                        // Calculate training metrics
+                        for (const [exerciseId, exerciseLog] of Object.entries(log)) {
+                            if (exerciseLog.completed && exerciseLog.sets) {
+                                exerciseLog.sets.forEach(set => {
+                                    if (set.weight && set.reps) {
+                                        totalVolume += (set.weight || 0) * (set.reps || 0);
+                                    }
+                                    if (set.rpe && set.rpe > 0) {
+                                        avgRPE += set.rpe;
+                                        rpeCount++;
+                                    }
+                                });
+                                
+                                // Map muscle groups
+                                const exercise = findExerciseInPlan(exerciseId);
+                                if (exercise) {
+                                    const muscleGroups = getMuscleGroupsForExercise(exercise.liftName || exercise.name);
+                                    muscleGroups.forEach(mg => muscleGroupsWorked.add(mg));
+                                }
+                            }
+                        }
+                        
+                        avgRPE = rpeCount > 0 ? avgRPE / rpeCount : 0;
+                        
+                        history.push({
+                            date: dateStr,
+                            workoutType: workoutType,
+                            exerciseCount: Object.keys(log).length,
+                            completedCount: Object.values(log).filter(l => l.completed).length,
+                            totalVolume: totalVolume,
+                            avgRPE: avgRPE,
+                            muscleGroupsWorked: Array.from(muscleGroupsWorked),
+                            daysSinceToday: i
+                        });
+                    }
+                }
+            }
+            
+            return history;
+        }
+        
+        // Helper function to find exercise in workout plan
+        function findExerciseInPlan(exerciseId) {
+            for (const exercises of Object.values(USER_WORKOUT_PLAN)) {
+                const exercise = exercises.find(e => e.id === exerciseId);
+                if (exercise) return exercise;
+            }
+            return null;
+        }
+        
+        // getMuscleGroupsForExercise function now imported from exerciseTypes module
+        
+        // Analyze training patterns for periodization
+        function analyzeTrainingPatterns(history) {
+            const muscleGroupFreq = {};
+            const weeklyVolume = {};
+            const rpeProgression = [];
+            
+            // Last 7 days analysis
+            const lastWeek = history.filter(h => h.daysSinceToday <= 7);
+            const weeklyWorkouts = lastWeek.length;
+            const avgWeeklyRPE = lastWeek.reduce((sum, h) => sum + h.avgRPE, 0) / Math.max(lastWeek.length, 1);
+            
+            // Muscle group frequency analysis
+            history.forEach(workout => {
+                workout.muscleGroupsWorked.forEach(mg => {
+                    muscleGroupFreq[mg] = (muscleGroupFreq[mg] || 0) + 1;
+                });
+            });
+            
+            // Volume trends
+            const volumeTrend = history.slice(0, 7).reduce((sum, h) => sum + h.totalVolume, 0);
+            
+            // RPE progression (fatigue accumulation)
+            for (let i = 0; i < Math.min(7, history.length); i++) {
+                rpeProgression.push(history[i].avgRPE);
+            }
+            
+            return {
+                muscleGroupFreq,
+                weeklyWorkouts,
+                avgWeeklyRPE,
+                volumeTrend,
+                rpeProgression,
+                needsDeload: detectDeloadNeed(rpeProgression, avgWeeklyRPE, weeklyWorkouts)
+            };
+        }
+        
+        // Deload detection algorithm
+        function detectDeloadNeed(rpeProgression, avgRPE, weeklyWorkouts) {
+            // Deload indicators:
+            // 1. Consistently high RPE (>8.5) for multiple sessions
+            // 2. RPE increasing trend over time
+            // 3. High frequency with high intensity
+            
+            const highRPESessions = rpeProgression.filter(rpe => rpe > 8.5).length;
+            const rpeIncreasing = rpeProgression.length > 2 && 
+                                  rpeProgression[0] > rpeProgression[rpeProgression.length - 1];
+            
+            return {
+                needed: (highRPESessions >= 3) || (avgRPE > 8.5 && weeklyWorkouts > 4) || rpeIncreasing,
+                reason: highRPESessions >= 3 ? 'Consistently high RPE indicating fatigue accumulation' :
+                       (avgRPE > 8.5 && weeklyWorkouts > 4) ? 'High frequency with high intensity' :
+                       rpeIncreasing ? 'RPE trending upward indicating fatigue' : 'None'
+            };
+        }
+        
+        // Auto-progression analysis
+        function analyzeProgression(exerciseId, history) {
+            const exerciseLogs = [];
+            
+            // Collect recent performance data for specific exercise
+            history.forEach(workout => {
+                const date = workout.date;
+                const logData = localStorage.getItem(`personalizedPlanDailyLog_${APP_VERSION_KEY}_${date}`);
+                if (logData) {
+                    const log = JSON.parse(logData);
+                    if (log[exerciseId] && log[exerciseId].sets) {
+                        log[exerciseId].sets.forEach(set => {
+                            if (set.weight && set.reps && set.rpe) {
+                                exerciseLogs.push({
+                                    date: date,
+                                    weight: set.weight,
+                                    reps: set.reps,
+                                    rpe: set.rpe,
+                                    e1rm: set.weight * (1 + (set.reps / 30)) // Epley formula
+                                });
+                            }
+                        });
+                    }
+                }
+            });
+            
+            if (exerciseLogs.length < 2) return null;
+            
+            // Sort by date (most recent first)
+            exerciseLogs.sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            const recent = exerciseLogs.slice(0, 3); // Last 3 performances
+            const avgRPE = recent.reduce((sum, log) => sum + log.rpe, 0) / recent.length;
+            
+            // Progression recommendation based on RPE patterns
+            if (avgRPE < 7) {
+                return { type: 'increase', amount: 2.5, reason: 'Low RPE indicates room for progression' };
+            } else if (avgRPE > 9) {
+                return { type: 'decrease', amount: 2.5, reason: 'High RPE suggests need to reduce load' };
+            } else if (avgRPE >= 7 && avgRPE <= 8) {
+                const isConsistent = recent.every(log => Math.abs(log.rpe - avgRPE) < 1);
+                if (isConsistent) {
+                    return { type: 'increase', amount: 1.25, reason: 'Consistent performance allows small progression' };
+                }
+            }
+            
+            return { type: 'maintain', amount: 0, reason: 'Continue with current load' };
+        }
+
+        // Get detailed recent exercise performance for AI context
+        function getDetailedRecentPerformance(workoutHistory, maxWorkouts = 3) {
+            const detailedHistory = [];
+            
+            workoutHistory.slice(0, maxWorkouts).forEach(workout => {
+                const date = workout.date;
+                const logData = localStorage.getItem(`personalizedPlanDailyLog_${APP_VERSION_KEY}_${date}`);
+                if (logData) {
+                    const log = JSON.parse(logData);
+                    const exerciseDetails = [];
+                    
+                    Object.entries(log).forEach(([exerciseId, exerciseData]) => {
+                        if (exerciseData.sets && exerciseData.sets.length > 0) {
+                            const completedSets = exerciseData.sets.filter(set => set.weight && set.reps && set.rpe);
+                            if (completedSets.length > 0) {
+                                const avgRPE = completedSets.reduce((sum, set) => sum + set.rpe, 0) / completedSets.length;
+                                const totalVolume = completedSets.reduce((sum, set) => sum + (set.weight * set.reps), 0);
+                                const highestWeight = Math.max(...completedSets.map(set => set.weight));
+                                
+                                exerciseDetails.push({
+                                    exercise: exerciseId,
+                                    sets: completedSets.length,
+                                    avgRPE: avgRPE.toFixed(1),
+                                    totalVolume: totalVolume,
+                                    highestWeight: highestWeight,
+                                    setDetails: completedSets.map(set => `${set.weight}kg x ${set.reps} @ RPE ${set.reps}`).join(', ')
+                                });
+                            }
+                        }
+                    });
+                    
+                    if (exerciseDetails.length > 0) {
+                        detailedHistory.push({
+                            date: date,
+                            workoutType: workout.workoutType,
+                            exercises: exerciseDetails
+                        });
+                    }
+                }
+            });
+            
+            return detailedHistory;
+        }
+
+        // Determine recommended next workout based on program structure
+        function getRecommendedNextWorkout(workoutHistory) {
+            if (workoutHistory.length === 0) {
+                return {
+                    recommended: "Squat Day",
+                    reasoning: "Starting the program - begin with squat day as the foundation movement"
+                };
+            }
+
+            const lastWorkout = workoutHistory[0].workoutType;
+            const last2Workouts = workoutHistory.slice(0, 2).map(w => w.workoutType);
+            const last3Workouts = workoutHistory.slice(0, 3).map(w => w.workoutType);
+            
+            // Program structure: Squat -> Bench -> Deadlift -> Pull -> (Cardio/Mobility/Rest as needed)
+            const mainLifts = ["Squat Day", "Bench Day", "Deadlift Day", "Pull Day"];
+            
+            // Check for proper rotation
+            if (lastWorkout === "Squat Day") {
+                return {
+                    recommended: "Bench Day",
+                    reasoning: "Following program sequence: Squat -> Bench -> Deadlift -> Pull"
+                };
+            }
+            
+            if (lastWorkout === "Bench Day") {
+                return {
+                    recommended: "Deadlift Day", 
+                    reasoning: "Following program sequence: Squat -> Bench -> Deadlift -> Pull"
+                };
+            }
+            
+            if (lastWorkout === "Deadlift Day") {
+                return {
+                    recommended: "Pull Day",
+                    reasoning: "Following program sequence: Squat -> Bench -> Deadlift -> Pull"
+                };
+            }
+            
+            if (lastWorkout === "Pull Day") {
+                // Check if user has done all main lifts recently
+                const recentMainLifts = last3Workouts.filter(w => mainLifts.includes(w));
+                if (recentMainLifts.length >= 3) {
+                    return {
+                        recommended: "Cardio Day or Rest Day",
+                        reasoning: "Completed full cycle of main lifts - time for recovery/cardio"
+                    };
+                } else {
+                    return {
+                        recommended: "Squat Day",
+                        reasoning: "Starting new cycle after Pull Day"
+                    };
+                }
+            }
+            
+            // If last workout was Cardio/Mobility/Rest, continue with main lifts
+            if (["Cardio Day", "Mobility Day", "Rest Day"].includes(lastWorkout)) {
+                // Find which main lift to do next based on what's been done recently
+                const recentMainLifts = last3Workouts.filter(w => mainLifts.includes(w));
+                
+                if (!recentMainLifts.includes("Squat Day")) {
+                    return { recommended: "Squat Day", reasoning: "Haven't done squats recently" };
+                }
+                if (!recentMainLifts.includes("Bench Day")) {
+                    return { recommended: "Bench Day", reasoning: "Haven't done bench recently" };
+                }
+                if (!recentMainLifts.includes("Deadlift Day")) {
+                    return { recommended: "Deadlift Day", reasoning: "Haven't done deadlifts recently" };
+                }
+                if (!recentMainLifts.includes("Pull Day")) {
+                    return { recommended: "Pull Day", reasoning: "Haven't done pull work recently" };
+                }
+                
+                // If all main lifts done recently, start new cycle
+                return {
+                    recommended: "Squat Day",
+                    reasoning: "Starting new training cycle"
+                };
+            }
+            
+            // Default fallback
+            return {
+                recommended: "Squat Day",
+                reasoning: "Default recommendation to maintain program structure"
+            };
+        }
+
+        // Test API key validity using a CORS proxy
+        async function testApiKey() {
+            try {
+                // Use local proxy server to avoid CORS issues
+                const proxyUrl = 'https://redesigned-fishstick-production.up.railway.app/api/anthropic';
+                
+                const response = await fetch(proxyUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-api-key': claudeApiKey,
+                        'anthropic-version': '2023-06-01'
+                    },
+                    body: JSON.stringify({
+                        model: 'claude-3-haiku-20240307',
+                        max_tokens: 10,
+                        messages: [{
+                            role: 'user',
+                            content: 'Test'
+                        }]
+                    })
+                });
+                
+                if (response.ok) {
+                    return { valid: true, message: 'API key is valid' };
+                } else {
+                    const errorData = await response.text();
+                    return { valid: false, message: `API key test failed: ${response.status} - ${errorData}` };
+                }
+            } catch (error) {
+                return { 
+                    valid: false, 
+                    message: `Connection failed: ${error.message}\n\nMake sure the proxy server is running:\n1. Open terminal in this folder\n2. Run: npm install\n3. Run: npm start\n4. Try the API test again` 
+                };
+            }
+        }
+
+        async function getWorkoutRecommendation() {
+            if (!claudeApiKey || claudeApiKey.trim() === '') {
+                alert('Please set your Claude API key in the Settings & e1RMs tab to use smart recommendations.');
+                return;
+            }
+
+            // Validate API key format
+            if (!claudeApiKey.startsWith('sk-ant-')) {
+                alert('Invalid API key format. Claude API keys should start with "sk-ant-"');
+                return;
+            }
+
+            const btn = document.getElementById('getRecommendationBtn');
+            btn.disabled = true;
+            btn.textContent = 'Getting recommendation...';
+
+            try {
+                // Gather user input - check if user has actually interacted with the form
+                const energyLevel = document.getElementById('energyLevel').value;
+                const stressLevel = document.getElementById('stressLevel').value;
+                const musclesSore = document.getElementById('musclesSore').value;
+                const timeAvailable = document.getElementById('timeAvailable').value;
+                const specificGoals = document.getElementById('specificGoals').value;
+                
+                // Check if user has provided minimal input (not just defaults)
+                const hasUserInput = musclesSore.trim() || timeAvailable.trim() || specificGoals.trim() ||
+                                   energyLevel !== '7' || stressLevel !== '5';
+                
+                if (!hasUserInput) {
+                    alert('Please provide your current state (energy, stress, soreness, time available) to get personalized recommendations.');
+                    return;
+                }
+
+                // Get workout history and analyze patterns
+                const workoutHistory = getRecentWorkoutHistory();
+                const trainingAnalysis = analyzeTrainingPatterns(workoutHistory);
+                const detailedRecentPerformance = getDetailedRecentPerformance(workoutHistory, 3);
+                const nextWorkoutRecommendation = getRecommendedNextWorkout(workoutHistory);
+                
+                // Check for equipment limitations
+                const equipmentLimitations = document.getElementById('equipmentLimitations')?.value || '';
+                
+                // Generate auto-progression suggestions for key exercises
+                const progressionSuggestions = {};
+                const keyExercises = ['squat', 'bench', 'deadlift', 'ohp'];
+                keyExercises.forEach(exerciseId => {
+                    const progression = analyzeProgression(exerciseId, workoutHistory);
+                    if (progression) {
+                        progressionSuggestions[exerciseId] = progression;
+                    }
+                });
+
+                // Prepare enhanced context for Claude
+                const prompt = `You are an evidence-based fitness AI following research-backed training principles from Rhonda Patrick's "How to Train" guide. Based on the comprehensive analysis below, recommend ONE specific workout and provide detailed modifications.
+
+TRAINING PRINCIPLES TO FOLLOW:
+- Consistency beats perfection, adherence is key
+- Progressive overload: gradually increase load/volume (2.5-5kg increments)
+- Strength protocol: ≥85% 1RM, 1-5 reps, 2-5min rest, RPE 6-8 (3-4 reps shy of failure)
+- Hypertrophy protocol: 60-80% 1RM, 6-12 reps, 1-2min rest, can train to RPE 8-9 on isolation
+- Frequency: 2-3x per muscle group per week for optimal gains (≥10 sets/muscle/week)
+- Recovery: Quality sleep, nutrition, deloading when needed
+- Periodization: Vary intensity and volume systematically
+- 80/20 cardio rule: 80% Zone 2 (60-70% HRmax), 20% HIIT (80-95% HRmax)
+
+AVAILABLE WORKOUT TYPES:
+${Object.keys(USER_WORKOUT_PLAN).map(type => `- ${type}: ${USER_WORKOUT_PLAN[type].map(ex => ex.liftName || ex.name).join(', ')}`).join('\n')}
+
+PROGRAM STRUCTURE GUIDANCE:
+Recommended next workout: ${nextWorkoutRecommendation.recommended}
+Reasoning: ${nextWorkoutRecommendation.reasoning}
+
+IMPORTANT: Follow the program sequence (Squat -> Bench -> Deadlift -> Pull) for optimal muscle group recovery and progression. Only deviate if user has specific limitations or fatigue concerns.
+
+USER'S CURRENT STATE:
+- Energy Level: ${energyLevel}/10
+- Stress Level: ${stressLevel}/10
+- Muscle soreness/fatigue: ${musclesSore || 'None mentioned'}
+- Time available: ${timeAvailable} minutes
+- Specific goals: ${specificGoals || 'None mentioned'}
+- Equipment limitations: ${equipmentLimitations || 'None mentioned'}
+- Current bodyweight: ${userBodyweight}kg
+- Current e1RMs: ${Object.entries(exercisesE1RM).map(([lift, e1rm]) => `${lift}: ${e1rm.toFixed(1)}kg`).join(', ')}
+
+TRAINING ANALYSIS (last 14 days):
+- Weekly workout frequency: ${trainingAnalysis.weeklyWorkouts}
+- Average weekly RPE: ${trainingAnalysis.avgWeeklyRPE.toFixed(1)}
+- Weekly volume: ${trainingAnalysis.volumeTrend.toFixed(0)}kg
+- Muscle group frequencies: ${Object.entries(trainingAnalysis.muscleGroupFreq).map(([mg, freq]) => `${mg}: ${freq}x`).join(', ')}
+- Deload needed: ${trainingAnalysis.needsDeload.needed ? 'YES - ' + trainingAnalysis.needsDeload.reason : 'No'}
+
+AUTO-PROGRESSION ANALYSIS:
+${Object.entries(progressionSuggestions).map(([ex, prog]) => `${ex}: ${prog.type} ${prog.amount}kg - ${prog.reason}`).join('\n') || 'No progression data available'}
+
+RECENT WORKOUT HISTORY:
+${workoutHistory.length > 0 ? 
+    workoutHistory.map(h => `${h.date}: ${h.workoutType} (${h.completedCount}/${h.exerciseCount} completed, Volume: ${h.totalVolume.toFixed(0)}kg, RPE: ${h.avgRPE.toFixed(1)})`).join('\n') : 
+    'No recent workouts logged'}
+
+DETAILED RECENT PERFORMANCE (Last 3 Workouts):
+${detailedRecentPerformance.length > 0 ? 
+    detailedRecentPerformance.map(workout => 
+        `${workout.date} - ${workout.workoutType}:\n` + 
+        workout.exercises.map(ex => 
+            `  • ${ex.exercise}: ${ex.sets} sets, Top weight: ${ex.highestWeight}kg, Avg RPE: ${ex.avgRPE}, Volume: ${ex.totalVolume}kg\n    Sets: ${ex.setDetails}`
+        ).join('\n')
+    ).join('\n\n') : 
+    'No detailed performance data available'}
+
+CONSIDER:
+1. Muscle group frequency targets (2-3x per week)
+2. Recovery needs and fatigue accumulation
+3. Progressive overload patterns
+4. Equipment limitations and exercise substitutions
+5. Periodization (strength vs hypertrophy phases)
+6. Training load management
+
+If deload is needed, recommend deload protocol: 40-60% normal volume, 70-80% intensity.
+For equipment limitations, suggest exercise substitutions from available options.
+
+Please respond in this exact format:
+RECOMMENDATION: [Workout Type or DELOAD WEEK]
+REASONING: [Detailed explanation based on training analysis and scientific principles]
+MODIFICATIONS: [Specific changes to sets, reps, intensity, RPE, and any exercise substitutions]
+PROGRESSION: [Weight adjustments based on auto-progression analysis]
+
+Keep response evidence-based and practical.`;
+
+                // Use production proxy server to avoid browser CORS restrictions
+                const proxyUrl = 'https://redesigned-fishstick-production.up.railway.app/api/anthropic';
+                
+                const response = await fetch(proxyUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-api-key': claudeApiKey,
+                        'anthropic-version': '2023-06-01'
+                    },
+                    body: JSON.stringify({
+                        model: 'claude-3-haiku-20240307',
+                        max_tokens: 1000,
+                        messages: [{
+                            role: 'user',
+                            content: prompt
+                        }]
+                    })
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.text();
+                    console.error('API Error Response:', errorData);
+                    throw new Error(`API request failed: ${response.status} - ${errorData}`);
+                }
+
+                const data = await response.json();
+                
+                // Validate response structure
+                if (!data.content || !data.content[0] || !data.content[0].text) {
+                    console.error('Invalid API response structure:', data);
+                    throw new Error('Invalid response structure from API');
+                }
+                
+                const recommendation = data.content[0].text;
+
+                // Parse recommendation
+                const lines = recommendation.split('\n');
+                const recommendationLine = lines.find(l => l.startsWith('RECOMMENDATION:'));
+                const reasoningLine = lines.find(l => l.startsWith('REASONING:'));
+                const modificationsLine = lines.find(l => l.startsWith('MODIFICATIONS:'));
+                const progressionLine = lines.find(l => l.startsWith('PROGRESSION:'));
+
+                const workoutType = recommendationLine ? recommendationLine.replace('RECOMMENDATION:', '').trim() : 'Squat Day';
+                const reasoning = reasoningLine ? reasoningLine.replace('REASONING:', '').trim() : 'AI recommendation based on your current state.';
+                const modifications = modificationsLine ? modificationsLine.replace('MODIFICATIONS:', '').trim() : 'Follow the standard workout plan.';
+                const progression = progressionLine ? progressionLine.replace('PROGRESSION:', '').trim() : 'No specific progression adjustments needed.';
+
+                currentRecommendation = {
+                    workoutType: workoutType,
+                    reasoning: reasoning,
+                    modifications: modifications,
+                    progression: progression
+                };
+
+                // Check if this is a deload recommendation
+                const isDeload = workoutType.toUpperCase().includes('DELOAD');
+                const headerColor = isDeload ? 'var(--md-red-700)' : 'var(--md-purple-700)';
+                const bgColor = isDeload ? '#ffebee' : 'var(--md-purple-100)';
+
+                // Display recommendation
+                document.getElementById('recommendationContent').innerHTML = `
+                    <div style="background-color: ${bgColor}; padding: 15px; border-radius: 6px; margin-bottom: 15px; border-left: 4px solid ${headerColor};">
+                        <h4 style="margin-top: 0; color: ${headerColor};">
+                            ${isDeload ? '🔄 Deload Recommendation' : '💪 Recommended Workout'}: ${workoutType}
+                        </h4>
+                        <p><strong>📊 Analysis & Reasoning:</strong> ${reasoning}</p>
+                        <p><strong>⚙️ Workout Modifications:</strong> ${modifications}</p>
+                        <p><strong>📈 Progression Adjustments:</strong> ${progression}</p>
+                        <p style="font-size: 0.85em; color: var(--md-grey-700); margin-bottom: 0;"><em>🤖 Generated by Claude AI with evidence-based training principles</em></p>
+                    </div>
+                `;
+
+                document.getElementById('recommendationResult').style.display = 'block';
+
+            } catch (error) {
+                console.error('Error getting recommendation:', error);
+                
+                // More detailed error message
+                let errorMessage = 'Failed to get workout recommendation.\n\n';
+                
+                if (error.message.includes('401')) {
+                    errorMessage += 'Authentication failed - please check your API key.';
+                } else if (error.message.includes('429')) {
+                    errorMessage += 'Rate limit exceeded - please try again later.';
+                } else if (error.message.includes('400')) {
+                    errorMessage += 'Bad request - there may be an issue with the request format.';
+                } else if (error.message.includes('network') || error.message.includes('fetch') || error.message.includes('CORS') || error.message.includes('Failed to fetch')) {
+                    errorMessage += 'Connection to proxy server failed.\n\n';
+                    errorMessage += 'Setup steps:\n';
+                    errorMessage += '1. Open terminal in this folder\n';
+                    errorMessage += '2. Run: npm install\n';
+                    errorMessage += '3. Run: npm start\n';
+                    errorMessage += '4. Refresh this page and try again\n\n';
+                    errorMessage += 'Or use the simple built-in recommendation system instead?';
+                    
+                    if (confirm(errorMessage)) {
+                        generateSimpleRecommendation();
+                        return;
+                    }
+                } else {
+                    errorMessage += `Error details: ${error.message}`;
+                }
+                
+                errorMessage += '\n\nPlease check the browser console for more details.';
+                
+                alert(errorMessage);
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Get Smart Recommendation';
+            }
+        }
+
+        function acceptRecommendation() {
+            if (currentRecommendation && currentRecommendation.workoutType) {
+                displayWorkoutForDay(currentRecommendation.workoutType);
+                alert(`Starting ${currentRecommendation.workoutType}! Remember: ${currentRecommendation.modifications}`);
+            }
+        }
+
+        // Enhanced built-in recommendation system (fallback when Claude API fails)
+        function generateSimpleRecommendation() {
+            const energyLevel = parseInt(document.getElementById('energyLevel').value);
+            const stressLevel = parseInt(document.getElementById('stressLevel').value);
+            const musclesSore = document.getElementById('musclesSore').value.toLowerCase();
+            const timeAvailable = parseInt(document.getElementById('timeAvailable').value);
+            const equipmentLimitations = document.getElementById('equipmentLimitations')?.value?.toLowerCase() || '';
+            
+            // Get recent workout history and analyze patterns
+            const workoutHistory = getRecentWorkoutHistory();
+            const trainingAnalysis = analyzeTrainingPatterns(workoutHistory);
+            const nextWorkoutRecommendation = getRecommendedNextWorkout(workoutHistory);
+            const recentWorkouts = workoutHistory.slice(0, 3).map(h => h.workoutType);
+            
+            // Check for deload need first
+            if (trainingAnalysis.needsDeload.needed) {
+                currentRecommendation = {
+                    workoutType: 'DELOAD WEEK',
+                    reasoning: `Deload recommended: ${trainingAnalysis.needsDeload.reason}. Research shows deload weeks (40-60% normal volume, 70-80% intensity) enhance long-term progress.`,
+                    modifications: 'Reduce volume by 40-60%. Use 70-80% of normal weights. Focus on movement quality and recovery. Consider extra mobility work.',
+                    progression: 'Return to full intensity next week with potential to exceed previous performance.'
+                };
+                
+                document.getElementById('recommendationContent').innerHTML = `
+                    <div style="background-color: #ffebee; padding: 15px; border-radius: 6px; margin-bottom: 15px; border-left: 4px solid var(--md-red-700);">
+                        <h4 style="margin-top: 0; color: var(--md-red-700);">
+                            🔄 Deload Recommendation: ${currentRecommendation.workoutType}
+                        </h4>
+                        <p><strong>📊 Analysis & Reasoning:</strong> ${currentRecommendation.reasoning}</p>
+                        <p><strong>⚙️ Workout Modifications:</strong> ${currentRecommendation.modifications}</p>
+                        <p><strong>📈 Progression Adjustments:</strong> ${currentRecommendation.progression}</p>
+                        <p style="font-size: 0.85em; color: var(--md-grey-700); margin-bottom: 0;"><em>Generated by built-in recommendation system</em></p>
+                    </div>
+                `;
+                
+                document.getElementById('recommendationResult').style.display = 'block';
+                return;
+            }
+            
+            let workoutType;
+            let reasoning;
+            let modifications = '';
+            let progression = 'No specific progression adjustments needed.';
+            
+            // Equipment limitations check
+            const hasEquipmentLimitations = equipmentLimitations.length > 0;
+            
+            // Enhanced logic-based recommendations with muscle group frequency consideration
+            if (energyLevel <= 4 || stressLevel >= 8) {
+                if (timeAvailable < 45) {
+                    workoutType = 'Mobility Day';
+                    reasoning = 'Low energy/high stress suggests recovery focus. Research shows light movement aids recovery without adding training stress.';
+                } else {
+                    workoutType = 'Cardio Day';
+                    reasoning = 'Low energy/high stress. Zone 2 cardio (60-70% HRmax) is excellent for stress relief and recovery without overtaxing the system.';
+                }
+            } else if (musclesSore.includes('leg') || musclesSore.includes('squat')) {
+                if (!recentWorkouts.includes('Pull Day')) {
+                    workoutType = 'Pull Day';
+                    reasoning = 'Legs are sore, so focusing on upper body pulling movements. Pull work is often undertrained relative to push movements.';
+                } else {
+                    workoutType = 'Bench Day';
+                    reasoning = 'Legs are sore, and you haven\'t done bench recently. Upper body push focus allows leg recovery.';
+                }
+            } else if (musclesSore.includes('upper') || musclesSore.includes('shoulder') || musclesSore.includes('chest')) {
+                workoutType = 'Squat Day';
+                reasoning = 'Upper body is sore, so focusing on lower body strength. Squats are a foundational movement for strength development.';
+            } else if (timeAvailable < 45) {
+                // Quick workout options - prioritize frequency over volume
+                if (!recentWorkouts.includes('Pull Day')) {
+                    workoutType = 'Pull Day';
+                    reasoning = 'Limited time, and pull work is efficient and often needed. Focus on compound movements for time efficiency.';
+                } else {
+                    workoutType = 'Mobility Day';
+                    reasoning = 'Limited time suggests a quick mobility session. Maintaining range of motion is crucial for long-term training success.';
+                }
+            } else {
+                // Normal energy - consider muscle group frequency (aim for 2-3x per week)
+                const muscleGroupNeeds = trainingAnalysis.muscleGroupFreq;
+                const workoutOptions = ['Squat Day', 'Bench Day', 'Deadlift Day', 'Pull Day'];
+                
+                // Prioritize workouts that train undertrained muscle groups
+                let selectedWorkout = null;
+                if ((muscleGroupNeeds['quads'] || 0) < 2 && !recentWorkouts.includes('Squat Day')) {
+                    selectedWorkout = 'Squat Day';
+                } else if ((muscleGroupNeeds['back'] || 0) < 2 && !recentWorkouts.includes('Pull Day')) {
+                    selectedWorkout = 'Pull Day';
+                } else if ((muscleGroupNeeds['chest'] || 0) < 2 && !recentWorkouts.includes('Bench Day')) {
+                    selectedWorkout = 'Bench Day';
+                } else if ((muscleGroupNeeds['hamstrings'] || 0) < 2 && !recentWorkouts.includes('Deadlift Day')) {
+                    selectedWorkout = 'Deadlift Day';
+                }
+                
+                if (selectedWorkout) {
+                    workoutType = selectedWorkout;
+                    reasoning = `Good energy levels. ${workoutType} targets muscle groups that need more frequency based on your recent training.`;
+                } else {
+                    const undoneworkouts = workoutOptions.filter(w => !recentWorkouts.includes(w));
+                    if (undoneworkouts.length > 0) {
+                        workoutType = undoneworkouts[0];
+                        reasoning = `Good energy levels and you haven't done ${workoutType} recently. Variety in training stimuli promotes adaptation.`;
+                    } else {
+                        workoutType = 'Squat Day';
+                        reasoning = 'Good energy levels. Squat day is always a solid choice - lower body strength is fundamental to overall performance.';
+                    }
+                }
+            }
+            
+            // Evidence-based modifications following research principles
+            if (energyLevel <= 6) {
+                modifications = 'Reduce intensity to 70-80% 1RM. Stay 4-5 reps from failure on strength moves (RPE 6-7). Prioritize movement quality and neural recovery.';
+            } else if (energyLevel >= 8 && stressLevel <= 4) {
+                modifications = 'High energy state! Work at 85-90% 1RM for strength moves (RPE 8). Can train closer to failure (RPE 8-9) on isolation exercises only.';
+            } else {
+                modifications = 'Work at planned intensities. Stay 3-4 reps from failure on compound movements per research guidelines.';
+            }
+            
+            // Time-based modifications
+            if (timeAvailable < 60) {
+                modifications += ' Use 1-2min rest for accessories, 2-3min for compounds. Focus on main lifts only. Consider antagonist supersets.';
+            } else if (timeAvailable >= 90) {
+                modifications += ' Take full 2-5min rest between strength sets. Add comprehensive warm-up, cool-down, and mobility work.';
+            }
+            
+            // Equipment substitutions
+            if (hasEquipmentLimitations) {
+                modifications += ` EQUIPMENT SUBSTITUTIONS: ${getEquipmentSubstitutions(workoutType, equipmentLimitations)}`;
+            }
+            
+            // Recovery considerations
+            const daysSinceLastWorkout = workoutHistory.length > 0 ? 
+                (new Date() - new Date(workoutHistory[0].date)) / (1000 * 60 * 60 * 24) : 7;
+            
+            if (daysSinceLastWorkout > 3) {
+                modifications += ' Start conservatively after rest period - reduce loads by 10-15% for first session back.';
+            }
+            
+            // Auto-progression suggestions
+            const keyExercises = ['squat', 'bench', 'deadlift', 'ohp'];
+            const progressionSuggestions = [];
+            keyExercises.forEach(exerciseId => {
+                const progressionAnalysis = analyzeProgression(exerciseId, workoutHistory);
+                if (progressionAnalysis && progressionAnalysis.type !== 'maintain') {
+                    progressionSuggestions.push(`${exerciseId}: ${progressionAnalysis.type} ${progressionAnalysis.amount}kg (${progressionAnalysis.reason})`);
+                }
+            });
+            
+            if (progressionSuggestions.length > 0) {
+                progression = progressionSuggestions.join('; ');
+            }
+            
+            // Weekly volume considerations
+            if (trainingAnalysis.weeklyWorkouts < 3) {
+                modifications += ' Consider adding more sessions this week to meet 3x/week minimum for optimal strength gains.';
+            } else if (trainingAnalysis.weeklyWorkouts > 5) {
+                modifications += ' High weekly frequency - ensure adequate recovery between sessions.';
+            }
+            
+            currentRecommendation = {
+                workoutType: workoutType,
+                reasoning: reasoning,
+                modifications: modifications,
+                progression: progression
+            };
+            
+            // Display recommendation
+            document.getElementById('recommendationContent').innerHTML = `
+                <div style="background-color: var(--md-purple-100); padding: 15px; border-radius: 6px; margin-bottom: 15px; border-left: 4px solid var(--md-purple-700);">
+                    <h4 style="margin-top: 0; color: var(--md-purple-700);">
+                        💪 Enhanced Recommendation: ${workoutType}
+                    </h4>
+                    <p><strong>📊 Analysis & Reasoning:</strong> ${reasoning}</p>
+                    <p><strong>⚙️ Workout Modifications:</strong> ${modifications}</p>
+                    <p><strong>📈 Progression Adjustments:</strong> ${progression}</p>
+                    <p style="font-size: 0.85em; color: var(--md-grey-700); margin-bottom: 0;"><em>🧠 Generated by enhanced built-in recommendation system</em></p>
+                </div>
+            `;
+            
+            document.getElementById('recommendationResult').style.display = 'block';
+        }
+        
+        // getEquipmentSubstitutions function now imported from exerciseTypes module
 
         // Data Export/Import Functions
         function exportData() {
@@ -2374,6 +2617,7 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
                     e1RMChangeStatus: e1RMChangeStatus,
                     userBodyweight: userBodyweight,
                     bodyweightHistory: bodyweightHistory,
+                    claudeApiKey: claudeApiKey,
                     dailyLogs: {}
                 };
 
@@ -2439,6 +2683,10 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
                         if (importedData.bodyweightHistory) {
                             bodyweightHistory = importedData.bodyweightHistory;
                         }
+                        if (importedData.claudeApiKey) {
+                            claudeApiKey = importedData.claudeApiKey;
+                            document.getElementById('claudeApiKey').value = claudeApiKey;
+                        }
 
                         // Import daily logs
                         if (importedData.dailyLogs) {
@@ -2499,84 +2747,37 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
         // CSV Export Function
         function exportDataCSV() {
             try {
-                const timestamp = new Date().toISOString();
                 let csvContent = "";
                 
-                // Header with metadata
-                csvContent += `Fitness Tracker Data Export\n`;
-                csvContent += `Export Date/Time,"${timestamp}"\n`;
-                csvContent += `Application Version,"${APP_VERSION_KEY}"\n`;
-                csvContent += `Total Workouts,"${Object.keys(localStorage).filter(key => key.startsWith(`personalizedPlanDailyLog_${APP_VERSION_KEY}_`)).length}"\n\n`;
-                
-                // Enhanced e1RM data with change status
+                // Export e1RM data
                 csvContent += "Exercise 1RM Data\n";
-                csvContent += "Exercise,Current e1RM (kg),Change Status,Date Updated\n";
+                csvContent += "Exercise,Current e1RM (kg),Date Updated\n";
                 Object.entries(exercisesE1RM).forEach(([exercise, value]) => {
-                    const changeStatus = e1RMChangeStatus[exercise] || 'No Change';
-                    csvContent += `"${exercise}","${value}","${changeStatus}","${new Date().toISOString().split('T')[0]}"\n`;
+                    csvContent += `"${exercise}","${value}","${new Date().toISOString().split('T')[0]}"\n`;
                 });
                 
-                // Bodyweight history with trends
                 csvContent += "\nBodyweight History\n";
-                csvContent += "Date,Weight (kg),Change from Previous\n";
-                bodyweightHistory.forEach((entry, index) => {
-                    let change = '';
-                    if (index > 0) {
-                        const prevWeight = bodyweightHistory[index - 1].weight;
-                        const diff = (entry.weight - prevWeight).toFixed(1);
-                        change = diff > 0 ? `+${diff}` : diff;
-                    }
-                    csvContent += `"${entry.date}","${entry.weight}","${change}"\n`;
+                csvContent += "Date,Weight (kg)\n";
+                bodyweightHistory.forEach(entry => {
+                    csvContent += `"${entry.date}","${entry.weight}"\n`;
                 });
                 
-                // Enhanced workout logs with calculated metrics
-                csvContent += "\nDetailed Workout Logs\n";
-                csvContent += "Date,Exercise,Set,Weight,Reps,RPE,e1RM,Volume,Training Load,Workout Type,Notes\n";
+                // Export daily logs
+                csvContent += "\nWorkout Logs\n";
+                csvContent += "Date,Exercise,Set,Weight,Reps,RPE,e1RM\n";
                 
-                const workoutData = [];
                 for (let i = 0; i < localStorage.length; i++) {
                     const key = localStorage.key(i);
                     if (key && key.startsWith(`personalizedPlanDailyLog_${APP_VERSION_KEY}_`)) {
                         const date = key.substring(`personalizedPlanDailyLog_${APP_VERSION_KEY}_`.length);
                         const logData = JSON.parse(localStorage.getItem(key));
                         
-                        Object.entries(logData).forEach(([itemId, itemData]) => {
-                            if (itemData) {
-                                // Handle single sets
-                                if (itemData.actualWeight && itemData.actualReps) {
-                                    const weight = itemData.actualWeight;
-                                    const reps = itemData.actualReps;
-                                    const rpe = itemData.actualRPE || '';
-                                    const e1rm = calculateEpleyE1RM(weight, reps);
-                                    const volume = weight * reps;
-                                    const trainingLoad = rpe ? (volume * rpe / 10) : '';
-                                    const notes = itemData.userNotes || '';
-                                    
-                                    // Determine workout type from exercise name
-                                    const workoutType = getWorkoutType(itemId);
-                                    
-                                    workoutData.push({
-                                        date, exercise: itemId, set: '1', weight, reps, rpe, e1rm, volume, trainingLoad, workoutType, notes
-                                    });
-                                }
-                                
-                                // Handle multiple sets
-                                Object.entries(itemData).forEach(([setKey, setData]) => {
-                                    if (setKey.startsWith('set') && setData && setData.actualWeight && setData.actualReps) {
-                                        const setNumber = setKey.replace('set', '');
-                                        const weight = setData.actualWeight;
-                                        const reps = setData.actualReps;
-                                        const rpe = setData.actualRPE || '';
-                                        const e1rm = calculateEpleyE1RM(weight, reps);
-                                        const volume = weight * reps;
-                                        const trainingLoad = rpe ? (volume * rpe / 10) : '';
-                                        const notes = setData.userNotes || '';
-                                        
-                                        const workoutType = getWorkoutType(itemId);
-                                        
-                                        workoutData.push({
-                                            date, exercise: itemId, set: setNumber, weight, reps, rpe, e1rm, volume, trainingLoad, workoutType, notes
-                                        });
+                        Object.entries(logData).forEach(([exerciseName, sets]) => {
+                            if (Array.isArray(sets)) {
+                                sets.forEach((set, index) => {
+                                    if (set.weight && set.reps) {
+                                        const e1rm = set.weight * (1 + (set.reps / 30));
+                                        csvContent += `"${date}","${exerciseName}","${index + 1}","${set.weight}","${set.reps}","${set.rpe || ''}","${e1rm.toFixed(1)}"\n`;
                                     }
                                 });
                             }
@@ -2584,54 +2785,24 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
                     }
                 }
                 
-                // Sort by date, then exercise, then set
-                workoutData.sort((a, b) => {
-                    if (a.date !== b.date) return a.date.localeCompare(b.date);
-                    if (a.exercise !== b.exercise) return a.exercise.localeCompare(b.exercise);
-                    return parseInt(a.set) - parseInt(b.set);
-                });
-                
-                workoutData.forEach(row => {
-                    csvContent += `"${row.date}","${row.exercise}","${row.set}","${row.weight}","${row.reps}","${row.rpe}","${row.e1rm.toFixed(1)}","${row.volume}","${row.trainingLoad}","${row.workoutType}","${row.notes}"\n`;
-                });
-                
-                // Summary statistics
-                csvContent += "\nWorkout Summary Statistics\n";
-                csvContent += "Metric,Value\n";
-                csvContent += `"Total Sets Completed","${workoutData.length}"\n`;
-                csvContent += `"Total Volume (lbs × reps)","${workoutData.reduce((sum, row) => sum + row.volume, 0).toFixed(1)}"\n`;
-                csvContent += `"Average RPE","${(workoutData.filter(row => row.rpe).reduce((sum, row) => sum + parseFloat(row.rpe), 0) / workoutData.filter(row => row.rpe).length || 0).toFixed(1)}"\n`;
-                csvContent += `"Unique Exercises","${new Set(workoutData.map(row => row.exercise)).size}"\n`;
-                csvContent += `"Date Range","${workoutData.length > 0 ? workoutData[0].date + ' to ' + workoutData[workoutData.length - 1].date : 'No data'}"\n`;
-                
                 const blob = new Blob([csvContent], { type: 'text/csv' });
                 const link = document.createElement('a');
                 link.href = URL.createObjectURL(blob);
-                link.download = `fitness-tracker-enhanced-export-${new Date().toISOString().split('T')[0]}.csv`;
+                link.download = `fitness-tracker-export-${new Date().toISOString().split('T')[0]}.csv`;
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
                 
                 const statusDiv = document.getElementById('dataManagementStatus');
-                statusDiv.textContent = `Enhanced CSV data exported successfully at ${new Date().toLocaleTimeString()}`;
-                statusDiv.style.color = 'var(--success-500)';
+                statusDiv.textContent = `CSV data exported successfully at ${new Date().toLocaleTimeString()}`;
+                statusDiv.style.color = 'var(--md-green-500)';
                 
             } catch (error) {
                 console.error('CSV Export error:', error);
                 const statusDiv = document.getElementById('dataManagementStatus');
                 statusDiv.textContent = 'CSV export failed. Check console for details.';
-                statusDiv.style.color = 'var(--error-500)';
+                statusDiv.style.color = 'var(--md-red-500)';
             }
-        }
-        
-        function getWorkoutType(exerciseId) {
-            // Determine workout type based on exercise
-            const exerciseLower = exerciseId.toLowerCase();
-            if (exerciseLower.includes('squat')) return 'Squat Day';
-            if (exerciseLower.includes('bench') || exerciseLower.includes('press')) return 'Bench Day';
-            if (exerciseLower.includes('deadlift')) return 'Deadlift Day';
-            if (exerciseLower.includes('pull') || exerciseLower.includes('row') || exerciseLower.includes('chin')) return 'Pull Day';
-            return 'General';
         }
 
         // Selective Export Modal Functions
@@ -2736,6 +2907,9 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
                 });
             }
 
+            if (includeSettings) {
+                exportData.claudeApiKey = claudeApiKey;
+            }
 
             if (includeWorkouts) {
                 exportData.dailyLogs = {};
@@ -2911,6 +3085,7 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
                     e1RMChangeStatus: e1RMChangeStatus,
                     userBodyweight: userBodyweight,
                     bodyweightHistory: bodyweightHistory,
+                    claudeApiKey: claudeApiKey,
                     dailyLogs: {}
                 };
 
@@ -3086,686 +3261,8 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
             // Refresh any other components that might show the imported data
         }
 
-        // Rest Timer Functions
-        function formatTime(seconds) {
-            const mins = Math.floor(seconds / 60);
-            const secs = seconds % 60;
-            return `${mins}:${secs.toString().padStart(2, '0')}`;
-        }
-
-        function updateTimerDisplay() {
-            const display = document.getElementById('timerDisplay');
-            if (restTimerSeconds <= 0) {
-                display.textContent = '0:00';
-                display.style.color = 'var(--md-red-500)';
-                if (restTimerInterval) {
-                    clearInterval(restTimerInterval);
-                    restTimerInterval = null;
-                    
-                    // Timer finished - play notification and show alert
-                    if ('Notification' in window && Notification.permission === 'granted') {
-                        new Notification('Rest Timer Complete!', {
-                            body: 'Time to start your next set',
-                            icon: '/favicon.ico'
-                        });
-                    }
-                    
-                    // Visual/audio notification
-                    alert('Rest time complete! Ready for your next set?');
-                    
-                    // Reset timer state
-                    restTimerSeconds = 0;
-                    restTimerPaused = false;
-                    document.getElementById('startTimerBtn').textContent = 'Start';
-                }
-            } else {
-                display.textContent = formatTime(restTimerSeconds);
-                // Color coding: green > 60s, yellow 30-60s, red < 30s
-                if (restTimerSeconds > 60) {
-                    display.style.color = 'var(--md-green-500)';
-                } else if (restTimerSeconds > 30) {
-                    display.style.color = 'orange';
-                } else {
-                    display.style.color = 'var(--md-red-500)';
-                }
-            }
-        }
-
-        function startRestTimer(seconds = null) {
-            // Request notification permission on first use
-            if ('Notification' in window && Notification.permission === 'default') {
-                Notification.requestPermission();
-            }
-
-            if (seconds !== null) {
-                // Starting with preset time
-                restTimerSeconds = seconds;
-                restTimerTotalSeconds = seconds;
-            } else if (restTimerSeconds <= 0) {
-                // Starting fresh with default time
-                restTimerSeconds = 120; // Default 2 minutes
-                restTimerTotalSeconds = 120;
-            }
-            // If seconds is null and restTimerSeconds > 0, we're resuming
-
-            if (restTimerInterval) {
-                clearInterval(restTimerInterval);
-            }
-
-            restTimerInterval = setInterval(() => {
-                if (!restTimerPaused) {
-                    restTimerSeconds--;
-                    updateTimerDisplay();
-                }
-            }, 1000);
-
-            restTimerPaused = false;
-            document.getElementById('startTimerBtn').textContent = 'Resume';
-            showRestTimer();
-            updateTimerDisplay();
-        }
-
-        function pauseRestTimer() {
-            restTimerPaused = !restTimerPaused;
-            document.getElementById('pauseTimerBtn').textContent = restTimerPaused ? 'Resume' : 'Pause';
-        }
-
-        function stopRestTimer() {
-            if (restTimerInterval) {
-                clearInterval(restTimerInterval);
-                restTimerInterval = null;
-            }
-            restTimerSeconds = 0;
-            restTimerPaused = false;
-            document.getElementById('startTimerBtn').textContent = 'Start';
-            document.getElementById('pauseTimerBtn').textContent = 'Pause';
-            updateTimerDisplay();
-        }
-
-        function startCustomTimer() {
-            const minutes = parseInt(document.getElementById('customTimerMinutes').value);
-            if (minutes && minutes > 0) {
-                startRestTimer(minutes * 60);
-                document.getElementById('customTimerMinutes').value = '';
-            }
-        }
-
-        function showRestTimer() {
-            document.getElementById('restTimer').classList.add('active');
-            document.getElementById('toggleTimerBtn').textContent = 'Hide';
-        }
-
-        function hideRestTimer() {
-            document.getElementById('restTimer').classList.remove('active');
-            document.getElementById('toggleTimerBtn').textContent = 'Show';
-        }
-
-        function toggleRestTimer() {
-            const timer = document.getElementById('restTimer');
-            if (timer.classList.contains('active')) {
-                hideRestTimer();
-            } else {
-                showRestTimer();
-            }
-        }
-
-        // Bulk Edit Functions
-        function showBulkEditControls() {
-            document.getElementById('bulkEditControls').style.display = 'block';
-            const checkboxes = document.querySelectorAll('.bulk-edit-checkbox');
-            checkboxes.forEach(checkbox => checkbox.style.display = 'block');
-            
-            // Add event listeners for checkboxes
-            const setCheckboxes = document.querySelectorAll('.set-checkbox');
-            setCheckboxes.forEach(checkbox => {
-                checkbox.addEventListener('change', updateSelectedCount);
-            });
-            
-            document.getElementById('selectAllSets').addEventListener('change', toggleSelectAll);
-        }
-        
-        function hideBulkEditControls() {
-            document.getElementById('bulkEditControls').style.display = 'none';
-            const checkboxes = document.querySelectorAll('.bulk-edit-checkbox');
-            checkboxes.forEach(checkbox => checkbox.style.display = 'none');
-            
-            // Clear all selections
-            const setCheckboxes = document.querySelectorAll('.set-checkbox');
-            setCheckboxes.forEach(checkbox => {
-                checkbox.checked = false;
-                checkbox.parentElement.parentElement.parentElement.style.background = '';
-            });
-            document.getElementById('selectAllSets').checked = false;
-            updateSelectedCount();
-        }
-        
-        function toggleSelectAll() {
-            const selectAll = document.getElementById('selectAllSets');
-            const setCheckboxes = document.querySelectorAll('.set-checkbox');
-            
-            setCheckboxes.forEach(checkbox => {
-                checkbox.checked = selectAll.checked;
-                const setContainer = checkbox.parentElement.parentElement.parentElement;
-                setContainer.style.background = checkbox.checked ? 'var(--primary-50)' : '';
-            });
-            
-            updateSelectedCount();
-        }
-        
-        function updateSelectedCount() {
-            const selectedCheckboxes = document.querySelectorAll('.set-checkbox:checked');
-            const count = selectedCheckboxes.length;
-            document.getElementById('selectedCount').textContent = count;
-            document.getElementById('bulkEditBtn').disabled = count === 0;
-            
-            // Update visual feedback
-            selectedCheckboxes.forEach(checkbox => {
-                const setContainer = checkbox.parentElement.parentElement.parentElement;
-                setContainer.style.background = 'var(--primary-50)';
-                setContainer.style.border = '2px solid var(--primary-500)';
-                setContainer.style.borderRadius = '8px';
-            });
-            
-            // Remove highlighting from unchecked boxes
-            const unselectedCheckboxes = document.querySelectorAll('.set-checkbox:not(:checked)');
-            unselectedCheckboxes.forEach(checkbox => {
-                const setContainer = checkbox.parentElement.parentElement.parentElement;
-                setContainer.style.background = '';
-                setContainer.style.border = '';
-                setContainer.style.borderRadius = '';
-            });
-        }
-        
-        function showBulkEditModal() {
-            const selectedCheckboxes = document.querySelectorAll('.set-checkbox:checked');
-            if (selectedCheckboxes.length === 0) return;
-            
-            const modal = document.getElementById('bulkEditModal');
-            const selectedSetsDiv = document.getElementById('bulkEditSelectedSets');
-            
-            let content = '<h4>Selected Sets:</h4><ul>';
-            selectedCheckboxes.forEach(checkbox => {
-                const exerciseName = checkbox.dataset.exerciseName;
-                const setIndex = checkbox.dataset.setIndex;
-                const itemId = checkbox.dataset.itemId;
-                
-                const weightInput = document.getElementById(`${itemId}_set${setIndex}_weight`);
-                const repsInput = document.getElementById(`${itemId}_set${setIndex}_reps`);
-                const rpeInput = document.getElementById(`${itemId}_set${setIndex}_rpe`);
-                
-                content += `<li><strong>${exerciseName} - Set ${setIndex}</strong><br>
-                    Current: ${weightInput.value || 0} lbs × ${repsInput.value || 0} reps @ ${rpeInput.value || 0} RPE</li>`;
-            });
-            content += '</ul>';
-            
-            selectedSetsDiv.innerHTML = content;
-            modal.style.display = 'block';
-            
-            // Clear previous values
-            document.getElementById('bulkWeight').value = '';
-            document.getElementById('bulkReps').value = '';
-            document.getElementById('bulkRPE').value = '';
-            document.getElementById('bulkApplyRelative').checked = false;
-        }
-        
-        function closeBulkEditModal() {
-            document.getElementById('bulkEditModal').style.display = 'none';
-        }
-        
-        function applyBulkEdit() {
-            const selectedCheckboxes = document.querySelectorAll('.set-checkbox:checked');
-            const bulkWeight = document.getElementById('bulkWeight').value;
-            const bulkReps = document.getElementById('bulkReps').value;
-            const bulkRPE = document.getElementById('bulkRPE').value;
-            const isRelative = document.getElementById('bulkApplyRelative').checked;
-            
-            selectedCheckboxes.forEach(checkbox => {
-                const itemId = checkbox.dataset.itemId;
-                const setIndex = checkbox.dataset.setIndex;
-                
-                const weightInput = document.getElementById(`${itemId}_set${setIndex}_weight`);
-                const repsInput = document.getElementById(`${itemId}_set${setIndex}_reps`);
-                const rpeInput = document.getElementById(`${itemId}_set${setIndex}_rpe`);
-                
-                if (bulkWeight) {
-                    if (isRelative) {
-                        const currentWeight = parseFloat(weightInput.value) || 0;
-                        weightInput.value = (currentWeight + parseFloat(bulkWeight)).toFixed(1);
-                    } else {
-                        weightInput.value = bulkWeight;
-                    }
-                }
-                
-                if (bulkReps) {
-                    if (isRelative) {
-                        const currentReps = parseInt(repsInput.value) || 0;
-                        repsInput.value = currentReps + parseInt(bulkReps);
-                    } else {
-                        repsInput.value = bulkReps;
-                    }
-                }
-                
-                if (bulkRPE) {
-                    if (isRelative) {
-                        const currentRPE = parseFloat(rpeInput.value) || 0;
-                        const newRPE = currentRPE + parseFloat(bulkRPE);
-                        rpeInput.value = Math.max(6, Math.min(10, newRPE));
-                    } else {
-                        rpeInput.value = bulkRPE;
-                    }
-                }
-            });
-            
-            closeBulkEditModal();
-            showSuccess(`Updated ${selectedCheckboxes.length} sets successfully!`);
-        }
-        
-        function bulkLogAllSets() {
-            const selectedCheckboxes = document.querySelectorAll('.set-checkbox:checked');
-            let loggedCount = 0;
-            let errors = [];
-            
-            selectedCheckboxes.forEach(checkbox => {
-                const itemId = checkbox.dataset.itemId;
-                const setIndex = checkbox.dataset.setIndex;
-                const exerciseName = checkbox.dataset.exerciseName;
-                
-                const weightInput = document.getElementById(`${itemId}_set${setIndex}_weight`);
-                const repsInput = document.getElementById(`${itemId}_set${setIndex}_reps`);
-                const rpeInput = document.getElementById(`${itemId}_set${setIndex}_rpe`);
-                
-                // Validate inputs
-                if (!weightInput.value || !repsInput.value || !rpeInput.value) {
-                    errors.push(`${exerciseName} Set ${setIndex}: Missing values`);
-                    return;
-                }
-                
-                try {
-                    // Use existing logGenericSet function
-                    const exerciseGroup = USER_WORKOUT_PLAN[currentSelectedDayKey].find(item => item.id === itemId)?.group || exerciseName;
-                    logGenericSet(itemId, exerciseGroup, parseInt(setIndex));
-                    loggedCount++;
-                } catch (error) {
-                    errors.push(`${exerciseName} Set ${setIndex}: ${error.message}`);
-                }
-            });
-            
-            closeBulkEditModal();
-            hideBulkEditControls();
-            
-            if (errors.length > 0) {
-                showError(`Logged ${loggedCount} sets. Errors: ${errors.join(', ')}`);
-            } else {
-                showSuccess(`Successfully logged ${loggedCount} sets!`);
-            }
-        }
-
-        // Undo/Redo System
-        let undoStack = [];
-        let redoStack = [];
-        const MAX_UNDO_HISTORY = 20;
-        
-        function saveStateForUndo(actionDescription) {
-            // Save current state before making changes
-            const currentState = {
-                dailyLog: JSON.parse(JSON.stringify(dailyLog)),
-                exercisesE1RM: JSON.parse(JSON.stringify(exercisesE1RM)),
-                bodyweightHistory: JSON.parse(JSON.stringify(bodyweightHistory)),
-                timestamp: Date.now(),
-                description: actionDescription
-            };
-            
-            undoStack.push(currentState);
-            
-            // Limit undo history size
-            if (undoStack.length > MAX_UNDO_HISTORY) {
-                undoStack.shift();
-            }
-            
-            // Clear redo stack when new action is performed
-            redoStack = [];
-            
-            updateUndoRedoButtons();
-        }
-        
-        function performUndo() {
-            if (undoStack.length === 0) return;
-            
-            // Save current state to redo stack
-            const currentState = {
-                dailyLog: JSON.parse(JSON.stringify(dailyLog)),
-                exercisesE1RM: JSON.parse(JSON.stringify(exercisesE1RM)),
-                bodyweightHistory: JSON.parse(JSON.stringify(bodyweightHistory)),
-                timestamp: Date.now(),
-                description: 'Redo point'
-            };
-            redoStack.push(currentState);
-            
-            // Restore previous state
-            const previousState = undoStack.pop();
-            dailyLog = previousState.dailyLog;
-            exercisesE1RM = previousState.exercisesE1RM;
-            bodyweightHistory = previousState.bodyweightHistory;
-            
-            // Save to localStorage
-            saveData();
-            
-            // Refresh UI
-            if (currentSelectedDayKey) {
-                displayWorkoutForDay(currentSelectedDayKey);
-            }
-            renderE1RMTable();
-            renderBodyweightChart();
-            updateAttendanceSummary();
-            
-            updateUndoRedoButtons();
-            showSuccess(`Undone: ${previousState.description}`);
-        }
-        
-        function performRedo() {
-            if (redoStack.length === 0) return;
-            
-            // Save current state to undo stack
-            const currentState = {
-                dailyLog: JSON.parse(JSON.stringify(dailyLog)),
-                exercisesE1RM: JSON.parse(JSON.stringify(exercisesE1RM)),
-                bodyweightHistory: JSON.parse(JSON.stringify(bodyweightHistory)),
-                timestamp: Date.now(),
-                description: 'Undo point'
-            };
-            undoStack.push(currentState);
-            
-            // Restore redo state
-            const redoState = redoStack.pop();
-            dailyLog = redoState.dailyLog;
-            exercisesE1RM = redoState.exercisesE1RM;
-            bodyweightHistory = redoState.bodyweightHistory;
-            
-            // Save to localStorage
-            saveData();
-            
-            // Refresh UI
-            if (currentSelectedDayKey) {
-                displayWorkoutForDay(currentSelectedDayKey);
-            }
-            renderE1RMTable();
-            renderBodyweightChart();
-            updateAttendanceSummary();
-            
-            updateUndoRedoButtons();
-            showSuccess(`Redone: ${redoState.description}`);
-        }
-        
-        function updateUndoRedoButtons() {
-            // This will be called to update button states if we add UI buttons
-            // For now, just used for internal state management
-        }
-
-        // Dark Mode Theme Functions
-        function initializeTheme() {
-            const savedTheme = localStorage.getItem('theme');
-            const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-            
-            // Use saved theme, or default to system preference
-            const theme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
-            applyTheme(theme);
-            
-            // Listen for system theme changes
-            if (window.matchMedia) {
-                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-                    if (!localStorage.getItem('theme')) {
-                        applyTheme(e.matches ? 'dark' : 'light');
-                    }
-                });
-            }
-        }
-        
-        function toggleTheme() {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            applyTheme(newTheme);
-            localStorage.setItem('theme', newTheme);
-        }
-        
-        function applyTheme(theme) {
-            document.documentElement.setAttribute('data-theme', theme);
-            
-            // Update the toggle button icon
-            const themeIcon = document.querySelector('.theme-icon');
-            if (themeIcon) {
-                themeIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
-            }
-            
-            // Update button title
-            const themeToggle = document.getElementById('themeToggle');
-            if (themeToggle) {
-                themeToggle.title = theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode';
-            }
-            
-            // Update meta theme-color for mobile browsers
-            const metaThemeColor = document.querySelector('meta[name="theme-color"]');
-            if (metaThemeColor) {
-                const themeColors = {
-                    light: '#0D7377',
-                    dark: '#1DB584'
-                };
-                metaThemeColor.setAttribute('content', themeColors[theme]);
-            }
-        }
-
-        // Keyboard shortcuts and auto-focus management
-        function initializeKeyboardShortcuts() {
-            document.addEventListener('keydown', function(event) {
-                // Don't interfere with typing in input fields
-                if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') {
-                    handleInputFieldKeydown(event);
-                    return;
-                }
-                
-                // Global shortcuts (when not typing in inputs)
-                if (event.ctrlKey || event.metaKey) {
-                    handleCtrlShortcuts(event);
-                } else {
-                    handleGlobalShortcuts(event);
-                }
-            });
-            
-            // Auto-focus management for workout input fields
-            setupAutoFocusForWorkoutInputs();
-        }
-        
-        function handleInputFieldKeydown(event) {
-            const input = event.target;
-            
-            // Tab navigation within input groups
-            if (event.key === 'Tab') {
-                event.preventDefault();
-                navigateToNextInput(input, event.shiftKey);
-                return;
-            }
-            
-            // Enter to submit or move to next field
-            if (event.key === 'Enter') {
-                event.preventDefault();
-                
-                // Check if this is in a modal
-                const modal = input.closest('.modal');
-                if (modal) {
-                    handleModalEnter(input, modal);
-                    return;
-                }
-                
-                // Check if this is in a set logging group
-                const setGroup = input.closest('.inline-inputs');
-                if (setGroup) {
-                    handleSetGroupEnter(input, setGroup);
-                    return;
-                }
-            }
-            
-            // Escape to clear input or close modal
-            if (event.key === 'Escape') {
-                const modal = input.closest('.modal');
-                if (modal) {
-                    closeModal();
-                } else {
-                    input.value = '';
-                    input.blur();
-                }
-                return;
-            }
-        }
-        
-        function handleCtrlShortcuts(event) {
-            switch(event.key.toLowerCase()) {
-                case 's':
-                    event.preventDefault();
-                    saveAllSettingsAndE1RMs();
-                    showSuccess('Data saved successfully!');
-                    break;
-                case 'e':
-                    event.preventDefault();
-                    exportData();
-                    break;
-                case 'z':
-                    event.preventDefault();
-                    performUndo();
-                    break;
-                case 'y':
-                    event.preventDefault();
-                    performRedo();
-                    break;
-            }
-        }
-        
-        function handleGlobalShortcuts(event) {
-            switch(event.key) {
-                case '1':
-                    showTab('guideTab');
-                    break;
-                case '2':
-                    showTab('analyticsTab');
-                    break;
-                case '3':
-                    showTab('e1rmTab');
-                    break;
-                case '4':
-                case '5':
-                case '6':
-                case '7':
-                    // Navigate to workout day tabs
-                    const workoutKeys = Object.keys(USER_WORKOUT_PLAN);
-                    const dayIndex = parseInt(event.key) - 4;
-                    if (dayIndex < workoutKeys.length) {
-                        displayWorkoutForDay(workoutKeys[dayIndex]);
-                    }
-                    break;
-                case 't':
-                    toggleRestTimer();
-                    break;
-                case 'r':
-                    if (document.getElementById('restTimer').classList.contains('active')) {
-                        hideRestTimer();
-                    } else {
-                        startRestTimer(90); // Default 90 second timer
-                    }
-                    break;
-                case 'Escape':
-                    // Close any open modals
-                    closeModal();
-                    break;
-            }
-        }
-        
-        function navigateToNextInput(currentInput, reverse = false) {
-            const container = currentInput.closest('.inline-inputs') || currentInput.closest('.modal-content');
-            if (!container) return;
-            
-            const inputs = Array.from(container.querySelectorAll('input[type="number"], input[type="text"], input[type="date"]'));
-            const currentIndex = inputs.indexOf(currentInput);
-            
-            if (currentIndex === -1) return;
-            
-            let nextIndex;
-            if (reverse) {
-                nextIndex = currentIndex > 0 ? currentIndex - 1 : inputs.length - 1;
-            } else {
-                nextIndex = currentIndex < inputs.length - 1 ? currentIndex + 1 : 0;
-            }
-            
-            inputs[nextIndex].focus();
-            inputs[nextIndex].select();
-        }
-        
-        function handleModalEnter(input, modal) {
-            const modalId = modal.id;
-            
-            if (modalId === 'accessoryLogModal') {
-                // Check if all required fields are filled
-                const weightInput = modal.querySelector('#modalWeight');
-                const repsInput = modal.querySelector('#modalReps');
-                const rpeInput = modal.querySelector('#modalRPE');
-                
-                if (input === rpeInput || (weightInput.value && repsInput.value && rpeInput.value)) {
-                    submitAccessorySetLog();
-                } else {
-                    // Move to next empty field
-                    if (!weightInput.value) weightInput.focus();
-                    else if (!repsInput.value) repsInput.focus();
-                    else if (!rpeInput.value) rpeInput.focus();
-                }
-            }
-        }
-        
-        function handleSetGroupEnter(input, setGroup) {
-            // Find the associated log button
-            const logButton = setGroup.parentElement.querySelector('button[onclick*="log"]');
-            
-            if (logButton) {
-                // Check if all required fields are filled
-                const weightInput = setGroup.querySelector('input[id*="_weight"]');
-                const repsInput = setGroup.querySelector('input[id*="_reps"]');
-                const rpeInput = setGroup.querySelector('input[id*="_rpe"]');
-                
-                if (input === rpeInput || (weightInput && repsInput && rpeInput && 
-                    weightInput.value && repsInput.value && rpeInput.value)) {
-                    logButton.click();
-                } else {
-                    // Move to next empty field
-                    if (weightInput && !weightInput.value) weightInput.focus();
-                    else if (repsInput && !repsInput.value) repsInput.focus();
-                    else if (rpeInput && !rpeInput.value) rpeInput.focus();
-                }
-            }
-        }
-        
-        function setupAutoFocusForWorkoutInputs() {
-            // Add event listeners to auto-focus next field when current field is filled
-            document.addEventListener('input', function(event) {
-                const input = event.target;
-                
-                if (input.type === 'number' && input.id.match(/_(weight|reps|rpe)$/)) {
-                    const value = input.value;
-                    
-                    // Auto-advance when reasonable values are entered
-                    if (input.id.includes('_weight') && value && parseFloat(value) > 0) {
-                        const repsInput = input.parentElement.querySelector('input[id*="_reps"]');
-                        if (repsInput && !repsInput.value) {
-                            setTimeout(() => repsInput.focus(), 100);
-                        }
-                    } else if (input.id.includes('_reps') && value && parseInt(value) > 0) {
-                        const rpeInput = input.parentElement.querySelector('input[id*="_rpe"]');
-                        if (rpeInput && !rpeInput.value) {
-                            setTimeout(() => rpeInput.focus(), 100);
-                        }
-                    }
-                }
-            });
-        }
-
         function init() {
             loadData(); 
-            initializeTheme();
             const nav = document.getElementById('mainNav');
             const analyticsButton = nav.querySelector('button[data-tab="analyticsTab"]'); // Find analytics button
             const e1rmButton = nav.querySelector('button[data-tab="e1rmTab"]'); 
@@ -3780,19 +3277,19 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
             });
             
             document.getElementById('logBodyweightDate').value = todayKey; // Set default date for BW log
-            const workoutDateInput = document.getElementById('workoutLogDate');
-            workoutDateInput.value = selectedLogDateKey;
-            workoutDateInput.addEventListener('change', (e) => changeLogDate(e.target.value));
-            renderE1RMTable();
-            changeLogDate(selectedLogDateKey);
+            renderE1RMTable(); 
+            document.getElementById('currentDateDisplay').textContent = new Date(todayKey).toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'});
+            renderDailyLog(); 
             renderBodyweightChart();
             updateAttendanceSummary();
 
+            // Add event listeners for sliders
+            document.getElementById('energyLevel').addEventListener('input', updateSliderValues);
+            document.getElementById('stressLevel').addEventListener('input', updateSliderValues);
+            updateSliderValues(); // Initial update
+
             // Start with the guide tab instead of auto-selecting a workout
-            showTab('guideTab');
-            
-            // Initialize keyboard shortcuts and auto-focus management
-            initializeKeyboardShortcuts();
+            showTab('guideTab'); 
         }
 
         window.onclick = function(event) { 

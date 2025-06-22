@@ -17,6 +17,7 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
     <link rel="stylesheet" href="css/mobile.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="js/charts.js"></script>
+    <script src="components/navigation.js"></script>
 </head>
 <body>
     <div class="app-container">
@@ -390,6 +391,7 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
     <script src="js/utils.js"></script>
     <script src="js/state.js"></script>
     <script src="components/modals.js"></script>
+    <script src="components/rest-timer.js"></script>
     <script>
         // Core lifts for which e1RM will be tracked
         const CORE_LIFTS_IN_PLAN = ["Back-squat", "Bench Press", "Deadlift", "OHP", "Weighted Pull-up", "Hip-thrust", "RDL", "Dips", "Chest-supported Row"];
@@ -479,16 +481,10 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
         }
         
         let dailyLog = {};      
-        let currentSelectedDayKey = null; 
-        let currentActiveTab = 'guideTab'; 
+ 
         const todayKey = new Date().toISOString().split('T')[0];
         let selectedLogDateKey = todayKey;
         
-        // Rest Timer Variables
-        let restTimerInterval = null;
-        let restTimerSeconds = 0;
-        let restTimerTotalSeconds = 0;
-        let restTimerPaused = false;
 
 
 
@@ -685,37 +681,9 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
             alert('Settings & e1RMs saved!');
         }
 
-        // General function to show a tab and hide others
-        function showTab(tabId) {
-            currentActiveTab = tabId;
-            document.querySelectorAll('.tab-content').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            document.getElementById(tabId).classList.add('active');
-
-            document.querySelectorAll('#mainNav button').forEach(btn => {
-                btn.classList.remove('active'); 
-            });
-
-            const activeNavButton = document.querySelector(`#mainNav button[data-tab='${tabId}']:not([data-day-key])`);
-            if (activeNavButton) { 
-                activeNavButton.classList.add('active');
-            } else if (tabId === 'workoutDayTab' && currentSelectedDayKey) { 
-                const activeDayButton = document.querySelector(`#mainNav button[data-day-key="${currentSelectedDayKey}"]`);
-                if (activeDayButton) activeDayButton.classList.add('active');
-            }
-
-            if (tabId === 'analyticsTab') { // If switching to analytics tab, initialize analytics and bodyweight tracking
-                initializeAnalytics();
-                renderBodyweightChart();
-                updateAttendanceSummary();
-            }
-        }
         
-        // Displays the workout for the selected workout type
-        function displayWorkoutForDay(workoutKey) {
-            currentSelectedDayKey = workoutKey; 
-            showTab('workoutDayTab'); 
+        // Renders the workout content for the selected workout type
+        function renderWorkoutDay(workoutKey) { 
 
             const displayArea = document.getElementById('workoutDisplayArea');
             const dayTitleElement = document.getElementById('workoutDayTitle');
@@ -1716,128 +1684,6 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
             // Refresh any other components that might show the imported data
         }
 
-        // Rest Timer Functions
-        function formatTime(seconds) {
-            const mins = Math.floor(seconds / 60);
-            const secs = seconds % 60;
-            return `${mins}:${secs.toString().padStart(2, '0')}`;
-        }
-
-        function updateTimerDisplay() {
-            const display = document.getElementById('timerDisplay');
-            if (restTimerSeconds <= 0) {
-                display.textContent = '0:00';
-                display.style.color = 'var(--md-red-500)';
-                if (restTimerInterval) {
-                    clearInterval(restTimerInterval);
-                    restTimerInterval = null;
-                    
-                    // Timer finished - play notification and show alert
-                    if ('Notification' in window && Notification.permission === 'granted') {
-                        new Notification('Rest Timer Complete!', {
-                            body: 'Time to start your next set',
-                            icon: '/favicon.ico'
-                        });
-                    }
-                    
-                    // Visual/audio notification
-                    alert('Rest time complete! Ready for your next set?');
-                    
-                    // Reset timer state
-                    restTimerSeconds = 0;
-                    restTimerPaused = false;
-                    document.getElementById('startTimerBtn').textContent = 'Start';
-                }
-            } else {
-                display.textContent = formatTime(restTimerSeconds);
-                // Color coding: green > 60s, yellow 30-60s, red < 30s
-                if (restTimerSeconds > 60) {
-                    display.style.color = 'var(--md-green-500)';
-                } else if (restTimerSeconds > 30) {
-                    display.style.color = 'orange';
-                } else {
-                    display.style.color = 'var(--md-red-500)';
-                }
-            }
-        }
-
-        function startRestTimer(seconds = null) {
-            // Request notification permission on first use
-            if ('Notification' in window && Notification.permission === 'default') {
-                Notification.requestPermission();
-            }
-
-            if (seconds !== null) {
-                // Starting with preset time
-                restTimerSeconds = seconds;
-                restTimerTotalSeconds = seconds;
-            } else if (restTimerSeconds <= 0) {
-                // Starting fresh with default time
-                restTimerSeconds = 120; // Default 2 minutes
-                restTimerTotalSeconds = 120;
-            }
-            // If seconds is null and restTimerSeconds > 0, we're resuming
-
-            if (restTimerInterval) {
-                clearInterval(restTimerInterval);
-            }
-
-            restTimerInterval = setInterval(() => {
-                if (!restTimerPaused) {
-                    restTimerSeconds--;
-                    updateTimerDisplay();
-                }
-            }, 1000);
-
-            restTimerPaused = false;
-            document.getElementById('startTimerBtn').textContent = 'Resume';
-            showRestTimer();
-            updateTimerDisplay();
-        }
-
-        function pauseRestTimer() {
-            restTimerPaused = !restTimerPaused;
-            document.getElementById('pauseTimerBtn').textContent = restTimerPaused ? 'Resume' : 'Pause';
-        }
-
-        function stopRestTimer() {
-            if (restTimerInterval) {
-                clearInterval(restTimerInterval);
-                restTimerInterval = null;
-            }
-            restTimerSeconds = 0;
-            restTimerPaused = false;
-            document.getElementById('startTimerBtn').textContent = 'Start';
-            document.getElementById('pauseTimerBtn').textContent = 'Pause';
-            updateTimerDisplay();
-        }
-
-        function startCustomTimer() {
-            const minutes = parseInt(document.getElementById('customTimerMinutes').value);
-            if (minutes && minutes > 0) {
-                startRestTimer(minutes * 60);
-                document.getElementById('customTimerMinutes').value = '';
-            }
-        }
-
-        function showRestTimer() {
-            document.getElementById('restTimer').classList.add('active');
-            document.getElementById('toggleTimerBtn').textContent = 'Hide';
-        }
-
-        function hideRestTimer() {
-            document.getElementById('restTimer').classList.remove('active');
-            document.getElementById('toggleTimerBtn').textContent = 'Show';
-        }
-
-        function toggleRestTimer() {
-            const timer = document.getElementById('restTimer');
-            if (timer.classList.contains('active')) {
-                hideRestTimer();
-            } else {
-                showRestTimer();
-            }
-        }
 
         function init() {
             loadData(); 
@@ -1845,14 +1691,8 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
             const analyticsButton = nav.querySelector('button[data-tab="analyticsTab"]'); // Find analytics button
             const e1rmButton = nav.querySelector('button[data-tab="e1rmTab"]'); 
 
-            Object.keys(USER_WORKOUT_PLAN).forEach(workoutKey => {
-                const button = document.createElement('button');
-                button.textContent = workoutKey; 
-                button.setAttribute('data-day-key', workoutKey); 
-                button.setAttribute('data-tab', 'workoutDayTab'); 
-                button.onclick = () => displayWorkoutForDay(workoutKey);
-                nav.insertBefore(button, analyticsButton); // Insert workout buttons before analytics button
-            });
+            // Initialize navigation with dynamic workout buttons
+            initializeNavigation();
             
             document.getElementById('logBodyweightDate').value = todayKey; // Set default date for BW log
             const workoutDateInput = document.getElementById('workoutLogDate');
@@ -1863,8 +1703,6 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
             renderBodyweightChart();
             updateAttendanceSummary();
 
-            // Start with the guide tab instead of auto-selecting a workout
-            showTab('guideTab');
             
             // Initialize modal event listeners
             initializeModalEventListeners();

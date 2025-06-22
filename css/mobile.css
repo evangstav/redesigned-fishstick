@@ -2,153 +2,169 @@
 
 /* Desktop/Tablet styles (768px and up) */
 @media (min-width: 768px) {
-    .app-container { 
-        max-width: 900px;
-        margin: 20px auto; 
-        border-radius: 8px;
-        box-shadow: var(--md-elevation-2);
-    }
-    .content-area { padding: 24px; }
-    .section { 
-        padding: 20px; 
-        margin-bottom: 24px;
-    }
-    
-    /* Desktop header - restore traditional layout */
-    header {
-        padding: 24px;
-    }
-    header h1 {
-        font-size: 1.9em;
-    }
-    
-    /* Hide hamburger menu on larger screens */
-    .hamburger-menu {
-        display: none !important;
-    }
-    
-    /* Desktop navigation - horizontal layout */
-    nav {
-        padding: 8px 0;
-        overflow-x: visible;
-    }
-    nav button {
-        padding: 12px 18px;
-        font-size: 0.98em;
-    }
-    
-    /* Desktop modal - windowed instead of full screen */
-    .modal-content { 
-        margin: 10% auto;
-        padding: 24px; 
-        border-radius: 8px;
-        width: 90%; 
-        max-width: 500px; 
-        height: auto;
-        box-shadow: var(--md-elevation-4);
-    }
-    
-    
-    /* Inline inputs can be horizontal on larger screens */
-    .inline-inputs {
-        display: block;
-        margin-bottom: 10px;
-    }
-    .inline-inputs label { 
-        display: inline-block; 
-        margin-right: 5px; 
-        font-weight: normal; 
-        font-size: 0.95em;
-        margin-bottom: 0;
-    }
-    .inline-inputs input[type="number"], .inline-inputs input[type="text"] { 
-        width: 75px; 
-        display: inline-block; 
-        margin-right: 12px; 
-        padding: 8px;
-        font-size: 1em;
-    }
-    
-    /* Horizontal metrics input group on larger screens */
-    .metrics-input-group {
-        flex-direction: row;
-        gap: 10px;
-    }
+	.app-container {
+		max-width: 900px;
+		margin: 20px auto;
+		border-radius: 8px;
+		box-shadow: var(--md-elevation-2);
+	}
+	.content-area {
+		padding: 24px;
+	}
+	.section {
+		padding: 20px;
+		margin-bottom: 24px;
+	}
+
+	/* Desktop header - restore traditional layout */
+	header {
+		padding: 24px;
+	}
+	header h1 {
+		font-size: 1.9em;
+	}
+
+	/* Hide hamburger menu on larger screens */
+	.hamburger-menu {
+		display: none !important;
+	}
+
+	/* Desktop navigation - horizontal layout */
+	nav {
+		padding: 8px 0;
+		overflow-x: visible;
+	}
+	nav button {
+		padding: 12px 18px;
+		font-size: 0.98em;
+	}
+
+	/* Desktop modal - windowed instead of full screen */
+	.modal-content {
+		margin: 10% auto;
+		padding: 24px;
+		border-radius: 8px;
+		width: 90%;
+		max-width: 500px;
+		height: auto;
+		box-shadow: var(--md-elevation-4);
+	}
+
+	/* Inline inputs can be horizontal on larger screens */
+	.inline-inputs {
+		display: block;
+		margin-bottom: 10px;
+	}
+	.inline-inputs label {
+		display: inline-block;
+		margin-right: 5px;
+		font-weight: normal;
+		font-size: 0.95em;
+		margin-bottom: 0;
+	}
+	.inline-inputs input[type="number"],
+	.inline-inputs input[type="text"] {
+		width: 75px;
+		display: inline-block;
+		margin-right: 12px;
+		padding: 8px;
+		font-size: 1em;
+	}
+
+	/* Horizontal metrics input group on larger screens */
+	.metrics-input-group {
+		flex-direction: row;
+		gap: 10px;
+	}
 }
 
 /* Small mobile styles (480px and below) */
 @media (max-width: 480px) {
-    header h1 { font-size: 1.3em; }
-    nav button { 
-        padding: 8px 10px;
-        font-size: 0.8em;
-        min-width: 80px;
-    }
-    .content-area { padding: 12px; }
-    .section { padding: 12px; }
-    
-    /* Stack form elements vertically on very small screens */
-    .bodyweight-input-container input {
-        max-width: 100%;
-        margin-bottom: 10px;
-    }
-    
-    /* Smaller modal on tiny screens */
-    .modal-content {
-        margin: 2% auto;
-        width: 98%;
-        padding: 16px;
-    }
+	header h1 {
+		font-size: 1.3em;
+	}
+	nav button {
+		padding: 8px 10px;
+		font-size: 0.8em;
+		min-width: 80px;
+	}
+	.content-area {
+		padding: 12px;
+	}
+	.section {
+		padding: 12px;
+	}
+
+	/* Stack form elements vertically on very small screens */
+	.bodyweight-input-container input {
+		max-width: 100%;
+		margin-bottom: 10px;
+	}
+
+	/* Smaller modal on tiny screens */
+	.modal-content {
+		margin: 2% auto;
+		width: 98%;
+		padding: 16px;
+	}
 }
 
 /* Landscape tablet (769px to 1024px) */
 @media (min-width: 769px) and (max-width: 1024px) {
-    .app-container {
-        margin: 15px auto;
-        max-width: 95%;
-    }
-    .content-area { padding: 20px; }
+	.app-container {
+		margin: 15px auto;
+		max-width: 95%;
+	}
+	.content-area {
+		padding: 20px;
+	}
 }
 
 /* Touch-friendly improvements for all mobile devices */
 @media (hover: none) {
-    button:hover {
-        background-color: inherit; /* Remove hover effects on touch devices */
-    }
-    nav button:hover {
-        background-color: rgba(255,255,255,0.1);
-    }
-    button.action-button:hover { background-color: var(--md-purple-500); }
-    button.log-set-button:hover { background-color: var(--md-green-500); }
-    button.danger-button:hover { background-color: var(--md-red-500); }
+	button:hover {
+		background-color: inherit; /* Remove hover effects on touch devices */
+	}
+	nav button:hover {
+		background-color: rgba(255, 255, 255, 0.1);
+	}
+	button.action-button:hover {
+		background-color: var(--md-purple-500);
+	}
+	button.log-set-button:hover {
+		background-color: var(--md-green-500);
+	}
+	button.danger-button:hover {
+		background-color: var(--md-red-500);
+	}
 }
 
 /* Rest Timer Mobile Styles */
 @media (max-width: 768px) {
-    .rest-timer-container {
-        top: 10px;
-        right: 10px;
-        left: 10px;
-        min-width: auto;
-        padding: 12px;
-    }
-    .rest-timer-display {
-        font-size: 1.8em;
-    }
+	.rest-timer-container {
+		top: 10px;
+		right: 10px;
+		left: 10px;
+		min-width: auto;
+		padding: 12px;
+	}
+	.rest-timer-display {
+		font-size: 1.8em;
+	}
 }
 
 /* Analytics Mobile Styles */
 @media (max-width: 768px) {
-    .metrics-grid {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-        gap: 10px;
-    }
-    
-    .metric-card {
-        padding: 12px;
-    }
-    
-    .metric-value {
-        font-size: 1.5em;
-    }
+	.metrics-grid {
+		grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+		gap: 10px;
+	}
+
+	.metric-card {
+		padding: 12px;
+	}
+
+	.metric-value {
+		font-size: 1.5em;
+	}
 }

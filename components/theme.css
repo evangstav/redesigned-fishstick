@@ -1,40 +1,48 @@
-:root {
-	/* Modern Teal/Orange Theme */
-	--primary-500: #0d7377; /* Deep Teal - Primary */
-	--primary-700: #094c4f; /* Darker Teal - Headers/Accents */
-	--primary-100: #a7d3d4; /* Light Teal - Backgrounds/Hovers */
-	--primary-50: #e8f4f4; /* Very Light Teal */
-	--secondary-500: #ff6b35; /* Vibrant Orange - Secondary */
-	--secondary-700: #e55a2b; /* Darker Orange */
-	--secondary-100: #ffd6c7; /* Light Orange */
-	--accent-500: #ff5722; /* Coral - Accent/CTAs */
-	--accent-700: #e64a19; /* Darker Coral */
+/**
+ * Theme Styles Component
+ *
+ * Contains all dark mode styles, CSS custom properties,
+ * and theme-related component styles.
+ */
 
-	/* Status Colors */
-	--success-500: #4caf50; /* Green for increases/success */
+/* Default (Light) Theme Variables */
+:root {
+	/* Light Theme Primary Colors */
+	--primary-500: #0d7377; /* Main Teal */
+	--primary-700: #14a085; /* Dark Teal */
+	--primary-100: #a7c957; /* Light Green */
+	--primary-50: #f2f7f5; /* Very Light Green */
+
+	/* Light Theme Secondary Colors */
+	--secondary-500: #ff6b35; /* Main Orange */
+	--secondary-700: #ff8500; /* Dark Orange */
+	--secondary-100: #ffba08; /* Light Orange */
+
+	/* Light Theme Accent */
+	--accent-500: #ff5722; /* Main Coral */
+	--accent-700: #e64a19; /* Dark Coral */
+
+	/* Light Theme Status Colors */
+	--success-500: #4caf50;
 	--success-700: #388e3c;
-	--error-500: #f44336; /* Red for decreases/danger */
+	--error-500: #f44336;
 	--error-700: #d32f2f;
 
-	/* Neutral Colors */
-	--grey-50: #fafafa; /* Very light grey */
-	--grey-100: #f5f5f5; /* Light grey */
-	--grey-300: #e0e0e0; /* Borders */
-	--grey-700: #616161; /* Secondary text */
-	--grey-900: #212121; /* Primary text */
+	/* Light Theme Neutral Colors */
+	--grey-50: #fafafa;
+	--grey-100: #f5f5f5;
+	--grey-300: #e0e0e0;
+	--grey-700: #616161;
+	--grey-900: #212121;
 	--white: #ffffff;
 
-	/* Enhanced Shadows */
-	--shadow-1: 0 2px 4px rgba(13, 115, 119, 0.1), 0 1px 2px
-		rgba(13, 115, 119, 0.06);
-	--shadow-2: 0 4px 8px rgba(13, 115, 119, 0.12), 0 2px 4px
-		rgba(13, 115, 119, 0.08);
-	--shadow-4: 0 12px 24px rgba(13, 115, 119, 0.15), 0 6px 12px
-		rgba(13, 115, 119, 0.1);
-	--shadow-float: 0 8px 16px rgba(13, 115, 119, 0.15), 0 4px 8px
-		rgba(13, 115, 119, 0.1);
+	/* Light Theme Shadows */
+	--shadow-1: 0 2px 4px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+	--shadow-2: 0 4px 8px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.08);
+	--shadow-4: 0 12px 24px rgba(0, 0, 0, 0.15), 0 6px 12px rgba(0, 0, 0, 0.1);
+	--shadow-float: 0 8px 16px rgba(0, 0, 0, 0.15), 0 4px 8px rgba(0, 0, 0, 0.1);
 
-	/* Gradients */
+	/* Light Theme Gradients */
 	--gradient-primary: linear-gradient(
 		135deg,
 		var(--primary-500) 0%,
@@ -126,15 +134,13 @@
 	border-radius: 50%;
 	width: 48px;
 	height: 48px;
+	cursor: pointer;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	cursor: pointer;
-	color: var(--white);
-	font-size: 1.5em;
-	position: relative;
-	z-index: 2;
+	font-size: 1.4em;
 	transition: all 0.3s ease;
+	color: white;
 	backdrop-filter: blur(10px);
 }
 

@@ -18,11 +18,19 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="js/charts.js"></script>
     <script src="components/navigation.js"></script>
+    <script src="components/theme.js"></script>
+    <script src="components/rest-timer.js"></script>
+    <script src="components/shortcuts.js"></script>
+    <script src="components/bulkEdit.js"></script>
 </head>
 <body>
     <div class="app-container">
         <header>
+            <div class="header-spacer"></div>
             <h1>My Training Plan</h1>
+            <button id="themeToggle" onclick="toggleTheme()" class="theme-toggle" title="Toggle dark mode">
+                <span class="theme-icon">🌙</span>
+            </button>
         </header>
         <nav id="mainNav">
             <button data-tab="guideTab" onclick="showTab('guideTab')">Guide</button>
@@ -691,7 +699,14 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
             if (dayTitleElement) { 
                 dayTitleElement.textContent = `${workoutKey}`;
             }
-            displayArea.innerHTML = `<h2 id="workoutDayTitle">${workoutKey}</h2>`; 
+            displayArea.innerHTML = `
+                <h2 id="workoutDayTitle">${workoutKey}</h2>
+                <div class="workout-controls">
+                    <button id="enableBulkEdit" class="action-button" onclick="showBulkEditControls()" style="margin-bottom: 16px;">
+                        📝 Enable Bulk Edit
+                    </button>
+                </div>
+            `; 
             
             const workoutItems = USER_WORKOUT_PLAN[workoutKey];
             if (!workoutItems) {
@@ -1687,6 +1702,9 @@ WFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNKeU5UWWlJR2hsYVdkb
 
         function init() {
             loadData(); 
+            initializeTheme(); // Initialize theme before UI setup
+            initializeKeyboardShortcuts(); // Initialize keyboard shortcuts
+            initializeBulkEdit(); // Initialize bulk editing functionality
             const nav = document.getElementById('mainNav');
             const analyticsButton = nav.querySelector('button[data-tab="analyticsTab"]'); // Find analytics button
             const e1rmButton = nav.querySelector('button[data-tab="e1rmTab"]'); 

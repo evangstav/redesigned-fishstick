@@ -178,3 +178,6 @@ The AI now intelligently follows the 4-week program structure:
 - **Code organization**: Related functions grouped together
 - **Architecture decisions**: Documented in this file
 
+### **Puppeteer Testing**
+
+- When you need to test you puppeteer

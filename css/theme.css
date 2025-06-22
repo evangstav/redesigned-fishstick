@@ -1,0 +1,38 @@
+:root {
+    /* Modern Teal/Orange Theme */
+    --primary-500: #0D7377;      /* Deep Teal - Primary */
+    --primary-700: #094C4F;      /* Darker Teal - Headers/Accents */
+    --primary-100: #A7D3D4;      /* Light Teal - Backgrounds/Hovers */
+    --primary-50: #E8F4F4;       /* Very Light Teal */
+    --secondary-500: #FF6B35;    /* Vibrant Orange - Secondary */
+    --secondary-700: #E55A2B;    /* Darker Orange */
+    --secondary-100: #FFD6C7;    /* Light Orange */
+    --accent-500: #FF5722;       /* Coral - Accent/CTAs */
+    --accent-700: #E64A19;       /* Darker Coral */
+    
+    /* Status Colors */
+    --success-500: #4CAF50;      /* Green for increases/success */
+    --success-700: #388E3C;
+    --error-500: #f44336;        /* Red for decreases/danger */
+    --error-700: #D32F2F;
+    
+    /* Neutral Colors */
+    --grey-50: #FAFAFA;          /* Very light grey */
+    --grey-100: #F5F5F5;         /* Light grey */
+    --grey-300: #E0E0E0;         /* Borders */
+    --grey-700: #616161;         /* Secondary text */
+    --grey-900: #212121;         /* Primary text */
+    --white: #FFFFFF;
+    
+    /* Enhanced Shadows */
+    --shadow-1: 0 2px 4px rgba(13, 115, 119, 0.1), 0 1px 2px rgba(13, 115, 119, 0.06);
+    --shadow-2: 0 4px 8px rgba(13, 115, 119, 0.12), 0 2px 4px rgba(13, 115, 119, 0.08);
+    --shadow-4: 0 12px 24px rgba(13, 115, 119, 0.15), 0 6px 12px rgba(13, 115, 119, 0.1);
+    --shadow-float: 0 8px 16px rgba(13, 115, 119, 0.15), 0 4px 8px rgba(13, 115, 119, 0.1);
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, var(--primary-500) 0%, var(--primary-700) 100%);
+    --gradient-secondary: linear-gradient(135deg, var(--secondary-500) 0%, var(--secondary-700) 100%);
+    --gradient-accent: linear-gradient(135deg, var(--accent-500) 0%, var(--accent-700) 100%);
+    --gradient-card: linear-gradient(135deg, var(--white) 0%, var(--grey-50) 100%);
+}
